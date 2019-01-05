@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687e58e35672d3246b442b156816a45d, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  Cube: {fileID: 100000, guid: 6106c62b7ccc368438d27c3910e9788e, type: 3}
-  Square: {fileID: 1941230588402880, guid: c91eb9c66d4756243813cbe8e0241b3f, type: 3}
-  Empty: {fileID: 1880196592538910, guid: 30f887f39c554c042a3105c6cb11d9aa, type: 3}
+  Cube: {fileID: 1817110751563174, guid: 8fde328e466a9b948bb8b233920c43f6, type: 3}
+  Square: {fileID: 1941230588402880, guid: 459cdc517995e07459a66b882b9b2b09, type: 3}
+  Empty: {fileID: 1880196592538910, guid: 1d83e77e9b1ec35489009b8c41d50b93, type: 3}
