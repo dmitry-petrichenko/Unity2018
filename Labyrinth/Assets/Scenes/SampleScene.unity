@@ -306,4 +306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4890cf974e9aff44090b7b0d95d16b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettings: {fileID: 11400000, guid: 13bcef65144ed9745b2fb62c61f1683d, type: 2}
+  mapGraphicsSettings: {fileID: 11400000, guid: e89d48198953e154c8693ce82195e008,
+    type: 2}
+  camera: {fileID: 534669904}

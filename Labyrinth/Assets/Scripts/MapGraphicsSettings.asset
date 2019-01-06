@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 687e58e35672d3246b442b156816a45d, type: 3}
-  m_Name: GameSettings
+  m_Name: MapGraphicsSettings
   m_EditorClassIdentifier: 
   Cube: {fileID: 1817110751563174, guid: 8fde328e466a9b948bb8b233920c43f6, type: 3}
   Square: {fileID: 1941230588402880, guid: 459cdc517995e07459a66b882b9b2b09, type: 3}

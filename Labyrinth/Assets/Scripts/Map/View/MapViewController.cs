@@ -8,9 +8,9 @@ namespace ZScripts.Map.View
         private GameObject _mainScene, _cube, _empty, _square;
         private Dictionary<IntVector2, GameObject> _activeGameObjects;
         private MouseClickListener _mouseClickListener;
-        private GameSettings _settings;
+        private MapGraphicsSettings _settings;
 
-        public MapViewController(GameSettings settings, GameObject mainScene) 
+        public MapViewController(MapGraphicsSettings settings, GameObject mainScene) 
         {
             _settings = settings;
             _mainScene = mainScene;
