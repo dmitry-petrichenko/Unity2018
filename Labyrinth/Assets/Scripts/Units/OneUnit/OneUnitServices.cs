@@ -8,6 +8,22 @@ namespace ZScripts.Units
 {
     public class OneUnitServices : IOneUnitServices
     {
+        public OneUnitServices(MoveController moveController, AttackController attackController, IUnitsTable unitsTable, IOneUnitMotionController oneUnitMotionController, IOneUnitAnimationController oneUnitAnimationController, IOneUnitRotationController oneUnitRotationController, IUnitStateInfo unitStateInfo, ISettings settings, IUnitSettings unitSettings, IPeacefulBehaviour peacefulBehaviour, IAgressiveBehaviour agressiveBehaviour, IGameEvents gameEvents)
+        {
+            MoveController = moveController;
+            AttackController = attackController;
+            UnitsTable = unitsTable;
+            OneUnitMotionController = oneUnitMotionController;
+            OneUnitAnimationController = oneUnitAnimationController;
+            OneUnitRotationController = oneUnitRotationController;
+            UnitStateInfo = unitStateInfo;
+            Settings = settings;
+            UnitSettings = unitSettings;
+            PeacefulBehaviour = peacefulBehaviour;
+            AgressiveBehaviour = agressiveBehaviour;
+            GameEvents = gameEvents;
+        }
+
         public MoveController MoveController { get; }
         public AttackController AttackController { get; }
         public IUnitsTable UnitsTable { get; }

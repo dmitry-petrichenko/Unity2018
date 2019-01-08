@@ -8,12 +8,7 @@ namespace ZScripts.Units
         private EnemyController _enemy;
         private EnemyController _enemy2;
         
-        public UnitsController()
-        {
-            
-        }
-
-        void Init(EnemyController.Factory enemyFactory, IPlayerController player)
+        public UnitsController(EnemyController.Factory enemyFactory, IPlayerController player)
         {
             _enemy = enemyFactory.Invoke();
             _enemy.SetOnPosition(new IntVector2(2, 0));
@@ -22,7 +17,7 @@ namespace ZScripts.Units
             //_enemy.Animate();
             
             EnemyController _enemy4 = enemyFactory.Invoke();
-             _enemy4.SetOnPosition(new IntVector2(2, 2));
+            _enemy4.SetOnPosition(new IntVector2(2, 2));
             //_enemy4.Animate();
             _enemy4.Attack(player);
             
