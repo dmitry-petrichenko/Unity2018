@@ -1,0 +1,30 @@
+﻿using System.Collections.Generic;
+
+namespace ZScripts.Units
+{
+    public class OccupatedPossitionsTable : IOccupatedPossitionsTable
+    {
+        private List<IntVector2> _indexes = new List<IntVector2>();
+
+        public void SetOccupied(IntVector2 index)
+        {
+            _indexes.Add(index);
+        }
+        
+        public void SetVacant(IntVector2 index)
+        {
+            _indexes.Remove(index);
+        }
+
+        public bool IsVacantPosition(IntVector2 index)
+        {
+            return !_indexes.Contains(index);
+        }
+        
+        public List<IntVector2> GetOccupiedPositions()
+        {
+            return _indexes;
+        }
+
+    }
+}
