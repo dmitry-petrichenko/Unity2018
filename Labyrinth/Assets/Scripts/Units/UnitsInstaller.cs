@@ -1,14 +1,22 @@
 using Autofac;
-using Autofac.Extras.AggregateService;
+using Autofac.Builder;
+using Autofac.Core;
+using Units;
 using ZScripts.Units;
+using ZScripts.Units.Behaviour.UnitActions;
+using ZScripts.Units.Enemy;
 using ZScripts.Units.PathFinder;
+using ZScripts.Units.Player;
+using ZScripts.Units.Rotation;
+using ZScripts.Units.Settings;
+using ZScripts.Units.StateInfo;
 using ZScripts.Units.UnitActions;
 
 public class UnitsInstaller : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterAggregateService<IOneUnitServices>();
+        builder.RegisterType<OneUnitServices>().As<IOneUnitServices>().PropertiesAutowired();
         builder.RegisterType<UnitsController>().AsSelf().SingleInstance().AutoActivate();
         builder.RegisterType<PathFinderController>().As<IPathFinderController>().SingleInstance();
         builder.RegisterType<Grid>().As<IGrid>().SingleInstance();
@@ -17,42 +25,102 @@ public class UnitsInstaller : Module
         builder.RegisterType<UnitsTable>().As<IUnitsTable>().SingleInstance();
         builder.RegisterType<MovingRandomizer>().As<IMovingRandomizer>().SingleInstance();
         builder.RegisterType<UnitBehaviourGenerator>().AsSelf().InstancePerDependency();
+
+        builder.Register(c =>
+        {
+            InstallOneUnitSubComponents(c);
+            return new EnemyController(c.Resolve<IOneUnitServices>());
+        }).As<EnemyController>().InstancePerDependency();
         
-        //Container.Bind<EnemyController>().To<EnemyController>().FromSubContainerResolve().ByMethod(InstallEnemyController).AsTransient();
-        //Container.Bind<IPlayerController>().To<PlayerController>().FromSubContainerResolve().ByMethod(InstallPlayerController).AsSingle();
-    }
-    /*
-    private void InstallPlayerController(DiContainer subContainer)
-    {
-        subContainer.Bind<PlayerController>().AsSingle();
-        InstallOneUnitSubComponents(subContainer);
-    }
-    
-    private void InstallEnemyController(DiContainer subContainer)
-    {
-        subContainer.Bind<EnemyController>().AsSingle();
-        InstallOneUnitSubComponents(subContainer);
+        builder.Register(c =>
+        {
+            InstallOneUnitSubComponents(c);
+            return new PlayerController(c.Resolve<IOneUnitServices>());
+        }).As<IPlayerController>().SingleInstance();
     }
 
-    private void InstallOneUnitSubComponents(DiContainer subContainer)
+    private void InstallOneUnitSubComponents(IComponentContext componentContext)
     {
-        subContainer.Bind<MoveController>().To<MoveController>().AsSingle();
-        subContainer.Bind<ISubMoveController>().To<SubMoveController>().AsSingle();
-        subContainer.Bind<MoveToHandlerController>().To<MoveToHandlerController>().AsSingle();
-        subContainer.Bind<AttackController>().To<AttackController>().AsSingle();
-        subContainer.Bind<IAgressiveBehaviour>().To<AggressiveBehaviour>().AsSingle();
-        subContainer.Bind<IOneUnitAnimationController>().To<OneUnitAnimationController>().AsSingle();
-        subContainer.Bind<IOneUnitRotationController>().To<OneUnitRotationController>().AsSingle();
-        subContainer.Bind<IOneUnitMotionController>().To<OneUnitMotionController>().AsSingle();
-        subContainer.Bind<IPeacefulBehaviour>().To<PeacefulBehaviour>().AsSingle();
-        subContainer.Bind<IUnitSettings>().To<UnitSettings>().AsSingle();
-        subContainer.Bind<WaitMoveTurnController>().To<WaitMoveTurnController>().AsSingle();
-        subContainer.Bind<MoveConsideringOccupatedController>().To<MoveConsideringOccupatedController>().AsSingle();
-        subContainer.Bind<IUnitStateInfo>().To<UnitStateInfo>().AsSingle();
-        subContainer.Bind<TargetOvertaker>().To<TargetOvertaker>().AsSingle();
-        subContainer.Bind<IdleAction>().To<IdleAction>().AsTransient();
-        subContainer.Bind<AttackAction>().To<AttackAction>().AsTransient();
-        subContainer.Bind<INoWayEventRouter>().To<NoWayEventRouter>().AsSingle();
-        subContainer.Bind<OvertakeOccupatedPositionController>().To<OvertakeOccupatedPositionController>().AsSingle();
-    }*/
+        IComponentRegistration registration;
+        registration =
+            RegistrationBuilder.ForType<MoveController>().AsSelf().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<SubMoveController>().As<ISubMoveController>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<MoveToHandlerController>().AsSelf().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<AttackController>().AsSelf().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<UnitSettings>().As<IUnitSettings>().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<WaitMoveTurnController>().AsSelf().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<MoveConsideringOccupatedController>().AsSelf().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<TargetOvertaker>().AsSelf().SingleInstance().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<IdleAction>().AsSelf().InstancePerDependency().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<AttackAction>().AsSelf().InstancePerDependency().CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+
+        registration =
+            RegistrationBuilder.ForType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance()
+                .CreateRegistration();
+        componentContext.ComponentRegistry.Register(registration);
+    }
 }
