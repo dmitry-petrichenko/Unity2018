@@ -27,7 +27,8 @@ namespace ZScripts.Units.Player
         private void Initialize()
         {
             UnitSettings = _unitSettings;
-            UnitSettings.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
+            //UnitSettings.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
+            UnitSettings.Initialize(_settings.UnitsResourcesLocation + "SpiderBlack01.json");
             base.Initialize();
 
             MoveToComplete += Wait;

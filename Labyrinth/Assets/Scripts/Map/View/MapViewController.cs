@@ -43,9 +43,6 @@ namespace ZScripts.Map.View
 
         public void InitializePlane(IntVector2 position)
         {
-//            var gameObject = Object.Instantiate(_plane, new Vector3(position.x, 0, position.y), Quaternion.identity,
-//                _mainScene.transform);
-//            AddActiveGameObject(position, gameObject);
         }
 
         public void InitializeSquare(IntVector2 position)

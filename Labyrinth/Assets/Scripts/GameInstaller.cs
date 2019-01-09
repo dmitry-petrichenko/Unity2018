@@ -44,10 +44,6 @@ public class GameInstaller : MonoBehaviour
 
         var container = builder.Build();
         var scope = container.BeginLifetimeScope();
-//        var mapViewController = scope.Resolve<IMapViewController>();
-//        mapViewController.InitializeCube(new IntVector2(0, 0));
-//        mapViewController.InitializeSquare(new IntVector2(2, 0));
-//        mapViewController.InitializeCube(new IntVector2(2, 2));
     }
     
     void Update()
