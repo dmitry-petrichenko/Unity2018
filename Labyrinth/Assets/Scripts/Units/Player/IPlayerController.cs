@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Scripts.Units.Player
+﻿namespace Scripts.Units.Player
 {
-    public interface IPlayerController  : IOneUnitController, IOneUnitServicesContainer
+    public interface IPlayerController  : IOneUnitController
     {
-        event Action<IntVector2> PositionChanged;
     }
 }

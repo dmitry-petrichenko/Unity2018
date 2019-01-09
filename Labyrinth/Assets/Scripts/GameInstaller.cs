@@ -33,8 +33,7 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterType<InputController>().AsSelf().AutoActivate();
         builder.RegisterType<ActiveMapLocationController>().AsSelf().SingleInstance().AutoActivate();
         builder.RegisterType<GameLoopController>().As<IGameLoopController>().SingleInstance();
-        builder.RegisterType<CameraController>().As<ICameraController>().SingleInstance();
-        builder.RegisterType<MapSectorController>().As<IMapSectorController>().SingleInstance().AutoActivate();        
+        builder.RegisterType<CameraController>().As<ICameraController>().SingleInstance();    
         builder.RegisterType<GameEvents>().As<IGameEvents>().SingleInstance();
         builder.RegisterType<HeavyActionDistributor>().As<IHeavyActionDistributor>().SingleInstance();
         builder.RegisterType<HeavyActionsBunchesExecutor>().AsSelf().InstancePerDependency();

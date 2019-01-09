@@ -3,7 +3,7 @@ using Scripts.Units.Player;
 
 namespace Scripts.Units
 {
-    public class UnitsController
+    public class UnitsController : IUnitsController
     {
         private EnemyController _enemy;
         private EnemyController _enemy2;
