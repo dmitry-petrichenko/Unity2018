@@ -2,12 +2,11 @@
 
 namespace Scripts.Units
 {
-    public class MoveController : EventDispatcher
+    public class MoveController
     {
         private IOneUnitController _unitController;
         private ISubMoveController _subMoveController;
         private MoveToHandlerController _moveToHandlerController;
-        private MoveConsideringOccupatedController _moveConsideringOccupatedController;
         private WaitMoveTurnController _waitMoveTurnController;
 
         public event Action MoveToComplete;
@@ -18,14 +17,12 @@ namespace Scripts.Units
             MoveToHandlerController moveToHandlerController,
             ISubMoveController subMoveController,
             MoveConsideringOccupatedController moveConsideringOccupatedController,
-            WaitMoveTurnController waitMoveTurnController,
-            OvertakeOccupatedPositionController overtakeOccupatedPositionController
+            WaitMoveTurnController waitMoveTurnController
             )
         {
             _waitMoveTurnController = waitMoveTurnController;
             _subMoveController = subMoveController;
             _moveToHandlerController = moveToHandlerController;
-            _moveConsideringOccupatedController = moveConsideringOccupatedController;
         }
         
         public void Initialize(IOneUnitController unitController)
@@ -41,17 +38,17 @@ namespace Scripts.Units
 
         private void MoveOneStepCompleteHandler()
         {
-            DispatchEvent(MoveOneStepComplete);
+            MoveOneStepComplete?.Invoke();
         }
 
         private void MoveToCompleteHandler()
         {
-            DispatchEvent(MoveToComplete);
+            MoveToComplete?.Invoke();
         }
 
         private void StartMoveHandler()
         {
-            DispatchEvent(MoveOneStepStart);
+            MoveOneStepStart?.Invoke();
         }
         
         public void MoveTo(IntVector2 position)

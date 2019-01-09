@@ -5,7 +5,7 @@ using Scripts.Units.PathFinder;
 
 namespace Scripts.Units
 {
-    public class TargetOvertaker : EventDispatcher
+    public class TargetOvertaker
     {
         public event Action Complete;
         public event Action StartFollow;
@@ -37,20 +37,20 @@ namespace Scripts.Units
         private void OnUnitCompleteMoveTo()
         {
             _oneUnitController.MoveToComplete -= OnUnitCompleteMoveTo;
-            DispatchEvent(Complete);
+            Complete?.Invoke();
         }
 
-        private void OnTargetPositionChanged(/*IntVector2 _position*/)
+        private void OnTargetPositionChanged()
         {
             IntVector2 position = _target.Position;
             
             if (TargetPositionInUnitRange(position))
             {
-                DispatchEvent(TargetMoved);
+                TargetMoved?.Invoke();
             }
             else
             {
-                DispatchEvent(StartFollow);
+                StartFollow?.Invoke();
                 MoveToTarget();
             }
         }
@@ -63,7 +63,7 @@ namespace Scripts.Units
 
             if (Equals(path[0], _oneUnitController.Position))
             {
-                DispatchEvent(Complete);
+                Complete?.Invoke();
             }
             else
             {

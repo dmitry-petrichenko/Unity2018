@@ -8,7 +8,7 @@ using Scripts.Units.Rotation;
 
 namespace Scripts.Units
 {
-    public class SubMoveController : EventDispatcher, ISubMoveController
+    public class SubMoveController : ISubMoveController
     {
         private IOneUnitServicesContainer _oneUnitServicesContainer;
         private IOneUnitRotationController _rotationController;
@@ -43,7 +43,7 @@ namespace Scripts.Units
 
         private void StartMoveHandler()
         {
-            DispatchEvent(MoveOneStepStart);
+            MoveOneStepStart?.Invoke();
         }
 
         public void MoveTo(List<IntVector2> path)

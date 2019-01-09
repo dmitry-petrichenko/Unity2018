@@ -5,7 +5,7 @@ using Scripts.Units.Settings;
 
 namespace Scripts.Units
 {
-    public class OneUnitMotionController : EventDispatcher, IOneUnitMotionController
+    public class OneUnitMotionController : IOneUnitMotionController
     {
         private GameObject _unit;
         private IUnitSettings _unitSettings;
@@ -17,7 +17,7 @@ namespace Scripts.Units
         {
             _unit.transform.position = new Vector3(position.x, 0, position.y);
             Position = position;
-            DispatchEvent(MoveStart);
+            MoveStart?.Invoke();
         }   
 
         public void Initialize(IUnitSettings unitSettings)
@@ -45,7 +45,7 @@ namespace Scripts.Units
                 .OnComplete(CompleteMoveHandler)
                 .SetEase(Ease.Linear);
             
-            DispatchEvent(MoveStart);
+            MoveStart?.Invoke();
         }
 
         private bool IsDiagonal(IntVector2 position1, IntVector2 position2)
@@ -63,7 +63,7 @@ namespace Scripts.Units
         private void CompleteMoveHandler()
         {
             IsMoving = false;
-            DispatchEvent(MoveComplete);
+            MoveComplete?.Invoke();
         }
 
         public void Wait()

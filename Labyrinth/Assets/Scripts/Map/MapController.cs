@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Scripts.Map.Controllers;
 using Scripts.Map.Info;
-using Scripts.Settings;
 
 namespace Scripts.Map
 {
@@ -9,16 +8,13 @@ namespace Scripts.Map
     {
         private readonly MapInfoUpdateController _mapInfoUpdateController;
         private readonly MapViewUpdateController _mapViewUpdateController;
-        private readonly ISettings _settings;
 
         public MapController(
             MapViewUpdateController mapViewUpdateController,
-            MapInfoUpdateController mapInfoUpdateController,
-            ISettings settings)
+            MapInfoUpdateController mapInfoUpdateController)
         {
             _mapViewUpdateController = mapViewUpdateController;
             _mapInfoUpdateController = mapInfoUpdateController;
-            _settings = settings;
 
             Initialize();
         }
