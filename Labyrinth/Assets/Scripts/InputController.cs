@@ -1,9 +1,9 @@
-﻿using ZScripts.Map;
-using ZScripts.Map.View;
-using ZScripts.Settings;
-using ZScripts.Units.Player;
+﻿using Scripts.Map;
+using Scripts.Map.View;
+using Scripts.Settings;
+using Scripts.Units.Player;
 
-namespace ZScripts
+namespace Scripts
 {
     public class InputController
     {

@@ -2,15 +2,15 @@ using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
 using Units;
-using ZScripts.Units;
-using ZScripts.Units.Behaviour.UnitActions;
-using ZScripts.Units.Enemy;
-using ZScripts.Units.PathFinder;
-using ZScripts.Units.Player;
-using ZScripts.Units.Rotation;
-using ZScripts.Units.Settings;
-using ZScripts.Units.StateInfo;
-using ZScripts.Units.UnitActions;
+using Scripts.Units;
+using Scripts.Units.Behaviour.UnitActions;
+using Scripts.Units.Enemy;
+using Scripts.Units.PathFinder;
+using Scripts.Units.Player;
+using Scripts.Units.Rotation;
+using Scripts.Units.Settings;
+using Scripts.Units.StateInfo;
+using Scripts.Units.UnitActions;
 
 public class UnitsInstaller : Module
 {

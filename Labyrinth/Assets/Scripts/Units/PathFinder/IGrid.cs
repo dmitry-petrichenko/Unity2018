@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Units.PathFinder
+﻿namespace Scripts.Units.PathFinder
 {
     public interface IGrid
     {

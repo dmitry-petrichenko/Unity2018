@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZScripts
+namespace Scripts
 {
     public class GameEvents : IGameEvents
     {

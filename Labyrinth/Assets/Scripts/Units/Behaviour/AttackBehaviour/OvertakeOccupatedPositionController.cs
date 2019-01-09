@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZScripts.Units.PathFinder;
-using ZScripts.Units.StateInfo;
+using Scripts.Units.PathFinder;
+using Scripts.Units.StateInfo;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class OvertakeOccupatedPositionController
     {

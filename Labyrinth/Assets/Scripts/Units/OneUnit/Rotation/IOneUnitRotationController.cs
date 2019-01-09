@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using ZScripts.Units.Settings;
+using Scripts.Units.Settings;
 
-namespace ZScripts.Units.Rotation
+namespace Scripts.Units.Rotation
 {
     public interface IOneUnitRotationController
     {

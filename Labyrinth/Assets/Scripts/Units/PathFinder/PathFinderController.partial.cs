@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZScripts.Units.PathFinder
+namespace Scripts.Units.PathFinder
 {
     public partial class PathFinderController
     {

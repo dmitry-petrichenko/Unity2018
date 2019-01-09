@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeatureDistri;
-using ZScripts.ActionDistributor;
-using ZScripts.Map.Info;
-using ZScripts.Map.View;
+using Scripts.ActionDistributor;
+using Scripts.Map.Info;
+using Scripts.Map.View;
 
-namespace ZScripts.Map.Controllers
+namespace Scripts.Map.Controllers
 {
     public class MapViewUpdateController
     {

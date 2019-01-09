@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public interface ISubMoveController
     {

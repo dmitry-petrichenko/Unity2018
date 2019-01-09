@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZScripts.Units.Player
+namespace Scripts.Units.Player
 {
     public interface IPlayerController  : IOneUnitController, IOneUnitServicesContainer
     {

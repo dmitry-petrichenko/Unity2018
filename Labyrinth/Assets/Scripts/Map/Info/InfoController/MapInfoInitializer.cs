@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
     
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public class MapInfoInitializer : IMapInfoInitializer
     {

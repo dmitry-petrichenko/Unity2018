@@ -1,7 +1,7 @@
-﻿using ZScripts.Settings;
-using ZScripts.Units.Settings;
+﻿using Scripts.Settings;
+using Scripts.Units.Settings;
 
-namespace ZScripts.Units.Player
+namespace Scripts.Units.Player
 {
     public class PlayerController : OneUnitController, IPlayerController
     {

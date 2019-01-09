@@ -1,9 +1,9 @@
 using Autofac;
-using ZScripts.Map.Controllers;
-using ZScripts.Map.Info;
-using ZScripts.Map.View;
+using Scripts.Map.Controllers;
+using Scripts.Map.Info;
+using Scripts.Map.View;
 
-namespace ZScripts.Map
+namespace Scripts.Map
 {
     public class MapInstaller : Module
     {

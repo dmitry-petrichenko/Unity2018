@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ZScripts.Units.Behaviour.UnitActions;
-using ZScripts.Units.Rotation;
+using Scripts.Units.Behaviour.UnitActions;
+using Scripts.Units.Rotation;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class AttackController
     {

@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Map.Info
+﻿namespace Scripts.Map.Info
 {
     public interface ISectorInfo
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public partial class MapSectorController
     {     

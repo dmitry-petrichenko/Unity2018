@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
-using ZScripts.GameLoop;
+using Scripts.GameLoop;
 
-namespace ZScripts.Units.UnitActions
+namespace Scripts.Units.UnitActions
 {
     public class IdleAction : IUnitAction
     {

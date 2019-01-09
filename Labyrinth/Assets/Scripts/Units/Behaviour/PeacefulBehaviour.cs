@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ZScripts.ActionDistributor;
-using ZScripts.Units.UnitActions;
+using Scripts.ActionDistributor;
+using Scripts.Units.UnitActions;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class PeacefulBehaviour : IPeacefulBehaviour
     {

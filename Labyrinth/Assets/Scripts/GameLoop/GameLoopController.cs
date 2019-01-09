@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ZScripts.GameLoop
+namespace Scripts.GameLoop
 {
     public class GameLoopController : IGameLoopController
     {

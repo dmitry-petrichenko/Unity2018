@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ZScripts.Units.PathFinder;
+using Scripts.Units.PathFinder;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     //If position changed when unit is moving.
     public class MoveToHandlerController

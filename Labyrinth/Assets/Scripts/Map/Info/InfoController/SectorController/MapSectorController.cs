@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ZScripts.Settings;
-using ZScripts.Units;
-using ZScripts.Units.Player;
+using Scripts.Settings;
+using Scripts.Units;
+using Scripts.Units.Player;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public partial class MapSectorController : IMapSectorController
     {

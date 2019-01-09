@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using ZScripts.GameLoop;
+using Scripts.GameLoop;
 
-namespace ZScripts.ActionDistributor
+namespace Scripts.ActionDistributor
 {
     public class HeavyActionDistributor : IHeavyActionDistributor
     {

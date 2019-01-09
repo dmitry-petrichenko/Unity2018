@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Map.View
+﻿namespace Scripts.Map.View
 {
     public delegate void TileClickHandler(IntVector2 position);
 

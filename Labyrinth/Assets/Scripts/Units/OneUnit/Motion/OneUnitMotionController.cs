@@ -1,9 +1,9 @@
 ﻿using System;
 using DG.Tweening;
 using UnityEngine;
-using ZScripts.Units.Settings;
+using Scripts.Units.Settings;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class OneUnitMotionController : EventDispatcher, IOneUnitMotionController
     {

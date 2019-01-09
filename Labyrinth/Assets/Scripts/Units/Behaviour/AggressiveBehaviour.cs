@@ -1,7 +1,7 @@
 ﻿using System;
-using ZScripts.Units.StateInfo;
+using Scripts.Units.StateInfo;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class AggressiveBehaviour : IAgressiveBehaviour
     {

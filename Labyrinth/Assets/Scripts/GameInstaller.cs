@@ -2,12 +2,12 @@
 using Autofac;
 using FeatureDistri;
 using UnityEngine;
-using ZScripts;
-using ZScripts.ActionDistributor;
-using ZScripts.GameLoop;
-using ZScripts.Map;
-using ZScripts.Map.Info;
-using ZScripts.Settings;
+using Scripts;
+using Scripts.ActionDistributor;
+using Scripts.GameLoop;
+using Scripts.Map;
+using Scripts.Map.Info;
+using Scripts.Settings;
 
 public class GameInstaller : MonoBehaviour
 {

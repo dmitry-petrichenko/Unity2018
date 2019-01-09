@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Map
+﻿namespace Scripts.Map
 {
     public interface IMapController
     {

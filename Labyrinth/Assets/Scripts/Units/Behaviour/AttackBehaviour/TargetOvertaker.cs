@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ZScripts.Units.PathFinder;
+using Scripts.Units.PathFinder;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class TargetOvertaker : EventDispatcher
     {

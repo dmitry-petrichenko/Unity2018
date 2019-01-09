@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZScripts.GameLoop
+namespace Scripts.GameLoop
 {
     public interface IGameLoopController
     {

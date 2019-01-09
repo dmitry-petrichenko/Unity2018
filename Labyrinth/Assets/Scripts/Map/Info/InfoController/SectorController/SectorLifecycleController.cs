@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.XR.WSA.Persistence;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public class SectorLifecycleController
     {

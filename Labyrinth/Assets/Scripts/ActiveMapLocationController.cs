@@ -1,7 +1,7 @@
-﻿using ZScripts.Map;
-using ZScripts.Units.Player;
+﻿using Scripts.Map;
+using Scripts.Units.Player;
 
-namespace ZScripts
+namespace Scripts
 {
     public class ActiveMapLocationController
     {

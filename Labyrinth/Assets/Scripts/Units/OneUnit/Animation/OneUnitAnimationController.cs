@@ -1,6 +1,6 @@
 ﻿using Tests.Animation;
 using UnityEngine;
-using ZScripts.Units.Settings;
+using Scripts.Units.Settings;
 
 namespace Units
 {

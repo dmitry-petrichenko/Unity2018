@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ZScripts.Settings;
+using Scripts.Settings;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public class MapInfoController : IMapInfoController
     {

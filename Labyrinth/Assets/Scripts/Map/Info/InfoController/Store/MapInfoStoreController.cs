@@ -2,9 +2,9 @@
 using System.IO;
 using LitJson;
 using UnityEngine;
-using ZScripts.Settings;
+using Scripts.Settings;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public class MapInfoStoreController : IMapInfoStoreController
     {

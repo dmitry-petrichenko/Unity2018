@@ -1,9 +1,9 @@
 ﻿using System;
 using Units;
-using ZScripts.Units.Rotation;
-using ZScripts.Units.Settings;
+using Scripts.Units.Rotation;
+using Scripts.Units.Settings;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public interface IOneUnitController : IOneUnitServicesContainer
     {

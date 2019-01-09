@@ -1,4 +1,4 @@
-﻿namespace ZScripts
+﻿namespace Scripts
 {
     public interface ICameraController
     {

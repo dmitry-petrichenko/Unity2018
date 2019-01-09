@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZScripts.Map.Info
+namespace Scripts.Map.Info
 {
     public partial class MapSectorController
     {     

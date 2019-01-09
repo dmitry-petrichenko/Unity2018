@@ -3,7 +3,7 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
-namespace ZScripts.Units.Settings
+namespace Scripts.Units.Settings
 {
     public class UnitSettings : IUnitSettings
     {

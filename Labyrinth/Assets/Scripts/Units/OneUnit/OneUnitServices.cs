@@ -1,10 +1,10 @@
 using Units;
-using ZScripts.Settings;
-using ZScripts.Units.Rotation;
-using ZScripts.Units.Settings;
-using ZScripts.Units.StateInfo;
+using Scripts.Settings;
+using Scripts.Units.Rotation;
+using Scripts.Units.Settings;
+using Scripts.Units.StateInfo;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class OneUnitServices : IOneUnitServices
     {

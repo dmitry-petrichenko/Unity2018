@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using ZScripts.GameLoop;
+using Scripts.GameLoop;
 
-namespace ZScripts
+namespace Scripts
 {
     public class CameraController : ICameraController
     {

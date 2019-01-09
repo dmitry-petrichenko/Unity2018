@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class OneUnitController : OneUnitServicesContainer, IOneUnitController
     {

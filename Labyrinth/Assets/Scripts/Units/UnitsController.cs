@@ -1,7 +1,7 @@
-﻿using ZScripts.Units.Enemy;
-using ZScripts.Units.Player;
+﻿using Scripts.Units.Enemy;
+using Scripts.Units.Player;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class UnitsController
     {

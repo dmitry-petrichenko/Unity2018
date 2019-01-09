@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ZScripts.ActionDistributor;
+using Scripts.ActionDistributor;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class UnitBehaviourGenerator
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using ZScripts.Units.Settings;
+using Scripts.Units.Settings;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public interface IOneUnitMotionController
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ZScripts.Units.PathFinder
+namespace Scripts.Units.PathFinder
 {
     public partial class PathFinderController : IPathFinderController
     {

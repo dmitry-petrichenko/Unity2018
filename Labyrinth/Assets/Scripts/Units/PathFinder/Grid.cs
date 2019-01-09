@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ZScripts.Map.Info;
+using Scripts.Map.Info;
 
-namespace ZScripts.Units.PathFinder
+namespace Scripts.Units.PathFinder
 {
     public class Grid : IGrid
     {

@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Units
+﻿namespace Scripts.Units
 {
     public interface IMovingRandomizer
     {

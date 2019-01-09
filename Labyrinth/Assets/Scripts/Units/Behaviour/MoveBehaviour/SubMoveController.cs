@@ -4,9 +4,9 @@ using System.Resources;
 using Units;
 using UnityEditor;
 using UnityEngine;
-using ZScripts.Units.Rotation;
+using Scripts.Units.Rotation;
 
-namespace ZScripts.Units
+namespace Scripts.Units
 {
     public class SubMoveController : EventDispatcher, ISubMoveController
     {

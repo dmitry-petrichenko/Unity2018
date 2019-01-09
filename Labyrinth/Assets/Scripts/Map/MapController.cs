@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using ZScripts.Map.Controllers;
-using ZScripts.Map.Info;
-using ZScripts.Settings;
+using Scripts.Map.Controllers;
+using Scripts.Map.Info;
+using Scripts.Settings;
 
-namespace ZScripts.Map
+namespace Scripts.Map
 {
     public class MapController : IMapController
     {

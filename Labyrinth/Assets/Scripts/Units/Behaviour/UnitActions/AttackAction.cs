@@ -1,8 +1,8 @@
 ﻿using System;
 using Units;
-using ZScripts.GameLoop;
+using Scripts.GameLoop;
 
-namespace ZScripts.Units.Behaviour.UnitActions
+namespace Scripts.Units.Behaviour.UnitActions
 {
     public class AttackAction : IUnitAction
     {

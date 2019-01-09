@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Units.Player
+﻿namespace Scripts.Units.Player
 {
     public interface IUnitsController
     {

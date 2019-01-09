@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ZScripts.Settings
+namespace Scripts.Settings
 {
     public interface ISettings
     {

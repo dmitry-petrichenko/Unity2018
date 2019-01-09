@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZScripts.Map.Info;
-using ZScripts.Settings;
+using Scripts.Map.Info;
+using Scripts.Settings;
 
-namespace ZScripts.Map.Controllers
+namespace Scripts.Map.Controllers
 {
     public class MapInfoUpdateController
     {

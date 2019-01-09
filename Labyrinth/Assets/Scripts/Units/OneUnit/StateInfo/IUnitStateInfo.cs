@@ -1,4 +1,4 @@
-﻿namespace ZScripts.Units.StateInfo
+﻿namespace Scripts.Units.StateInfo
 {
     public interface IUnitStateInfo
     {

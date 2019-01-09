@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace ZScripts.Map.View
+namespace Scripts.Map.View
 {
     public class MouseClickListener : MonoBehaviour
     {
