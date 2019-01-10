@@ -38,5 +38,7 @@ namespace Scripts.Units.Player
         public void Attack(IntVector2 position)
         {
         }
+
+        public object GraphicObject => UnitSettings.GraphicObject;
     }
 }

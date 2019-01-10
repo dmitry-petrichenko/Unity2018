@@ -9,11 +9,21 @@ using Scripts.Units.Rotation;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
 using Scripts.Units.UnitActions;
+using Units.ExternalAPI;
 
 public class UnitsInstaller : Module
 {
     protected override void Load(ContainerBuilder builder)
     {   
+        builder.Register(context =>
+        {
+            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallUnitsComponents);
+            return new UnitsController(scope.Resolve<EnemyController.Factory>(), scope.Resolve<IPlayerController>());
+        }).As<IUnitsController>().SingleInstance();
+    }
+
+    private void InstallUnitsComponents(ContainerBuilder builder)
+    {
         builder.RegisterType<OneUnitServices>().As<IOneUnitServices>().PropertiesAutowired();
         builder.RegisterType<UnitsController>().AsSelf().SingleInstance();
         builder.RegisterType<PathFinderController>().As<IPathFinderController>().SingleInstance();

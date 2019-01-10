@@ -1,5 +1,6 @@
 ﻿using Scripts.Units.Enemy;
 using Scripts.Units.Player;
+using Units.ExternalAPI;
 
 namespace Scripts.Units
 {
@@ -7,9 +8,12 @@ namespace Scripts.Units
     {
         private EnemyController _enemy;
         private EnemyController _enemy2;
+        private IPlayerController _player;
         
         public UnitsController(EnemyController.Factory enemyFactory, IPlayerController player)
         {
+            _player = player;
+            
             _enemy = enemyFactory.Invoke();
             _enemy.SetOnPosition(new IntVector2(2, 0));
             //_enemy.MoveTo(new IntVector2(3, 3));
@@ -34,5 +38,7 @@ namespace Scripts.Units
             _enemy5.SetOnPosition(new IntVector2(0, 5));
             _enemy5.Attack(player);
         }
+
+        public IPlayer Player => _player;
     }
 }

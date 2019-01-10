@@ -6,9 +6,9 @@ using Scripts;
 using Scripts.ActionDistributor;
 using Scripts.GameLoop;
 using Scripts.Map;
-using Scripts.Map.Info;
 using Scripts.Settings;
 using Scripts.Units;
+using Units.ExternalAPI;
 
 public class GameInstaller : MonoBehaviour
 {
@@ -30,6 +30,7 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterInstance(this).As<GameInstaller>();
         builder.RegisterInstance(gameObject).As<GameObject>();
         builder.RegisterInstance(mapGraphicsSettings).As<MapGraphicsSettings>();
+        
         builder.RegisterType<GameSettings>().As<ISettings>().SingleInstance();
         builder.RegisterType<InputController>().AsSelf();
         builder.RegisterType<ActiveMapLocationController>().AsSelf().SingleInstance();
@@ -45,7 +46,6 @@ public class GameInstaller : MonoBehaviour
         var container = builder.Build();
         container.Resolve<InputController>();
         container.Resolve<ActiveMapLocationController>();
-        container.Resolve<UnitsController>();
     }
     
     void Update()

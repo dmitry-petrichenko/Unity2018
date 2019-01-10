@@ -1,7 +1,6 @@
 ﻿using Scripts.Map;
 using Scripts.Map.View;
-using Scripts.Settings;
-using Scripts.Units.Player;
+using Units.ExternalAPI;
 
 namespace Scripts
 {
@@ -10,20 +9,17 @@ namespace Scripts
         private IMapController _mapController;
         private IMapViewController _mapViewController;
         private ICameraController _cameraController;
-        private IPlayerController _playerController;
-        private ISettings _setings;
+        private IUnitsController _unitsController;
 
         public InputController(
             IMapController mapController,
-            ISettings setings,
-            IPlayerController  playerController,
+            IUnitsController  unitsController,
             ICameraController cameraController,
             IMapViewController mapViewController)
         {
             _mapController = mapController;
             _mapViewController = mapViewController;
-            _playerController = playerController;
-            _setings = setings;
+            _unitsController = unitsController;
             _cameraController = cameraController;
 
             Initialize();
@@ -32,16 +28,14 @@ namespace Scripts
         public void Initialize()
         {
             _mapViewController.TileClicked += TileClickedHandler;
-
-            _cameraController.Follow(_playerController.UnitSettings.GraphicObject);
-
-            _mapController.UpdateCurrentPosition(_playerController.Position);
+            _cameraController.Follow(_unitsController.Player.GraphicObject);
+            _mapController.UpdateCurrentPosition(_unitsController.Player.Position);
         }
 
         private void TileClickedHandler(IntVector2 position)
         {
             //_cameraController.UpdateCurrentPosition(position); // not uncomment
-            _playerController.MoveTo(position);
+            _unitsController.Player.MoveTo(position);
         }
     }
 }

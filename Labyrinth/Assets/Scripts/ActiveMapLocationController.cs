@@ -1,25 +1,25 @@
 ﻿using Scripts.Map;
-using Scripts.Units.Player;
+using Units.ExternalAPI;
 
 namespace Scripts
 {
     public class ActiveMapLocationController
     {
         private IMapController _mapController;
-        private IPlayerController _playerController;
+        private IUnitsController _unitsController;
 
         public ActiveMapLocationController(IMapController mapController,
-            IPlayerController playerController)
+            IUnitsController unitsController)
         {
             _mapController = mapController;
-            _playerController = playerController;
+            _unitsController = unitsController;
 
             Initialize();
         }
 
         public void Initialize()
         {
-            _playerController.PositionChanged += PlayerPositionChanged;
+            _unitsController.Player.PositionChanged += PlayerPositionChanged;
         }
 
         private void PlayerPositionChanged(IntVector2 position)

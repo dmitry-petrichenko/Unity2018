@@ -1,6 +1,8 @@
-﻿namespace Scripts.Units.Player
+﻿using Units.ExternalAPI;
+
+namespace Scripts.Units.Player
 {
-    public interface IPlayerController  : IOneUnitController
+    public interface IPlayerController  : IOneUnitController, IPlayer
     {
     }
 }
