@@ -1,12 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
 using UnityEngine;
 
 namespace Scripts.Map.View
 {
     public class MouseClickListener : MonoBehaviour
     {
-        public event TileClickHandler TileClicked;
-        public event TileClickHandler RightClicked;
+        public event Action<IntVector2> TileClicked;
+        public event Action<IntVector2> RightClicked;
         public delegate void ButtonPressHandler();
         public event ButtonPressHandler RightButtonClicked;
         public event ButtonPressHandler LeftButtonClicked;

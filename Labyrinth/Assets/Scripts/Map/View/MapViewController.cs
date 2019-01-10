@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Scripts.Map.View
 {
@@ -76,8 +78,8 @@ namespace Scripts.Map.View
             _activeGameObjects.Remove(position);
         }
 
-        public event TileClickHandler TileClicked;
-        public event TileClickHandler RightClicked;
+        public event Action<IntVector2> TileClicked;
+        public event Action<IntVector2> RightClicked;
 
         private void AddActiveGameObject(IntVector2 position, GameObject gameObject)
         {

@@ -1,14 +1,14 @@
 ﻿using System;
 using Autofac;
 using FeatureDistri;
-using UnityEngine;
 using Scripts;
 using Scripts.ActionDistributor;
 using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Settings;
-using Scripts.Units;
-using Units.ExternalAPI;
+using Scripts.Units.PathFinder;
+using UnityEngine;
+using Grid = Scripts.Units.PathFinder.Grid;
 
 public class GameInstaller : MonoBehaviour
 {
@@ -39,6 +39,7 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterType<GameEvents>().As<IGameEvents>().SingleInstance();
         builder.RegisterType<HeavyActionDistributor>().As<IHeavyActionDistributor>().SingleInstance();
         builder.RegisterType<HeavyActionsBunchesExecutor>().AsSelf().InstancePerDependency();
+        builder.RegisterType<Grid>().As<IGrid>().SingleInstance();
         
         builder.RegisterModule<MapInstaller>();
         builder.RegisterModule<UnitsInstaller>();

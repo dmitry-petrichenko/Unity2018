@@ -2,7 +2,6 @@ using Autofac;
 using Scripts.Map.Controllers;
 using Scripts.Map.Info;
 using Scripts.Map.View;
-using Scripts.Units.PathFinder;
 
 namespace Scripts.Map
 {
@@ -10,9 +9,20 @@ namespace Scripts.Map
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Grid>().As<IGrid>().SingleInstance();
+            builder.Register(context =>
+            {
+                ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallMapComponents);
+                return new MapController(
+                    scope.Resolve<MapViewUpdateController>(),
+                    scope.Resolve<MapInfoUpdateController>(),
+                    scope.Resolve<IMapViewController>(),
+                    scope.Resolve<IMapInfoController>());
+            }).As<IMapController>().SingleInstance();
+        }
+
+        private void InstallMapComponents(ContainerBuilder builder)
+        {
             builder.RegisterType<MapSectorController>().As<IMapSectorController>().SingleInstance(); 
-            builder.RegisterType<MapController>().As<IMapController>();
             builder.RegisterType<MapViewUpdateController>().AsSelf().SingleInstance();
             builder.RegisterType<MapInfoUpdateController>().AsSelf().SingleInstance();
             builder.RegisterType<MapViewController>().As<IMapViewController>().SingleInstance();

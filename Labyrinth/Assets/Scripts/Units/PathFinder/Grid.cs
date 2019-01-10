@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
-using Scripts.Map.Info;
+﻿using Scripts.Map;
 
 namespace Scripts.Units.PathFinder
 {
     public class Grid : IGrid
     {
-        private Dictionary<IntVector2, bool> _gridValue = new Dictionary<IntVector2, bool>();
-        private IMapInfoController _mapInfoController;
-        private Dictionary<IntVector2, IMapTileInfo> _mapTilesInfo = new Dictionary<IntVector2, IMapTileInfo>();
+        private IMapController _mapController;
 
-        public Grid(IMapInfoController mapInfoController)
+        public Grid(IMapController mapController)
         {
-            _mapInfoController = mapInfoController;
-
+            _mapController = mapController;
         }
 
         public bool GetCell(IntVector2 index)
         {
-            if (_mapInfoController.MapTilesInfo.ContainsKey(index))
+            if (_mapController.MapTiles.ContainsKey(index))
             {
-                return _mapInfoController.GetMapTileInfo(index).IsEmpty();
+                return _mapController.MapTiles[index].IsEmpty();
             }
             else
             {

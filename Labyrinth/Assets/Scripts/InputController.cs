@@ -1,5 +1,4 @@
 ﻿using Scripts.Map;
-using Scripts.Map.View;
 using Units.ExternalAPI;
 
 namespace Scripts
@@ -7,18 +6,15 @@ namespace Scripts
     public class InputController
     {
         private IMapController _mapController;
-        private IMapViewController _mapViewController;
         private ICameraController _cameraController;
         private IUnitsController _unitsController;
 
         public InputController(
             IMapController mapController,
             IUnitsController  unitsController,
-            ICameraController cameraController,
-            IMapViewController mapViewController)
+            ICameraController cameraController)
         {
             _mapController = mapController;
-            _mapViewController = mapViewController;
             _unitsController = unitsController;
             _cameraController = cameraController;
 
@@ -27,7 +23,7 @@ namespace Scripts
 
         public void Initialize()
         {
-            _mapViewController.TileClicked += TileClickedHandler;
+            _mapController.PositionClicked += TileClickedHandler;
             _cameraController.Follow(_unitsController.Player.GraphicObject);
             _mapController.UpdateCurrentPosition(_unitsController.Player.Position);
         }
