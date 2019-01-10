@@ -1,5 +1,4 @@
 using Autofac;
-using Scripts.AutofacExtensions;
 using Units;
 using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
@@ -16,50 +15,46 @@ public class UnitsInstaller : Module
     protected override void Load(ContainerBuilder builder)
     {   
         builder.RegisterType<OneUnitServices>().As<IOneUnitServices>().PropertiesAutowired();
-        builder.RegisterType<UnitsController>().AsSelf().SingleInstance().AutoActivate();
+        builder.RegisterType<UnitsController>().AsSelf().SingleInstance();
         builder.RegisterType<PathFinderController>().As<IPathFinderController>().SingleInstance();
         builder.RegisterType<MoveToPositionAction>().AsSelf().InstancePerDependency();
         builder.RegisterType<OccupatedPossitionsTable>().As<IOccupatedPossitionsTable>().SingleInstance();
         builder.RegisterType<UnitsTable>().As<IUnitsTable>().SingleInstance();
         builder.RegisterType<MovingRandomizer>().As<IMovingRandomizer>().SingleInstance();
         builder.RegisterType<UnitBehaviourGenerator>().AsSelf().InstancePerDependency();
-
-        builder.Register(c =>
+        
+        builder.Register(context =>
         {
-            InstallOneUnitSubComponents(c);
-            return new EnemyController(c.Resolve<IOneUnitServices>());
+            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallOneUnitSubComponents);
+            return new EnemyController(scope.Resolve<IOneUnitServices>());
         }).As<EnemyController>().InstancePerDependency();
         
-        builder.Register(c =>
+        builder.Register(context =>
         {
-            InstallOneUnitSubComponents(c);
-            return new PlayerController(c.Resolve<IOneUnitServices>());
+            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallOneUnitSubComponents);
+            return new PlayerController(scope.Resolve<IOneUnitServices>());
         }).As<IPlayerController>().SingleInstance();
     }
 
-    private void InstallOneUnitSubComponents(IComponentContext componentContext)
+    private void InstallOneUnitSubComponents(ContainerBuilder builder)
     {
-        ContextRegistrator contextRegistrator = new ContextRegistrator(componentContext);
-        
-        contextRegistrator.RegisterType<MoveController>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<SubMoveController>().As<ISubMoveController>().SingleInstance();
-        contextRegistrator.RegisterType<MoveToHandlerController>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<AttackController>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
-        contextRegistrator.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
-        contextRegistrator.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
-        contextRegistrator.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
-        contextRegistrator.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
-        contextRegistrator.RegisterType<UnitSettings>().As<IUnitSettings>().SingleInstance();
-        contextRegistrator.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();
-        contextRegistrator.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
-        contextRegistrator.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
-        contextRegistrator.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
-        contextRegistrator.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
-        contextRegistrator.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
-        
-        contextRegistrator.CreateRegistrations();
+        builder.RegisterType<MoveController>().AsSelf().SingleInstance();
+        builder.RegisterType<SubMoveController>().As<ISubMoveController>().SingleInstance();
+        builder.RegisterType<MoveToHandlerController>().AsSelf().SingleInstance();
+        builder.RegisterType<AttackController>().AsSelf().SingleInstance();
+        builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
+        builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
+        builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
+        builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
+        builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
+        builder.RegisterType<UnitSettings>().As<IUnitSettings>().SingleInstance();
+        builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
+        builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
+        builder.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();
+        builder.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
+        builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
+        builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
+        builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
+        builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
     }
 }

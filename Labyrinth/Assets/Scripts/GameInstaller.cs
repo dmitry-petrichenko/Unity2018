@@ -8,6 +8,7 @@ using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Map.Info;
 using Scripts.Settings;
+using Scripts.Units;
 
 public class GameInstaller : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterInstance(gameObject).As<GameObject>();
         builder.RegisterInstance(mapGraphicsSettings).As<MapGraphicsSettings>();
         builder.RegisterType<GameSettings>().As<ISettings>().SingleInstance();
-        builder.RegisterType<InputController>().AsSelf().AutoActivate();
-        builder.RegisterType<ActiveMapLocationController>().AsSelf().SingleInstance().AutoActivate();
+        builder.RegisterType<InputController>().AsSelf();
+        builder.RegisterType<ActiveMapLocationController>().AsSelf().SingleInstance();
         builder.RegisterType<GameLoopController>().As<IGameLoopController>().SingleInstance();
         builder.RegisterType<CameraController>().As<ICameraController>().SingleInstance();    
         builder.RegisterType<GameEvents>().As<IGameEvents>().SingleInstance();
@@ -42,7 +43,9 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterModule<UnitsInstaller>();
 
         var container = builder.Build();
-        var scope = container.BeginLifetimeScope();
+        container.Resolve<InputController>();
+        container.Resolve<ActiveMapLocationController>();
+        container.Resolve<UnitsController>();
     }
     
     void Update()

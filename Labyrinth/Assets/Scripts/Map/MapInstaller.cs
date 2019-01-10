@@ -11,8 +11,8 @@ namespace Scripts.Map
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<Grid>().As<IGrid>().SingleInstance();
-            builder.RegisterType<MapSectorController>().As<IMapSectorController>().SingleInstance().AutoActivate();    
-            builder.RegisterType<MapController>().As<IMapController>().AutoActivate();
+            builder.RegisterType<MapSectorController>().As<IMapSectorController>().SingleInstance(); 
+            builder.RegisterType<MapController>().As<IMapController>();
             builder.RegisterType<MapViewUpdateController>().AsSelf().SingleInstance();
             builder.RegisterType<MapInfoUpdateController>().AsSelf().SingleInstance();
             builder.RegisterType<MapViewController>().As<IMapViewController>().SingleInstance();
