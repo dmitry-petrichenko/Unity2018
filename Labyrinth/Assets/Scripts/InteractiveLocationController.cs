@@ -3,21 +3,21 @@ using Units.ExternalAPI;
 
 namespace Scripts
 {
-    public class InputController
+    public class InteractiveLocationController
     {
         private IMapController _mapController;
-        private ICameraController _cameraController;
         private IUnitsController _unitsController;
+        private ICameraController _cameraController;
 
-        public InputController(
+        public InteractiveLocationController(
             IMapController mapController,
-            IUnitsController  unitsController,
+            IUnitsController unitsController,
             ICameraController cameraController)
         {
             _mapController = mapController;
             _unitsController = unitsController;
             _cameraController = cameraController;
-
+            
             Initialize();
         }
 
@@ -26,12 +26,18 @@ namespace Scripts
             _mapController.PositionClicked += TileClickedHandler;
             _cameraController.Follow(_unitsController.Player.GraphicObject);
             _mapController.UpdateCurrentPosition(_unitsController.Player.Position);
+            
+            _unitsController.Player.PositionChanged += PlayerPositionChanged;
         }
-
+        
         private void TileClickedHandler(IntVector2 position)
         {
-            //_cameraController.UpdateCurrentPosition(position); // not uncomment
             _unitsController.Player.MoveTo(position);
+        }
+
+        private void PlayerPositionChanged(IntVector2 position)
+        {
+            _mapController.UpdateCurrentPosition(position);
         }
     }
 }

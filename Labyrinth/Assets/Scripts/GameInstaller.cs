@@ -32,8 +32,7 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterInstance(mapGraphicsSettings).As<MapGraphicsSettings>();
         
         builder.RegisterType<GameSettings>().As<ISettings>().SingleInstance();
-        builder.RegisterType<InputController>().AsSelf();
-        builder.RegisterType<ActiveMapLocationController>().AsSelf().SingleInstance();
+        builder.RegisterType<InteractiveLocationController>().AsSelf().SingleInstance();
         builder.RegisterType<GameLoopController>().As<IGameLoopController>().SingleInstance();
         builder.RegisterType<CameraController>().As<ICameraController>().SingleInstance();    
         builder.RegisterType<GameEvents>().As<IGameEvents>().SingleInstance();
@@ -45,8 +44,7 @@ public class GameInstaller : MonoBehaviour
         builder.RegisterModule<UnitsInstaller>();
 
         var container = builder.Build();
-        container.Resolve<InputController>();
-        container.Resolve<ActiveMapLocationController>();
+        container.Resolve<InteractiveLocationController>();
     }
     
     void Update()
