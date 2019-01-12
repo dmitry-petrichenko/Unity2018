@@ -1,19 +1,27 @@
 ﻿using System;
+using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 
 namespace Scripts.Units
 {
-    public class NoWayEventRouter : INoWayEventRouter
+    public class NoWayEventRouter : INoWayEventRouter, IDisposable
     {
         private readonly ISubMoveController _subMoveController;
         private readonly IUnitStateInfo _unitStateInfo;
+        private readonly IEventDispatcher _eventDispatcher;
+        
+        public event Action<IntVector2> NoWayToAttackPointHandler;
+        public event Action<IntVector2> NoWayToPointHandler;
         
         public NoWayEventRouter(
             ISubMoveController subMoveController,
-            IUnitStateInfo unitStateInfo)
+            IUnitStateInfo unitStateInfo,
+            IEventDispatcher eventDispatcher)
         {
             _subMoveController = subMoveController;
             _unitStateInfo = unitStateInfo;
+            _eventDispatcher = eventDispatcher;
             
             Initialize();
         }
@@ -21,27 +29,24 @@ namespace Scripts.Units
         private void Initialize()
         {
             _subMoveController.NoWayToPointHandler += NoWayToPointEventHandler;
+            _eventDispatcher.AddEventListener<IntVector2>(UnitEvents.NO_WAY_TO_TILE, NoWayToPointEventHandler);
         }
 
         private void NoWayToPointEventHandler(IntVector2 position)
         {
             if (_unitStateInfo.IsAttacking)
             {
-                if (NoWayToAttackPointHandler != null)
-                {
-                    NoWayToAttackPointHandler(position);
-                }
+                NoWayToAttackPointHandler?.Invoke(position);
             }
             else
             {
-                if (NoWayToPointHandler != null)
-                {
-                    NoWayToPointHandler(position);
-                }
+                NoWayToPointHandler?.Invoke(position);
             }
         }
-
-        public event Action<IntVector2> NoWayToAttackPointHandler;
-        public event Action<IntVector2> NoWayToPointHandler;
+        
+        public void Dispose()
+        {
+            _eventDispatcher.RemoveEventListener(UnitEvents.NO_WAY_TO_TILE, new Action<IntVector2>(NoWayToPointEventHandler));
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace Scripts.Units
                 {
                     NoWayToPointHandler(_nextOccupiedPossition);
                 }
+                _eventDispatcher.DispatchEvent(UnitEvents.NO_WAY_TO_TILE);
                 return;
             }
             _motionController.MoveComplete += MoveStepCompleteHandler;
