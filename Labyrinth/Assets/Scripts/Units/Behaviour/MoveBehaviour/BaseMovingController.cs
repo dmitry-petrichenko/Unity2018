@@ -1,60 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using ID5D6AAC.Common.EventDispatcher;
-using Scripts.Units.Events;
-using Scripts.Units.PathFinder;
+﻿using System.Collections.Generic;
 
 namespace Scripts.Units
 {
-    //If position changed when unit is moving.
     public class BaseMovingController : IBaseMovingController
     {
-        private ISubMoveController _subMoveController;
-        private IntVector2 _newPosition;
-        private IPathFinderController _pathFinderController;
-        private readonly IEventDispatcher _eventDispatcher;
+        private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
+        private readonly ISubMoveController _subMoveController;
 
         public BaseMovingController(
-            IPathFinderController pathFinderController,
-            ISubMoveController subMoveController, 
-            IEventDispatcher eventDispatcher)
+            ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
+            ISubMoveController subMoveController)
         {
             _subMoveController = subMoveController;
-            _pathFinderController = pathFinderController;
-            _eventDispatcher = eventDispatcher;
+            _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
         }
 
         public void MoveTo(IntVector2 position)
         {
-            if (_subMoveController.IsMoving)
-            {
-                _newPosition = position;
-                ChangeDirrection();
-            }
-            else
-            {
-                MoveToDirrection(position);
-            }
+            _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);
         }
 
-        private void MoveToDirrection(IntVector2 position)
+        public void MoveTo(List<IntVector2> path)
         {
-            List<IntVector2> path = _pathFinderController.GetPath(_subMoveController.Position, position, null);
-            _subMoveController.Destination = position;
             _subMoveController.MoveTo(path);
         }
-        
-        private void ChangeDirrection()
+
+        public void Cancel()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             _subMoveController.Cancel();
-            _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
         }
-        
-        private void OnChangeDirrectionMoveCmplete()
+
+        public void SetOnPosition(IntVector2 position)
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
-            MoveToDirrection(_newPosition);
+            _subMoveController.SetOnPosition(position);
         }
+
+        public IntVector2 Position => _subMoveController.Position;
+        public IntVector2 Destination => _subMoveController.Destination;
+        public bool IsMoving => _subMoveController.IsMoving;
     }
 }

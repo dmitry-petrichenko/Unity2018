@@ -10,7 +10,6 @@ namespace Scripts.Units
         private readonly INoWayEventRouter _noWayEventRouter;
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
-        private ISubMoveController _subMoveController;
         private IUnitStateInfo _unitStateInfo;
         private IGrid _grid;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
@@ -18,14 +17,12 @@ namespace Scripts.Units
         public OvertakeOccupatedPositionController(
             INoWayEventRouter noWayEventRouter,
             IUnitsTable unitsTable,
-            ISubMoveController subMoveController,
             IUnitStateInfo unitStateInfo,
             IGrid grid
             )
         {
             _noWayEventRouter = noWayEventRouter;
             _unitsTable = unitsTable;
-            _subMoveController = subMoveController;
             _unitStateInfo = unitStateInfo;
             _grid = grid;
         }

@@ -7,7 +7,6 @@ namespace Scripts.Units
 {
     public class NoWayEventRouter : INoWayEventRouter, IDisposable
     {
-        private readonly ISubMoveController _subMoveController;
         private readonly IUnitStateInfo _unitStateInfo;
         private readonly IEventDispatcher _eventDispatcher;
         
@@ -15,11 +14,9 @@ namespace Scripts.Units
         public event Action<IntVector2> NoWayToPointHandler;
         
         public NoWayEventRouter(
-            ISubMoveController subMoveController,
             IUnitStateInfo unitStateInfo,
             IEventDispatcher eventDispatcher)
         {
-            _subMoveController = subMoveController;
             _unitStateInfo = unitStateInfo;
             _eventDispatcher = eventDispatcher;
             
@@ -28,7 +25,6 @@ namespace Scripts.Units
 
         private void Initialize()
         {
-            _subMoveController.NoWayToPointHandler += NoWayToPointEventHandler;
             _eventDispatcher.AddEventListener<IntVector2>(UnitEvents.NO_WAY_TO_TILE, NoWayToPointEventHandler);
         }
 

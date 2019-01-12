@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Units.Events;
 using Units;
@@ -58,11 +57,7 @@ namespace Scripts.Units
             Reset();
             if (path.Count == 0)
             {
-                if (NoWayToPointHandler != null)
-                {
-                    NoWayToPointHandler(_nextOccupiedPossition);
-                }
-                _eventDispatcher.DispatchEvent(UnitEvents.NO_WAY_TO_TILE);
+                _eventDispatcher.DispatchEvent(UnitEvents.NO_WAY_TO_TILE, _nextOccupiedPossition);
                 return;
             }
             _motionController.MoveComplete += MoveStepCompleteHandler;
@@ -138,7 +133,5 @@ namespace Scripts.Units
             _motionController.SetOnPosition(position);
             _unitsTable.SetOccupied(Position);
         }
-        
-        public event Action<IntVector2> NoWayToPointHandler;
     }
 }

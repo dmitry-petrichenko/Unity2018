@@ -4,31 +4,29 @@ namespace Scripts.Units
 {
     public class WaitMoveTurnController
     {
-        private IOneUnitController _oneUnitController;
         private readonly IUnitsTable _unitsTable;
+        private readonly IMovingRandomizer _movingRandomizer;
+        private readonly IUnitStateInfo _unitStateInfo;
+        private readonly INoWayEventRouter _noWayEventRouter;
+        private readonly IBaseMovingController _baseMovingController;
+        
         private IOneUnitController _targetUnit;
         private IntVector2 _occupiedPoint;
-        private IMovingRandomizer _movingRandomizer;
-        private IOneUnitMotionController _motionController;
-        private IUnitStateInfo _unitStateInfo;
-        private INoWayEventRouter _noWayEventRouter;
-        private ISubMoveController _subMoveController;
+        private IOneUnitController _oneUnitController;
         
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IOneUnitMotionController oneUnitMotionController,
             IUnitStateInfo unitStateInfo,
             INoWayEventRouter noWayEventRouter,
-            ISubMoveController subMoveController
+            IBaseMovingController baseMovingController
             )
         {
             _unitsTable = unitsTable;
             _movingRandomizer = movingRandomizer;
-            _motionController = oneUnitMotionController;
             _unitStateInfo = unitStateInfo;
             _noWayEventRouter = noWayEventRouter;
-            _subMoveController = subMoveController;
+            _baseMovingController = baseMovingController;
         }
         
         public void Initialize(IOneUnitController oneUnitController)
@@ -46,9 +44,9 @@ namespace Scripts.Units
         private void WaitUnitOnPosition(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _motionController.Position))
+            if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _baseMovingController.Position))
             {
-                IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_motionController.Position);
+                IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseMovingController.Position);
                 _oneUnitController.MoveTo(newPosition);
                 return;
             }
@@ -63,7 +61,7 @@ namespace Scripts.Units
             _targetUnit.PositionChanged -= TargetUnitPositionChanged;
             if (_unitsTable.IsVacantPosition(_occupiedPoint))
             {
-                MoveToDestination(_subMoveController.Destination);
+                MoveToDestination();
             }
             else
             {
@@ -71,9 +69,9 @@ namespace Scripts.Units
             } 
         }
 
-        private void MoveToDestination(IntVector2 destination)
+        private void MoveToDestination()
         {
-            _oneUnitController.MoveTo( _subMoveController.Destination);
+            _oneUnitController.MoveTo(_baseMovingController.Destination);
         }
     }
 }

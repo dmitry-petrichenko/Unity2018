@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Scripts.Units
 {
@@ -12,8 +11,6 @@ namespace Scripts.Units
         IntVector2 Position { get; }
         bool IsMoving { get; }
         IntVector2 Destination { get; set; }
-
-        event Action<IntVector2> NoWayToPointHandler;
         
     }
 }
