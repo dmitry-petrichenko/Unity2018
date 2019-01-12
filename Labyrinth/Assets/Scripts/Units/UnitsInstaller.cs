@@ -1,5 +1,6 @@
 using Autofac;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Extensions;
 using Units;
 using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
@@ -16,11 +17,7 @@ public class UnitsInstaller : Module
 {
     protected override void Load(ContainerBuilder builder)
     {   
-        builder.Register(context =>
-        {
-            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallUnitsComponents);
-            return new UnitsController(scope.Resolve<EnemyController.Factory>(), scope.Resolve<IPlayerController>());
-        }).As<IUnitsController>().SingleInstance();
+        builder.CreateScopeForType<UnitsController>(InstallUnitsComponents).As<IUnitsController>().SingleInstance();
     }
 
     private void InstallUnitsComponents(ContainerBuilder builder)
@@ -34,17 +31,8 @@ public class UnitsInstaller : Module
         builder.RegisterType<MovingRandomizer>().As<IMovingRandomizer>().SingleInstance();
         builder.RegisterType<UnitBehaviourGenerator>().AsSelf().InstancePerDependency();
         
-        builder.Register(context =>
-        {
-            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallOneUnitSubComponents);
-            return new EnemyController(scope.Resolve<IOneUnitServices>());
-        }).As<EnemyController>().InstancePerDependency();
-        
-        builder.Register(context =>
-        {
-            ILifetimeScope scope = context.Resolve<ILifetimeScope>().BeginLifetimeScope(InstallOneUnitSubComponents);
-            return new PlayerController(scope.Resolve<IOneUnitServices>());
-        }).As<IPlayerController>().SingleInstance();
+        builder.CreateScopeForType<EnemyController>(InstallOneUnitSubComponents).As<EnemyController>().InstancePerDependency();
+        builder.CreateScopeForType<PlayerController>(InstallOneUnitSubComponents).As<IPlayerController>().SingleInstance();
     }
 
     private void InstallOneUnitSubComponents(ContainerBuilder builder)
@@ -52,7 +40,7 @@ public class UnitsInstaller : Module
         builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
         builder.RegisterType<MoveController>().AsSelf().SingleInstance();
         builder.RegisterType<SubMoveController>().As<ISubMoveController>().SingleInstance();
-        builder.RegisterType<MoveToHandlerController>().AsSelf().SingleInstance();
+        builder.RegisterType<BaseMovingController>().AsSelf().SingleInstance();
         builder.RegisterType<AttackController>().AsSelf().SingleInstance();
         builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
         builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();

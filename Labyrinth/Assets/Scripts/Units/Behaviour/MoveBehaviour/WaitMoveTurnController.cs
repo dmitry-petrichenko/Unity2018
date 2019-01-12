@@ -12,6 +12,7 @@ namespace Scripts.Units
         private IOneUnitMotionController _motionController;
         private IUnitStateInfo _unitStateInfo;
         private INoWayEventRouter _noWayEventRouter;
+        private ISubMoveController _subMoveController;
         
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
@@ -29,8 +30,6 @@ namespace Scripts.Units
             _noWayEventRouter = noWayEventRouter;
             _subMoveController = subMoveController;
         }
-        
-        private ISubMoveController _subMoveController;
         
         public void Initialize(IOneUnitController oneUnitController)
         {

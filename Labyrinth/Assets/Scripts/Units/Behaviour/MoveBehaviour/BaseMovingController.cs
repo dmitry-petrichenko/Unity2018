@@ -7,14 +7,14 @@ using Scripts.Units.PathFinder;
 namespace Scripts.Units
 {
     //If position changed when unit is moving.
-    public class MoveToHandlerController
+    public class BaseMovingController : IBaseMovingController
     {
         private ISubMoveController _subMoveController;
         private IntVector2 _newPosition;
         private IPathFinderController _pathFinderController;
         private readonly IEventDispatcher _eventDispatcher;
 
-        public MoveToHandlerController(
+        public BaseMovingController(
             IPathFinderController pathFinderController,
             ISubMoveController subMoveController, 
             IEventDispatcher eventDispatcher)

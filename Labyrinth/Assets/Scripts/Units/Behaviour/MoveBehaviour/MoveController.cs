@@ -6,13 +6,13 @@ namespace Scripts.Units
     {
         private IOneUnitController _unitController;
         private ISubMoveController _subMoveController;
-        private MoveToHandlerController _moveToHandlerController;
+        private BaseMovingController _baseMovingController;
         private WaitMoveTurnController _waitMoveTurnController;
 
         public event Action MoveToComplete;
         
         public MoveController(
-            MoveToHandlerController moveToHandlerController,
+            BaseMovingController baseMovingController,
             ISubMoveController subMoveController,
             MoveConsideringOccupatedController moveConsideringOccupatedController,
             WaitMoveTurnController waitMoveTurnController
@@ -20,7 +20,7 @@ namespace Scripts.Units
         {
             _waitMoveTurnController = waitMoveTurnController;
             _subMoveController = subMoveController;
-            _moveToHandlerController = moveToHandlerController;
+            _baseMovingController = baseMovingController;
         }
         
         public void Initialize(IOneUnitController unitController)
@@ -32,7 +32,7 @@ namespace Scripts.Units
         
         public void MoveTo(IntVector2 position)
         {
-            _moveToHandlerController.MoveTo(position);
+            _baseMovingController.MoveTo(position);
         }
         
         public void SetOnPosition(IntVector2 position)
