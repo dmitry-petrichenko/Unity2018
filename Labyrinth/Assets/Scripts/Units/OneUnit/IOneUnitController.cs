@@ -13,8 +13,8 @@ namespace Scripts.Units
         void Wait(IntVector2 position);
         
         event Action<IntVector2> PositionChanged;
-        event Action MoveToComplete;        
-        event Action MoveOneStepStart;
+        event Action MovePathComplete;        
+        event Action MoveTileStart;
         event Action MoveTileComplete;
     }
 }

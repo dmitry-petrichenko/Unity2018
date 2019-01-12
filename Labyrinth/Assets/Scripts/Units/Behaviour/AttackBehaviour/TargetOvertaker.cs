@@ -36,7 +36,7 @@ namespace Scripts.Units
 
         private void OnUnitCompleteMoveTo()
         {
-            _oneUnitController.MoveToComplete -= OnUnitCompleteMoveTo;
+            _oneUnitController.MovePathComplete -= OnUnitCompleteMoveTo;
             Complete?.Invoke();
         }
 
@@ -57,7 +57,7 @@ namespace Scripts.Units
 
         private void MoveToTarget()
         {
-            _oneUnitController.MoveToComplete += OnUnitCompleteMoveTo;
+            _oneUnitController.MovePathComplete += OnUnitCompleteMoveTo;
             List<IntVector2> path =
                 _pathFinderController.GetPath(_target.Position, _oneUnitController.Position, null);
 

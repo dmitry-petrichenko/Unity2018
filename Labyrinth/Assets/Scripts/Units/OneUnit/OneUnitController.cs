@@ -7,8 +7,8 @@ namespace Scripts.Units
     public class OneUnitController : OneUnitServicesContainer, IOneUnitController, IDisposable
     {
         public event Action<IntVector2> PositionChanged;
-        public event Action MoveToComplete;
-        public event Action MoveOneStepStart;
+        public event Action MovePathComplete;
+        public event Action MoveTileStart;
         public event Action MoveTileComplete;
 
         private MoveController _moveController;
@@ -24,24 +24,24 @@ namespace Scripts.Units
 
         protected void Initialize()
         {
-            
             base.Initialize();
             SubscribeOnEvents();
            
             // Initialize behaviour
             _moveController.Initialize(this);
-            _moveController.MoveToComplete += MoveCompleteHandler;
             _unitsTable.AddUnit(this);
         }
         
         private void SubscribeOnEvents()
         {
+            _eventDispatcher.AddEventListener(UnitEvents.MOVE_PATH_COMPLETE, MoveCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_START, MoveTileStartHandler);
             _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_COMPLETE, MoveTileCompleteHandler);
         }
         
         private void UnsubscribeFromEvents()
         {
+            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_PATH_COMPLETE, new Action(MoveCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_START, new Action(MoveTileStartHandler));
             _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(MoveTileCompleteHandler));
         }
@@ -64,10 +64,7 @@ namespace Scripts.Units
 
         private void MoveCompleteHandler()
         {
-            if (MoveToComplete != null)
-            {
-                MoveToComplete();
-            }
+            MovePathComplete?.Invoke();
         }
 
         public void SetOnPosition(IntVector2 position)

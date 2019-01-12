@@ -30,7 +30,7 @@ namespace Scripts.Units.Player
             UnitSettings.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
             base.Initialize();
 
-            MoveToComplete += Wait;
+            MovePathComplete += Wait;
             SetOnPosition(new IntVector2(1, 1));
         }
 

@@ -19,7 +19,7 @@ namespace Scripts.Units.UnitActions
 
         public void Start()
         {
-            _oneUnitController.MoveToComplete += MoveCompleteHandler;
+            _oneUnitController.MovePathComplete += MoveCompleteHandler;
             IntVector2 position = _movingRandomizer.GetRandomPoint(_oneUnitController.Position);
             _oneUnitController.MoveTo(position);
         }

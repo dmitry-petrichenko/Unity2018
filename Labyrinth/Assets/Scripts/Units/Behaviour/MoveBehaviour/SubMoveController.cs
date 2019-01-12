@@ -100,10 +100,7 @@ namespace Scripts.Units
             }
             else
             {
-                if (MoveToComplete != null)
-                {
-                    MoveToComplete();
-                }
+                _eventDispatcher.DispatchEvent(UnitEvents.MOVE_PATH_COMPLETE);
                 Reset();
             }
         }
@@ -144,7 +141,6 @@ namespace Scripts.Units
             _unitsTable.SetOccupied(Position);
         }
 
-        public event Action MoveToComplete;
         public event Action<IntVector2> NextPositionOccupiedHandler;
         public event Action<IntVector2> NoWayToPointHandler;
     }

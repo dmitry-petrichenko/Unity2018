@@ -27,14 +27,7 @@ namespace Scripts.Units
         {
             _unitController = unitController;
             
-            _subMoveController.MoveToComplete += MoveToCompleteHandler;
-            
             _waitMoveTurnController.Initialize(_unitController);
-        }
-
-        private void MoveToCompleteHandler()
-        {
-            MoveToComplete?.Invoke();
         }
         
         public void MoveTo(IntVector2 position)
