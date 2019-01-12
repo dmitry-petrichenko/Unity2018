@@ -117,11 +117,8 @@ namespace Scripts.Units
         {
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
-                if (NextPositionOccupiedHandler != null)
-                {
-                    _nextOccupiedPossition = nextPosition;
-                    NextPositionOccupiedHandler(nextPosition);
-                }
+                _nextOccupiedPossition = nextPosition;
+                _eventDispatcher.DispatchEvent(UnitEvents.NEXT_TILE_OCCUPATED, _nextOccupiedPossition);
 
                 return true;
             }
@@ -140,8 +137,7 @@ namespace Scripts.Units
             _motionController.SetOnPosition(position);
             _unitsTable.SetOccupied(Position);
         }
-
-        public event Action<IntVector2> NextPositionOccupiedHandler;
+        
         public event Action<IntVector2> NoWayToPointHandler;
     }
 }

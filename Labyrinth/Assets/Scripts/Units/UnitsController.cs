@@ -37,6 +37,9 @@ namespace Scripts.Units
             EnemyController _enemy5 = enemyFactory.Invoke();
             _enemy5.SetOnPosition(new IntVector2(0, 5));
             _enemy5.Attack(player);
+            
+            EnemyController _enemy7 = enemyFactory.Invoke();
+            _enemy7.SetOnPosition(new IntVector2(0, 7));
         }
 
         public IPlayer Player => _player;
