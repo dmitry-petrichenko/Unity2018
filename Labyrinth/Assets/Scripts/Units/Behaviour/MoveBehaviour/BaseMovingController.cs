@@ -15,6 +15,11 @@ namespace Scripts.Units
             _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
         }
 
+        public void Attack(IntVector2 position)
+        {
+            _subMoveController.Attack(position);
+        }
+
         public void MoveTo(IntVector2 position)
         {
             _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);

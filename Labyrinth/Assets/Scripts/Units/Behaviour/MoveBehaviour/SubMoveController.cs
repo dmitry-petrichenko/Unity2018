@@ -51,6 +51,12 @@ namespace Scripts.Units
         {       
             _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_COMPLETE);
         }
+        
+        public void Attack(IntVector2 position)
+        {
+            _rotationController.Rotate(_motionController.Position, position);
+            _animationController.PlayAttackAnimation();
+        }
 
         public void MoveTo(List<IntVector2> path)
         {

@@ -4,6 +4,7 @@ namespace Scripts.Units
 {
     public interface ISubMoveController
     {
+        void Attack(IntVector2 position);
         void MoveTo(List<IntVector2> path);
         void Cancel();
         void SetOnPosition(IntVector2 position);
@@ -11,6 +12,5 @@ namespace Scripts.Units
         IntVector2 Position { get; }
         bool IsMoving { get; }
         IntVector2 Destination { get; set; }
-        
     }
 }

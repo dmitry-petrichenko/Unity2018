@@ -5,7 +5,6 @@ namespace Scripts.Units
 {
     public class UnitBehaviourGenerator
     {
-        private IOneUnitController _oneUnitController;
         private List<IUnitAction> _actions;
         private IUnitAction _currentUnitAction;
         private IHeavyActionDistributor _heavyActionDistributor;
@@ -17,7 +16,6 @@ namespace Scripts.Units
 
         public void Initialize(IOneUnitController oneUnitController, List<IUnitAction> actions)
         {
-            _oneUnitController = oneUnitController;
             _actions = actions;
         }
 

@@ -8,20 +8,17 @@ namespace Scripts.Units
     {
         private IOneUnitController _unitController;
         private UnitBehaviourGenerator _unitBehaviourGenerator;
-        private IOneUnitRotationController _oneUnitRotationController;
         private AttackAction.Factory _actionFactory;
         private OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
 
         public AttackController(
             UnitBehaviourGenerator unitBehaviourGenerator,
             AttackAction.Factory actionFactory,
-            IOneUnitRotationController oneUnitRotationController,
             OvertakeOccupatedPositionController overtakeOccupatedPositionController
             )
         {
             _actionFactory = actionFactory;
             _unitBehaviourGenerator = unitBehaviourGenerator;
-            _oneUnitRotationController = oneUnitRotationController;
             _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
         }
 
@@ -38,12 +35,11 @@ namespace Scripts.Units
         
         public void Attack(IntVector2 position)
         {
-            _oneUnitRotationController.Rotate(_unitController.Position, position);
-            
             List<IUnitAction> actions = new List<IUnitAction>();
             
             AttackAction action;
             action = _actionFactory.Invoke();
+            action.Initialize(position);
             actions.Add(action);
             
             _unitBehaviourGenerator.Initialize(_unitController, actions);

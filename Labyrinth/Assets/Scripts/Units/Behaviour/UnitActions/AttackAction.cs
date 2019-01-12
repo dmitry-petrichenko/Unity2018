@@ -8,24 +8,24 @@ namespace Scripts.Units.Behaviour.UnitActions
     {
         public delegate AttackAction Factory();
         
-        private float delayTime;
+        private float _delayTime;
+        private IntVector2 _targetPosition;
         private IGameLoopController _gameloopController;
-        private IOneUnitController _oneUnitController;
-        private IOneUnitAnimationController _animationController;
+        private IBaseMovingController _baseMovingController;
         
         public AttackAction(
             IGameLoopController gameloopController,
-            IOneUnitAnimationController animationController)
+            IBaseMovingController baseMovingController)
         {
             _gameloopController = gameloopController;
-            _animationController = animationController;
-            delayTime = 1.5f;
+            _baseMovingController = baseMovingController;
+            _delayTime = 1.5f;
         }
         
         public void Start()
         {
-            _animationController.PlayAttackAnimation();
-            _gameloopController.DelayStart(TriggerComplete, delayTime);
+            _baseMovingController.Attack(_targetPosition);
+            _gameloopController.DelayStart(TriggerComplete, _delayTime);
         }
 
         public void Stop()
@@ -40,15 +40,17 @@ namespace Scripts.Units.Behaviour.UnitActions
 
         public void Initialize(IOneUnitController oneUnitController)
         {
-               
+            
+        }
+
+        public void Initialize(IntVector2 targetPosition)
+        {
+            _targetPosition = targetPosition;
         }
         
         private void TriggerComplete()
         {
-            if (OnComplete != null)
-            {
-                OnComplete();
-            } 
+            OnComplete?.Invoke();
         }
 
         public event Action OnComplete;
