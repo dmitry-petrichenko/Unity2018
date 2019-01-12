@@ -14,8 +14,6 @@ namespace Scripts.Units
         IntVector2 Destination { get; set; }
 
         event Action MoveToComplete;
-        event Action MoveOneStepComplete;
-        event Action MoveOneStepStart;
         event Action<IntVector2> NextPositionOccupiedHandler;
         event Action<IntVector2> NoWayToPointHandler;
         

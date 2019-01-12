@@ -1,4 +1,5 @@
 using Autofac;
+using ID5D6AAC.Common.EventDispatcher;
 using Units;
 using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
@@ -48,6 +49,7 @@ public class UnitsInstaller : Module
 
     private void InstallOneUnitSubComponents(ContainerBuilder builder)
     {
+        builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
         builder.RegisterType<MoveController>().AsSelf().SingleInstance();
         builder.RegisterType<SubMoveController>().As<ISubMoveController>().SingleInstance();
         builder.RegisterType<MoveToHandlerController>().AsSelf().SingleInstance();

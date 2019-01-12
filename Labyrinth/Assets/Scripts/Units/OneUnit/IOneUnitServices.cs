@@ -1,3 +1,4 @@
+using ID5D6AAC.Common.EventDispatcher;
 using Units;
 using Scripts.Settings;
 using Scripts.Units.Rotation;
@@ -20,5 +21,6 @@ namespace Scripts.Units
         IPeacefulBehaviour PeacefulBehaviour { get; }
         IAgressiveBehaviour AgressiveBehaviour { get; }
         IGameEvents GameEvents { get; }
+        IEventDispatcher EventDispatcher { get; }
     }
 }

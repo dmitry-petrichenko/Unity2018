@@ -29,7 +29,7 @@ namespace Scripts.Units
         public void Overtake(IOneUnitController target)
         {
             _target = target;
-            _target.MoveOneStepComplete += OnTargetPositionChanged;
+            _target.MoveTileComplete += OnTargetPositionChanged;
             
             MoveToTarget();
         }
@@ -100,7 +100,7 @@ namespace Scripts.Units
         public void Cancel()
         {
             Debug.Log("Overtake -=");
-            _target.MoveOneStepComplete += OnTargetPositionChanged;
+            _target.MoveTileComplete += OnTargetPositionChanged;
         }
     }
 }

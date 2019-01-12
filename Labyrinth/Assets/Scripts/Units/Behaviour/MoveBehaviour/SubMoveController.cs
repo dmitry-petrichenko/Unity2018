@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Resources;
+using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Units.Events;
 using Units;
-using UnityEditor;
-using UnityEngine;
 using Scripts.Units.Rotation;
 
 namespace Scripts.Units
@@ -17,6 +16,7 @@ namespace Scripts.Units
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
         private IntVector2 _nextOccupiedPossition;
+        private readonly IEventDispatcher _eventDispatcher;
 
         public IntVector2 Destination { get; set; }
 
@@ -24,7 +24,8 @@ namespace Scripts.Units
             IUnitsTable unitsTable,
             IOneUnitRotationController oneUnitRotationController,
             IOneUnitAnimationController oneUnitAnimationController,
-            IOneUnitMotionController oneUnitMotionController
+            IOneUnitMotionController oneUnitMotionController,
+            IEventDispatcher eventDispatcher
             )
         {
             _unitsTable = unitsTable;
@@ -32,6 +33,7 @@ namespace Scripts.Units
             _animationController = oneUnitAnimationController;
             _animationController = oneUnitAnimationController;
             _motionController = oneUnitMotionController;
+            _eventDispatcher = eventDispatcher;
 
             Initialize();
         }
@@ -43,7 +45,12 @@ namespace Scripts.Units
 
         private void StartMoveHandler()
         {
-            MoveOneStepStart?.Invoke();
+            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_START);
+        }
+
+        private void MoveStepCompleteHandler()
+        {       
+            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_COMPLETE);
         }
 
         public void MoveTo(List<IntVector2> path)
@@ -70,28 +77,14 @@ namespace Scripts.Units
             _motionController.MoveComplete -= MoveStepCompleteHandler;
         }
 
-        private void MoveStepCompleteHandler()
-        {         
-            if (MoveOneStepComplete != null)
-            {
-                MoveOneStepComplete();
-            }
-        }
-
         public void Cancel()
         {
             _motionController.MoveComplete -= MoveNextStep;
         }
 
-        public IntVector2 Position
-        {
-            get { return _motionController.Position; }
-        }
+        public IntVector2 Position => _motionController.Position;
 
-        public bool IsMoving
-        {
-            get { return _motionController.IsMoving; }
-        }
+        public bool IsMoving => _motionController.IsMoving;
 
         private void MoveNextStep()
         {
@@ -152,9 +145,7 @@ namespace Scripts.Units
         }
 
         public event Action MoveToComplete;
-        public event Action MoveOneStepComplete;
         public event Action<IntVector2> NextPositionOccupiedHandler;
         public event Action<IntVector2> NoWayToPointHandler;
-        public event Action MoveOneStepStart;
     }
 }

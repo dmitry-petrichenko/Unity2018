@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Units.Events;
 using Scripts.Units.PathFinder;
 
 namespace Scripts.Units
@@ -10,13 +12,16 @@ namespace Scripts.Units
         private ISubMoveController _subMoveController;
         private IntVector2 _newPosition;
         private IPathFinderController _pathFinderController;
+        private readonly IEventDispatcher _eventDispatcher;
 
         public MoveToHandlerController(
             IPathFinderController pathFinderController,
-            ISubMoveController subMoveController)
+            ISubMoveController subMoveController, 
+            IEventDispatcher eventDispatcher)
         {
             _subMoveController = subMoveController;
             _pathFinderController = pathFinderController;
+            _eventDispatcher = eventDispatcher;
         }
 
         public void MoveTo(IntVector2 position)
@@ -41,14 +46,14 @@ namespace Scripts.Units
         
         private void ChangeDirrection()
         {
-            _subMoveController.MoveOneStepComplete -= OnChangeDirrectionMoveCmplete;
+            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             _subMoveController.Cancel();
-            _subMoveController.MoveOneStepComplete += OnChangeDirrectionMoveCmplete;
+            _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
         }
         
         private void OnChangeDirrectionMoveCmplete()
         {
-            _subMoveController.MoveOneStepComplete -= OnChangeDirrectionMoveCmplete;
+            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             MoveToDirrection(_newPosition);
         }
     }

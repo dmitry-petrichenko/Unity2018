@@ -10,8 +10,6 @@ namespace Scripts.Units
         private WaitMoveTurnController _waitMoveTurnController;
 
         public event Action MoveToComplete;
-        public event Action MoveOneStepComplete;
-        public event Action MoveOneStepStart;
         
         public MoveController(
             MoveToHandlerController moveToHandlerController,
@@ -30,25 +28,13 @@ namespace Scripts.Units
             _unitController = unitController;
             
             _subMoveController.MoveToComplete += MoveToCompleteHandler;
-            _subMoveController.MoveOneStepComplete += MoveOneStepCompleteHandler;
-            _subMoveController.MoveOneStepStart += StartMoveHandler;
             
             _waitMoveTurnController.Initialize(_unitController);
-        }
-
-        private void MoveOneStepCompleteHandler()
-        {
-            MoveOneStepComplete?.Invoke();
         }
 
         private void MoveToCompleteHandler()
         {
             MoveToComplete?.Invoke();
-        }
-
-        private void StartMoveHandler()
-        {
-            MoveOneStepStart?.Invoke();
         }
         
         public void MoveTo(IntVector2 position)

@@ -1,3 +1,4 @@
+using ID5D6AAC.Common.EventDispatcher;
 using Units;
 using Scripts.Settings;
 using Scripts.Units.Rotation;
@@ -8,7 +9,19 @@ namespace Scripts.Units
 {
     public class OneUnitServices : IOneUnitServices
     {
-        public OneUnitServices(MoveController moveController, AttackController attackController, IUnitsTable unitsTable, IOneUnitMotionController oneUnitMotionController, IOneUnitAnimationController oneUnitAnimationController, IOneUnitRotationController oneUnitRotationController, IUnitStateInfo unitStateInfo, ISettings settings, IUnitSettings unitSettings, IPeacefulBehaviour peacefulBehaviour, IAgressiveBehaviour agressiveBehaviour, IGameEvents gameEvents)
+        public OneUnitServices(
+            MoveController moveController, 
+            AttackController attackController, 
+            IUnitsTable unitsTable, 
+            IOneUnitMotionController oneUnitMotionController, 
+            IOneUnitAnimationController oneUnitAnimationController, 
+            IOneUnitRotationController oneUnitRotationController, 
+            IUnitStateInfo unitStateInfo, ISettings settings, 
+            IUnitSettings unitSettings, 
+            IPeacefulBehaviour peacefulBehaviour, 
+            IAgressiveBehaviour agressiveBehaviour,
+            IGameEvents gameEvents,
+            IEventDispatcher eventDispatcher)
         {
             MoveController = moveController;
             AttackController = attackController;
@@ -22,6 +35,7 @@ namespace Scripts.Units
             PeacefulBehaviour = peacefulBehaviour;
             AgressiveBehaviour = agressiveBehaviour;
             GameEvents = gameEvents;
+            EventDispatcher = eventDispatcher;
         }
 
         public MoveController MoveController { get; }
@@ -36,5 +50,6 @@ namespace Scripts.Units
         public IPeacefulBehaviour PeacefulBehaviour { get; }
         public IAgressiveBehaviour AgressiveBehaviour { get; }
         public IGameEvents GameEvents { get; }
+        public IEventDispatcher EventDispatcher { get; }
     }
 }

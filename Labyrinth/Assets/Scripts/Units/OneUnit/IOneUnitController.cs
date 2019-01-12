@@ -15,6 +15,6 @@ namespace Scripts.Units
         event Action<IntVector2> PositionChanged;
         event Action MoveToComplete;        
         event Action MoveOneStepStart;
-        event Action MoveOneStepComplete;
+        event Action MoveTileComplete;
     }
 }
