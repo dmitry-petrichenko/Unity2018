@@ -55,9 +55,9 @@ public class UnitsInstaller : Module
         builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
         builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
         
-        builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
-        builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
-        builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
+        builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();//1
+        builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();//1
+        builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();//1
     }
 
     private void InstallBaseMovingSubComponents(ContainerBuilder builder)

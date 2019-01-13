@@ -21,7 +21,8 @@ namespace Scripts.Units
             IPeacefulBehaviour peacefulBehaviour, 
             IAgressiveBehaviour agressiveBehaviour,
             IGameEvents gameEvents,
-            IEventDispatcher eventDispatcher)
+            IEventDispatcher eventDispatcher,
+            IBaseMovingController baseMovingController)
         {
             MoveController = moveController;
             AttackController = attackController;
@@ -36,6 +37,7 @@ namespace Scripts.Units
             AgressiveBehaviour = agressiveBehaviour;
             GameEvents = gameEvents;
             EventDispatcher = eventDispatcher;
+            BaseMovingController = baseMovingController;
         }
 
         public MoveController MoveController { get; }
@@ -51,5 +53,6 @@ namespace Scripts.Units
         public IAgressiveBehaviour AgressiveBehaviour { get; }
         public IGameEvents GameEvents { get; }
         public IEventDispatcher EventDispatcher { get; }
+        public IBaseMovingController BaseMovingController { get; }
     }
 }

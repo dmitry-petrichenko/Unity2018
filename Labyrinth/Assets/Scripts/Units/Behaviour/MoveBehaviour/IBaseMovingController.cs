@@ -4,6 +4,8 @@ namespace Scripts.Units
 {
     public interface IBaseMovingController
     {
+        void Wait();
+        void Wait(IntVector2 position);
         void Attack(IntVector2 position);
         void MoveTo(IntVector2 position);
         void MoveTo(List<IntVector2> path);

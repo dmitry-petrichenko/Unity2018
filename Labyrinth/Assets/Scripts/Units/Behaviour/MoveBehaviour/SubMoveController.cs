@@ -41,15 +41,22 @@ namespace Scripts.Units
         {
             _motionController.MoveStart += StartMoveHandler;
         }
-
-        private void StartMoveHandler()
+                
+        public void SetOnPosition(IntVector2 position)
         {
-            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_START);
+            _motionController.SetOnPosition(position);
+            _unitsTable.SetOccupied(Position);
         }
-
-        private void MoveStepCompleteHandler()
-        {       
-            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_COMPLETE);
+        
+        public void Wait()
+        {
+            _animationController.PlayIdleAnimation();
+        }
+        
+        public void Wait(IntVector2 position)
+        {
+            _rotationController.Rotate(Position, position);
+            _animationController.PlayIdleAnimation();
         }
         
         public void Attack(IntVector2 position)
@@ -70,6 +77,16 @@ namespace Scripts.Units
             _motionController.MoveComplete += MoveNextStep;
             _path = path;
             MoveNextStep();
+        }
+        
+        private void StartMoveHandler()
+        {
+            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_START);
+        }
+
+        private void MoveStepCompleteHandler()
+        {       
+            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_COMPLETE);
         }
 
         private void Reset()
@@ -132,12 +149,6 @@ namespace Scripts.Units
         {
             _unitsTable.SetOccupied(newPosition);
             _unitsTable.SetVacant(previousPosition);
-        }
-        
-        public void SetOnPosition(IntVector2 position)
-        {
-            _motionController.SetOnPosition(position);
-            _unitsTable.SetOccupied(Position);
         }
     }
 }

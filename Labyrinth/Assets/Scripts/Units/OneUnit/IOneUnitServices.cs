@@ -22,5 +22,6 @@ namespace Scripts.Units
         IAgressiveBehaviour AgressiveBehaviour { get; }
         IGameEvents GameEvents { get; }
         IEventDispatcher EventDispatcher { get; }
+        IBaseMovingController BaseMovingController { get; }
     }
 }

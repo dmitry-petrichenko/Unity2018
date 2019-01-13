@@ -14,12 +14,14 @@ namespace Scripts.Units
         private MoveController _moveController;
         private IUnitsTable _unitsTable;
         private readonly IEventDispatcher _eventDispatcher;
+        private readonly IBaseMovingController _baseMovingController;
 
         public OneUnitController(IOneUnitServices services) : base(services)
         {
             _unitsTable = services.UnitsTable;
             _moveController = services.MoveController;
             _eventDispatcher = services.EventDispatcher;
+            _baseMovingController = services.BaseMovingController;
         }
 
         protected void Initialize()
@@ -81,13 +83,12 @@ namespace Scripts.Units
 
         public void Wait()
         {
-            AnimationController.PlayIdleAnimation();
+            _baseMovingController.Wait();
         }
         
         public void Wait(IntVector2 position)
         {
-            RotationController.Rotate(Position, position);
-            AnimationController.PlayIdleAnimation();
+            _baseMovingController.Wait(position);
         }
 
         public void Dispose()
