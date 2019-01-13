@@ -8,13 +8,15 @@ namespace Scripts.Units
     public interface IOneUnitController : IOneUnitServicesContainer
     {
         IntVector2 Position { get; }
+        void Initialize(string settingsPath);
         void MoveTo(IntVector2 position);
         void Wait();
         void Wait(IntVector2 position);
+        void SetOnPosition(IntVector2 position);
+        void UpdatePosition();
         
         event Action<IntVector2> PositionChanged;
         event Action MovePathComplete;        
-        event Action MoveTileStart;
         event Action MoveTileComplete;
     }
 }

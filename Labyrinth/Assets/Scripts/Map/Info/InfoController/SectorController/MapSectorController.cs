@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Settings;
-using Scripts.Units;
-using Scripts.Units.Player;
 
 namespace Scripts.Map.Info
 {
@@ -45,7 +43,6 @@ namespace Scripts.Map.Info
             UpdateAdjacents(position);
             RemoveUnusedTiles();
         }
-        
                 
         private void RemoveUnusedTiles()
         {

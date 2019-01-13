@@ -1,40 +1,49 @@
 ﻿using Scripts.Settings;
-using Scripts.Units.Settings;
 
 namespace Scripts.Units.Enemy
 {
-    public class EnemyController : OneUnitController
+    public class EnemyController
     {
         public delegate EnemyController Factory();
         
         private IPeacefulBehaviour _peacefulBehaviour; 
         private IAgressiveBehaviour _agressiveBehaviour; 
-        private IUnitSettings _unitSettings; 
         private ISettings _settings;
+        private readonly IOneUnitController _oneUnitController;
 
-        public EnemyController(IOneUnitServices services) : base(services)
+        public EnemyController(
+            IOneUnitController oneUnitController,
+            IPeacefulBehaviour peacefulBehaviour,
+            IAgressiveBehaviour agressiveBehaviour,
+            ISettings settings
+            )
         {
-            _settings = services.Settings;
-            _unitSettings = services.UnitSettings;
-            _peacefulBehaviour = services.PeacefulBehaviour;
-            _agressiveBehaviour = services.AgressiveBehaviour;
+            _settings = settings;
+            _peacefulBehaviour = peacefulBehaviour;
+            _agressiveBehaviour = agressiveBehaviour;
+            _oneUnitController = oneUnitController;
             
             Initialize();
         }
             
         void Initialize()
         {
-            UnitSettings = _unitSettings;
-            UnitSettings.Initialize(_settings.UnitsResourcesLocation + "SpiderBlack01.json");
-            base.Initialize();
+            //base.Initialize(_settings.UnitsResourcesLocation + "SpiderBlack01.json");
+            //base.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
+            _oneUnitController.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
             
-            _peacefulBehaviour.Initialize(this);
-            _agressiveBehaviour.Initialize(this);
+            _peacefulBehaviour.Initialize(_oneUnitController);
+            _agressiveBehaviour.Initialize(_oneUnitController);
+        }
+
+        public void SetOnPosition(IntVector2 position)
+        {
+            _oneUnitController.SetOnPosition(position);
         }
 
         public void Animate()
         {
-            _peacefulBehaviour.Initialize(this);
+            _peacefulBehaviour.Initialize(_oneUnitController);
             _peacefulBehaviour.Start();
         }
 

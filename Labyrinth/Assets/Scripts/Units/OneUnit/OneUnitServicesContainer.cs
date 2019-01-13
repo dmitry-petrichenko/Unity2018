@@ -7,35 +7,35 @@ namespace Scripts.Units
 {
     public class OneUnitServicesContainer : IOneUnitServicesContainer
     {
-        private IOneUnitMotionController _oneUnitMotionController;
-        private IOneUnitAnimationController _oneUnitAnimationController;
-        private IOneUnitRotationController _oneUnitRotationController;
         private IUnitStateInfo _unitStateInfo;
-
-        public OneUnitServicesContainer(IOneUnitServices services)
+        
+        public OneUnitServicesContainer(
+            IOneUnitMotionController oneUnitMotionController,
+            IOneUnitAnimationController oneUnitAnimationController,
+            IOneUnitRotationController oneUnitRotationController,
+            IUnitStateInfo unitStateInfo,
+            IUnitSettings unitSettings
+            )
         {
-            _oneUnitRotationController = services.OneUnitRotationController;
-            _oneUnitMotionController = services.OneUnitMotionController;
-            _oneUnitAnimationController = services.OneUnitAnimationController;
-            _unitStateInfo = services.UnitStateInfo;
+            RotationController = oneUnitRotationController;
+            MotionController = oneUnitMotionController;
+            AnimationController = oneUnitAnimationController;
+            UnitStateInfo = unitStateInfo;
+            UnitSettings = unitSettings;
         }
 
-        public void Initialize()
+        public void Initialize(string settingsPath)
         {
-            _oneUnitMotionController.Initialize(UnitSettings);
-            _oneUnitAnimationController.Initialize(UnitSettings);
-            _oneUnitRotationController.Initialize(UnitSettings);
-
-            MotionController = _oneUnitMotionController;
-            AnimationController = _oneUnitAnimationController;
-            RotationController = _oneUnitRotationController;
-            UnitStateInfo = _unitStateInfo;
+            UnitSettings.Initialize(settingsPath);
+            MotionController.Initialize(UnitSettings);
+            AnimationController.Initialize(UnitSettings);
+            RotationController.Initialize(UnitSettings);
         }
         
-        public IOneUnitMotionController MotionController { get; set; }
-        public IOneUnitAnimationController AnimationController { get; set; }
-        public IOneUnitRotationController RotationController { get; set; }
-        public IUnitSettings UnitSettings { get; set; }
-        public IUnitStateInfo UnitStateInfo { get; set; }
+        public IOneUnitMotionController MotionController { get; }
+        public IOneUnitAnimationController AnimationController { get; }
+        public IOneUnitRotationController RotationController { get; }
+        public IUnitSettings UnitSettings { get; }
+        public IUnitStateInfo UnitStateInfo { get; }
     }
 }

@@ -22,7 +22,6 @@ public class UnitsInstaller : Module
 
     private void InstallUnitsComponents(ContainerBuilder builder)
     {
-        builder.RegisterType<OneUnitServices>().As<IOneUnitServices>().PropertiesAutowired();
         builder.RegisterType<UnitsController>().AsSelf().SingleInstance();
         builder.RegisterType<PathFinderController>().As<IPathFinderController>().SingleInstance();
         builder.RegisterType<MoveToPositionAction>().AsSelf().InstancePerDependency();
@@ -40,6 +39,8 @@ public class UnitsInstaller : Module
         builder.CreateScopeForType<BaseMovingController>(InstallBaseMovingSubComponents)
             .As<IBaseMovingController>().SingleInstance();
         
+        builder.RegisterType<OneUnitServicesContainer>().As<IOneUnitServicesContainer>().SingleInstance();
+        builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
         builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
         builder.RegisterType<MoveController>().AsSelf().SingleInstance();
         builder.RegisterType<AttackController>().AsSelf().SingleInstance();

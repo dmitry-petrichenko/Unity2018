@@ -7,9 +7,11 @@ namespace Scripts.Units
 {
     public interface IOneUnitServicesContainer
     {
-        IOneUnitMotionController MotionController { get; set; }
-        IOneUnitAnimationController AnimationController { get; set; }
-        IOneUnitRotationController RotationController { get; set; }
+        void Initialize(string settingsPath);
+        
+        IOneUnitMotionController MotionController { get; }
+        IOneUnitAnimationController AnimationController { get; }
+        IOneUnitRotationController RotationController { get; }
         IUnitSettings UnitSettings { get; }
         IUnitStateInfo UnitStateInfo { get; }
     }
