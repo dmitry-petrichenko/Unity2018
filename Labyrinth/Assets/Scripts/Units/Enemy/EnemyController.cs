@@ -28,8 +28,6 @@ namespace Scripts.Units.Enemy
             
         void Initialize()
         {
-            //base.Initialize(_settings.UnitsResourcesLocation + "SpiderBlack01.json");
-            //base.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
             _oneUnitController.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
             
             _peacefulBehaviour.Initialize(_oneUnitController);

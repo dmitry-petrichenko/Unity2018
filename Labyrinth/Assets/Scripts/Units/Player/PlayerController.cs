@@ -20,7 +20,7 @@ namespace Scripts.Units.Player
             )
         {
             _settings = settings;
-            _gameEvents = gameEvents;
+            _gameEvents = gameEvents;    
             _oneUnitController = oneUnitController;
             _eventDispatcher = eventDispatcher;
             
@@ -29,7 +29,6 @@ namespace Scripts.Units.Player
         
         private void Initialize()
         {
-            //base.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
             _oneUnitController.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
 
             _oneUnitController.MovePathComplete += _oneUnitController.Wait;

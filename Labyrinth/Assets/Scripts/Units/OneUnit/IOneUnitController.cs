@@ -13,7 +13,6 @@ namespace Scripts.Units
         void Wait();
         void Wait(IntVector2 position);
         void SetOnPosition(IntVector2 position);
-        void UpdatePosition();
         
         event Action<IntVector2> PositionChanged;
         event Action MovePathComplete;        

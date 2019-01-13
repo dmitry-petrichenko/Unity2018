@@ -16,7 +16,7 @@ using Units.ExternalAPI;
 public class UnitsInstaller : Module
 {
     protected override void Load(ContainerBuilder builder)
-    {   
+    {
         builder.CreateScopeForType<UnitsController>(InstallUnitsComponents).As<IUnitsController>().SingleInstance();
     }
 
@@ -56,9 +56,9 @@ public class UnitsInstaller : Module
         builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
         builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
         
-        builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();//1
-        builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();//1
-        builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();//1
+        builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
+        builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
+        builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
     }
 
     private void InstallBaseMovingSubComponents(ContainerBuilder builder)
