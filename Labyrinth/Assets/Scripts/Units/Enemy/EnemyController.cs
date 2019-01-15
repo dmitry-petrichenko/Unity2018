@@ -1,6 +1,4 @@
-﻿using Scripts.Settings;
-
-namespace Scripts.Units.Enemy
+﻿namespace Scripts.Units.Enemy
 {
     public class EnemyController
     {
@@ -8,17 +6,14 @@ namespace Scripts.Units.Enemy
         
         private IPeacefulBehaviour _peacefulBehaviour; 
         private IAgressiveBehaviour _agressiveBehaviour; 
-        private ISettings _settings;
         private readonly IOneUnitController _oneUnitController;
 
         public EnemyController(
             IOneUnitController oneUnitController,
             IPeacefulBehaviour peacefulBehaviour,
-            IAgressiveBehaviour agressiveBehaviour,
-            ISettings settings
+            IAgressiveBehaviour agressiveBehaviour
             )
         {
-            _settings = settings;
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;
             _oneUnitController = oneUnitController;
@@ -28,8 +23,6 @@ namespace Scripts.Units.Enemy
             
         void Initialize()
         {
-            _oneUnitController.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
-            
             _peacefulBehaviour.Initialize(_oneUnitController);
             _agressiveBehaviour.Initialize(_oneUnitController);
         }

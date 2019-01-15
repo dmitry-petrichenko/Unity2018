@@ -1,37 +1,36 @@
 ﻿using System;
 using ID5D6AAC.Common.EventDispatcher;
-using Scripts.Settings;
 using Scripts.Units.Events;
+using Scripts.Units.Settings;
+using Scripts.Units.StateInfo;
 
 namespace Scripts.Units.Player
 {
     public class PlayerController : IPlayerController, IDisposable
     {
-        private ISettings _settings;
         private IGameEvents _gameEvents;
         private readonly IOneUnitController _oneUnitController;
         private readonly IEventDispatcher _eventDispatcher;
-        
+        private IUnitSettings _unitSettings;
+
         public PlayerController(
-            ISettings settings,
             IGameEvents gameEvents,
             IOneUnitController oneUnitController,
-            IEventDispatcher eventDispatcher
+            IEventDispatcher eventDispatcher,
+            IUnitSettings unitSettings
             )
         {
-            _settings = settings;
             _gameEvents = gameEvents;    
             _oneUnitController = oneUnitController;
             _eventDispatcher = eventDispatcher;
+            _unitSettings = unitSettings;
             
             Initialize();
         }
         
         private void Initialize()
         {
-            _oneUnitController.Initialize(_settings.UnitsResourcesLocation + "RedMage.json");
-
-            _oneUnitController.MovePathComplete += _oneUnitController.Wait;
+            _oneUnitController.MovePathComplete += Wait;
             _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_START, MoveTileStartHandler);
             _oneUnitController.SetOnPosition(new IntVector2(1, 1));
         }
@@ -45,21 +44,48 @@ namespace Scripts.Units.Player
         {
         }
 
+        public void SetOnPosition(IntVector2 position)
+        {
+            _oneUnitController.SetOnPosition(position);
+        }
+
         public event Action<IntVector2> PositionChanged
         {
             add => _oneUnitController.PositionChanged += value;
             remove => _oneUnitController.PositionChanged -= value;
         }
         
+        public event Action MovePathComplete
+        {
+            add => _oneUnitController.MovePathComplete += value;
+            remove => _oneUnitController.MovePathComplete -= value;
+        }
+        
+        public event Action MoveTileComplete
+        {
+            add => _oneUnitController.MoveTileComplete += value;
+            remove => _oneUnitController.MoveTileComplete -= value;
+        }
+
+        public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
+
         public void MoveTo(IntVector2 position)
         {
             _oneUnitController.MoveTo(position);
         }
 
-        public object GraphicObject => _oneUnitController.UnitSettings.GraphicObject;
-        public IntVector2 Position => _oneUnitController.Position;
+        public void Wait()
+        {
+            _oneUnitController.Wait();
+        }
 
-        public IOneUnitController o => _oneUnitController; //TODO change
+        public void Wait(IntVector2 position)
+        {
+            _oneUnitController.Wait(position);
+        }
+
+        public object GraphicObject => _unitSettings.GraphicObject;
+        public IntVector2 Position => _oneUnitController.Position;
 
         public void Dispose()
         {

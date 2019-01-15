@@ -2,8 +2,7 @@
 
 namespace Scripts.Units.Player
 {
-    public interface IPlayerController : IPlayer
+    public interface IPlayerController : IOneUnitController, IPlayer
     {
-        IOneUnitController o { get; }
     }
 }

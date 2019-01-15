@@ -2,13 +2,15 @@
 using Units;
 using Scripts.Units.Rotation;
 using Scripts.Units.Settings;
+using Scripts.Units.StateInfo;
 
 namespace Scripts.Units
 {
-    public interface IOneUnitController : IOneUnitServicesContainer
+    public interface IOneUnitController
     {
         IntVector2 Position { get; }
-        void Initialize(string settingsPath);
+        IUnitStateInfo UnitStateInfo { get; }
+       
         void MoveTo(IntVector2 position);
         void Wait();
         void Wait(IntVector2 position);

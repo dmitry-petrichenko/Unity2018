@@ -8,7 +8,6 @@ namespace Scripts.Units
 {
     public class SubMoveController : ISubMoveController
     {
-        private IOneUnitServicesContainer _oneUnitServicesContainer;
         private IOneUnitRotationController _rotationController;
         private IOneUnitAnimationController _animationController;
         private IOneUnitMotionController _motionController;

@@ -8,6 +8,5 @@ namespace Units
         void PlayWalkAnimation();
         void PlayAttackAnimation();
         void PlayIdleAnimation();
-        void Initialize(IUnitSettings unitSettings);
     }
 }

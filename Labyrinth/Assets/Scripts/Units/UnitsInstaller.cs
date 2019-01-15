@@ -30,23 +30,33 @@ public class UnitsInstaller : Module
         builder.RegisterType<MovingRandomizer>().As<IMovingRandomizer>().SingleInstance();
         builder.RegisterType<UnitBehaviourGenerator>().AsSelf().InstancePerDependency();
         
-        builder.CreateScopeForType<EnemyController>(InstallOneUnitSubComponents).As<EnemyController>().InstancePerDependency();
-        builder.CreateScopeForType<PlayerController>(InstallOneUnitSubComponents).As<IPlayerController>().SingleInstance();
+        builder.CreateScopeForType<EnemyController>(InstallEnemyComponents).As<EnemyController>().InstancePerDependency();
+        builder.CreateScopeForType<PlayerController>(InstallPlayerComponents).As<IPlayerController>().SingleInstance();
     }
 
-    private void InstallOneUnitSubComponents(ContainerBuilder builder)
+    private void InstallPlayerComponents(ContainerBuilder builder)
+    {
+        builder.RegisterType<PlayerSettings>().As<IUnitSettings>().SingleInstance();
+        InstallOneUnitComponents(builder);
+    }
+    
+    private void InstallEnemyComponents(ContainerBuilder builder)
+    {
+        builder.RegisterType<EnemySettings>().As<IUnitSettings>().SingleInstance();
+        InstallOneUnitComponents(builder);
+    }
+
+    private void InstallOneUnitComponents(ContainerBuilder builder)
     {
         builder.CreateScopeForType<BaseMovingController>(InstallBaseMovingSubComponents)
             .As<IBaseMovingController>().SingleInstance();
         
-        builder.RegisterType<OneUnitServicesContainer>().As<IOneUnitServicesContainer>().SingleInstance();
         builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
         builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
         builder.RegisterType<MoveController>().AsSelf().SingleInstance();
         builder.RegisterType<AttackController>().AsSelf().SingleInstance();
         builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
         builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
-        builder.RegisterType<UnitSettings>().As<IUnitSettings>().SingleInstance();
         builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
         builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
         builder.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();

@@ -27,14 +27,14 @@ namespace Scripts.Units
             _waitMoveTurnController.Initialize(_unitController);
         }
         
-        public void MoveTo(IntVector2 position)
-        {
-            _baseMovingController.MoveTo(position);
-        }
+        public IntVector2 Position => _baseMovingController.Position;
         
-        public void SetOnPosition(IntVector2 position)
-        {
-            _baseMovingController.SetOnPosition(position);
-        }
+        public void MoveTo(IntVector2 position) => _baseMovingController.MoveTo(position);
+        
+        public void Wait() => _baseMovingController.Wait();
+        
+        public void Wait(IntVector2 position) => _baseMovingController.Wait(position);
+        
+        public void SetOnPosition(IntVector2 position) => _baseMovingController.SetOnPosition(position);
     }
 }

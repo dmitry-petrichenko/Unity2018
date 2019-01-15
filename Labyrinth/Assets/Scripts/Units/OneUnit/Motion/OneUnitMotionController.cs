@@ -7,9 +7,15 @@ namespace Scripts.Units
 {
     public class OneUnitMotionController : IOneUnitMotionController
     {
+        private readonly IUnitSettings _unitSettings;
         private GameObject _unit;
-        private IUnitSettings _unitSettings;
-        
+
+        public OneUnitMotionController(IUnitSettings unitSettings)
+        {
+            _unitSettings = unitSettings;
+            _unit = _unitSettings.GraphicObject;
+        }
+
         public IntVector2 Position { get; private set; }
         public bool IsMoving { get; private set; }
 
@@ -18,12 +24,6 @@ namespace Scripts.Units
             _unit.transform.position = new Vector3(position.x, 0, position.y);
             Position = position;
             MoveStart?.Invoke();
-        }   
-
-        public void Initialize(IUnitSettings unitSettings)
-        {
-            _unitSettings = unitSettings;
-            _unit = _unitSettings.GraphicObject;
         }
 
         public void MoveToPosition(IntVector2 position)

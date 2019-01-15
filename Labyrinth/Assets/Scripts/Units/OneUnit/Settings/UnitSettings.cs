@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts.Units.Settings
 {
-    public class UnitSettings : IUnitSettings
+    public abstract class UnitSettings : IUnitSettings
     {
         public float MotionSpeed { get; private set; }
         public GameObject GraphicObject { get; private set; }
@@ -33,10 +33,7 @@ namespace Scripts.Units.Settings
 
         private GameObject InstantiatePrefabFromResourcePath(string path)
         {
-            //Object prefab = AssetDatabase.LoadAssetAtPath(path, typeof(PlayerController)); 
-            //PlayerController player = Instantiate(prefab) as PlayerController;
             //https://answers.unity.com/questions/313398/is-it-possible-to-get-a-prefab-object-from-its-ass.html
-            
             UnityEngine.Object pPrefab = Resources.Load(path);
             GameObject pNewObject = (GameObject)GameObject.Instantiate(pPrefab, Vector3.zero, Quaternion.identity);
 

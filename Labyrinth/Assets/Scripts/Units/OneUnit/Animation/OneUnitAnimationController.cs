@@ -8,8 +8,8 @@ namespace Units
     {
         private GameObject _unit;
         private IUnitScript _unitScript;
-        
-        public void Initialize(IUnitSettings unitSettings)
+
+        public OneUnitAnimationController(IUnitSettings unitSettings)
         {
             _unit = unitSettings.GraphicObject;
             _unitScript = _unit.GetComponentInChildren(typeof(IUnitScript)) as IUnitScript;

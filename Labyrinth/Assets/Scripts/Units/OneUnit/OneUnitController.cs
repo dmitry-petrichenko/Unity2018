@@ -17,49 +17,35 @@ namespace Scripts.Units
         private MoveController _moveController;
         private IUnitsTable _unitsTable;
         private readonly IEventDispatcher _eventDispatcher;
-        private readonly IBaseMovingController _baseMovingController;
-        private readonly IOneUnitServicesContainer _oneUnitServicesContainer;
+        private IUnitStateInfo _unitStateInfo;
 
         public OneUnitController(
             IUnitsTable unitsTable,
             MoveController moveController,
             IEventDispatcher eventDispatcher,
-            IBaseMovingController baseMovingController,
-            IOneUnitServicesContainer oneUnitServicesContainer
+            IUnitStateInfo unitStateInfo
             )
         {
+            _unitStateInfo = unitStateInfo;
             _unitsTable = unitsTable;
             _moveController = moveController;            
             _eventDispatcher = eventDispatcher;
-            _baseMovingController = baseMovingController;
-            _oneUnitServicesContainer = oneUnitServicesContainer;
-        }
-
-        public void Initialize(string settingsPath)
-        {
-            _oneUnitServicesContainer.Initialize(settingsPath);
-
+            
             SubscribeOnEvents();
-           
-            // Initialize behaviour
             _moveController.Initialize(this);
             _unitsTable.AddUnit(this);
         }
-        
-        public IUnitStateInfo UnitStateInfo { get; }
-        public IOneUnitMotionController MotionController => _oneUnitServicesContainer.MotionController;
-        public IOneUnitAnimationController AnimationController => _oneUnitServicesContainer.AnimationController;
-        public IOneUnitRotationController RotationController => _oneUnitServicesContainer.RotationController;
-        public IUnitSettings UnitSettings => _oneUnitServicesContainer.UnitSettings;
-        public IntVector2 Position => MotionController.Position;
 
-        public void SetOnPosition(IntVector2 position) => _baseMovingController.SetOnPosition(position);
-        
-        public void MoveTo(IntVector2 position) => _baseMovingController.MoveTo(position);
+        public IUnitStateInfo UnitStateInfo => _unitStateInfo;
+        public IntVector2 Position => _moveController.Position;
 
-        public void Wait() => _baseMovingController.Wait();
+        public void SetOnPosition(IntVector2 position) => _moveController.SetOnPosition(position);
         
-        public void Wait(IntVector2 position) => _baseMovingController.Wait(position);
+        public void MoveTo(IntVector2 position) => _moveController.MoveTo(position);
+
+        public void Wait() => _moveController.Wait();
+        
+        public void Wait(IntVector2 position) => _moveController.Wait(position);
 
         public void Dispose()
         {
