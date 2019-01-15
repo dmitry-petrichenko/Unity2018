@@ -27,11 +27,7 @@ namespace Scripts.Units
             _unitStateInfo = unitStateInfo;
             _noWayEventRouter = noWayEventRouter;
             _baseMovingController = baseMovingController;
-        }
-        
-        public void Initialize(IOneUnitController oneUnitController)
-        {
-            _oneUnitController = oneUnitController;
+            
             _noWayEventRouter.NoWayToPointHandler += NoWayToPointHandler;
         }
 
@@ -47,11 +43,11 @@ namespace Scripts.Units
             if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _baseMovingController.Position))
             {
                 IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseMovingController.Position);
-                _oneUnitController.MoveTo(newPosition);
+                _baseMovingController.MoveTo(newPosition);
                 return;
             }
 
-            _oneUnitController.Wait(_targetUnit.Position);
+            _baseMovingController.Wait(_targetUnit.Position);
             _unitStateInfo.WaitPosition = position;
             _targetUnit.PositionChanged += TargetUnitPositionChanged;
         }
@@ -71,7 +67,7 @@ namespace Scripts.Units
 
         private void MoveToDestination()
         {
-            _oneUnitController.MoveTo(_baseMovingController.Destination);
+            _baseMovingController.MoveTo(_baseMovingController.Destination);
         }
     }
 }

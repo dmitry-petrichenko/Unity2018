@@ -4,9 +4,7 @@ namespace Scripts.Units
 {
     public class MoveController
     {
-        private IOneUnitController _unitController;
         private IBaseMovingController _baseMovingController;
-        private WaitMoveTurnController _waitMoveTurnController;
 
         public event Action MoveToComplete;
         
@@ -16,15 +14,7 @@ namespace Scripts.Units
             WaitMoveTurnController waitMoveTurnController
             )
         {
-            _waitMoveTurnController = waitMoveTurnController;
             _baseMovingController = baseMovingController;
-        }
-        
-        public void Initialize(IOneUnitController unitController)
-        {
-            _unitController = unitController;
-            
-            _waitMoveTurnController.Initialize(_unitController);
         }
         
         public IntVector2 Position => _baseMovingController.Position;

@@ -29,7 +29,6 @@ namespace Scripts.Units
             _eventDispatcher = eventDispatcher;
             
             SubscribeOnEvents();
-            _moveController.Initialize(this);
             _unitsTable.AddUnit(this);
         }
 
