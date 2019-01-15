@@ -1,10 +1,7 @@
 ﻿using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Units.Events;
-using Scripts.Units.Rotation;
-using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
-using Units;
 
 namespace Scripts.Units
 {
@@ -47,10 +44,7 @@ namespace Scripts.Units
         
         public void Wait(IntVector2 position) => _moveController.Wait(position);
 
-        public void Dispose()
-        {
-            UnsubscribeFromEvents();
-        }
+        public void Dispose() => UnsubscribeFromEvents();
 
         private void SubscribeOnEvents()
         {

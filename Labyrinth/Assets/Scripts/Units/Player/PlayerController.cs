@@ -18,16 +18,16 @@ namespace Scripts.Units.Player
             IOneUnitController oneUnitController,
             IEventDispatcher eventDispatcher,
             IUnitSettings unitSettings
-            )
+        )
         {
-            _gameEvents = gameEvents;    
+            _gameEvents = gameEvents;
             _oneUnitController = oneUnitController;
             _eventDispatcher = eventDispatcher;
             _unitSettings = unitSettings;
-            
+
             Initialize();
         }
-        
+
         private void Initialize()
         {
             _oneUnitController.MovePathComplete += Wait;
@@ -35,19 +35,11 @@ namespace Scripts.Units.Player
             _oneUnitController.SetOnPosition(new IntVector2(1, 1));
         }
 
-        private void MoveTileStartHandler()
-        {
-            _gameEvents.TriggerPlayerPositionChanged(Position);
-        }
+        private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position);
 
-        public void Attack(IntVector2 position)
-        {
-        }
+        public void Attack(IntVector2 position) {}
 
-        public void SetOnPosition(IntVector2 position)
-        {
-            _oneUnitController.SetOnPosition(position);
-        }
+        public void SetOnPosition(IntVector2 position) => _oneUnitController.SetOnPosition(position);
 
         public event Action<IntVector2> PositionChanged
         {
@@ -61,7 +53,7 @@ namespace Scripts.Units.Player
             remove => _oneUnitController.MovePathComplete -= value;
         }
         
-        public event Action MoveTileComplete
+        public event Action MoveTileComplete 
         {
             add => _oneUnitController.MoveTileComplete += value;
             remove => _oneUnitController.MoveTileComplete -= value;
@@ -69,20 +61,11 @@ namespace Scripts.Units.Player
 
         public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
 
-        public void MoveTo(IntVector2 position)
-        {
-            _oneUnitController.MoveTo(position);
-        }
+        public void MoveTo(IntVector2 position) => _oneUnitController.MoveTo(position);
 
-        public void Wait()
-        {
-            _oneUnitController.Wait();
-        }
+        public void Wait() => _oneUnitController.Wait();
 
-        public void Wait(IntVector2 position)
-        {
-            _oneUnitController.Wait(position);
-        }
+        public void Wait(IntVector2 position) => _oneUnitController.Wait(position);
 
         public object GraphicObject => _unitSettings.GraphicObject;
         public IntVector2 Position => _oneUnitController.Position;
