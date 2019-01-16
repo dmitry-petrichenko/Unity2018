@@ -48,8 +48,8 @@ public class UnitsInstaller : Module
 
     private void InstallOneUnitComponents(ContainerBuilder builder)
     {
-        builder.CreateScopeForType<BaseMovingController>(InstallBaseMovingSubComponents)
-            .As<IBaseMovingController>().SingleInstance();
+        builder.CreateScopeForType<BaseActionController>(InstallBaseMovingSubComponents)
+            .As<IBaseActionController>().SingleInstance();
         
         builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
         builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
@@ -66,6 +66,8 @@ public class UnitsInstaller : Module
         builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
         builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
         
+        builder.RegisterType<UnitGameObjectController>().As<IUnitGameObjectController>().SingleInstance();
+        
         builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
         builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
         builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
@@ -74,6 +76,6 @@ public class UnitsInstaller : Module
     private void InstallBaseMovingSubComponents(ContainerBuilder builder)
     {
         builder.RegisterType<ChangeDirrectionAfterMoveTileCompleteController>().AsSelf().SingleInstance();
-        builder.RegisterType<SubMoveController>().As<ISubMoveController>().SingleInstance();
+        builder.RegisterType<MoveStepByStepController>().As<IMoveStepByStepController>().SingleInstance();
     }
 }

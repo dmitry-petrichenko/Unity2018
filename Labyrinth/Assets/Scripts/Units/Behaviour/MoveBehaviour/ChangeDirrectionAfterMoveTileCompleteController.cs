@@ -8,24 +8,24 @@ namespace Scripts.Units
 {
     public class ChangeDirrectionAfterMoveTileCompleteController
     {
-        private ISubMoveController _subMoveController;
+        private IMoveStepByStepController _moveStepByStepController;
         private IntVector2 _newPosition;
         private IPathFinderController _pathFinderController;
         private readonly IEventDispatcher _eventDispatcher;
         
         public ChangeDirrectionAfterMoveTileCompleteController(
             IPathFinderController pathFinderController,
-            ISubMoveController subMoveController, 
+            IMoveStepByStepController moveStepByStepController, 
             IEventDispatcher eventDispatcher)
         {
-            _subMoveController = subMoveController;
+            _moveStepByStepController = moveStepByStepController;
             _pathFinderController = pathFinderController;
             _eventDispatcher = eventDispatcher;
         }
 
         public void MoveTo(IntVector2 position)
         {
-            if (_subMoveController.IsMoving)
+            if (_moveStepByStepController.IsMoving)
             {
                 _newPosition = position;
                 ChangeDirrection();
@@ -38,15 +38,15 @@ namespace Scripts.Units
 
         private void MoveToDirrection(IntVector2 position)
         {
-            List<IntVector2> path = _pathFinderController.GetPath(_subMoveController.Position, position, null);
-            _subMoveController.Destination = position;
-            _subMoveController.MoveTo(path);
+            List<IntVector2> path = _pathFinderController.GetPath(_moveStepByStepController.Position, position, null);
+            _moveStepByStepController.Destination = position;
+            _moveStepByStepController.MoveTo(path);
         }
         
         private void ChangeDirrection()
         {
             _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
-            _subMoveController.Cancel();
+            _moveStepByStepController.Cancel();
             _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
         }
         

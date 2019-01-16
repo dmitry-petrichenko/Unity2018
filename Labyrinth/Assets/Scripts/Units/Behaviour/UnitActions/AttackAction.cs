@@ -11,20 +11,20 @@ namespace Scripts.Units.Behaviour.UnitActions
         private float _delayTime;
         private IntVector2 _targetPosition;
         private IGameLoopController _gameloopController;
-        private IBaseMovingController _baseMovingController;
+        private IBaseActionController _baseActionController;
         
         public AttackAction(
             IGameLoopController gameloopController,
-            IBaseMovingController baseMovingController)
+            IBaseActionController baseActionController)
         {
             _gameloopController = gameloopController;
-            _baseMovingController = baseMovingController;
+            _baseActionController = baseActionController;
             _delayTime = 1.5f;
         }
         
         public void Start()
         {
-            _baseMovingController.Attack(_targetPosition);
+            _baseActionController.Attack(_targetPosition);
             _gameloopController.DelayStart(TriggerComplete, _delayTime);
         }
 

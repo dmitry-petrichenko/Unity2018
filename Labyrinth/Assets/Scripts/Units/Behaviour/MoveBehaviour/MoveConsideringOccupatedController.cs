@@ -10,19 +10,19 @@ namespace Scripts.Units
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IPathFinderController _pathFinderController;
-        private readonly IBaseMovingController _baseMovingController;
+        private readonly IBaseActionController _baseActionController;
         private readonly IEventDispatcher _eventDispatcher;
         private List<IntVector2> _occupiedPossitions;
         
         public MoveConsideringOccupatedController(
             IUnitsTable unitsTable,
             IPathFinderController pathFinderController,
-            IBaseMovingController baseMovingController,
+            IBaseActionController baseActionController,
             IEventDispatcher eventDispatcher
             )
         {
             _unitsTable = unitsTable;
-            _baseMovingController = baseMovingController;
+            _baseActionController = baseActionController;
             _pathFinderController = pathFinderController;
             _eventDispatcher = eventDispatcher;
 
@@ -52,12 +52,12 @@ namespace Scripts.Units
 
         private void NextPositionOccupiedHandler(IntVector2 occupiedPosition)
         {
-            _baseMovingController.Cancel();
+            _baseActionController.Cancel();
             _occupiedPossitions = _unitsTable.GetOccupiedPositions();
             RemoveCurrentUnitPosition();
-            List<IntVector2> newPath = _pathFinderController.GetPath(_baseMovingController.Position,
-                _baseMovingController.Destination, _occupiedPossitions);
-            _baseMovingController.MoveTo(newPath);
+            List<IntVector2> newPath = _pathFinderController.GetPath(_baseActionController.Position,
+                _baseActionController.Destination, _occupiedPossitions);
+            _baseActionController.MoveTo(newPath);
         }
 
         private void RemoveCurrentUnitPosition()
@@ -65,7 +65,7 @@ namespace Scripts.Units
             List<IntVector2> copy;
             copy = CopyDictionary(_occupiedPossitions);
             _occupiedPossitions = copy;
-            _occupiedPossitions.Remove(_baseMovingController.Position);
+            _occupiedPossitions.Remove(_baseActionController.Position);
         }
         
         private List<IntVector2> CopyDictionary(List<IntVector2> value)

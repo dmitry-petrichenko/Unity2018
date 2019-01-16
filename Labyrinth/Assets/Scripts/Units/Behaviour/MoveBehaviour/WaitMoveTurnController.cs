@@ -8,7 +8,7 @@ namespace Scripts.Units
         private readonly IMovingRandomizer _movingRandomizer;
         private readonly IUnitStateInfo _unitStateInfo;
         private readonly INoWayEventRouter _noWayEventRouter;
-        private readonly IBaseMovingController _baseMovingController;
+        private readonly IBaseActionController _baseActionController;
         
         private IOneUnitController _targetUnit;
         private IntVector2 _occupiedPoint;
@@ -19,14 +19,14 @@ namespace Scripts.Units
             IMovingRandomizer movingRandomizer,
             IUnitStateInfo unitStateInfo,
             INoWayEventRouter noWayEventRouter,
-            IBaseMovingController baseMovingController
+            IBaseActionController baseActionController
             )
         {
             _unitsTable = unitsTable;
             _movingRandomizer = movingRandomizer;
             _unitStateInfo = unitStateInfo;
             _noWayEventRouter = noWayEventRouter;
-            _baseMovingController = baseMovingController;
+            _baseActionController = baseActionController;
             
             _noWayEventRouter.NoWayToPointHandler += NoWayToPointHandler;
         }
@@ -40,14 +40,14 @@ namespace Scripts.Units
         private void WaitUnitOnPosition(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _baseMovingController.Position))
+            if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _baseActionController.Position))
             {
-                IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseMovingController.Position);
-                _baseMovingController.MoveTo(newPosition);
+                IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseActionController.Position);
+                _baseActionController.MoveTo(newPosition);
                 return;
             }
 
-            _baseMovingController.Wait(_targetUnit.Position);
+            _baseActionController.Wait(_targetUnit.Position);
             _unitStateInfo.WaitPosition = position;
             _targetUnit.PositionChanged += TargetUnitPositionChanged;
         }
@@ -67,7 +67,7 @@ namespace Scripts.Units
 
         private void MoveToDestination()
         {
-            _baseMovingController.MoveTo(_baseMovingController.Destination);
+            _baseActionController.MoveTo(_baseActionController.Destination);
         }
     }
 }
