@@ -1,16 +1,10 @@
-﻿using System;
-using ID5D6AAC.Common.EventDispatcher;
-using Scripts.Units.Events;
+﻿using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 
 namespace Scripts.Units
 {
     public class OneUnitController : IOneUnitController
     {
-        public event Action<IntVector2> PositionChanged;
-        public event Action MovePathComplete;
-        public event Action MoveTileComplete;
-
         private readonly IUnitEvents _unitEvents;
         
         private MoveController _moveController;
@@ -21,8 +15,7 @@ namespace Scripts.Units
             IUnitsTable unitsTable,
             MoveController moveController,
             IUnitEvents unitEvents,
-            IUnitStateInfo unitStateInfo
-            )
+            IUnitStateInfo unitStateInfo)
         {
             _unitStateInfo = unitStateInfo;
             _unitsTable = unitsTable;
@@ -43,13 +36,5 @@ namespace Scripts.Units
         public void Wait() => _moveController.Wait();
         
         public void Wait(IntVector2 position) => _moveController.Wait(position);
-
-        private void MoveTileStartHandler() => UpdatePosition();
-        
-        private void MoveTileCompleteHandler() => MoveTileComplete?.Invoke();
-
-        private void MovePathCompleteHandler() => MovePathComplete?.Invoke();
-        
-        public void UpdatePosition() => PositionChanged?.Invoke(Position);
     }
 }

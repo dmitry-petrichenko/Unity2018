@@ -69,7 +69,6 @@ namespace Scripts.Units
             {
                 _oneUnitController.MoveTo(path[0]);
             }
-
         }
 
         private bool TargetPositionInUnitRange(IntVector2 position)
