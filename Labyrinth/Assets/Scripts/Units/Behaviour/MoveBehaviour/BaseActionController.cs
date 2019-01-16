@@ -6,16 +6,19 @@ namespace Scripts.Units
     {
         private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;
+        private readonly IUnitGameObjectController _unitGameObjectController;
 
         public BaseActionController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
-            IMoveStepByStepController moveStepByStepController)
+            IMoveStepByStepController moveStepByStepController,
+            IUnitGameObjectController unitGameObjectController)
         {
             _moveStepByStepController = moveStepByStepController;
             _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
+            _unitGameObjectController = unitGameObjectController;
         }
 
-        public void Attack(IntVector2 position) => _moveStepByStepController.Attack(position);
+        public void Attack(IntVector2 position) => _unitGameObjectController.Attack(position);
 
         public void MoveTo(IntVector2 position) => _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);
 

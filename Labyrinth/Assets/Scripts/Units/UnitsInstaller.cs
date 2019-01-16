@@ -5,6 +5,7 @@ using Units;
 using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
 using Scripts.Units.Enemy;
+using Scripts.Units.Events;
 using Scripts.Units.PathFinder;
 using Scripts.Units.Player;
 using Scripts.Units.Rotation;
@@ -65,6 +66,7 @@ public class UnitsInstaller : Module
         builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
         builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
         builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
+        builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
         
         builder.RegisterType<UnitGameObjectController>().As<IUnitGameObjectController>().SingleInstance();
         

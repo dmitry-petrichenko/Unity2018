@@ -29,14 +29,14 @@ namespace Scripts.Units
         public void Overtake(IOneUnitController target)
         {
             _target = target;
-            _target.MoveTileComplete += OnTargetPositionChanged;
+            _target.UnitEvents.MoveTileComplete += OnTargetPositionChanged;
             
             MoveToTarget();
         }
 
         private void OnUnitCompleteMoveTo()
         {
-            _oneUnitController.MovePathComplete -= OnUnitCompleteMoveTo;
+            _oneUnitController.UnitEvents.MoveTileComplete -= OnUnitCompleteMoveTo;
             Complete?.Invoke();
         }
 
@@ -57,7 +57,7 @@ namespace Scripts.Units
 
         private void MoveToTarget()
         {
-            _oneUnitController.MovePathComplete += OnUnitCompleteMoveTo;
+            _oneUnitController.UnitEvents.MovePathComplete += OnUnitCompleteMoveTo;
             List<IntVector2> path =
                 _pathFinderController.GetPath(_target.Position, _oneUnitController.Position, null);
 
@@ -100,7 +100,7 @@ namespace Scripts.Units
         public void Cancel()
         {
             Debug.Log("Overtake -=");
-            _target.MoveTileComplete += OnTargetPositionChanged;
+            _target.UnitEvents.MoveTileComplete += OnTargetPositionChanged;
         }
     }
 }

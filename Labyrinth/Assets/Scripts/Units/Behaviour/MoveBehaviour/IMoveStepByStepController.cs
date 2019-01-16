@@ -6,7 +6,6 @@ namespace Scripts.Units
     {
         void Wait();
         void Wait(IntVector2 position);
-        void Attack(IntVector2 position);
         void MoveTo(List<IntVector2> path);
         void Cancel();
         void SetOnPosition(IntVector2 position);

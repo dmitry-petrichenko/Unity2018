@@ -70,12 +70,12 @@ namespace Scripts.Units
 
         private void StartMoveHandler()
         {
-            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_START);
+            _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_START);
         }
         
         private void MoveStepCompleteHandler()
         {       
-            _eventDispatcher.DispatchEvent(UnitEvents.MOVE_TILE_COMPLETE);
+            _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_COMPLETE);
         }
     }
 }

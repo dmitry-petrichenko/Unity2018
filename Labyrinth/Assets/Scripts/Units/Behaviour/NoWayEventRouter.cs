@@ -25,7 +25,7 @@ namespace Scripts.Units
 
         private void Initialize()
         {
-            _eventDispatcher.AddEventListener<IntVector2>(UnitEvents.NO_WAY_TO_TILE, NoWayToPointEventHandler);
+            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_TILE, NoWayToPointEventHandler);
         }
 
         private void NoWayToPointEventHandler(IntVector2 position)
@@ -42,7 +42,7 @@ namespace Scripts.Units
         
         public void Dispose()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.NO_WAY_TO_TILE, new Action<IntVector2>(NoWayToPointEventHandler));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_TILE, new Action<IntVector2>(NoWayToPointEventHandler));
         }
     }
 }

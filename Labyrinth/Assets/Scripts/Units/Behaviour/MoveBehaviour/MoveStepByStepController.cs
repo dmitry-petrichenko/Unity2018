@@ -43,18 +43,13 @@ namespace Scripts.Units
         {
             _unitGameObjectController.Wait(position);
         }
-        
-        public void Attack(IntVector2 position)
-        {
-            _unitGameObjectController.Attack(position);
-        }
 
         public void MoveTo(List<IntVector2> path)
         {
             Reset();
             if (path.Count == 0)
             {
-                _eventDispatcher.DispatchEvent(UnitEvents.NO_WAY_TO_TILE, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(UnitEventsTypes.NO_WAY_TO_TILE, _nextOccupiedPossition);
                 return;
             }
             _unitGameObjectController.MoveComplete += MoveNextStep;
@@ -87,7 +82,7 @@ namespace Scripts.Units
             }
             else
             {
-                _eventDispatcher.DispatchEvent(UnitEvents.MOVE_PATH_COMPLETE);
+                _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_PATH_COMPLETE);
                 Reset();
             }
         }
@@ -105,7 +100,7 @@ namespace Scripts.Units
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
-                _eventDispatcher.DispatchEvent(UnitEvents.NEXT_TILE_OCCUPATED, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(UnitEventsTypes.NEXT_TILE_OCCUPATED, _nextOccupiedPossition);
 
                 return true;
             }

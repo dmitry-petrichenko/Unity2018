@@ -27,7 +27,7 @@ namespace Scripts
             _cameraController.Follow(_unitsController.Player.GraphicObject);
             _mapController.UpdateCurrentPosition(_unitsController.Player.Position);
             
-            _unitsController.Player.PositionChanged += PlayerPositionChanged;
+            _unitsController.Player.UnitEvents.PositionChanged += PlayerPositionChanged;
         }
         
         private void TileClickedHandler(IntVector2 position)

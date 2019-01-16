@@ -30,8 +30,8 @@ namespace Scripts.Units.Player
 
         private void Initialize()
         {
-            _oneUnitController.MovePathComplete += Wait;
-            _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_START, MoveTileStartHandler);
+            _oneUnitController.UnitEvents.MovePathComplete += Wait;
+            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
             _oneUnitController.SetOnPosition(new IntVector2(1, 1));
         }
 
@@ -41,25 +41,9 @@ namespace Scripts.Units.Player
 
         public void SetOnPosition(IntVector2 position) => _oneUnitController.SetOnPosition(position);
 
-        public event Action<IntVector2> PositionChanged
-        {
-            add => _oneUnitController.PositionChanged += value;
-            remove => _oneUnitController.PositionChanged -= value;
-        }
-        
-        public event Action MovePathComplete
-        {
-            add => _oneUnitController.MovePathComplete += value;
-            remove => _oneUnitController.MovePathComplete -= value;
-        }
-        
-        public event Action MoveTileComplete 
-        {
-            add => _oneUnitController.MoveTileComplete += value;
-            remove => _oneUnitController.MoveTileComplete -= value;
-        }
-
         public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
+        
+        public IUnitEvents UnitEvents => _oneUnitController.UnitEvents;
 
         public void MoveTo(IntVector2 position) => _oneUnitController.MoveTo(position);
 
@@ -72,7 +56,7 @@ namespace Scripts.Units.Player
 
         public void Dispose()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_START, new Action(MoveTileStartHandler));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
         }
     }
 }

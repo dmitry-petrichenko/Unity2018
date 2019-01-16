@@ -41,12 +41,12 @@ namespace Scripts.Units
 
         private void SubscribeOnEvent()
         {
-            _eventDispatcher.AddEventListener<IntVector2>(UnitEvents.NEXT_TILE_OCCUPATED, NextPositionOccupiedHandler);
+            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NEXT_TILE_OCCUPATED, NextPositionOccupiedHandler);
         }
         
         private void UnsubscribeFromEvent()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.NEXT_TILE_OCCUPATED,
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NEXT_TILE_OCCUPATED,
                 new Action<IntVector2>(NextPositionOccupiedHandler));
         }
 

@@ -45,14 +45,14 @@ namespace Scripts.Units
         
         private void ChangeDirrection()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             _moveStepByStepController.Cancel();
-            _eventDispatcher.AddEventListener(UnitEvents.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
+            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
         }
         
         private void OnChangeDirrectionMoveCmplete()
         {
-            _eventDispatcher.RemoveEventListener(UnitEvents.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             MoveToDirrection(_newPosition);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Scripts.Units.Events;
 using Units;
 using Scripts.Units.Rotation;
 using Scripts.Units.Settings;
@@ -10,14 +11,11 @@ namespace Scripts.Units
     {
         IntVector2 Position { get; }
         IUnitStateInfo UnitStateInfo { get; }
+        IUnitEvents UnitEvents { get; }
        
         void MoveTo(IntVector2 position);
         void Wait();
         void Wait(IntVector2 position);
         void SetOnPosition(IntVector2 position);
-        
-        event Action<IntVector2> PositionChanged;
-        event Action MovePathComplete;        
-        event Action MoveTileComplete;
     }
 }

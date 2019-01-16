@@ -49,12 +49,12 @@ namespace Scripts.Units
 
             _baseActionController.Wait(_targetUnit.Position);
             _unitStateInfo.WaitPosition = position;
-            _targetUnit.PositionChanged += TargetUnitPositionChanged;
+            _targetUnit.UnitEvents.PositionChanged += TargetUnitPositionChanged;
         }
 
         private void TargetUnitPositionChanged(IntVector2 position)
         {
-            _targetUnit.PositionChanged -= TargetUnitPositionChanged;
+            _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
             if (_unitsTable.IsVacantPosition(_occupiedPoint))
             {
                 MoveToDestination();
