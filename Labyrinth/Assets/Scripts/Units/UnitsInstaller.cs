@@ -12,6 +12,7 @@ using Scripts.Units.Rotation;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
 using Scripts.Units.UnitActions;
+using Units.Behaviour.MoveBehaviour;
 using Units.ExternalAPI;
 
 public class UnitsInstaller : Module

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
+using Scripts.Units;
 using Scripts.Units.Events;
 
-namespace Scripts.Units
+namespace Units.Behaviour.MoveBehaviour
 {
     public class MoveStepByStepController : IMoveStepByStepController
     {
