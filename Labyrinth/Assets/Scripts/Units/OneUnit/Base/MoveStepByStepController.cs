@@ -85,8 +85,8 @@ namespace Units.OneUnit.Base
             }
             else
             {
-                _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_PATH_COMPLETE);
                 Reset();
+                _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_PATH_COMPLETE);
             }
         }
 
