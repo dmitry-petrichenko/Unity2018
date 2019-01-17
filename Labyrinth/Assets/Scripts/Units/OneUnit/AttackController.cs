@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Scripts;
+using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
-using Scripts.Units.Rotation;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class AttackController
     {

@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using Scripts.Units.Settings;
+﻿using Scripts;
 
-namespace Scripts.Units.Rotation
+namespace Units.OneUnit.Base.GameObject.Rotation
 {
     public interface IOneUnitRotationController
     {

@@ -1,6 +1,7 @@
-﻿using Scripts.Map;
+﻿using Scripts;
+using Scripts.Map;
 
-namespace Scripts.Units.PathFinder
+namespace Units.PathFinder
 {
     public class Grid : IGrid
     {

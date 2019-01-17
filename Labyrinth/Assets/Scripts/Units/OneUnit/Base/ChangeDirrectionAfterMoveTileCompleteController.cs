@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
 using Scripts.Units.Events;
-using Scripts.Units.PathFinder;
-using Units.Behaviour.MoveBehaviour;
+using Units.PathFinder;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base
 {
     public class ChangeDirrectionAfterMoveTileCompleteController
     {

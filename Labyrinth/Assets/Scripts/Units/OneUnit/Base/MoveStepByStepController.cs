@@ -3,8 +3,9 @@ using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units;
 using Scripts.Units.Events;
+using Units.OneUnit.Base.GameObject;
 
-namespace Units.Behaviour.MoveBehaviour
+namespace Units.OneUnit.Base
 {
     public class MoveStepByStepController : IMoveStepByStepController
     {

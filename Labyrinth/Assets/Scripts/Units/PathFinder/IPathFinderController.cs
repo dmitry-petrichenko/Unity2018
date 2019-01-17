@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Scripts;
 
-namespace Scripts.Units.PathFinder
+namespace Units.PathFinder
 {
     public interface IPathFinderController
     {

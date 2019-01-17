@@ -1,4 +1,4 @@
-﻿namespace Tests.Animation
+﻿namespace Units.OneUnit.Base.GameObject.Animation
 {
     public interface IUnitScript
     {

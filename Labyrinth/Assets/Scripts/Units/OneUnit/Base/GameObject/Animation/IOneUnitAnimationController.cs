@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using Scripts.Units.Settings;
-
-namespace Units
+﻿namespace Units.OneUnit.Base.GameObject.Animation
 {
     public interface IOneUnitAnimationController
     {

@@ -6,10 +6,11 @@ using Scripts.ActionDistributor;
 using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Settings;
-using Scripts.Units.PathFinder;
+using Units;
 using Units.ExternalAPI;
+using Units.PathFinder;
 using UnityEngine;
-using Grid = Scripts.Units.PathFinder.Grid;
+using Grid = Units.PathFinder.Grid;
 
 public class GameInstaller : MonoBehaviour
 {

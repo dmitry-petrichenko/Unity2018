@@ -1,6 +1,9 @@
 ﻿using System;
+using Scripts;
+using Scripts.Units;
+using Units.OneUnit.Base;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class MoveController
     {

@@ -1,4 +1,6 @@
-﻿namespace Scripts.Units.Enemy
+﻿using Units.OneUnit;
+
+namespace Scripts.Units.Enemy
 {
     public class EnemyController
     {

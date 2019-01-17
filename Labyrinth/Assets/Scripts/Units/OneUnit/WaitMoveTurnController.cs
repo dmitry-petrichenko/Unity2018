@@ -1,6 +1,9 @@
-﻿using Scripts.Units.StateInfo;
+﻿using Scripts;
+using Scripts.Units;
+using Scripts.Units.StateInfo;
+using Units.OneUnit.Base;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class WaitMoveTurnController
     {

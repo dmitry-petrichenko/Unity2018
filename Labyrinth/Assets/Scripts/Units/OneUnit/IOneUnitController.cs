@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Scripts;
 using Scripts.Units.Events;
-using Units;
-using Scripts.Units.Rotation;
-using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public interface IOneUnitController
     {

@@ -1,4 +1,6 @@
-﻿namespace Scripts.Units
+﻿using Units.OneUnit;
+
+namespace Scripts.Units
 {
     public interface IPeacefulBehaviour
     {

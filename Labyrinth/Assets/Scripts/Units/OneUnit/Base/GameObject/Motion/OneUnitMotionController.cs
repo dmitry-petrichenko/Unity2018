@@ -1,14 +1,15 @@
 ﻿using System;
 using DG.Tweening;
-using UnityEngine;
+using Scripts;
 using Scripts.Units.Settings;
+using UnityEngine;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base.GameObject.Motion
 {
     public class OneUnitMotionController : IOneUnitMotionController
     {
         private readonly IUnitSettings _unitSettings;
-        private GameObject _unit;
+        private UnityEngine.GameObject _unit;
 
         public OneUnitMotionController(IUnitSettings unitSettings)
         {

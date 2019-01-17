@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using Scripts.Units.PathFinder;
+using Scripts;
+using Units.PathFinder;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class MovingRandomizer : IMovingRandomizer
     {

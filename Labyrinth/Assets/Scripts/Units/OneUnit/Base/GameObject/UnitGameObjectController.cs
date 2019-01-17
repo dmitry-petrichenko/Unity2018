@@ -1,10 +1,12 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
 using Scripts.Units.Events;
-using Scripts.Units.Rotation;
-using Units;
+using Units.OneUnit.Base.GameObject.Animation;
+using Units.OneUnit.Base.GameObject.Motion;
+using Units.OneUnit.Base.GameObject.Rotation;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base.GameObject
 {
     public class UnitGameObjectController : IUnitGameObjectController
     {

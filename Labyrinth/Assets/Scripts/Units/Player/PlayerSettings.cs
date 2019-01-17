@@ -1,7 +1,7 @@
 using Scripts.Settings;
 using Scripts.Units.Settings;
 
-namespace Scripts.Units.Player
+namespace Units.Player
 {
     public class PlayerSettings : UnitSettings
     {

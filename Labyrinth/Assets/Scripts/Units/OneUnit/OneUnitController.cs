@@ -1,7 +1,9 @@
-﻿using Scripts.Units.Events;
+﻿using Scripts;
+using Scripts.Units;
+using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class OneUnitController : IOneUnitController
     {

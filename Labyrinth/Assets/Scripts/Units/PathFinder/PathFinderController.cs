@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Scripts;
 
-namespace Scripts.Units.PathFinder
+namespace Units.PathFinder
 {
     public partial class PathFinderController : IPathFinderController
     {

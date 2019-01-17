@@ -1,4 +1,6 @@
-﻿namespace Scripts.Units
+﻿using Scripts;
+
+namespace Units.OneUnit
 {
     public interface IMovingRandomizer
     {

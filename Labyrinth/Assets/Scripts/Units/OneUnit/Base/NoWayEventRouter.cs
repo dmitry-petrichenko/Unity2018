@@ -1,9 +1,10 @@
 ﻿using System;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base
 {
     public class NoWayEventRouter : INoWayEventRouter, IDisposable
     {

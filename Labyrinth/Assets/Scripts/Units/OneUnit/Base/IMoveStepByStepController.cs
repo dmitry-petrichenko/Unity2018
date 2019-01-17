@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Scripts;
 
-namespace Units.Behaviour.MoveBehaviour
+namespace Units.OneUnit.Base
 {
     public interface IMoveStepByStepController
     {

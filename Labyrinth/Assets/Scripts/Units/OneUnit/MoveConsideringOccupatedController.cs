@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
+using Scripts.Units;
 using Scripts.Units.Events;
-using Scripts.Units.PathFinder;
+using Units.OneUnit.Base;
+using Units.PathFinder;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class MoveConsideringOccupatedController : IDisposable
     {

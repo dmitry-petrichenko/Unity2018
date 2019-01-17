@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Scripts;
+using Units.OneUnit;
 
-namespace Scripts.Units
+namespace Units
 {
     public interface IUnitsTable : IOccupatedPossitionsTable
     {

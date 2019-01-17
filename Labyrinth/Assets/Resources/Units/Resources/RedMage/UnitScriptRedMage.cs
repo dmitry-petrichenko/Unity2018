@@ -1,4 +1,4 @@
-﻿using Tests.Animation;
+﻿using Units.OneUnit.Base.GameObject.Animation;
 using UnityEngine;
 
 public class UnitScriptRedMage : MonoBehaviour, IUnitScript

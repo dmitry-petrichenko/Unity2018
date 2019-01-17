@@ -1,6 +1,7 @@
 ﻿using System;
+using Scripts;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base
 {
     public interface INoWayEventRouter
     {

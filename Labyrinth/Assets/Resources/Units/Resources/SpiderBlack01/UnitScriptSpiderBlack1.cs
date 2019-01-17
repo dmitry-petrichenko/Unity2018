@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Tests.Animation;
+﻿using Units.OneUnit.Base.GameObject.Animation;
+using UnityEngine;
 
 public class UnitScriptSpiderBlack1 : MonoBehaviour, IUnitScript
 {

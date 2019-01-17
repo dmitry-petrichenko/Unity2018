@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Scripts;
+using Units.PathFinder;
 using UnityEngine;
-using Scripts.Units.PathFinder;
 
-namespace Scripts.Units
+namespace Units.OneUnit
 {
     public class TargetOvertaker
     {

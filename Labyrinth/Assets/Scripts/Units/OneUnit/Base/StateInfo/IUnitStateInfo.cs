@@ -1,4 +1,6 @@
-﻿namespace Scripts.Units.StateInfo
+﻿using Units.OneUnit;
+
+namespace Scripts.Units.StateInfo
 {
     public interface IUnitStateInfo
     {

@@ -1,8 +1,7 @@
 ﻿using System;
-using UnityEngine;
-using Scripts.Units.Settings;
+using Scripts;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base.GameObject.Motion
 {
     public interface IOneUnitMotionController
     {

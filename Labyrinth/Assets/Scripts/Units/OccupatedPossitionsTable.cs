@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Scripts;
 
-namespace Scripts.Units
+namespace Units
 {
     public class OccupatedPossitionsTable : IOccupatedPossitionsTable
     {

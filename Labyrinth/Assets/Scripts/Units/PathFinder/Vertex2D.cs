@@ -1,6 +1,7 @@
 ﻿using System;
+using Scripts;
 
-namespace Scripts.Units.PathFinder
+namespace Units.PathFinder
 {
     public class Vertex2D
     {

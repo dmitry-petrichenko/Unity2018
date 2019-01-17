@@ -1,10 +1,12 @@
 ﻿using System;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
+using Units.OneUnit;
 
-namespace Scripts.Units.Player
+namespace Units.Player
 {
     public class PlayerController : IPlayerController, IDisposable
     {

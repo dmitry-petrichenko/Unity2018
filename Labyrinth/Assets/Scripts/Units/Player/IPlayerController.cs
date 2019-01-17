@@ -1,6 +1,7 @@
 ﻿using Units.ExternalAPI;
+using Units.OneUnit;
 
-namespace Scripts.Units.Player
+namespace Units.Player
 {
     public interface IPlayerController : IOneUnitController, IPlayer
     {

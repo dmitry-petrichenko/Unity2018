@@ -1,4 +1,6 @@
-﻿namespace Scripts.Units.PathFinder
+﻿using Scripts;
+
+namespace Units.PathFinder
 {
     public interface IGrid
     {

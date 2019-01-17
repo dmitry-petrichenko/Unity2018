@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using Units.Behaviour.MoveBehaviour;
+using Scripts;
+using Scripts.Units;
+using Units.OneUnit.Base.GameObject;
 
-namespace Scripts.Units
+namespace Units.OneUnit.Base
 {
     public class BaseActionController : IBaseActionController
     {

@@ -1,8 +1,9 @@
-﻿using Scripts.Units.Enemy;
-using Scripts.Units.Player;
+﻿using Scripts;
+using Scripts.Units.Enemy;
 using Units.ExternalAPI;
+using Units.Player;
 
-namespace Scripts.Units
+namespace Units
 {
     public class UnitsController : IUnitsController
     {

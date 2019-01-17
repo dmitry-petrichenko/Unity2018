@@ -1,12 +1,10 @@
-﻿using Tests.Animation;
-using UnityEngine;
-using Scripts.Units.Settings;
+﻿using Scripts.Units.Settings;
 
-namespace Units
+namespace Units.OneUnit.Base.GameObject.Animation
 {
     public class OneUnitAnimationController : IOneUnitAnimationController
     {
-        private GameObject _unit;
+        private UnityEngine.GameObject _unit;
         private IUnitScript _unitScript;
 
         public OneUnitAnimationController(IUnitSettings unitSettings)
