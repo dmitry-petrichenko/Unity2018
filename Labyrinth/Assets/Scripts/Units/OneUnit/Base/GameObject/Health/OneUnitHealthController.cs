@@ -17,6 +17,10 @@ namespace Units.OneUnit.Base.GameObject.Health
             
             _healthBarController = _unit.GetComponentInChildren(typeof(HealthBarController)) as HealthBarController;
             _healthBarController.Set(0.7f);
+
+            var h = _unit.transform.Find("healthbar").gameObject;
+            h.SetActive(false);
+            
         }
     }
 }
