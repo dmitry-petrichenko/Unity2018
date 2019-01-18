@@ -3,6 +3,7 @@ using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject.Animation;
+using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
 using Units.OneUnit.Base.GameObject.Rotation;
 
@@ -21,6 +22,7 @@ namespace Units.OneUnit.Base.GameObject
             IOneUnitRotationController oneUnitRotationController,
             IOneUnitAnimationController oneUnitAnimationController,
             IOneUnitMotionController oneUnitMotionController,
+            IOneUnitHealthController oneUnitHealthController,
             IEventDispatcher eventDispatcher
             )
         {

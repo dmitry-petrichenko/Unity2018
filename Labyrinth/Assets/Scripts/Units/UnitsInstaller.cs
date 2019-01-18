@@ -13,6 +13,7 @@ using Units.OneUnit;
 using Units.OneUnit.Base;
 using Units.OneUnit.Base.GameObject;
 using Units.OneUnit.Base.GameObject.Animation;
+using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
 using Units.OneUnit.Base.GameObject.Rotation;
 using Units.PathFinder;
@@ -79,6 +80,7 @@ namespace Units
             builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
             builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
             builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();
+            builder.RegisterType<OneUnitHealthController>().As<IOneUnitHealthController>().SingleInstance();
         }
 
         private void InstallBaseMovingSubComponents(ContainerBuilder builder)

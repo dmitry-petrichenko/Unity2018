@@ -6,7 +6,8 @@ namespace Scripts.Units.Settings
     {
         public EnemySettings(ISettings settings)
         {
-            Initialize(settings.UnitsResourcesLocation + "SpiderBlack01.json");
+            //Initialize(settings.UnitsResourcesLocation + "SpiderBlack01.json");
+            Initialize(settings.UnitsResourcesLocation + "RedMage.json");
         }
     }
 }
