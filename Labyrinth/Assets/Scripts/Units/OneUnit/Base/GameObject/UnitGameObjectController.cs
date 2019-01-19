@@ -14,6 +14,7 @@ namespace Units.OneUnit.Base.GameObject
         private readonly IOneUnitRotationController _rotationController;
         private readonly IOneUnitAnimationController _animationController;
         private readonly IOneUnitMotionController _motionController;
+        private readonly IOneUnitHealthController _oneUnitHealthController;
         private readonly IEventDispatcher _eventDispatcher;
         
         public IntVector2 Position => _motionController.Position;
@@ -29,6 +30,7 @@ namespace Units.OneUnit.Base.GameObject
             _rotationController = oneUnitRotationController;
             _animationController = oneUnitAnimationController;
             _motionController = oneUnitMotionController;
+            _oneUnitHealthController = oneUnitHealthController;
             _eventDispatcher = eventDispatcher;
             
             _motionController.MoveStart += StartMoveHandler;
@@ -57,6 +59,11 @@ namespace Units.OneUnit.Base.GameObject
         {
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayAttackAnimation();
+        }
+        
+        public void SetHealthBarValue(float value)
+        {
+            _oneUnitHealthController.SetHealthBarValue(value);
         }
 
         public void SetOnPosition(IntVector2 position)

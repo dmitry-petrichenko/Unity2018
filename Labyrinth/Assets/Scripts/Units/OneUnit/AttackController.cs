@@ -5,7 +5,7 @@ using Scripts.Units.Behaviour.UnitActions;
 
 namespace Units.OneUnit
 {
-    public class AttackController
+    public class AttackController : IAttackController
     {
         private IOneUnitController _unitController;
         private UnitBehaviourGenerator _unitBehaviourGenerator;
@@ -45,6 +45,11 @@ namespace Units.OneUnit
             
             _unitBehaviourGenerator.Initialize(_unitController, actions);
             _unitBehaviourGenerator.Start();
+        }
+
+        public void TakeDamage(int value)
+        {
+            
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Units.OneUnit.Base
         void MoveTo(List<IntVector2> path);
         void Cancel();
         void SetOnPosition(IntVector2 position);
+        void TakeDamage(int value);
         
         IntVector2 Position { get; }
         IntVector2 Destination { get; }

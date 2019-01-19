@@ -42,7 +42,7 @@ namespace Units.Player
         public void Attack(IntVector2 position) {}
 
         public void SetOnPosition(IntVector2 position) => _oneUnitController.SetOnPosition(position);
-
+        public void TakeDamage(int value) { _oneUnitController.TakeDamage(value); }
         public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
         
         public IUnitEvents UnitEvents => _oneUnitController.UnitEvents;

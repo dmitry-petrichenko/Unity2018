@@ -10,6 +10,8 @@ namespace Scripts.Units.Settings
         public float MotionSpeed { get; private set; }
         public GameObject GraphicObject { get; private set; }
         public float RotationSpeed { get; private set; }
+        public int Attack { get; private set; }
+        public int TotalHealth { get; private set; }
 
         public static string UNITS_ASSETS_PATH = "Units/Resources/";
 
@@ -27,7 +29,9 @@ namespace Scripts.Units.Settings
             MotionSpeed = float.Parse((string)_infoJson["MotionSpeed"], CultureInfo.InvariantCulture.NumberFormat);
             _prefabPath = (string) _infoJson["PrefabPath"];
             RotationSpeed = float.Parse((string)_infoJson["RotationSpeed"], CultureInfo.InvariantCulture.NumberFormat);
- 
+            Attack = 5;
+            TotalHealth = 100;
+                
             GraphicObject = InstantiatePrefabFromResourcePath(_prefabPath);
         }
 

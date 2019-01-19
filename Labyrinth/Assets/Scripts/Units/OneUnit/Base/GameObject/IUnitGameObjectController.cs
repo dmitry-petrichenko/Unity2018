@@ -13,6 +13,7 @@ namespace Units.OneUnit.Base.GameObject
         void Wait(IntVector2 position);
         void Attack(IntVector2 position);
         void SetOnPosition(IntVector2 position);
+        void SetHealthBarValue(float value);
         
         event Action MoveComplete;
     }

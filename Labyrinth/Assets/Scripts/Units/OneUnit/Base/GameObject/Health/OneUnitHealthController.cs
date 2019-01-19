@@ -16,11 +16,15 @@ namespace Units.OneUnit.Base.GameObject.Health
             _lookAtCameraController.main_camera = camera;
             
             _healthBarController = _unit.GetComponentInChildren(typeof(HealthBarController)) as HealthBarController;
-            _healthBarController.Set(0.7f);
+            _healthBarController.Set(1.0f);
 
-            var h = _unit.transform.Find("healthbar").gameObject;
-            h.SetActive(false);
-            
+            //var h = _unit.transform.Find("healthbar").gameObject;
+            //h.SetActive(false);
+        }
+
+        public void SetHealthBarValue(float value)
+        {
+            _healthBarController.Set(value);
         }
     }
 }

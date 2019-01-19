@@ -29,9 +29,7 @@ namespace Units
                 }
             }
 
-            return null;
+            return new UnitStub(index);
         }
-        
-        
     }
 }

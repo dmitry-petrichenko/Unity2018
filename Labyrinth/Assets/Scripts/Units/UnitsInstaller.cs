@@ -8,6 +8,7 @@ using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
 using Scripts.Units.UnitActions;
+using Units.Enemy;
 using Units.ExternalAPI;
 using Units.OneUnit;
 using Units.OneUnit.Base;
@@ -45,12 +46,14 @@ namespace Units
         private void InstallPlayerComponents(ContainerBuilder builder)
         {
             builder.RegisterType<PlayerSettings>().As<IUnitSettings>().SingleInstance();
+            builder.RegisterType<PlayerAttackController>().As<IAttackController>().SingleInstance();
             InstallOneUnitComponents(builder);
         }
     
         private void InstallEnemyComponents(ContainerBuilder builder)
         {
             builder.RegisterType<EnemySettings>().As<IUnitSettings>().SingleInstance();
+            builder.RegisterType<AttackController>().As<IAttackController>().SingleInstance();
             InstallOneUnitComponents(builder);
         }
 
@@ -74,6 +77,8 @@ namespace Units
             builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
             builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
+            builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
+            builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
         
             builder.RegisterType<UnitGameObjectController>().As<IUnitGameObjectController>().SingleInstance();
         

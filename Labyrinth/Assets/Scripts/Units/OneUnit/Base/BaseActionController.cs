@@ -10,18 +10,30 @@ namespace Units.OneUnit.Base
         private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;
         private readonly IUnitGameObjectController _unitGameObjectController;
+        private readonly IApplyDamageController _applyDamageController;
+        private readonly IHealthController _healthController;
 
         public BaseActionController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
             IMoveStepByStepController moveStepByStepController,
+            IApplyDamageController applyDamageController,
+            IHealthController healthController,
             IUnitGameObjectController unitGameObjectController)
         {
             _moveStepByStepController = moveStepByStepController;
             _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
             _unitGameObjectController = unitGameObjectController;
+            _applyDamageController = applyDamageController;
+            _healthController = healthController;
         }
 
-        public void Attack(IntVector2 position) => _unitGameObjectController.Attack(position);
+        public void Attack(IntVector2 position)
+        {
+            _applyDamageController.ApplyDamageOnPosition(position);
+            _unitGameObjectController.Attack(position);
+        }
+
+        public void TakeDamage(int value) { _healthController.TakeDamage(value); }
 
         public void MoveTo(IntVector2 position) => _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);
 
