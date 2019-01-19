@@ -2,6 +2,7 @@
 using Scripts;
 using Scripts.Units;
 using Scripts.Units.Behaviour.UnitActions;
+using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
@@ -11,8 +12,10 @@ namespace Units.OneUnit
         private UnitBehaviourGenerator _unitBehaviourGenerator;
         private AttackAction.Factory _actionFactory;
         private OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
+        private IBaseActionController _baseActionController;
 
         public AttackController(
+            IBaseActionController baseActionController,
             UnitBehaviourGenerator unitBehaviourGenerator,
             AttackAction.Factory actionFactory,
             OvertakeOccupatedPositionController overtakeOccupatedPositionController
@@ -21,6 +24,7 @@ namespace Units.OneUnit
             _actionFactory = actionFactory;
             _unitBehaviourGenerator = unitBehaviourGenerator;
             _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
+            _baseActionController = baseActionController;
         }
 
         public void Initialize(IOneUnitController unitController)
@@ -49,7 +53,7 @@ namespace Units.OneUnit
 
         public void TakeDamage(int value)
         {
-            
+            _baseActionController.TakeDamage(value);
         }
     }
 }

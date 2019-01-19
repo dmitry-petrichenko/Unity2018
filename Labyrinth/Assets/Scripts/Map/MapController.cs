@@ -9,7 +9,8 @@ namespace Scripts.Map
 {
     public class MapController : IMapController
     {
-        public event Action<IntVector2> PositionClicked;
+        public event Action<IntVector2> PositionClickedLeft;
+        public event Action<IntVector2> PositionClickedRight;
         
         private readonly MapInfoUpdateController _mapInfoUpdateController;
         private readonly MapViewUpdateController _mapViewUpdateController;
@@ -32,14 +33,20 @@ namespace Scripts.Map
 
         private void Initialize()
         {
-            _mapViewController.TileClicked += TileClickedHandler;
+            _mapViewController.LeftClicked += TileClickedLeftHandler;
+            _mapViewController.RightClicked += TileClickedRightHandler;
             _mapInfoUpdateController.DestroyTilesHandler += DestroyTilesHandler;
             _mapInfoUpdateController.InitializeTilesHandler += InitializeTilesHandler;
         }
         
-        private void TileClickedHandler(IntVector2 position)
+        private void TileClickedLeftHandler(IntVector2 position)
         {
-            PositionClicked?.Invoke(position);
+            PositionClickedLeft?.Invoke(position);
+        }
+        
+        private void TileClickedRightHandler(IntVector2 position)
+        {
+            PositionClickedRight?.Invoke(position);
         }
 
         public void UpdateCurrentPosition(IntVector2 position)

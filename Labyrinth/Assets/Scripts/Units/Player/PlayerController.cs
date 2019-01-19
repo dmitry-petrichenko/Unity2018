@@ -39,10 +39,15 @@ namespace Units.Player
 
         private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position);
 
-        public void Attack(IntVector2 position) {}
+        public object GraphicObject => _unitSettings.GraphicObject;
+        public IntVector2 Position => _oneUnitController.Position;
+
+        public void Attack(IntVector2 position) { _oneUnitController.Attack(position); }
 
         public void SetOnPosition(IntVector2 position) => _oneUnitController.SetOnPosition(position);
+        
         public void TakeDamage(int value) { _oneUnitController.TakeDamage(value); }
+        
         public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
         
         public IUnitEvents UnitEvents => _oneUnitController.UnitEvents;
@@ -52,9 +57,6 @@ namespace Units.Player
         public void Wait() => _oneUnitController.Wait();
 
         public void Wait(IntVector2 position) => _oneUnitController.Wait(position);
-
-        public object GraphicObject => _unitSettings.GraphicObject;
-        public IntVector2 Position => _oneUnitController.Position;
 
         public void Dispose()
         {

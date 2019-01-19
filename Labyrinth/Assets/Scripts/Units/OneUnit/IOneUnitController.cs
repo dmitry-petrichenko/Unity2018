@@ -14,6 +14,7 @@ namespace Units.OneUnit
         void Wait();
         void Wait(IntVector2 position);
         void SetOnPosition(IntVector2 position);
+        void Attack(IntVector2 position);
         void TakeDamage(int value);
     }
 }

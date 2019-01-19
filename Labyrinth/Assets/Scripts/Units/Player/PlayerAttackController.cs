@@ -1,8 +1,6 @@
 using Scripts;
 using Units.OneUnit;
 using Units.OneUnit.Base;
-using UnityEditor.IMGUI.Controls;
-using UnityEngine;
 
 namespace Units.Player
 {
@@ -17,7 +15,6 @@ namespace Units.Player
 
         public void Initialize(IOneUnitController unitController)
         {
-            
         }
 
         public void Cancel()
@@ -27,6 +24,7 @@ namespace Units.Player
 
         public void Attack(IntVector2 position)
         {
+            _baseActionController.Attack(position);
         }
 
         public void TakeDamage(int value)

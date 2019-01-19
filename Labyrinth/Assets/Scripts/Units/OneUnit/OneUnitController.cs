@@ -36,6 +36,11 @@ namespace Units.OneUnit
         public IntVector2 Position => _moveController.Position;
 
         public void SetOnPosition(IntVector2 position) => _moveController.SetOnPosition(position);
+        public void Attack(IntVector2 position)
+        {
+            _attackController.Attack(position);
+        }
+
         public void TakeDamage(int value)
         {
             _attackController.TakeDamage(value);
@@ -66,6 +71,9 @@ namespace Units.OneUnit
         public void Wait(IntVector2 position) {}
 
         public void SetOnPosition(IntVector2 position) {}
+        
+        public void Attack(IntVector2 position) {}
+
         public void TakeDamage(int value) {Debug.Log("damage " + value);}
     }
 }

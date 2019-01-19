@@ -9,7 +9,7 @@ namespace Scripts.Map.View
         void InitializeEmpty(IntVector2 position);
         void InitializeSquare(IntVector2 position);
         void DestroyTile(IntVector2 position);
-        event Action<IntVector2> TileClicked;
+        event Action<IntVector2> LeftClicked;
         event Action<IntVector2> RightClicked;
     }
 }

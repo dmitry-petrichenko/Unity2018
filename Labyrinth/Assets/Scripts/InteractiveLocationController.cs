@@ -1,5 +1,6 @@
 ﻿using Scripts.Map;
 using Units.ExternalAPI;
+using UnityEngine;
 
 namespace Scripts
 {
@@ -23,14 +24,20 @@ namespace Scripts
 
         public void Initialize()
         {
-            _mapController.PositionClicked += TileClickedHandler;
+            _mapController.PositionClickedLeft += TileClickedLeftHandler;
+            _mapController.PositionClickedRight += TileClickedRightHandler;
             _cameraController.Follow(_unitsController.Player.GraphicObject);
             _mapController.UpdateCurrentPosition(_unitsController.Player.Position);
             
             _unitsController.Player.UnitEvents.PositionChanged += PlayerPositionChanged;
         }
         
-        private void TileClickedHandler(IntVector2 position)
+        private void TileClickedRightHandler(IntVector2 position)
+        {
+            _unitsController.Player.Attack(position);
+        }
+        
+        private void TileClickedLeftHandler(IntVector2 position)
         {
             _unitsController.Player.MoveTo(position);
         }

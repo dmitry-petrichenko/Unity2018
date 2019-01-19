@@ -7,6 +7,7 @@ namespace Units.ExternalAPI
     public interface IPlayer
     {
         void MoveTo(IntVector2 position);
+        void Attack(IntVector2 position);
         
         object GraphicObject { get; }
         IntVector2 Position { get; }

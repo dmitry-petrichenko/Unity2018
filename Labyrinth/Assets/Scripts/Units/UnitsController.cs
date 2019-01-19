@@ -20,7 +20,7 @@ namespace Units
             //_enemy.MoveTo(new IntVector2(3, 3));
             _enemy.Attack(player);
             //_enemy.Animate();
-            
+  /*          
             EnemyController _enemy4 = enemyFactory.Invoke();
             _enemy4.SetOnPosition(new IntVector2(2, 2));
             //_enemy4.Animate();
@@ -40,7 +40,7 @@ namespace Units
             _enemy5.Animate();
             
             EnemyController _enemy7 = enemyFactory.Invoke();
-            _enemy7.SetOnPosition(new IntVector2(0, 7));
+            _enemy7.SetOnPosition(new IntVector2(0, 7));*/
         }
 
         public IPlayer Player => _player;

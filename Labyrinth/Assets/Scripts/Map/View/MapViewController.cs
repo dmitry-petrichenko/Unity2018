@@ -28,13 +28,13 @@ namespace Scripts.Map.View
         
             _mouseClickListener = _mainScene.AddComponent<MouseClickListener>();
             _mouseClickListener.TileClicked += TileClickedHandler;
-            _mouseClickListener.TileClicked += RightClickedHandler;
+            _mouseClickListener.RightClicked += RightClickedHandler;
         }
 
         private void TileClickedHandler(IntVector2 position)
         {
-            if (TileClicked != null)
-                TileClicked(position);
+            if (LeftClicked != null)
+                LeftClicked(position);
         }
 
         private void RightClickedHandler(IntVector2 position)
@@ -78,7 +78,7 @@ namespace Scripts.Map.View
             _activeGameObjects.Remove(position);
         }
 
-        public event Action<IntVector2> TileClicked;
+        public event Action<IntVector2> LeftClicked;
         public event Action<IntVector2> RightClicked;
 
         private void AddActiveGameObject(IntVector2 position, GameObject gameObject)
