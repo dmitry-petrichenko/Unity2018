@@ -1,42 +1,42 @@
-﻿using Units.OneUnit;
+﻿using Scripts.Units.Events;
+using Scripts.Units.StateInfo;
+using Units;
+using Units.OneUnit;
 
 namespace Scripts.Units.Enemy
 {
-    public class EnemyController
+    public class EnemyController : OneUnitController
     {
         public delegate EnemyController Factory();
         
         private IPeacefulBehaviour _peacefulBehaviour; 
         private IAgressiveBehaviour _agressiveBehaviour; 
-        private readonly IOneUnitController _oneUnitController;
 
         public EnemyController(
-            IOneUnitController oneUnitController,
             IPeacefulBehaviour peacefulBehaviour,
-            IAgressiveBehaviour agressiveBehaviour
-            )
+            IAgressiveBehaviour agressiveBehaviour,
+            IUnitsTable unitsTable,
+            MoveController moveController,
+            IAttackController attackController,
+            IUnitEvents unitEvents,
+            IUnitStateInfo unitStateInfo
+            ) : base(unitsTable, moveController, attackController, unitEvents, unitStateInfo)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;
-            _oneUnitController = oneUnitController;
             
             Initialize();
         }
             
         void Initialize()
         {
-            _peacefulBehaviour.Initialize(_oneUnitController);
-            _agressiveBehaviour.Initialize(_oneUnitController);
-        }
-
-        public void SetOnPosition(IntVector2 position)
-        {
-            _oneUnitController.SetOnPosition(position);
+            _peacefulBehaviour.Initialize(this);
+            _agressiveBehaviour.Initialize(this);
         }
 
         public void Animate()
         {
-            _peacefulBehaviour.Initialize(_oneUnitController);
+            _peacefulBehaviour.Initialize(this);
             _peacefulBehaviour.Start();
         }
 

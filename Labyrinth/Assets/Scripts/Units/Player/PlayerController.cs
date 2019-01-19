@@ -8,22 +8,24 @@ using Units.OneUnit;
 
 namespace Units.Player
 {
-    public class PlayerController : IPlayerController, IDisposable
+    public class PlayerController : OneUnitController, IPlayerController, IDisposable
     {
         private IGameEvents _gameEvents;
-        private readonly IOneUnitController _oneUnitController;
         private readonly IEventDispatcher _eventDispatcher;
         private IUnitSettings _unitSettings;
 
         public PlayerController(
             IGameEvents gameEvents,
-            IOneUnitController oneUnitController,
             IEventDispatcher eventDispatcher,
-            IUnitSettings unitSettings
-        )
+            IUnitSettings unitSettings,
+            IUnitsTable unitsTable,
+            MoveController moveController,
+            IAttackController attackController,
+            IUnitEvents unitEvents,
+            IUnitStateInfo unitStateInfo
+        ): base(unitsTable, moveController, attackController, unitEvents, unitStateInfo)
         {
             _gameEvents = gameEvents;
-            _oneUnitController = oneUnitController;
             _eventDispatcher = eventDispatcher;
             _unitSettings = unitSettings;
 
@@ -32,31 +34,14 @@ namespace Units.Player
 
         private void Initialize()
         {
-            _oneUnitController.UnitEvents.MovePathComplete += Wait;
+            UnitEvents.MovePathComplete += Wait;
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
-            _oneUnitController.SetOnPosition(new IntVector2(1, 1));
+            SetOnPosition(new IntVector2(1, 1));
         }
 
         private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position);
 
         public object GraphicObject => _unitSettings.GraphicObject;
-        public IntVector2 Position => _oneUnitController.Position;
-
-        public void Attack(IntVector2 position) { _oneUnitController.Attack(position); }
-
-        public void SetOnPosition(IntVector2 position) => _oneUnitController.SetOnPosition(position);
-        
-        public void TakeDamage(int value) { _oneUnitController.TakeDamage(value); }
-        
-        public IUnitStateInfo UnitStateInfo => _oneUnitController.UnitStateInfo;
-        
-        public IUnitEvents UnitEvents => _oneUnitController.UnitEvents;
-
-        public void MoveTo(IntVector2 position) => _oneUnitController.MoveTo(position);
-
-        public void Wait() => _oneUnitController.Wait();
-
-        public void Wait(IntVector2 position) => _oneUnitController.Wait(position);
 
         public void Dispose()
         {

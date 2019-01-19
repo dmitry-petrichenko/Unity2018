@@ -62,7 +62,7 @@ namespace Units
             builder.CreateScopeForType<BaseActionController>(InstallBaseMovingSubComponents)
                 .As<IBaseActionController>().SingleInstance();
         
-            builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
+            //builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();
             builder.RegisterType<AttackController>().AsSelf().SingleInstance();
