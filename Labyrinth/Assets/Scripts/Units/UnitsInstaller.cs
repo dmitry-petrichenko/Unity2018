@@ -46,7 +46,7 @@ namespace Units
         private void InstallPlayerComponents(ContainerBuilder builder)
         {
             builder.RegisterType<PlayerSettings>().As<IUnitSettings>().SingleInstance();
-            builder.RegisterType<PlayerAttackController>().As<IAttackController>().SingleInstance();
+            builder.RegisterType<AttackController>().As<IAttackController>().SingleInstance();
             InstallOneUnitComponents(builder);
         }
     
@@ -72,6 +72,7 @@ namespace Units
             builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();
             builder.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
+            builder.RegisterType<TargetOvertaker2>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();

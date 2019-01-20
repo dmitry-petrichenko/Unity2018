@@ -9,6 +9,7 @@ namespace Scripts.Units.Events
         public event Action<IntVector2> PositionChanged;
         public event Action MovePathComplete;
         public event Action MoveTileComplete;
+        public event Action AttackComplete;
         
         private readonly IEventDispatcher _eventDispatcher;
         private readonly MoveController _moveController;
@@ -29,6 +30,7 @@ namespace Scripts.Units.Events
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, MovePathCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, MoveTileCompleteHandler);
+            _eventDispatcher.AddEventListener(UnitEventsTypes.ATTACK_COMPLETE, AttackCompleteHandler);
         }
 
         private void UnsubscribeFromEvents()
@@ -36,6 +38,7 @@ namespace Scripts.Units.Events
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, new Action(MovePathCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(MoveTileCompleteHandler));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.ATTACK_COMPLETE, new Action(AttackCompleteHandler));
         }
         
         private void MoveTileStartHandler() => PositionChanged?.Invoke(_moveController.Position);
@@ -43,5 +46,7 @@ namespace Scripts.Units.Events
         private void MoveTileCompleteHandler() => MoveTileComplete?.Invoke();
 
         private void MovePathCompleteHandler() => MovePathComplete?.Invoke();
+        
+        private void AttackCompleteHandler() => AttackComplete?.Invoke();
     }
 }

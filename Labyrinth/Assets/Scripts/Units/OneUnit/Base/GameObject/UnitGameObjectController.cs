@@ -35,6 +35,7 @@ namespace Units.OneUnit.Base.GameObject
             
             _motionController.MoveStart += StartMoveHandler;
             _motionController.MoveComplete += MoveStepCompleteHandler;
+            _animationController.AttackComplete += AttackCompleteHandler;
         }
 
         public void MoveTo(IntVector2 position)
@@ -85,8 +86,13 @@ namespace Units.OneUnit.Base.GameObject
         }
         
         private void MoveStepCompleteHandler()
-        {       
+        {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_COMPLETE);
+        }
+        
+        private void AttackCompleteHandler()
+        {
+            _eventDispatcher.DispatchEvent(UnitEventsTypes.ATTACK_COMPLETE);
         }
     }
 }

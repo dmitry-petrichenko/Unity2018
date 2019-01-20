@@ -7,5 +7,6 @@ namespace Scripts.Units.Events
         event Action<IntVector2> PositionChanged;
         event Action MovePathComplete;
         event Action MoveTileComplete;
+        event Action AttackComplete;
     }
 }

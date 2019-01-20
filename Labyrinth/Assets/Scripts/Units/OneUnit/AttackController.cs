@@ -8,47 +8,38 @@ namespace Units.OneUnit
 {
     public class AttackController : IAttackController
     {
-        private IOneUnitController _unitController;
-        private UnitBehaviourGenerator _unitBehaviourGenerator;
-        private AttackAction.Factory _actionFactory;
-        private OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
         private IBaseActionController _baseActionController;
+        private TargetOvertaker2 _targetOvertaker;
+        private IOneUnitController _targetUnit;
+        
+        private readonly IUnitsTable _unitsTable;
 
         public AttackController(
             IBaseActionController baseActionController,
-            UnitBehaviourGenerator unitBehaviourGenerator,
-            AttackAction.Factory actionFactory,
-            OvertakeOccupatedPositionController overtakeOccupatedPositionController
-            )
+            TargetOvertaker2 targetOvertaker,
+            IUnitsTable unitsTable)
         {
-            _actionFactory = actionFactory;
-            _unitBehaviourGenerator = unitBehaviourGenerator;
-            _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
             _baseActionController = baseActionController;
-        }
-
-        public void Initialize(IOneUnitController unitController)
-        {
-            _unitController = unitController;
-            _overtakeOccupatedPositionController.Initialize(_unitController);
+            _targetOvertaker = targetOvertaker;
+            _unitsTable = unitsTable;
         }
 
         public void Cancel()
         {
-            _unitBehaviourGenerator.Stop();
+            _targetOvertaker.Complete -= OvertakeTargetHandler;
         }
         
         public void Attack(IntVector2 position)
         {
-            List<IUnitAction> actions = new List<IUnitAction>();
-            
-            AttackAction action;
-            action = _actionFactory.Invoke();
-            action.Initialize(position);
-            actions.Add(action);
-            
-            _unitBehaviourGenerator.Initialize(_unitController, actions);
-            _unitBehaviourGenerator.Start();
+            _targetOvertaker.Complete += OvertakeTargetHandler;
+            _targetUnit = _unitsTable.GetUnitOnPosition(position);
+            _targetOvertaker.Overtake(_targetUnit);
+        }
+
+        private void OvertakeTargetHandler()
+        {
+            _targetOvertaker.Complete -= OvertakeTargetHandler;
+            _baseActionController.Attack(_targetUnit.Position);
         }
 
         public void TakeDamage(int value)
