@@ -68,7 +68,8 @@ namespace Scripts.Map.Info
 
         public void SaveSector(ISectorInfo info, Dictionary<IntVector2, IMapTileInfo> data)
         {
-            string sectorInfo = JsonMapper.ToJson(info);
+            IntVector2 i = new IntVector2(0,0);
+            string sectorInfo = JsonMapper.ToJson(i);
             File.WriteAllText(
                 _settings.MapsResourcesLocation + GetSectorInfoName(info.index),
                 sectorInfo
