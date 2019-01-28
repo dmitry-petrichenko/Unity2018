@@ -42,12 +42,10 @@ public class MainEditorController : MonoBehaviour
         _mapInfoStoreController = new MapInfoStoreController(_settingsList);
         
         //UPLOAD MAP FROM DISK
-        //_mapTilesInfo = _mapInfoStoreController.UploadSectorData(new IntVector2(0, 0));
-        //_sectorInfo = _mapInfoStoreController.UploadSectorInfo(new IntVector2(0, 0));
-        //_mapInfoInitializer.InitializeSector(_mapTilesInfo, _sectorInfo);
+        _mapTilesInfo = UploadNewSectorByIndex(0,0);
         //------------------
         // INITIALIZE NEW SECTOR
-        _mapTilesInfo = InitializeNewSectorByIndex(0,0);
+        //_mapTilesInfo = InitializeNewSectorByIndex(0,0);
         
         _mapViewController = new EditorMapViewController();
         _mapViewController.Initialize(_graphicsController);
@@ -57,6 +55,15 @@ public class MainEditorController : MonoBehaviour
         _cameraController.UpdateCurrentPosition(_cameraPosition);
         
         InitializeMouseClickListener();
+    }
+
+    private Dictionary<IntVector2, IMapTileInfo> UploadNewSectorByIndex(int x, int y)
+    {
+        _mapTilesInfo = _mapInfoStoreController.UploadSectorData(new IntVector2(x, y));
+        _sectorInfo = _mapInfoStoreController.UploadSectorInfo(new IntVector2(x, y));
+        _mapInfoInitializer.InitializeSector(_mapTilesInfo, _sectorInfo);
+
+        return _mapInfoInitializer.MapTilesInfo;
     }
 
     private Dictionary<IntVector2, IMapTileInfo> InitializeNewSectorByIndex(int x, int y)

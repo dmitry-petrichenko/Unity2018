@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using LitJson;
-using UnityEngine;
 using Scripts.Settings;
 
 namespace Scripts.Map.Info
@@ -68,8 +67,7 @@ namespace Scripts.Map.Info
 
         public void SaveSector(ISectorInfo info, Dictionary<IntVector2, IMapTileInfo> data)
         {
-            IntVector2 i = new IntVector2(0,0);
-            string sectorInfo = JsonMapper.ToJson(i);
+            string sectorInfo = JsonMapper.ToJson(info);
             File.WriteAllText(
                 _settings.MapsResourcesLocation + GetSectorInfoName(info.index),
                 sectorInfo

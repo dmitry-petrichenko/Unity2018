@@ -39,7 +39,7 @@ namespace Units.OneUnit
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitStateInfo.AttackTarget.Position);
-            if (Equals(freePosition, IntVector2.UNASSIGNET))
+            if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
                 _oneUnitController.Wait(position);
                 return;
@@ -105,7 +105,7 @@ namespace Units.OneUnit
                 return _freePositions[0].Key;
             }
 
-            return IntVector2.UNASSIGNET;
+            return IntVector2Constant.UNASSIGNET;
         }
 
         private void AddFreePosition(IntVector2 position)

@@ -37,7 +37,7 @@ namespace Scripts.Map.Controllers
             _mapSectionSize = _settings.MapSectionSize;
             _halfActiveAreaX = _halfActiveAreaY = _settings.ActiveAreaSize / 2;
 
-            _currentPosition = IntVector2.UNASSIGNET;
+            _currentPosition = IntVector2Constant.UNASSIGNET;
         }
 
         public void UpdateCurrentPosition(IntVector2 currentPosition)

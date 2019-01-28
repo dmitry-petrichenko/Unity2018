@@ -4,9 +4,7 @@ namespace Scripts
 {
     [Serializable]
     public struct IntVector2:IEquatable<IntVector2>
-    {
-        public static IntVector2 UNASSIGNET = new IntVector2(-1000, -1000);
-        
+    { 
         public int x;
         public int y;
 
@@ -20,5 +18,10 @@ namespace Scripts
         {
             return other.x == x && other.y == y;
         }
+    }
+
+    public struct IntVector2Constant
+    {
+        public static IntVector2 UNASSIGNET = new IntVector2(-1000, -1000);
     }
 }

@@ -6,7 +6,7 @@ namespace Scripts.Units.StateInfo
     {
         public UnitStateInfo()
         {
-            WaitPosition = IntVector2.UNASSIGNET;
+            WaitPosition = IntVector2Constant.UNASSIGNET;
         }
         
         public IntVector2 WaitPosition { get; set; }
