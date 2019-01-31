@@ -6,7 +6,10 @@ public class LookAtCameraController : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(transform.position + main_camera.transform.rotation * Vector3.back,
-            main_camera.transform.rotation * Vector3.down);
+        if (main_camera != null)
+        {
+            transform.LookAt(transform.position + main_camera.transform.rotation * Vector3.back,
+                main_camera.transform.rotation * Vector3.down); 
+        }
     }
 }
