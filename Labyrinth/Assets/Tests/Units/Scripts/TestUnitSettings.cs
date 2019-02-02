@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Tests.Units.Scripts
 {
-    public class RotationUnitSettings : IUnitSettings
+    public class TestUnitSettings : IUnitSettings
     {
         public float MotionSpeed { get; }
         public int Attack { get; }

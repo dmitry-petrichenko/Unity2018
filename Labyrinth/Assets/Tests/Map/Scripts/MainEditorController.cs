@@ -84,7 +84,7 @@ public class MainEditorController : MonoBehaviour
     
     private void InitializeCameraController()
     {
-        _gameLoopController = new GameLoopController();
+        _gameLoopController = new GameLoopController(this);
         _cameraController = new CameraController(Camera, _gameLoopController);
     }
 

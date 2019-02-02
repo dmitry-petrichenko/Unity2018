@@ -11,7 +11,7 @@ public class MainTestRotation : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		var settings = new RotationUnitSettings();
+		var settings = new TestUnitSettings();
 		settings.SetGraphicObject(UnitPrefab);
 		_oneUnitRotationController = new OneUnitRotationController(settings);
 	}
