@@ -19,7 +19,7 @@ namespace Scripts.Units.Enemy
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IStateInfo stateInfo
+            IUnitState stateInfo
             ) : base(unitsTable, moveController, attackController, unitEvents, stateInfo)
         {
             _peacefulBehaviour = peacefulBehaviour;

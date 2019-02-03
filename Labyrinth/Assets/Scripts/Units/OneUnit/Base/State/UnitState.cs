@@ -1,3 +1,5 @@
+using Units.OneUnit;
+
 namespace Scripts.Units.StateInfo
 {
     public class UnitState : IUnitState
@@ -5,9 +7,14 @@ namespace Scripts.Units.StateInfo
         private IStateInfo _stateInfo;
         private IStateInfo _walkState;
         private IStateInfo _attackState;
+        
+        public IntVector2 WaitPosition { get; set; }
+        public IOneUnitController AttackTarget { get; set; }
 
         public UnitState()
         {
+            WaitPosition = IntVector2Constant.UNASSIGNET;
+            
             _walkState = new WalkStateInfo();
             _attackState = new AttackStateInfo();
             SetState(_walkState);

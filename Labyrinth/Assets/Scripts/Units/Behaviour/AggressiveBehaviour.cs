@@ -12,12 +12,12 @@ namespace Scripts.Units
         private IOneUnitController _target;
         
         private readonly IAttackController _attackController;
-        private readonly IStateInfo _stateInfo;
+        private readonly IUnitState _stateInfo;
         private readonly IUnitEvents _unitEvents;
 
         public AggressiveBehaviour(
             IAttackController attackController,
-            IStateInfo stateInfo,
+            IUnitState stateInfo,
             IUnitEvents unitEvents
             )
         {

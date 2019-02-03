@@ -7,7 +7,7 @@ namespace Units.OneUnit
     public interface IOneUnitController
     {
         IntVector2 Position { get; }
-        IStateInfo StateInfo { get; }
+        IUnitState StateInfo { get; }
         IUnitEvents UnitEvents { get; }
        
         void MoveTo(IntVector2 position);

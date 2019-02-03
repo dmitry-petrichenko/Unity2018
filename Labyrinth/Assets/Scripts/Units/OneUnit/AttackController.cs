@@ -32,9 +32,9 @@ namespace Units.OneUnit
         
         public void Attack(IntVector2 position)
         {
+            _targetUnit = _unitsTable.GetUnitOnPosition(position);
             _unitState.SetState(_unitState.GetAttackState());
             _targetOvertaker.Complete += OvertakeTargetHandler;
-            _targetUnit = _unitsTable.GetUnitOnPosition(position);
             _targetOvertaker.Overtake(_targetUnit);
         }
 

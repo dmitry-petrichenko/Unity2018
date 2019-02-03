@@ -1,5 +1,5 @@
-﻿using Scripts;
-using Scripts.Units;
+﻿using System;
+using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using UnityEngine;
@@ -13,14 +13,14 @@ namespace Units.OneUnit
         private readonly IAttackController _attackController;
         
         private IUnitsTable _unitsTable;
-        private IStateInfo _stateInfo;
+        private IUnitState _stateInfo;
 
         public OneUnitController(
             IUnitsTable unitsTable,
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IStateInfo stateInfo)
+            IUnitState stateInfo)
         {
             _stateInfo = stateInfo;
             _unitsTable = unitsTable;
@@ -31,7 +31,7 @@ namespace Units.OneUnit
             _unitsTable.AddUnit(this);
         }
 
-        public IStateInfo StateInfo => _stateInfo;
+        public IUnitState StateInfo => _stateInfo;
         public IUnitEvents UnitEvents => _unitEvents;
         public IntVector2 Position => _moveController.Position;
 
@@ -55,14 +55,17 @@ namespace Units.OneUnit
 
     public class UnitStub : IOneUnitController
     {
+        private UnitEventsStub _unitEvents;
+        
         public UnitStub(IntVector2 position)
         {
             Position = position;
+            _unitEvents = new UnitEventsStub();
         }
 
         public IntVector2 Position { get; }
-        public IStateInfo StateInfo { get; }
-        public IUnitEvents UnitEvents { get; }
+        public IUnitState StateInfo { get; }
+        public IUnitEvents UnitEvents => _unitEvents;
         
         public void MoveTo(IntVector2 position) {}
 
@@ -75,5 +78,13 @@ namespace Units.OneUnit
         public void Attack(IntVector2 position) {}
 
         public void TakeDamage(int value) {Debug.Log("damage " + value);}
+    }
+    
+    public class UnitEventsStub : IUnitEvents 
+    {
+        public event Action<IntVector2> PositionChanged;
+        public event Action MovePathComplete;
+        public event Action MoveTileComplete;
+        public event Action AttackComplete;
     }
 }

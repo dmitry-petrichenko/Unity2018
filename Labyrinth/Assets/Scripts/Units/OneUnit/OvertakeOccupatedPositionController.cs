@@ -14,14 +14,14 @@ namespace Units.OneUnit
         
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
-        private IStateInfo _stateInfo;
+        private IUnitState _stateInfo;
         private IGrid _grid;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         
         public OvertakeOccupatedPositionController(
             IEventDispatcher eventDispatcher,
             IUnitsTable unitsTable,
-            IStateInfo stateInfo,
+            IUnitState stateInfo,
             IGrid grid
             )
         {

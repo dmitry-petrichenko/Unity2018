@@ -10,7 +10,7 @@ namespace Units.OneUnit
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
-        private readonly IStateInfo _stateInfo;
+        private readonly IUnitState _stateInfo;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IBaseActionController _baseActionController;
         
@@ -21,7 +21,7 @@ namespace Units.OneUnit
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IStateInfo stateInfo,
+            IUnitState stateInfo,
             IEventDispatcher eventDispatcher,
             IBaseActionController baseActionController
             )
