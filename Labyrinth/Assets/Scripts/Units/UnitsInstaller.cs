@@ -71,7 +71,6 @@ namespace Units
             builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
             builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();
-            builder.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
             builder.RegisterType<TargetOvertaker2>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
