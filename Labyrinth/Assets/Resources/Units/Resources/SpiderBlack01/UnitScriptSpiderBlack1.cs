@@ -23,4 +23,9 @@ public class UnitScriptSpiderBlack1 : MonoBehaviour, IUnitScript
 	{
 		_animator.Play("attack");
 	}
+
+	public void PlayDieAnimation()
+	{
+		throw new System.NotImplementedException();
+	}
 }

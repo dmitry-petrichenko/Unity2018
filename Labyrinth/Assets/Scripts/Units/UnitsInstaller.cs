@@ -76,6 +76,7 @@ namespace Units
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
+            builder.RegisterType<DeathController>().As<IDeathController>().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();

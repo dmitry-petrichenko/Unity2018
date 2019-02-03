@@ -23,4 +23,9 @@ public class UnitScriptRedMage : MonoBehaviour, IUnitScript
 	{
 		_animator.Play("ATK1");
 	}
+
+	public void PlayDieAnimation()
+	{
+		_animator.Play("Dead");
+	}
 }

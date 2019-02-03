@@ -34,6 +34,11 @@ namespace Tests.Animation
 		{
 			unitAnimationController.PlayWalkAnimation();
 		}
+		
+		public void PlayDieAnimation()
+		{
+			unitAnimationController.PlayDieAnimation();
+		}
 
 	}
 }

@@ -7,6 +7,7 @@ namespace Units.OneUnit.Base.GameObject.Animation
         void PlayWalkAnimation();
         void PlayAttackAnimation();
         void PlayIdleAnimation();
+        void PlayDieAnimation();
         
         event Action AttackComplete;
     }

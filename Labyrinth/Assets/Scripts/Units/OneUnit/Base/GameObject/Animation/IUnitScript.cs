@@ -5,5 +5,6 @@
         void PlayIdleAnimation();
         void PlayWalkAnimation();
         void PlayAttackAnimation();
+        void PlayDieAnimation();
     }
 }

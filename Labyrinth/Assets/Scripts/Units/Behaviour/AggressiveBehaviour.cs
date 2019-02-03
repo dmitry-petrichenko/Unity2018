@@ -35,16 +35,24 @@ namespace Scripts.Units
         {
             _attackController.Attack(_target.Position);
         }
+        
+        private void TargetDiedHandler()
+        {
+            Cancel();
+        }
 
         public void Start(IOneUnitController target)
         {
             _stateInfo.AttackTarget = target;
             _target = target;
+            
+            _target.UnitEvents.Died += TargetDiedHandler;
             _attackController.Attack(_target.Position);
         }
 
         public void Cancel()
         {
+            _unitEvents.AttackComplete -= AttackCompleteHandler;
             _attackController.Cancel();
         }
     }

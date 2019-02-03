@@ -36,6 +36,11 @@ namespace Units.OneUnit.Base.GameObject.Animation
             _unitScript.PlayWalkAnimation();
         }
         
+        public void PlayDieAnimation()
+        {
+            _unitScript.PlayDieAnimation();
+        }
+        
         private void TriggerComplete()
         {
             AttackComplete?.Invoke();

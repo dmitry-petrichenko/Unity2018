@@ -29,7 +29,7 @@ namespace Scripts.Units.Settings
             MotionSpeed = float.Parse((string)_infoJson["MotionSpeed"], CultureInfo.InvariantCulture.NumberFormat);
             _prefabPath = (string) _infoJson["PrefabPath"];
             RotationSpeed = float.Parse((string)_infoJson["RotationSpeed"], CultureInfo.InvariantCulture.NumberFormat);
-            Attack = 5;
+            Attack = 25;
             TotalHealth = 100;
                 
             GraphicObject = InstantiatePrefabFromResourcePath(_prefabPath);

@@ -12,6 +12,7 @@ namespace Units.OneUnit.Base.GameObject
         void Wait();
         void Wait(IntVector2 position);
         void Attack(IntVector2 position);
+        void Die();
         void SetOnPosition(IntVector2 position);
         void SetHealthBarValue(float value);
         

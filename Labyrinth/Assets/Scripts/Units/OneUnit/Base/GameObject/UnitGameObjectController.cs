@@ -62,6 +62,11 @@ namespace Units.OneUnit.Base.GameObject
             _animationController.PlayAttackAnimation();
         }
         
+        public void Die()
+        {
+            _animationController.PlayDieAnimation();
+        }
+        
         public void SetHealthBarValue(float value)
         {
             _oneUnitHealthController.SetHealthBarValue(value);

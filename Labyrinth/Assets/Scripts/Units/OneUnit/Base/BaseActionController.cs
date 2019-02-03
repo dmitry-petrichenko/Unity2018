@@ -12,19 +12,22 @@ namespace Units.OneUnit.Base
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
         private readonly IHealthController _healthController;
+        private readonly IDeathController _deathController;
 
         public BaseActionController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
             IHealthController healthController,
-            IUnitGameObjectController unitGameObjectController)
+            IUnitGameObjectController unitGameObjectController,
+            IDeathController deathController)
         {
             _moveStepByStepController = moveStepByStepController;
             _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
             _healthController = healthController;
+            _deathController = deathController;
         }
 
         public void Attack(IntVector2 position)

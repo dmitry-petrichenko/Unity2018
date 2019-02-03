@@ -86,5 +86,6 @@ namespace Units.OneUnit
         public event Action MovePathComplete;
         public event Action MoveTileComplete;
         public event Action AttackComplete;
+        public event Action Died;
     }
 }
