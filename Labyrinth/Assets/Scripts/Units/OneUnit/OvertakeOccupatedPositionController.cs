@@ -1,44 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Units;
+using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
-using Units.OneUnit.Base;
 using Units.PathFinder;
 
 namespace Units.OneUnit
 {
     public class OvertakeOccupatedPositionController
     {
-        private readonly INoWayEventRouter _noWayEventRouter;
+        private readonly IEventDispatcher _eventDispatcher;
+        
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
-        private IUnitStateInfo _unitStateInfo;
+        private IStateInfo _stateInfo;
         private IGrid _grid;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         
         public OvertakeOccupatedPositionController(
-            INoWayEventRouter noWayEventRouter,
+            IEventDispatcher eventDispatcher,
             IUnitsTable unitsTable,
-            IUnitStateInfo unitStateInfo,
+            IStateInfo stateInfo,
             IGrid grid
             )
         {
-            _noWayEventRouter = noWayEventRouter;
+            _eventDispatcher = eventDispatcher;
             _unitsTable = unitsTable;
-            _unitStateInfo = unitStateInfo;
+            _stateInfo = stateInfo;
             _grid = grid;
         }
         
         public void Initialize(IOneUnitController oneUnitController)
         {
+            SubscribeOnEvents();
             _oneUnitController = oneUnitController;
-            _noWayEventRouter.NoWayToAttackPointHandler += NoWayToAttackPointHandler;
+        }
+
+        private void SubscribeOnEvents()
+        {
+            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_ATTACK_DESTINATION, NoWayToAttackPointHandler);
+        }
+
+        private void UnsubscribeOnEvents()
+        {
+            
         }
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
-            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitStateInfo.AttackTarget.Position);
+            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_stateInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
                 _oneUnitController.Wait(position);

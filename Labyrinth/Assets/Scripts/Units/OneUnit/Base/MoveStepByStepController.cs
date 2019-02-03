@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Units;
-using Scripts.Units.Events;
+using Scripts.Units.StateInfo;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
@@ -11,6 +10,7 @@ namespace Units.OneUnit.Base
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;
+        private readonly IUnitState _unitState;
         
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
@@ -19,11 +19,13 @@ namespace Units.OneUnit.Base
         public IntVector2 Destination { get; set; }
 
         public MoveStepByStepController(
+            IUnitState unitState,
             IUnitsTable unitsTable,
             IEventDispatcher eventDispatcher,
             IUnitGameObjectController unitGameObjectController
             )
         {
+            _unitState = unitState;
             _unitsTable = unitsTable;
             _eventDispatcher = eventDispatcher;
             _unitGameObjectController = unitGameObjectController;
@@ -52,7 +54,7 @@ namespace Units.OneUnit.Base
             Reset();
             if (path.Count == 0)
             {
-                _eventDispatcher.DispatchEvent(UnitEventsTypes.NO_WAY_TO_TILE, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(_unitState.NoWayToTileEvent, _nextOccupiedPossition);
                 return;
             }
             _unitGameObjectController.MoveComplete += MoveNextStep;
@@ -86,7 +88,7 @@ namespace Units.OneUnit.Base
             else
             {
                 Reset();
-                _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_PATH_COMPLETE);
+                _eventDispatcher.DispatchEvent(_unitState.MovePathCompleteEvent);
             }
         }
 
@@ -103,7 +105,7 @@ namespace Units.OneUnit.Base
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
-                _eventDispatcher.DispatchEvent(UnitEventsTypes.NEXT_TILE_OCCUPATED, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(_unitState.NextTileOccupatedEvent, _nextOccupiedPossition);
 
                 return true;
             }

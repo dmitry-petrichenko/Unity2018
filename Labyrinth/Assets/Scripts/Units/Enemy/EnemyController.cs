@@ -19,8 +19,8 @@ namespace Scripts.Units.Enemy
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IUnitStateInfo unitStateInfo
-            ) : base(unitsTable, moveController, attackController, unitEvents, unitStateInfo)
+            IStateInfo stateInfo
+            ) : base(unitsTable, moveController, attackController, unitEvents, stateInfo)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;

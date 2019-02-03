@@ -63,6 +63,8 @@ namespace Units
                 .As<IBaseActionController>().SingleInstance();
         
             //builder.RegisterType<OneUnitController>().As<IOneUnitController>().SingleInstance();
+            
+            builder.RegisterType<UnitState>().As<IUnitState>().SingleInstance();
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();
             builder.RegisterType<AttackController>().AsSelf().SingleInstance();
@@ -70,11 +72,10 @@ namespace Units
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
             builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
             builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
-            builder.RegisterType<UnitStateInfo>().As<IUnitStateInfo>().SingleInstance();
+            builder.RegisterType<StateInfo>().As<IStateInfo>().SingleInstance();
             builder.RegisterType<TargetOvertaker2>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
-            builder.RegisterType<NoWayEventRouter>().As<INoWayEventRouter>().SingleInstance();
             builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();

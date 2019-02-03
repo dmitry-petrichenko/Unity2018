@@ -22,8 +22,8 @@ namespace Units.Player
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IUnitStateInfo unitStateInfo
-        ): base(unitsTable, moveController, attackController, unitEvents, unitStateInfo)
+            IStateInfo stateInfo
+        ): base(unitsTable, moveController, attackController, unitEvents, stateInfo)
         {
             _gameEvents = gameEvents;
             _eventDispatcher = eventDispatcher;

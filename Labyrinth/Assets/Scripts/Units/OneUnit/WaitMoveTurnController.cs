@@ -1,5 +1,6 @@
-﻿using Scripts;
-using Scripts.Units;
+﻿using ID5D6AAC.Common.EventDispatcher;
+using Scripts;
+using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
@@ -9,8 +10,8 @@ namespace Units.OneUnit
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
-        private readonly IUnitStateInfo _unitStateInfo;
-        private readonly INoWayEventRouter _noWayEventRouter;
+        private readonly IStateInfo _stateInfo;
+        private readonly IEventDispatcher _eventDispatcher;
         private readonly IBaseActionController _baseActionController;
         
         private IOneUnitController _targetUnit;
@@ -20,18 +21,28 @@ namespace Units.OneUnit
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IUnitStateInfo unitStateInfo,
-            INoWayEventRouter noWayEventRouter,
+            IStateInfo stateInfo,
+            IEventDispatcher eventDispatcher,
             IBaseActionController baseActionController
             )
         {
             _unitsTable = unitsTable;
             _movingRandomizer = movingRandomizer;
-            _unitStateInfo = unitStateInfo;
-            _noWayEventRouter = noWayEventRouter;
+            _stateInfo = stateInfo;
+            _eventDispatcher = eventDispatcher;
             _baseActionController = baseActionController;
-            
-            _noWayEventRouter.NoWayToPointHandler += NoWayToPointHandler;
+
+            SubscribeOnEvents();
+        }
+
+        private void SubscribeOnEvents()
+        {
+            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, NoWayToPointHandler);
+        }
+        
+        private void UnsubscribeOnEvents()
+        {
+            throw new System.NotImplementedException();
         }
 
         private void NoWayToPointHandler(IntVector2 occupiedPoint)
@@ -43,7 +54,7 @@ namespace Units.OneUnit
         private void WaitUnitOnPosition(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            if (Equals(_targetUnit.UnitStateInfo.WaitPosition, _baseActionController.Position))
+            if (Equals(_targetUnit.StateInfo.WaitPosition, _baseActionController.Position))
             {
                 IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseActionController.Position);
                 _baseActionController.MoveTo(newPosition);
@@ -51,7 +62,7 @@ namespace Units.OneUnit
             }
 
             _baseActionController.Wait(_targetUnit.Position);
-            _unitStateInfo.WaitPosition = position;
+            _stateInfo.WaitPosition = position;
             _targetUnit.UnitEvents.PositionChanged += TargetUnitPositionChanged;
         }
 

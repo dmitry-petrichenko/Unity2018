@@ -13,16 +13,16 @@ namespace Units.OneUnit
         private readonly IAttackController _attackController;
         
         private IUnitsTable _unitsTable;
-        private IUnitStateInfo _unitStateInfo;
+        private IStateInfo _stateInfo;
 
         public OneUnitController(
             IUnitsTable unitsTable,
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IUnitStateInfo unitStateInfo)
+            IStateInfo stateInfo)
         {
-            _unitStateInfo = unitStateInfo;
+            _stateInfo = stateInfo;
             _unitsTable = unitsTable;
             _moveController = moveController;            
             _unitEvents = unitEvents;
@@ -31,7 +31,7 @@ namespace Units.OneUnit
             _unitsTable.AddUnit(this);
         }
 
-        public IUnitStateInfo UnitStateInfo => _unitStateInfo;
+        public IStateInfo StateInfo => _stateInfo;
         public IUnitEvents UnitEvents => _unitEvents;
         public IntVector2 Position => _moveController.Position;
 
@@ -61,7 +61,7 @@ namespace Units.OneUnit
         }
 
         public IntVector2 Position { get; }
-        public IUnitStateInfo UnitStateInfo { get; }
+        public IStateInfo StateInfo { get; }
         public IUnitEvents UnitEvents { get; }
         
         public void MoveTo(IntVector2 position) {}

@@ -12,17 +12,17 @@ namespace Scripts.Units
         private IOneUnitController _target;
         
         private readonly IAttackController _attackController;
-        private readonly IUnitStateInfo _unitStateInfo;
+        private readonly IStateInfo _stateInfo;
         private readonly IUnitEvents _unitEvents;
 
         public AggressiveBehaviour(
             IAttackController attackController,
-            IUnitStateInfo unitStateInfo,
+            IStateInfo stateInfo,
             IUnitEvents unitEvents
             )
         {
             _attackController = attackController;
-            _unitStateInfo = unitStateInfo;
+            _stateInfo = stateInfo;
             _unitEvents = unitEvents;
         }
         
@@ -38,8 +38,7 @@ namespace Scripts.Units
 
         public void Start(IOneUnitController target)
         {
-            _unitStateInfo.IsAttacking = true;
-            _unitStateInfo.AttackTarget = target;
+            _stateInfo.AttackTarget = target;
             _target = target;
             _attackController.Attack(_target.Position);
         }

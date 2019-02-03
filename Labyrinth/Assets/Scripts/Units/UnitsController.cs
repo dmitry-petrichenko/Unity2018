@@ -18,7 +18,7 @@ namespace Units
             _enemy = enemyFactory.Invoke();
             _enemy.SetOnPosition(new IntVector2(2, 0));
             //_enemy.MoveTo(new IntVector2(3, 3));
-            _enemy.Attack(player);
+            //_enemy.Attack(player);
             //_enemy.Animate();
   /*          
             EnemyController _enemy4 = enemyFactory.Invoke();
