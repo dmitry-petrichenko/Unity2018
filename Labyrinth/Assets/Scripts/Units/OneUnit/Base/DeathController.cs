@@ -32,6 +32,7 @@ namespace Units.OneUnit.Base
 
         private void HealthEndedHandler()
         {
+            _unitGameObjectController.SetHealthBarVisible(false);
             _unitGameObjectController.Die();
         }
     }

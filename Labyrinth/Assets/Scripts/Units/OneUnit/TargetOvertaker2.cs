@@ -67,6 +67,8 @@ namespace Units.OneUnit
 
             if (Equals(path[0], _baseActionController.Position))
             {
+                _unitEvents.MoveTileComplete -= OnUnitCompleteMoveTo;
+                _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
                 Complete?.Invoke();
             }
             else
@@ -102,7 +104,9 @@ namespace Units.OneUnit
 
         public void Cancel()
         {
+            _unitEvents.MovePathComplete -= OnUnitCompleteMoveTo;
             _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
+            _target = null;
         }
     }
 }

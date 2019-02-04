@@ -53,6 +53,7 @@ namespace Scripts.Units
         public void Cancel()
         {
             _unitEvents.AttackComplete -= AttackCompleteHandler;
+            _target.UnitEvents.Died -= TargetDiedHandler;
             _attackController.Cancel();
         }
     }

@@ -28,6 +28,7 @@ namespace Units.OneUnit
         public void Cancel()
         {
             _targetOvertaker.Complete -= OvertakeTargetHandler;
+            _targetOvertaker.Cancel();
         }
         
         public void Attack(IntVector2 position)

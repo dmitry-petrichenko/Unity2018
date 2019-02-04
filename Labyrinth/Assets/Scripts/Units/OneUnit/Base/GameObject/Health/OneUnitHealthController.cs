@@ -8,6 +8,7 @@ namespace Units.OneUnit.Base.GameObject.Health
         private UnityEngine.GameObject _unit;
         private LookAtCameraController _lookAtCameraController;
         private HealthBarController _healthBarController;
+        private UnityEngine.GameObject _healthBarGameObject;
         
         public OneUnitHealthController(IUnitSettings unitSettings, Camera camera)
         {
@@ -18,13 +19,17 @@ namespace Units.OneUnit.Base.GameObject.Health
             _healthBarController = _unit.GetComponentInChildren(typeof(HealthBarController)) as HealthBarController;
             _healthBarController.Set(1.0f);
 
-            //var h = _unit.transform.Find("healthbar").gameObject;
-            //h.SetActive(false);
+            _healthBarGameObject = _unit.transform.Find("healthbar").gameObject;
         }
 
         public void SetHealthBarValue(float value)
         {
             _healthBarController.Set(value);
+        }
+
+        public void SetHealthBarVisible(bool value)
+        {
+            _healthBarGameObject.SetActive(value);
         }
     }
 }

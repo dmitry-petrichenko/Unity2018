@@ -71,6 +71,11 @@ namespace Units.OneUnit.Base.GameObject
         {
             _oneUnitHealthController.SetHealthBarValue(value);
         }
+        
+        public void SetHealthBarVisible(bool value)
+        {
+            _oneUnitHealthController.SetHealthBarVisible(value);
+        }
 
         public void SetOnPosition(IntVector2 position)
         {

@@ -15,6 +15,7 @@ namespace Units.OneUnit.Base.GameObject
         void Die();
         void SetOnPosition(IntVector2 position);
         void SetHealthBarValue(float value);
+        void SetHealthBarVisible(bool value);
         
         event Action MoveComplete;
     }
