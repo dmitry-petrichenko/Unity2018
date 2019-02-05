@@ -8,7 +8,7 @@ using Units.OneUnit;
 
 namespace Units.Player
 {
-    public class PlayerController : OneUnitController, IPlayerController, IDisposable
+    public class PlayerController : OneUnitController, IPlayerController
     {
         private IGameEvents _gameEvents;
         private readonly IEventDispatcher _eventDispatcher;
@@ -45,6 +45,7 @@ namespace Units.Player
 
         public void Dispose()
         {
+            UnitEvents.MovePathComplete -= Wait;
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
         }
     }

@@ -21,5 +21,9 @@ namespace Units.Enemy
         {
             
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

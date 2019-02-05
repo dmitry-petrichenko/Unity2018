@@ -31,5 +31,11 @@ namespace Units.OneUnit.Base.GameObject.Health
         {
             _healthBarGameObject.SetActive(value);
         }
+
+        public void Dispose()
+        {
+            _lookAtCameraController = null;
+            _healthBarGameObject = null;
+        }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class TargetOvertaker2
+    public class TargetOvertaker2 : IDisposable
     {
         public event Action Complete;
         public event Action StartFollow;
@@ -107,6 +107,11 @@ namespace Units.OneUnit
             _unitEvents.MovePathComplete -= OnUnitCompleteMoveTo;
             _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
             _target = null;
+        }
+
+        public void Dispose()
+        {
+            Cancel();
         }
     }
 }

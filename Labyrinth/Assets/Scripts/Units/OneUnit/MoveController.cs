@@ -5,7 +5,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveController
+    public class MoveController : IDisposable
     {
         private IBaseActionController _baseActionController;
         private IUnitState _unitState;
@@ -36,5 +36,9 @@ namespace Units.OneUnit
         public void Wait(IntVector2 position) => _baseActionController.Wait(position);
         
         public void SetOnPosition(IntVector2 position) => _baseActionController.SetOnPosition(position);
+
+        public void Dispose()
+        {
+        }
     }
 }

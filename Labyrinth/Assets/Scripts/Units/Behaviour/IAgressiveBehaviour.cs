@@ -3,7 +3,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public interface IAgressiveBehaviour
+    public interface IAgressiveBehaviour : IDisposable
     {
         event Action Complete;
         

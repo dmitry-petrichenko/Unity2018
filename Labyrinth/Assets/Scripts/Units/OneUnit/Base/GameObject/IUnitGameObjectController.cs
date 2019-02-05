@@ -3,7 +3,7 @@ using Scripts;
 
 namespace Units.OneUnit.Base.GameObject
 {
-    public interface IUnitGameObjectController
+    public interface IUnitGameObjectController : IDisposable
     {
         IntVector2 Position { get; }
         bool IsMoving { get; }

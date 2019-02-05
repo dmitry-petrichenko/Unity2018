@@ -38,5 +38,10 @@ namespace Scripts.Units.StateInfo
         public string NoWayToTileEvent => _stateInfo.NoWayToTileEvent;
         public string NextTileOccupatedEvent => _stateInfo.NextTileOccupatedEvent;
         public string MovePathCompleteEvent => _stateInfo.MovePathCompleteEvent;
+
+        public void Dispose()
+        {
+            
+        }
     }
 }

@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Scripts;
 
 namespace Units.OneUnit.Base
 {
-    public interface IBaseActionController
+    public interface IBaseActionController : IDisposable
     {
         void Wait();
         void Wait(IntVector2 position);

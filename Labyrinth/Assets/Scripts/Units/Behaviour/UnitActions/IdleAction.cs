@@ -33,10 +33,7 @@ namespace Scripts.Units.UnitActions
 
         private void TriggerComplete()
         {
-            if (OnComplete != null)
-            {
-                OnComplete();
-            } 
+            OnComplete?.Invoke();
         }
         
         public void Stop()
@@ -50,5 +47,10 @@ namespace Scripts.Units.UnitActions
         }
 
         public event Action OnComplete;
+
+        public void Dispose()
+        {
+            _oneUnitController = null;
+        }
     }
 }

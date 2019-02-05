@@ -34,5 +34,9 @@ namespace Units.OneUnit.Base
                 _eventDispatcher.DispatchEvent(UnitEventsTypes.HEALTH_ENDED);
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

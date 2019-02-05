@@ -1,8 +1,9 @@
+using System;
 using Units.OneUnit;
 
 namespace Scripts.Units.StateInfo
 {
-    public interface IUnitState
+    public interface IUnitState : IDisposable
     {
         IntVector2 WaitPosition { get; set; }
         IOneUnitController AttackTarget { get; set; }

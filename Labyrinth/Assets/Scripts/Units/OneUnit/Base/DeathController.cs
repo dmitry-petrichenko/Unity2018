@@ -1,5 +1,5 @@
+using System;
 using ID5D6AAC.Common.EventDispatcher;
-using Scripts;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject;
 
@@ -27,13 +27,18 @@ namespace Units.OneUnit.Base
         
         private void UnsubscribeOnEvents()
         {
-            
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.HEALTH_ENDED, new Action(HealthEndedHandler));
         }
 
         private void HealthEndedHandler()
         {
             _unitGameObjectController.SetHealthBarVisible(false);
             _unitGameObjectController.Die();
+        }
+
+        public void Dispose()
+        {
+            UnsubscribeOnEvents();
         }
     }
 }

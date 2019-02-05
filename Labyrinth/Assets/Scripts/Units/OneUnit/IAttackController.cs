@@ -1,8 +1,9 @@
+using System;
 using Scripts;
 
 namespace Units.OneUnit
 {
-    public interface IAttackController
+    public interface IAttackController : IDisposable
     {
         void Cancel();
         void Attack(IntVector2 position);

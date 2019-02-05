@@ -1,6 +1,8 @@
+using System;
+
 namespace Units.OneUnit.Base
 {
-    public interface IDeathController
+    public interface IDeathController : IDisposable
     {
         
     }

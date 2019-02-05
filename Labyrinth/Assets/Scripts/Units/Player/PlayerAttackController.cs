@@ -31,5 +31,9 @@ namespace Units.Player
         {
             _baseActionController.TakeDamage(value);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

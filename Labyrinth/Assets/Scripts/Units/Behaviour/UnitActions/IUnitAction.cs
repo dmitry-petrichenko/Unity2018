@@ -3,7 +3,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public interface IUnitAction
+    public interface IUnitAction : IDisposable
     {
         void Start();
         void Stop();

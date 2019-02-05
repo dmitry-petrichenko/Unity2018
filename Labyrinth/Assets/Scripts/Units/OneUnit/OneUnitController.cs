@@ -51,6 +51,10 @@ namespace Units.OneUnit
         public void Wait() => _moveController.Wait();
         
         public void Wait(IntVector2 position) => _moveController.Wait(position);
+
+        public void Dispose()
+        {
+        }
     }
 
     public class UnitStub : IOneUnitController
@@ -78,6 +82,10 @@ namespace Units.OneUnit
         public void Attack(IntVector2 position) {}
 
         public void TakeDamage(int value) {Debug.Log("damage " + value);}
+
+        public void Dispose()
+        {
+        }
     }
     
     public class UnitEventsStub : IUnitEvents 
@@ -87,5 +95,9 @@ namespace Units.OneUnit
         public event Action MoveTileComplete;
         public event Action AttackComplete;
         public event Action Died;
+
+        public void Dispose()
+        {
+        }
     }
 }

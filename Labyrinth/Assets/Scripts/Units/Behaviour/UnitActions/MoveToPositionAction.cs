@@ -46,6 +46,11 @@ namespace Scripts.Units.UnitActions
         }
 
         public event Action OnComplete;
+
+        public void Dispose()
+        {
+            _oneUnitController.UnitEvents.MovePathComplete -= MoveCompleteHandler;
+        }
     }
 }
 

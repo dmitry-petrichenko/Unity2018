@@ -104,5 +104,9 @@ namespace Units.OneUnit.Base.GameObject
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.ATTACK_COMPLETE);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

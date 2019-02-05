@@ -1,10 +1,11 @@
-﻿using Scripts;
+﻿using System;
+using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 
 namespace Units.OneUnit
 {
-    public interface IOneUnitController
+    public interface IOneUnitController : IDisposable
     {
         IntVector2 Position { get; }
         IUnitState StateInfo { get; }

@@ -8,7 +8,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class OvertakeOccupatedPositionController
+    public class OvertakeOccupatedPositionController : IDisposable
     {
         private readonly IEventDispatcher _eventDispatcher;
         
@@ -44,7 +44,7 @@ namespace Units.OneUnit
 
         private void UnsubscribeOnEvents()
         {
-            
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_ATTACK_DESTINATION, new Action<IntVector2>(NoWayToAttackPointHandler));
         }
 
         private void NoWayToAttackPointHandler(IntVector2 position)
@@ -133,6 +133,12 @@ namespace Units.OneUnit
         private bool IsFreePosition(IntVector2 position)
         {
             return _grid.GetCell(position) && _unitsTable.IsVacantPosition(position);
+        }
+
+        public void Dispose()
+        {
+            _freePositions.Clear();
+            UnsubscribeOnEvents();
         }
     }
 }

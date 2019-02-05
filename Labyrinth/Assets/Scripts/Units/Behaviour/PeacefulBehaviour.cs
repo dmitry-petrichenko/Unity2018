@@ -55,5 +55,10 @@ namespace Scripts.Units
             _unitBehaviourGenerator.Stop();
         }
 
+        public void Dispose()
+        {
+            Stop();
+            _oneUnitController = null;
+        }
     }
 }

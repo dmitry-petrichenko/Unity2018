@@ -2,7 +2,7 @@
 
 namespace Units.OneUnit.Base.GameObject.Animation
 {
-    public interface IOneUnitAnimationController
+    public interface IOneUnitAnimationController : IDisposable
     {
         void PlayWalkAnimation();
         void PlayAttackAnimation();

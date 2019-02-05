@@ -45,5 +45,9 @@ namespace Units.OneUnit.Base.GameObject.Animation
         {
             AttackComplete?.Invoke();
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

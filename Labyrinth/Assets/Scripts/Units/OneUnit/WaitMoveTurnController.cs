@@ -1,4 +1,5 @@
-﻿using ID5D6AAC.Common.EventDispatcher;
+﻿using System;
+using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
@@ -6,7 +7,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class WaitMoveTurnController
+    public class WaitMoveTurnController : IDisposable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
@@ -42,7 +43,7 @@ namespace Units.OneUnit
         
         private void UnsubscribeOnEvents()
         {
-            throw new System.NotImplementedException();
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, new Action<IntVector2>(NoWayToPointHandler));
         }
 
         private void NoWayToPointHandler(IntVector2 occupiedPoint)
@@ -82,6 +83,13 @@ namespace Units.OneUnit
         private void MoveToDestination()
         {
             _baseActionController.MoveTo(_baseActionController.Destination);
+        }
+
+        public void Dispose()
+        {
+            UnsubscribeOnEvents();
+            _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
+            _targetUnit = null;
         }
     }
 }

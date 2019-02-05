@@ -4,7 +4,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units.Events
 {
-    public class UnitEvents : IUnitEvents, IDisposable
+    public class UnitEvents : IUnitEvents
     {
         public event Action<IntVector2> PositionChanged;
         public event Action MovePathComplete;

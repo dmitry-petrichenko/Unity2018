@@ -49,5 +49,10 @@ namespace Units.OneUnit
         {
             _baseActionController.TakeDamage(value);
         }
+
+        public void Dispose()
+        {
+            Cancel();
+        }
     }
 }

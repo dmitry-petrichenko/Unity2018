@@ -23,5 +23,10 @@ namespace Units.OneUnit.Base
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
             _targetUnit.TakeDamage(_unitSettings.Attack);
         }
+
+        public void Dispose()
+        {
+            _targetUnit = null;
+        }
     }
 }

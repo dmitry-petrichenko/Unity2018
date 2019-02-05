@@ -56,5 +56,10 @@ namespace Scripts.Units
             _target.UnitEvents.Died -= TargetDiedHandler;
             _attackController.Cancel();
         }
+
+        public void Dispose()
+        {
+            Cancel();
+        }
     }
 }
