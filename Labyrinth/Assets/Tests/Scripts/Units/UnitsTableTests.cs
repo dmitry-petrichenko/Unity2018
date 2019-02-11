@@ -12,7 +12,7 @@ namespace Tests.Scripts.Units
         {    
             _occupatedPossitionsTable = new OccupatedPossitionsTable();
         }
-
+/*
         [Theory]
         [InlineData(false, 2, 3, 2, 3)]
         [InlineData(true, 2, 3, 2, 4)]
@@ -36,6 +36,6 @@ namespace Tests.Scripts.Units
             actualResult = _occupatedPossitionsTable.IsVacantPosition(new IntVector2(x1, y1));
 
             Assert.True(actualResult == expectedResult);
-        }
+        }*/
     }
 }
