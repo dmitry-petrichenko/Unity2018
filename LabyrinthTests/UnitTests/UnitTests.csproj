@@ -37,10 +37,15 @@
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\Labyrinth\obj\Debug\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EventDispatcher, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\ID5D6AAC.Common.EventDispatcher.1.2.0\lib\net40\EventDispatcher.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,8 +90,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacExtensions.cs" />
     <Compile Include="DeathControllerTests.cs" />
+    <Compile Include="Extensions\AutofacExtensionsTests.cs" />
+    <Compile Include="MyDisposable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScopeTrees.cs" />
     <Compile Include="UnitsTableTests.cs" />
   </ItemGroup>
   <ItemGroup>

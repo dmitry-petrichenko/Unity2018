@@ -2,7 +2,7 @@ using System;
 using Autofac;
 using Autofac.Builder;
 
-namespace Scripts.Extensions
+namespace Scripts.Extensions2
 {
     public static class AutofacExtensions
     {
