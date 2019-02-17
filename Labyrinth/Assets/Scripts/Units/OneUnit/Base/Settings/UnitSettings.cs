@@ -1,11 +1,12 @@
 ﻿using System.Globalization;
 using System.IO;
 using LitJson;
+using Scripts.Extensions;
 using UnityEngine;
 
 namespace Scripts.Units.Settings
 {
-    public abstract class UnitSettings : IUnitSettings
+    public abstract class UnitSettings : MyDisposable, IUnitSettings
     {
         public float MotionSpeed { get; private set; }
         public GameObject GraphicObject { get; private set; }

@@ -1,11 +1,12 @@
 ﻿using System;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class AggressiveBehaviour : IAgressiveBehaviour
+    public class AggressiveBehaviour : MyDisposable, IAgressiveBehaviour
     {
         public event Action Complete;
 

@@ -1,8 +1,9 @@
+using Scripts.Extensions;
 using Units.OneUnit;
 
 namespace Scripts.Units.StateInfo
 {
-    public class UnitState : IUnitState
+    public class UnitState : MyDisposable, IUnitState
     {
         private IStateInfo _stateInfo;
         private IStateInfo _walkState;

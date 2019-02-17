@@ -1,9 +1,10 @@
 ﻿using System;
+using Scripts.Extensions;
 using Units.OneUnit;
 
 namespace Scripts.Units.UnitActions
 {
-    public class MoveToPositionAction : IUnitAction
+    public class MoveToPositionAction : MyDisposable, IUnitAction
     {
         public delegate MoveToPositionAction Factory();
         

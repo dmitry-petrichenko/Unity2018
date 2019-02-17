@@ -1,10 +1,11 @@
 ﻿using System;
+using Scripts.Extensions;
 using Scripts.GameLoop;
 using Scripts.Units.Settings;
 
 namespace Units.OneUnit.Base.GameObject.Animation
 {
-    public class OneUnitAnimationController : IOneUnitAnimationController
+    public class OneUnitAnimationController : MyDisposable, IOneUnitAnimationController
     {
         public event Action AttackComplete;
 

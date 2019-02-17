@@ -1,6 +1,7 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject.Animation;
 using Units.OneUnit.Base.GameObject.Health;
@@ -9,7 +10,7 @@ using Units.OneUnit.Base.GameObject.Rotation;
 
 namespace Units.OneUnit.Base.GameObject
 {
-    public class UnitGameObjectController : IUnitGameObjectController
+    public class UnitGameObjectController : MyDisposable, IUnitGameObjectController
     {
         private readonly IOneUnitRotationController _rotationController;
         private readonly IOneUnitAnimationController _animationController;

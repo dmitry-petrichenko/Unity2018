@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class OvertakeOccupatedPositionController : IDisposable
+    public class OvertakeOccupatedPositionController : MyDisposable
     {
         private readonly IEventDispatcher _eventDispatcher;
         

@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.PathFinder;
 
 namespace Units.OneUnit.Base
 {
-    public class ChangeDirrectionAfterMoveTileCompleteController
+    public class ChangeDirrectionAfterMoveTileCompleteController : MyDisposable
     {
         private IMoveStepByStepController _moveStepByStepController;
         private IntVector2 _newPosition;

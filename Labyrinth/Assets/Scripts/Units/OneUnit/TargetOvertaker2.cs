@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.OneUnit.Base;
 using Units.PathFinder;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class TargetOvertaker2 : IDisposable
+    public class TargetOvertaker2 : MyDisposable
     {
         public event Action Complete;
         public event Action StartFollow;

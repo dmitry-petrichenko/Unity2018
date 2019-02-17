@@ -1,12 +1,13 @@
 ﻿using System;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class OneUnitController : IOneUnitController
+    public class OneUnitController : MyDisposable, IOneUnitController
     {
         private readonly IUnitEvents _unitEvents;
         private readonly MoveController _moveController;

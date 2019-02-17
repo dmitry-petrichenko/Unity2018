@@ -1,11 +1,12 @@
 ﻿using System;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveController : IDisposable
+    public class MoveController : MyDisposable
     {
         private IBaseActionController _baseActionController;
         private IUnitState _unitState;

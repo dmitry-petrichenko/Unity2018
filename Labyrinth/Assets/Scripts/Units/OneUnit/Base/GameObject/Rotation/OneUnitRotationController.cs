@@ -1,12 +1,13 @@
 ﻿using System;
 using DG.Tweening;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Settings;
 using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Rotation
 {
-    public class OneUnitRotationController : IOneUnitRotationController
+    public class OneUnitRotationController : MyDisposable, IOneUnitRotationController
     {
         private UnityEngine.GameObject _unit;
 

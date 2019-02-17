@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units;
 using Scripts.Units.Events;
 using Units.OneUnit.Base;
@@ -9,7 +10,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class MoveConsideringOccupatedController : IDisposable
+    public class MoveConsideringOccupatedController : MyDisposable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IPathFinderController _pathFinderController;

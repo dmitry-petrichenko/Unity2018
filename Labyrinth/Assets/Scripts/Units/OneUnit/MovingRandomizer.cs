@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Scripts;
+using Scripts.Extensions;
 using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class MovingRandomizer : IMovingRandomizer
+    public class MovingRandomizer : MyDisposable, IMovingRandomizer
     {
         private IGrid _grid;
         private List<IntVector2> _vacantPoints;

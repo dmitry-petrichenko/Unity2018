@@ -1,13 +1,14 @@
 ﻿using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class WaitMoveTurnController : IDisposable
+    public class WaitMoveTurnController : MyDisposable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;

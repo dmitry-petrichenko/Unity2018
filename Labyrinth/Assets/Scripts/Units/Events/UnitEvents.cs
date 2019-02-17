@@ -1,10 +1,11 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Extensions;
 using Units.OneUnit;
 
 namespace Scripts.Units.Events
 {
-    public class UnitEvents : IUnitEvents
+    public class UnitEvents : MyDisposable, IUnitEvents
     {
         public event Action<IntVector2> PositionChanged;
         public event Action MovePathComplete;

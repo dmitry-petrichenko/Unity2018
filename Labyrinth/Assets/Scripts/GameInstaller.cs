@@ -3,6 +3,7 @@ using Autofac;
 using FeatureDistri;
 using Scripts;
 using Scripts.ActionDistributor;
+using Scripts.Extensions;
 using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Settings;
@@ -27,6 +28,7 @@ public class GameInstaller : MonoBehaviour
     private void InstallRegistrations()
     {
         var builder = new ContainerBuilder();
+        builder.RegisterType<ScopeTree>().As<IScopeTree>();
         
         builder.RegisterInstance(camera).As<Camera>();
         builder.RegisterInstance(this).As<GameInstaller>();

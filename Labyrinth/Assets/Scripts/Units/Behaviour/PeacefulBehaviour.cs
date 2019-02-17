@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scripts.ActionDistributor;
+using Scripts.Extensions;
 using Scripts.Units.UnitActions;
 using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class PeacefulBehaviour : IPeacefulBehaviour
+    public class PeacefulBehaviour : MyDisposable, IPeacefulBehaviour
     {
         private IUnitAction _currentUnitAction;
         private IHeavyActionDistributor _heavyActionDistributor;

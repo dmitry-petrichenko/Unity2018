@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Scripts.Extensions;
 
 namespace Units.PathFinder
 {
-    public partial class PathFinderController : IPathFinderController
+    public partial class PathFinderController : MyDisposable, IPathFinderController
     {
         private IGrid _grid;
         private List<IntVector2> _closeList;

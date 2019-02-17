@@ -1,10 +1,11 @@
 ﻿using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class AttackController : IAttackController
+    public class AttackController : MyDisposable, IAttackController
     {
         private IBaseActionController _baseActionController;
         private TargetOvertaker2 _targetOvertaker;

@@ -1,11 +1,12 @@
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class HealthController : IHealthController
+    public class HealthController : MyDisposable, IHealthController
     {
         private readonly IBaseActionController _baseActionController;
         private readonly IUnitSettings _unitSettings;

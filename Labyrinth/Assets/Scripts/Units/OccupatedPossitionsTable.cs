@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Scripts;
+using Scripts.Extensions;
 
 namespace Units
 {
-    public class OccupatedPossitionsTable : IOccupatedPossitionsTable
+    public class OccupatedPossitionsTable : MyDisposable, IOccupatedPossitionsTable
     {
         private List<IntVector2> _indexes = new List<IntVector2>();
 

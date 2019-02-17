@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class MoveStepByStepController : IMoveStepByStepController
+    public class MoveStepByStepController : MyDisposable, IMoveStepByStepController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;

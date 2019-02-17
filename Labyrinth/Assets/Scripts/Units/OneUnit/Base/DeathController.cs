@@ -1,11 +1,12 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
+using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class DeathController : IDeathController
+    public class DeathController : MyDisposable, IDeathController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;

@@ -1,9 +1,10 @@
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Settings;
 
 namespace Units.OneUnit.Base
 {
-    public class ApplyDamageController : IApplyDamageController
+    public class ApplyDamageController : MyDisposable, IApplyDamageController
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IUnitSettings _unitSettings;

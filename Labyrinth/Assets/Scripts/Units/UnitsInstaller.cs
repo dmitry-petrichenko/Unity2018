@@ -65,7 +65,6 @@ namespace Units
             builder.RegisterType<UnitState>().As<IUnitState>().SingleInstance();
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();
-            builder.RegisterType<AttackController>().AsSelf().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
             builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();

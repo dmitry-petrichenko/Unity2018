@@ -1,11 +1,12 @@
 ﻿using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Enemy;
 using Units.ExternalAPI;
 using Units.Player;
 
 namespace Units
 {
-    public class UnitsController : IUnitsController
+    public class UnitsController : MyDisposable,  IUnitsController
     {
         private EnemyController _enemy;
         private EnemyController _enemy2;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Tree
+namespace Scripts.Extensions
 {
     public class MyDisposable : IDisposable
     {

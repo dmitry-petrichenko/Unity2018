@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
-using Scripts;
-using Scripts.Extensions2;
-using Telerik.JustMock;
-using Tree;
 using Xunit;
 
 namespace UnitTests.Extensions

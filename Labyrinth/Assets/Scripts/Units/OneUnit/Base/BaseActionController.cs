@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class BaseActionController : IBaseActionController
+    public class BaseActionController : MyDisposable, IBaseActionController
     {
         private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;

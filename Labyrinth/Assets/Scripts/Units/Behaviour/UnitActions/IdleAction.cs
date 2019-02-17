@@ -1,4 +1,5 @@
 ﻿using System;
+using Scripts.Extensions;
 using UnityEditor;
 using UnityEngine;
 using Scripts.GameLoop;
@@ -6,7 +7,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units.UnitActions
 {
-    public class IdleAction : IUnitAction
+    public class IdleAction : MyDisposable, IUnitAction
     {
         public delegate MoveToPositionAction Factory();
         

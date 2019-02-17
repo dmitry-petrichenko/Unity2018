@@ -1,4 +1,5 @@
 ﻿using System;
+using Scripts.Extensions;
 using Units;
 using Scripts.GameLoop;
 using Units.OneUnit;
@@ -6,7 +7,7 @@ using Units.OneUnit.Base;
 
 namespace Scripts.Units.Behaviour.UnitActions
 {
-    public class AttackAction : IUnitAction
+    public class AttackAction : MyDisposable, IUnitAction
     {
         public delegate AttackAction Factory();
         

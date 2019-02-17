@@ -1,9 +1,10 @@
+using Scripts.Extensions;
 using Scripts.Units.Settings;
 using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Health
 {
-    public class OneUnitHealthController : IOneUnitHealthController
+    public class OneUnitHealthController : MyDisposable, IOneUnitHealthController
     {
         private UnityEngine.GameObject _unit;
         private LookAtCameraController _lookAtCameraController;

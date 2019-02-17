@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Scripts.ActionDistributor;
+using Scripts.Extensions;
 using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class UnitBehaviourGenerator
+    public class UnitBehaviourGenerator : MyDisposable
     {
         private List<IUnitAction> _actions;
         private IUnitAction _currentUnitAction;

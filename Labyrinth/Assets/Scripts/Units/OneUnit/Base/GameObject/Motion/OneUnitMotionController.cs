@@ -1,12 +1,13 @@
 ﻿using System;
 using DG.Tweening;
 using Scripts;
+using Scripts.Extensions;
 using Scripts.Units.Settings;
 using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Motion
 {
-    public class OneUnitMotionController : IOneUnitMotionController
+    public class OneUnitMotionController : MyDisposable, IOneUnitMotionController
     {
         private readonly IUnitSettings _unitSettings;
         private UnityEngine.GameObject _unit;
