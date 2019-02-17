@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
+using Scripts.Extensions;
 using Xunit;
 
 namespace UnitTests.Extensions
