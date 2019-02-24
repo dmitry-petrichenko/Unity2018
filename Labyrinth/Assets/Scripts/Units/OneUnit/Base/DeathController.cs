@@ -6,7 +6,7 @@ using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class DeathController : MyDisposable, IDeathController
+    public class DeathController : Disposable, IDeathController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;

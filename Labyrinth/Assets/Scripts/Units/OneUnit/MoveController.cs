@@ -6,7 +6,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveController : MyDisposable
+    public class MoveController : Disposable
     {
         private IBaseActionController _baseActionController;
         private IUnitState _unitState;

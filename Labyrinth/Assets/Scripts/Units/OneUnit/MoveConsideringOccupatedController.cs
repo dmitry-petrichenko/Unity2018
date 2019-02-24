@@ -10,7 +10,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class MoveConsideringOccupatedController : MyDisposable
+    public class MoveConsideringOccupatedController : Disposable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IPathFinderController _pathFinderController;

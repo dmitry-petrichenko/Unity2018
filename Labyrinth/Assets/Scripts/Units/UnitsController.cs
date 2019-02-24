@@ -6,7 +6,7 @@ using Units.Player;
 
 namespace Units
 {
-    public class UnitsController : MyDisposable,  IUnitsController
+    public class UnitsController : Disposable,  IUnitsController
     {
         private EnemyController _enemy;
         private EnemyController _enemy2;

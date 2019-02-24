@@ -5,7 +5,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class UnitBehaviourGenerator : MyDisposable
+    public class UnitBehaviourGenerator : Disposable
     {
         private List<IUnitAction> _actions;
         private IUnitAction _currentUnitAction;

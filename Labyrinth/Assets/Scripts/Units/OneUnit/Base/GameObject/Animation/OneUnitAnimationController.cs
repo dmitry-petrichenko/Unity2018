@@ -5,7 +5,7 @@ using Scripts.Units.Settings;
 
 namespace Units.OneUnit.Base.GameObject.Animation
 {
-    public class OneUnitAnimationController : MyDisposable, IOneUnitAnimationController
+    public class OneUnitAnimationController : Disposable, IOneUnitAnimationController
     {
         public event Action AttackComplete;
 

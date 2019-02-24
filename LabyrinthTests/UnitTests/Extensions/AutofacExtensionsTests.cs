@@ -149,7 +149,7 @@ namespace UnitTests.Extensions
         }
     }
     
-    public class TestDisposable : MyDisposable
+    public class TestDisposable : Disposable
     {
         public TestDisposable()
         {

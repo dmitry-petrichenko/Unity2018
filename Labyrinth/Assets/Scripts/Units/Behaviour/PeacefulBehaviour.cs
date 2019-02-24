@@ -6,7 +6,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class PeacefulBehaviour : MyDisposable, IPeacefulBehaviour
+    public class PeacefulBehaviour : Disposable, IPeacefulBehaviour
     {
         private IUnitAction _currentUnitAction;
         private IHeavyActionDistributor _heavyActionDistributor;

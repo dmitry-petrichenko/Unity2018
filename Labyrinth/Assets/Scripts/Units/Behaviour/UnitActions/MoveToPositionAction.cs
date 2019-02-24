@@ -4,7 +4,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units.UnitActions
 {
-    public class MoveToPositionAction : MyDisposable, IUnitAction
+    public class MoveToPositionAction : Disposable, IUnitAction
     {
         public delegate MoveToPositionAction Factory();
         

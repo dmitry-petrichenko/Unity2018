@@ -4,7 +4,7 @@ using Scripts.Extensions;
 
 namespace Units
 {
-    public class OccupatedPossitionsTable : MyDisposable, IOccupatedPossitionsTable
+    public class OccupatedPossitionsTable : Disposable, IOccupatedPossitionsTable
     {
         private List<IntVector2> _indexes = new List<IntVector2>();
 

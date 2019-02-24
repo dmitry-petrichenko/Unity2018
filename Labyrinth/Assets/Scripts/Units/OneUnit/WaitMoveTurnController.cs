@@ -8,7 +8,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class WaitMoveTurnController : MyDisposable
+    public class WaitMoveTurnController : Disposable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;

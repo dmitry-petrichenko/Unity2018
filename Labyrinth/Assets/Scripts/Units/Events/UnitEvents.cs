@@ -5,7 +5,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units.Events
 {
-    public class UnitEvents : MyDisposable, IUnitEvents
+    public class UnitEvents : Disposable, IUnitEvents
     {
         public event Action<IntVector2> PositionChanged;
         public event Action MovePathComplete;

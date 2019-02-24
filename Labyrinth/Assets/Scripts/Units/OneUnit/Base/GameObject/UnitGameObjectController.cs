@@ -10,7 +10,7 @@ using Units.OneUnit.Base.GameObject.Rotation;
 
 namespace Units.OneUnit.Base.GameObject
 {
-    public class UnitGameObjectController : MyDisposable, IUnitGameObjectController
+    public class UnitGameObjectController : Disposable, IUnitGameObjectController
     {
         private readonly IOneUnitRotationController _rotationController;
         private readonly IOneUnitAnimationController _animationController;

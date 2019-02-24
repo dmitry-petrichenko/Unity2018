@@ -6,7 +6,7 @@ using Scripts.Extensions;
 
 namespace Units.PathFinder
 {
-    public partial class PathFinderController : MyDisposable, IPathFinderController
+    public partial class PathFinderController : Disposable, IPathFinderController
     {
         private IGrid _grid;
         private List<IntVector2> _closeList;

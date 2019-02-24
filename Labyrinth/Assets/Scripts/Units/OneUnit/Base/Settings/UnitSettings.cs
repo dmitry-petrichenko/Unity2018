@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Scripts.Units.Settings
 {
-    public abstract class UnitSettings : MyDisposable, IUnitSettings
+    public abstract class UnitSettings : Disposable, IUnitSettings
     {
         public float MotionSpeed { get; private set; }
         public GameObject GraphicObject { get; private set; }

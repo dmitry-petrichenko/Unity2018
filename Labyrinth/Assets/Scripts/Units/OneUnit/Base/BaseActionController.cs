@@ -6,7 +6,7 @@ using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class BaseActionController : MyDisposable, IBaseActionController
+    public class BaseActionController : Disposable, IBaseActionController
     {
         private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;

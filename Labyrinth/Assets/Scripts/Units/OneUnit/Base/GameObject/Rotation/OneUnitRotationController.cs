@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Rotation
 {
-    public class OneUnitRotationController : MyDisposable, IOneUnitRotationController
+    public class OneUnitRotationController : Disposable, IOneUnitRotationController
     {
         private UnityEngine.GameObject _unit;
 

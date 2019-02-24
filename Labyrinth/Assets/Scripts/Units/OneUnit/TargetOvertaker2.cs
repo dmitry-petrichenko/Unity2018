@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class TargetOvertaker2 : MyDisposable
+    public class TargetOvertaker2 : Disposable
     {
         public event Action Complete;
         public event Action StartFollow;

@@ -6,7 +6,7 @@ using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class HealthController : MyDisposable, IHealthController
+    public class HealthController : Disposable, IHealthController
     {
         private readonly IBaseActionController _baseActionController;
         private readonly IUnitSettings _unitSettings;

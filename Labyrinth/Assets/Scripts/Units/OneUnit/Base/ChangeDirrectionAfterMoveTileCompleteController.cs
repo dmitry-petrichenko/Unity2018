@@ -8,7 +8,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit.Base
 {
-    public class ChangeDirrectionAfterMoveTileCompleteController : MyDisposable
+    public class ChangeDirrectionAfterMoveTileCompleteController : Disposable
     {
         private IMoveStepByStepController _moveStepByStepController;
         private IntVector2 _newPosition;

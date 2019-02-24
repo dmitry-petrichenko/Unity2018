@@ -9,7 +9,7 @@ namespace Scripts.Extensions
     {
        public static IRegistrationBuilder<TImplementer, SimpleActivatorData, SingleRegistrationStyle> CreateScopeForType<TImplementer>(
            this ContainerBuilder builder, Action<ContainerBuilder> configurationAction = null)
-           where TImplementer : MyDisposable
+           where TImplementer : AutofacDisposable
        {
            var registrationBuilder = builder.Register(context =>
            {
@@ -17,7 +17,7 @@ namespace Scripts.Extensions
                var scopeTree = rootsScopeTree.CreateChild(configurationAction);
                scopeTree.Scope.ComponentRegistry.Register(RegistrationBuilder.ForType<TImplementer>().CreateRegistration());
 
-               var disposable = scopeTree.Scope.Resolve<TImplementer>() as MyDisposable;
+               var disposable = scopeTree.Scope.Resolve<TImplementer>() as AutofacDisposable;
                disposable.Disposed += ()=> scopeTree.Dispose();
                return (TImplementer)disposable;
            });

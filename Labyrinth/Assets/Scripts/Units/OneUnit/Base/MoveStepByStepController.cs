@@ -7,7 +7,7 @@ using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class MoveStepByStepController : MyDisposable, IMoveStepByStepController
+    public class MoveStepByStepController : Disposable, IMoveStepByStepController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;

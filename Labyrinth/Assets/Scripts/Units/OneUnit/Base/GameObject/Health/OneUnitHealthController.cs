@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Health
 {
-    public class OneUnitHealthController : MyDisposable, IOneUnitHealthController
+    public class OneUnitHealthController : Disposable, IOneUnitHealthController
     {
         private UnityEngine.GameObject _unit;
         private LookAtCameraController _lookAtCameraController;

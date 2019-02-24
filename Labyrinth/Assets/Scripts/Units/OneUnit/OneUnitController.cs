@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class OneUnitController : MyDisposable, IOneUnitController
+    public class OneUnitController : Disposable, IOneUnitController
     {
         private readonly IUnitEvents _unitEvents;
         private readonly MoveController _moveController;

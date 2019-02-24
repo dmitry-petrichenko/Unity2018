@@ -3,7 +3,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units.StateInfo
 {
-    public class UnitState : MyDisposable, IUnitState
+    public class UnitState : Disposable, IUnitState
     {
         private IStateInfo _stateInfo;
         private IStateInfo _walkState;

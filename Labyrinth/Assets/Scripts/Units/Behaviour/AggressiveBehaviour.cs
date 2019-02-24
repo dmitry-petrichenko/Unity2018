@@ -6,7 +6,7 @@ using Units.OneUnit;
 
 namespace Scripts.Units
 {
-    public class AggressiveBehaviour : MyDisposable, IAgressiveBehaviour
+    public class AggressiveBehaviour : Disposable, IAgressiveBehaviour
     {
         public event Action Complete;
 

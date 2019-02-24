@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Units.OneUnit.Base.GameObject.Motion
 {
-    public class OneUnitMotionController : MyDisposable, IOneUnitMotionController
+    public class OneUnitMotionController : Disposable, IOneUnitMotionController
     {
         private readonly IUnitSettings _unitSettings;
         private UnityEngine.GameObject _unit;

@@ -4,7 +4,7 @@ using Scripts.Units.Settings;
 
 namespace Units.OneUnit.Base
 {
-    public class ApplyDamageController : MyDisposable, IApplyDamageController
+    public class ApplyDamageController : Disposable, IApplyDamageController
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IUnitSettings _unitSettings;

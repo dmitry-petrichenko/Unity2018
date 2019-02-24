@@ -5,7 +5,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class AttackController : MyDisposable, IAttackController
+    public class AttackController : Disposable, IAttackController
     {
         private IBaseActionController _baseActionController;
         private TargetOvertaker2 _targetOvertaker;

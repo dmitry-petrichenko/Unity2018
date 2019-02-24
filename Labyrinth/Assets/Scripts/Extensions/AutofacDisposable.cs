@@ -2,7 +2,7 @@ using System;
 
 namespace Scripts.Extensions
 {
-    public class MyDisposable : IDisposable
+    public class AutofacDisposable : IDisposable
     {
         public Action Disposed;
 

@@ -7,7 +7,7 @@ using Units.OneUnit.Base;
 
 namespace Scripts.Units.Behaviour.UnitActions
 {
-    public class AttackAction : MyDisposable, IUnitAction
+    public class AttackAction : Disposable, IUnitAction
     {
         public delegate AttackAction Factory();
         

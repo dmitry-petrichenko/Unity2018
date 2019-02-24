@@ -9,7 +9,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class OvertakeOccupatedPositionController : MyDisposable
+    public class OvertakeOccupatedPositionController : Disposable
     {
         private readonly IEventDispatcher _eventDispatcher;
         

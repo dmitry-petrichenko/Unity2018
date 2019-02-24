@@ -5,7 +5,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class MovingRandomizer : MyDisposable, IMovingRandomizer
+    public class MovingRandomizer : Disposable, IMovingRandomizer
     {
         private IGrid _grid;
         private List<IntVector2> _vacantPoints;
