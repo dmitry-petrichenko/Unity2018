@@ -40,9 +40,10 @@ namespace Scripts.Units.StateInfo
         public string NextTileOccupatedEvent => _stateInfo.NextTileOccupatedEvent;
         public string MovePathCompleteEvent => _stateInfo.MovePathCompleteEvent;
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
-            
+            _stateInfo = null;
+            base.DisposeInternal();
         }
     }
 }

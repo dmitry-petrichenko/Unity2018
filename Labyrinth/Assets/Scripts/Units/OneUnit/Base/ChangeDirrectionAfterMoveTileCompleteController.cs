@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.PathFinder;
 
@@ -56,6 +55,12 @@ namespace Units.OneUnit.Base
         {
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             MoveToDirrection(_newPosition);
+        }
+
+        protected override void DisposeInternal()
+        {
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
+            base.DisposeInternal();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Scripts.Units
             _heavyActionDistributor = heavyActionDistributor;
         }
 
-        public void Initialize(IOneUnitController oneUnitController, List<IUnitAction> actions)
+        public void Initialize(List<IUnitAction> actions)
         {
             _actions = actions;
         }
@@ -51,6 +51,13 @@ namespace Scripts.Units
             action = _actions[a];
             
             return action;
+        }
+
+        protected override void DisposeInternal()
+        {
+            Stop();
+            _actions = null;
+            base.DisposeInternal();
         }
     }
 }

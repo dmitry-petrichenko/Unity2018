@@ -52,13 +52,9 @@ namespace Units.OneUnit
         public void Wait() => _moveController.Wait();
         
         public void Wait(IntVector2 position) => _moveController.Wait(position);
-
-        public void Dispose()
-        {
-        }
     }
 
-    public class UnitStub : IOneUnitController
+    public class UnitStub : Disposable, IOneUnitController
     {
         private UnitEventsStub _unitEvents;
         
@@ -83,22 +79,14 @@ namespace Units.OneUnit
         public void Attack(IntVector2 position) {}
 
         public void TakeDamage(int value) {Debug.Log("damage " + value);}
-
-        public void Dispose()
-        {
-        }
     }
     
-    public class UnitEventsStub : IUnitEvents 
+    public class UnitEventsStub : Disposable, IUnitEvents 
     {
         public event Action<IntVector2> PositionChanged;
         public event Action MovePathComplete;
         public event Action MoveTileComplete;
         public event Action AttackComplete;
         public event Action Died;
-
-        public void Dispose()
-        {
-        }
     }
 }

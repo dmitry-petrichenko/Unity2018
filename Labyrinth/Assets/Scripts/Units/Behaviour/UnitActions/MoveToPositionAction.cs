@@ -48,9 +48,10 @@ namespace Scripts.Units.UnitActions
 
         public event Action OnComplete;
 
-        public void Dispose()
+        public void DisposeInternal()
         {
             _oneUnitController.UnitEvents.MovePathComplete -= MoveCompleteHandler;
+            base.DisposeInternal();
         }
     }
 }

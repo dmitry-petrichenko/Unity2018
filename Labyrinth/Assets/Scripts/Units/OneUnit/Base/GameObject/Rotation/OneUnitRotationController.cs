@@ -28,10 +28,11 @@ namespace Units.OneUnit.Base.GameObject.Rotation
             double angle = GetRotation(point1, point2);
             _unit.transform.DOLocalRotate(new Vector3(0f, (float) angle, 0f), 0.3f);
         }
-
-        public void Dispose()
+        
+        protected override void DisposeInternal()
         {
             _unit = null;
+            base.DisposeInternal();
         }
     }
 }

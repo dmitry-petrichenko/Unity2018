@@ -58,9 +58,10 @@ namespace Scripts.Units
             _attackController.Cancel();
         }
 
-        public void Dispose()
+        public void DisposeInternal()
         {
             Cancel();
+            base.DisposeInternal();
         }
     }
 }

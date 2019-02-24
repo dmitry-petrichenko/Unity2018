@@ -1,7 +1,6 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Extensions;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject.Animation;
 using Units.OneUnit.Base.GameObject.Health;
@@ -17,23 +16,23 @@ namespace Units.OneUnit.Base.GameObject
         private readonly IOneUnitMotionController _motionController;
         private readonly IOneUnitHealthController _oneUnitHealthController;
         private readonly IEventDispatcher _eventDispatcher;
-        
+
         public IntVector2 Position => _motionController.Position;
-        
-        public UnitGameObjectController(            
+
+        public UnitGameObjectController(
             IOneUnitRotationController oneUnitRotationController,
             IOneUnitAnimationController oneUnitAnimationController,
             IOneUnitMotionController oneUnitMotionController,
             IOneUnitHealthController oneUnitHealthController,
             IEventDispatcher eventDispatcher
-            )
+        )
         {
             _rotationController = oneUnitRotationController;
             _animationController = oneUnitAnimationController;
             _motionController = oneUnitMotionController;
             _oneUnitHealthController = oneUnitHealthController;
             _eventDispatcher = eventDispatcher;
-            
+
             _motionController.MoveStart += StartMoveHandler;
             _motionController.MoveComplete += MoveStepCompleteHandler;
             _animationController.AttackComplete += AttackCompleteHandler;
@@ -50,29 +49,29 @@ namespace Units.OneUnit.Base.GameObject
         {
             _animationController.PlayIdleAnimation();
         }
-        
+
         public void Wait(IntVector2 position)
         {
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayIdleAnimation();
         }
-        
+
         public void Attack(IntVector2 position)
         {
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayAttackAnimation();
         }
-        
+
         public void Die()
         {
             _animationController.PlayDieAnimation();
         }
-        
+
         public void SetHealthBarValue(float value)
         {
             _oneUnitHealthController.SetHealthBarValue(value);
         }
-        
+
         public void SetHealthBarVisible(bool value)
         {
             _oneUnitHealthController.SetHealthBarVisible(value);
@@ -95,19 +94,15 @@ namespace Units.OneUnit.Base.GameObject
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_START);
         }
-        
+
         private void MoveStepCompleteHandler()
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_COMPLETE);
         }
-        
+
         private void AttackCompleteHandler()
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.ATTACK_COMPLETE);
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Scripts.Units
             action.Initialize(_oneUnitController);
             actions.Add(action);
             
-            _unitBehaviourGenerator.Initialize(_oneUnitController, actions);
+            _unitBehaviourGenerator.Initialize(actions);
             
             _unitBehaviourGenerator.Start();
         }
@@ -56,10 +56,11 @@ namespace Scripts.Units
             _unitBehaviourGenerator.Stop();
         }
 
-        public void Dispose()
+        public void DisposeInternal()
         {
             Stop();
             _oneUnitController = null;
+            base.DisposeInternal();
         }
     }
 }

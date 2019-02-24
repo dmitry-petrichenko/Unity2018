@@ -44,6 +44,5 @@ namespace Scripts.Units.Settings
 
             return pNewObject;
         }
-
     }
 }

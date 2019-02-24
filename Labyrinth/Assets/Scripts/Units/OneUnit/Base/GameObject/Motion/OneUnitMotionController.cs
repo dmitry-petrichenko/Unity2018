@@ -74,5 +74,12 @@ namespace Units.OneUnit.Base.GameObject.Motion
 
         public event Action MoveComplete;
         public event Action MoveStart;
+
+        protected override void DisposeInternal()
+        {
+            MoveComplete = null;
+            MoveStart = null;
+            base.DisposeInternal();
+        }
     }
 }

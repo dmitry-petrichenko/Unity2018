@@ -110,9 +110,10 @@ namespace Units.OneUnit
             _target = null;
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             Cancel();
+            base.DisposeInternal();
         }
     }
 }

@@ -86,11 +86,12 @@ namespace Units.OneUnit
             _baseActionController.MoveTo(_baseActionController.Destination);
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             UnsubscribeOnEvents();
             _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
             _targetUnit = null;
+            base.DisposeInternal();
         }
     }
 }

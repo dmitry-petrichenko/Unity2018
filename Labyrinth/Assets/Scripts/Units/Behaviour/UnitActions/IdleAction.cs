@@ -49,9 +49,10 @@ namespace Scripts.Units.UnitActions
 
         public event Action OnComplete;
 
-        public void Dispose()
+        public void DisposeInternal()
         {
             _oneUnitController = null;
+            base.DisposeInternal();
         }
     }
 }

@@ -24,8 +24,12 @@ namespace Scripts.Units.Events
 
             SubscribeOnEvents();
         }
-
-        public void Dispose() => UnsubscribeFromEvents();
+        
+        protected override void DisposeInternal()
+        {
+            UnsubscribeFromEvents();
+            base.DisposeInternal();
+        }
         
         private void SubscribeOnEvents()
         {

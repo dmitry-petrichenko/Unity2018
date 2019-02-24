@@ -51,9 +51,10 @@ namespace Units.OneUnit
             _baseActionController.TakeDamage(value);
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             Cancel();
+            base.DisposeInternal();
         }
     }
 }

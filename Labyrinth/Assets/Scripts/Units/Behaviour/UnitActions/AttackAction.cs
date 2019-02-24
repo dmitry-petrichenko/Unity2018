@@ -58,10 +58,11 @@ namespace Scripts.Units.Behaviour.UnitActions
 
         public event Action OnComplete;
 
-        public void Dispose()
+        public void DisposeInternal()
         {
             _gameloopController = null;
             _baseActionController = null;
+            base.DisposeInternal();
         }
     }
 }

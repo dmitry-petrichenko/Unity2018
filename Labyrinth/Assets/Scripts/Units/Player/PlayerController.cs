@@ -43,10 +43,11 @@ namespace Units.Player
 
         public object GraphicObject => _unitSettings.GraphicObject;
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             UnitEvents.MovePathComplete -= Wait;
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
+            base.DisposeInternal();
         }
     }
 }

@@ -32,11 +32,12 @@ namespace Units.OneUnit.Base.GameObject.Health
         {
             _healthBarGameObject.SetActive(value);
         }
-
-        public void Dispose()
+        
+        protected override void DisposeInternal()
         {
             _lookAtCameraController = null;
             _healthBarGameObject = null;
+            base.DisposeInternal();
         }
     }
 }

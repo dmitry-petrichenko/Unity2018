@@ -45,5 +45,10 @@ namespace Units
         }
 
         public IPlayer Player => _player;
+
+        protected override void DisposeInternal()
+        {
+            base.DisposeInternal();
+        }
     }
 }

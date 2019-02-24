@@ -37,9 +37,5 @@ namespace Units.OneUnit
         public void Wait(IntVector2 position) => _baseActionController.Wait(position);
         
         public void SetOnPosition(IntVector2 position) => _baseActionController.SetOnPosition(position);
-
-        public void Dispose()
-        {
-        }
     }
 }

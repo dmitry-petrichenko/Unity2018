@@ -37,7 +37,7 @@ namespace Units.OneUnit.Base
             _unitGameObjectController.Die();
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             UnsubscribeOnEvents();
         }

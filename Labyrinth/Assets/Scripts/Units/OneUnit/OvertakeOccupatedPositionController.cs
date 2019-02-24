@@ -136,10 +136,11 @@ namespace Units.OneUnit
             return _grid.GetCell(position) && _unitsTable.IsVacantPosition(position);
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             _freePositions.Clear();
             UnsubscribeOnEvents();
+            base.DisposeInternal();
         }
     }
 }

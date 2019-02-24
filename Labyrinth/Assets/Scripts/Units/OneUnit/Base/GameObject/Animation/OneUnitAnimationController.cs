@@ -47,8 +47,10 @@ namespace Units.OneUnit.Base.GameObject.Animation
             AttackComplete?.Invoke();
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
+            _unitScript = null;
+            base.DisposeInternal();
         }
     }
 }

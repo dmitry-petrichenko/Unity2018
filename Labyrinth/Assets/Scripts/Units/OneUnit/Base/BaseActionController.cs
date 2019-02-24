@@ -54,9 +54,5 @@ namespace Units.OneUnit.Base
         public IntVector2 Position => _moveStepByStepController.Position;
         public IntVector2 Destination => _moveStepByStepController.Destination;
         public bool IsMoving => _moveStepByStepController.IsMoving;
-
-        public void Dispose()
-        {
-        }
     }
 }

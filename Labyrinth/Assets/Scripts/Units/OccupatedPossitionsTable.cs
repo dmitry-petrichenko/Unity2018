@@ -28,5 +28,11 @@ namespace Units
             return _indexes;
         }
 
+        protected override void DisposeInternal()
+        {
+            _indexes.Clear();
+            _indexes = null;
+            base.DisposeInternal();
+        }
     }
 }

@@ -119,5 +119,11 @@ namespace Units.OneUnit.Base
             _unitsTable.SetOccupied(newPosition);
             _unitsTable.SetVacant(previousPosition);
         }
+
+        protected override void DisposeInternal()
+        {
+            Reset();
+            base.DisposeInternal();
+        }
     }
 }

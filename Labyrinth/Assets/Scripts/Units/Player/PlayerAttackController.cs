@@ -4,7 +4,7 @@ using Units.OneUnit.Base;
 
 namespace Units.Player
 {
-    public class PlayerAttackController : IAttackController
+    public class PlayerAttackController : Disposable, IAttackController
     {
         private IBaseActionController _baseActionController;
         
@@ -30,10 +30,6 @@ namespace Units.Player
         public void TakeDamage(int value)
         {
             _baseActionController.TakeDamage(value);
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

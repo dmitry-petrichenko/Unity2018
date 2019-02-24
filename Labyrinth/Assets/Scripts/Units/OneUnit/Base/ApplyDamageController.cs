@@ -1,5 +1,4 @@
 using Scripts;
-using Scripts.Extensions;
 using Scripts.Units.Settings;
 
 namespace Units.OneUnit.Base
@@ -25,9 +24,10 @@ namespace Units.OneUnit.Base
             _targetUnit.TakeDamage(_unitSettings.Attack);
         }
 
-        public void Dispose()
+        protected override void DisposeInternal()
         {
             _targetUnit = null;
+            base.DisposeInternal();
         }
     }
 }

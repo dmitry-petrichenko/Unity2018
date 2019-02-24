@@ -3,7 +3,7 @@ using Scripts.Map;
 
 namespace Units.PathFinder
 {
-    public class Grid : IGrid
+    public class Grid : Disposable, IGrid
     {
         private IMapController _mapController;
 
@@ -22,6 +22,12 @@ namespace Units.PathFinder
             {
                 return false;
             }
+        }
+
+        protected override void DisposeInternal()
+        {
+            _mapController = null;
+            base.DisposeInternal();
         }
     }
 }

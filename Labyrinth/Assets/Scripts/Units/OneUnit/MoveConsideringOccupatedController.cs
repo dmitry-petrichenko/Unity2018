@@ -37,10 +37,11 @@ namespace Units.OneUnit
         {
             SubscribeOnEvent();            
         }
-        
-        public void Dispose()
+
+        protected override void DisposeInternal()
         {
             UnsubscribeFromEvent();
+            base.DisposeInternal();
         }
 
         private void SubscribeOnEvent()

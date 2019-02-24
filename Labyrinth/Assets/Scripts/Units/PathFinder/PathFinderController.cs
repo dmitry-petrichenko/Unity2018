@@ -218,5 +218,14 @@ namespace Units.PathFinder
         {
             return _closeList.Contains(Index);
         }
+
+        protected override void DisposeInternal()
+        {
+            _closeList = null;
+            _openList = null;
+            _openListF = null;
+            _openListDict = null;
+            base.DisposeInternal();
+        }
     }
 }
