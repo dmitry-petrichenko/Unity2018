@@ -16,7 +16,7 @@ namespace Units.PathFinder
         private bool _complete;
         private Vertex2D _currentVertex;
         private List<IntVector2> _occupiedIndexes;
-        
+
         private List<int> _openListF;
         private Dictionary<Vertex2D, int> _openListDict;
 
@@ -26,7 +26,7 @@ namespace Units.PathFinder
             _grid = grid;
             Initialize();
         }
-        
+
         public void Initialize()
         {
             _closeList = new List<IntVector2>();
@@ -34,7 +34,10 @@ namespace Units.PathFinder
             _openListF = new List<int>();
             _openListDict = new Dictionary<Vertex2D, int>();
         }
-        
+
+        public event Action<IntVector2> NoWayToDestinationPoint;
+        public event Action<IntVector2> DestinationPointIsNotEmpty;
+
         public List<IntVector2> GetPath(IntVector2 point, IntVector2 point2, List<IntVector2> occupiedIndexes = null)
         {
             if (occupiedIndexes != null)
@@ -45,7 +48,7 @@ namespace Units.PathFinder
             {
                 _occupiedIndexes = new List<IntVector2>();
             }
-            
+
             _destinationPoint = point2;
             _wayPoints = new List<IntVector2>();
             _openListF = new List<int>();
@@ -53,6 +56,13 @@ namespace Units.PathFinder
 
             if (IsInOccupiedIndexses(_destinationPoint))
             {
+                DestinationPointIsNotEmpty?.Invoke(_destinationPoint);
+                return _wayPoints;
+            }
+
+            if (IsPointBusy(_destinationPoint))
+            {
+                DestinationPointIsNotEmpty?.Invoke(_destinationPoint);
                 return _wayPoints;
             }
 
@@ -89,21 +99,28 @@ namespace Units.PathFinder
                     SelectVertex(vertex2D);
             }
 
+            if (_wayPoints.Count == 0)
+            {
+                NoWayToDestinationPoint?.Invoke(_destinationPoint);
+                Reset();
+                return _wayPoints;
+            }
+
+            Reset();
             _wayPoints.Reverse();
-            
+            _wayPoints.RemoveAt(0);
+
+            return _wayPoints;
+        }
+
+        private void Reset()
+        {
             _openList = new List<Vertex2D>();
             _closeList = new List<IntVector2>();
             _destinationPoint = new IntVector2(0, 0);
             _complete = false;
-
-            if (_wayPoints.Count > 0)
-            {
-                _wayPoints.RemoveAt(0);
-            }
-            
-            return _wayPoints;
         }
-        
+
         private void SelectVertex(Vertex2D vertex2D)
         {
             _wayPoints.Add(vertex2D.Index);
@@ -125,12 +142,12 @@ namespace Units.PathFinder
                     return;
                 }
             }
-            
+
             _openListF.Add(vertex.F);
             _openListDict.Add(vertex, vertex.F);
             _openList.Add(vertex);
         }
-        
+
         private void RemoveFromOpenList(Vertex2D vertex)
         {
             _openList.Remove(vertex);
@@ -142,7 +159,7 @@ namespace Units.PathFinder
         {
             _openListF.Sort();
             return _openListDict.FirstOrDefault(x => x.Value == _openListF[0]).Key;
-            
+
             /*
             List<Vertex2D> sorted = list.OrderBy(v => v.F).ToList();
             return sorted[0];
@@ -178,7 +195,7 @@ namespace Units.PathFinder
         {
             Vertex2D vertex2D = null;
 
-            if (_grid.GetCell(index) && !IsInCloseList(index) && !IsInOccupiedIndexses(index))
+            if (!IsPointBusy(index) && !IsInCloseList(index) && !IsInOccupiedIndexses(index))
             {
                 vertex2D = new Vertex2D();
                 vertex2D.Initialize(index, parent, _destinationPoint);
@@ -187,8 +204,13 @@ namespace Units.PathFinder
             return vertex2D;
         }
 
+        private bool IsPointBusy(IntVector2 index)
+        {
+            return !_grid.GetCell(index);
+        }
+
         private bool IsInOccupiedIndexses(IntVector2 Index)
-        {  
+        {
             return _occupiedIndexes.Contains(Index);
         }
 
