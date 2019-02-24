@@ -106,8 +106,11 @@ namespace Units.OneUnit
         public void Cancel()
         {
             _unitEvents.MovePathComplete -= OnUnitCompleteMoveTo;
-            _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
-            _target = null;
+            if (_target != null)
+            {
+                _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
+                _target = null;
+            }
         }
 
         protected override void DisposeInternal()

@@ -12,6 +12,7 @@ namespace Scripts.Units.Events
         public event Action MoveTileComplete;
         public event Action AttackComplete;
         public event Action Died;
+        public event Action DieComplete;
         
         private readonly IEventDispatcher _eventDispatcher;
         private readonly MoveController _moveController;
@@ -38,6 +39,7 @@ namespace Scripts.Units.Events
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, MoveTileCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.ATTACK_COMPLETE, AttackCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.HEALTH_ENDED, HealthEndedHandler);
+            _eventDispatcher.AddEventListener(UnitEventsTypes.DIE_COMPLETE, DieCompleteHandler);
         }
 
         private void UnsubscribeFromEvents()
@@ -47,6 +49,7 @@ namespace Scripts.Units.Events
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(MoveTileCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.ATTACK_COMPLETE, new Action(AttackCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.HEALTH_ENDED, new Action(HealthEndedHandler));
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.DIE_COMPLETE, new Action(DieCompleteHandler));
         }
         
         private void MoveTileStartHandler() => PositionChanged?.Invoke(_moveController.Position);
@@ -58,5 +61,7 @@ namespace Scripts.Units.Events
         private void AttackCompleteHandler() => AttackComplete?.Invoke();
         
         private void HealthEndedHandler() => Died?.Invoke();
+        
+        private void DieCompleteHandler() => DieComplete?.Invoke();
     }
 }

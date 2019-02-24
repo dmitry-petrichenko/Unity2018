@@ -89,8 +89,11 @@ namespace Units.OneUnit
         protected override void DisposeInternal()
         {
             UnsubscribeOnEvents();
-            _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
-            _targetUnit = null;
+            if (_targetUnit != null)
+            {
+                _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
+                _targetUnit = null;
+            }
             base.DisposeInternal();
         }
     }

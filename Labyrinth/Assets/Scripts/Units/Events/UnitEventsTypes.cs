@@ -10,5 +10,6 @@ namespace Scripts.Units.Events
         public static string NO_WAY_TO_ATTACK_DESTINATION = "NoWayToAttackDestination";
         public static string ATTACK_COMPLETE = "AttackComplete";
         public static string HEALTH_ENDED = "HealthEnded";
+        public static string DIE_COMPLETE = "DieComplete";
     }
 }

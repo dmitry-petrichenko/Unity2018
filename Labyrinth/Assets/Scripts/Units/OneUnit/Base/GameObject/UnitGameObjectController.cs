@@ -65,6 +65,7 @@ namespace Units.OneUnit.Base.GameObject
         public void Die()
         {
             _animationController.PlayDieAnimation();
+            _animationController.DieComplete += DieCompleteHandler;
         }
 
         public void SetHealthBarValue(float value)
@@ -103,6 +104,11 @@ namespace Units.OneUnit.Base.GameObject
         private void AttackCompleteHandler()
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.ATTACK_COMPLETE);
+        }
+
+        private void DieCompleteHandler()
+        {
+            _eventDispatcher.DispatchEvent(UnitEventsTypes.DIE_COMPLETE);
         }
     }
 }

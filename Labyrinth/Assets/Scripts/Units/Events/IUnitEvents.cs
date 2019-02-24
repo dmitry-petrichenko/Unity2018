@@ -9,5 +9,6 @@ namespace Scripts.Units.Events
         event Action MoveTileComplete;
         event Action AttackComplete;
         event Action Died;
+        event Action DieComplete;
     }
 }

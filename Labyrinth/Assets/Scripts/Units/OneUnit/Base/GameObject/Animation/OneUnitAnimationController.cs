@@ -8,6 +8,7 @@ namespace Units.OneUnit.Base.GameObject.Animation
     public class OneUnitAnimationController : Disposable, IOneUnitAnimationController
     {
         public event Action AttackComplete;
+        public event Action DieComplete;
 
         private readonly IGameLoopController _gameLoopController;
         
@@ -29,7 +30,7 @@ namespace Units.OneUnit.Base.GameObject.Animation
         public void PlayAttackAnimation()
         {
             _unitScript.PlayAttackAnimation();
-            _gameLoopController.DelayStart(TriggerComplete, 1.5f);
+            _gameLoopController.DelayStart(TriggerAttackComplete, 1.5f);
         }
 
         public void PlayWalkAnimation()
@@ -40,11 +41,17 @@ namespace Units.OneUnit.Base.GameObject.Animation
         public void PlayDieAnimation()
         {
             _unitScript.PlayDieAnimation();
+            _gameLoopController.DelayStart(TriggerDieComplete, 3.5f);
         }
         
-        private void TriggerComplete()
+        private void TriggerAttackComplete()
         {
             AttackComplete?.Invoke();
+        }
+        
+        private void TriggerDieComplete()
+        {
+            DieComplete?.Invoke();
         }
 
         protected override void DisposeInternal()

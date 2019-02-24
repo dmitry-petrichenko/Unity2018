@@ -10,5 +10,6 @@ namespace Units.OneUnit.Base.GameObject.Animation
         void PlayDieAnimation();
         
         event Action AttackComplete;
+        event Action DieComplete;
     }
 }

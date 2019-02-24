@@ -1,6 +1,4 @@
-﻿using System;
-using Scripts;
-using Scripts.Extensions;
+﻿using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using UnityEngine;
@@ -30,6 +28,7 @@ namespace Units.OneUnit
             _attackController = attackController;
             
             _unitsTable.AddUnit(this);
+            _unitEvents.DieComplete += DieCompleteHandler;
         }
 
         public IUnitState StateInfo => _stateInfo;
@@ -52,41 +51,17 @@ namespace Units.OneUnit
         public void Wait() => _moveController.Wait();
         
         public void Wait(IntVector2 position) => _moveController.Wait(position);
-    }
 
-    public class UnitStub : Disposable, IOneUnitController
-    {
-        private UnitEventsStub _unitEvents;
-        
-        public UnitStub(IntVector2 position)
+        protected override void DisposeInternal()
         {
-            Position = position;
-            _unitEvents = new UnitEventsStub();
+            _unitEvents.DieComplete -= DieCompleteHandler;
+            base.DisposeInternal();
         }
 
-        public IntVector2 Position { get; }
-        public IUnitState StateInfo { get; }
-        public IUnitEvents UnitEvents => _unitEvents;
-        
-        public void MoveTo(IntVector2 position) {}
-
-        public void Wait() {}
-
-        public void Wait(IntVector2 position) {}
-
-        public void SetOnPosition(IntVector2 position) {}
-        
-        public void Attack(IntVector2 position) {}
-
-        public void TakeDamage(int value) {Debug.Log("damage " + value);}
-    }
-    
-    public class UnitEventsStub : Disposable, IUnitEvents 
-    {
-        public event Action<IntVector2> PositionChanged;
-        public event Action MovePathComplete;
-        public event Action MoveTileComplete;
-        public event Action AttackComplete;
-        public event Action Died;
+        private void DieCompleteHandler()
+        {
+            Debug.Log("Die complete");
+            Dispose();
+        }
     }
 }
