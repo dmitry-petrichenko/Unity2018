@@ -43,5 +43,11 @@ namespace Scripts.Units.Settings
 
             return pNewObject;
         }
+
+        protected override void DisposeInternal()
+        {
+            GameObject.Destroy(GraphicObject);
+            base.DisposeInternal();
+        }
     }
 }
