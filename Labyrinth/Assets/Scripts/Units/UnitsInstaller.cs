@@ -8,7 +8,6 @@ using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
 using Scripts.Units.UnitActions;
-using Units.Enemy;
 using Units.ExternalAPI;
 using Units.OneUnit;
 using Units.OneUnit.Base;
@@ -77,9 +76,12 @@ namespace Units
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
-        
-            builder.RegisterType<UnitGameObjectController>().As<IUnitGameObjectController>().SingleInstance();
-        
+            
+            builder.CreateScopeForType<UnitGameObjectController>(InstallUnitGameObjectComponents).As<IUnitGameObjectController>().SingleInstance();
+        }
+
+        private void InstallUnitGameObjectComponents(ContainerBuilder builder)
+        {      
             builder.RegisterType<OneUnitAnimationController>().As<IOneUnitAnimationController>().SingleInstance();
             builder.RegisterType<OneUnitRotationController>().As<IOneUnitRotationController>().SingleInstance();
             builder.RegisterType<OneUnitMotionController>().As<IOneUnitMotionController>().SingleInstance();

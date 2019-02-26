@@ -56,6 +56,8 @@ namespace Units.OneUnit.Base.GameObject.Animation
 
         protected override void DisposeInternal()
         {
+            AttackComplete = null;
+            DieComplete = null;
             _unitScript = null;
             base.DisposeInternal();
         }

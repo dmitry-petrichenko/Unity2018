@@ -54,6 +54,7 @@ namespace Units.OneUnit
 
         protected override void DisposeInternal()
         {
+            _unitsTable.removeUnit(this);
             _unitEvents.DieComplete -= DieCompleteHandler;
             base.DisposeInternal();
         }

@@ -91,6 +91,12 @@ namespace Units.OneUnit.Base.GameObject
 
         public bool IsMoving => _motionController.IsMoving;
 
+        protected override void DisposeInternal()
+        {
+            _animationController.DieComplete -= DieCompleteHandler;
+            base.DisposeInternal();
+        }
+
         private void StartMoveHandler()
         {
             _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_START);

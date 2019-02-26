@@ -40,6 +40,7 @@ namespace Units.OneUnit.Base
         protected override void DisposeInternal()
         {
             UnsubscribeOnEvents();
+            base.DisposeInternal();
         }
     }
 }
