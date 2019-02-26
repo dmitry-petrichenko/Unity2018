@@ -64,8 +64,8 @@ namespace Units.OneUnit.Base.GameObject
 
         public void Die()
         {
-            _animationController.PlayDieAnimation();
             _animationController.DieComplete += DieCompleteHandler;
+            _animationController.PlayDieAnimation();
         }
 
         public void SetHealthBarValue(float value)

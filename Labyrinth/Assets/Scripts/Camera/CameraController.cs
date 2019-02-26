@@ -34,7 +34,14 @@ namespace Scripts
 
         private void UpdateHandler()
         {
-            _camera.transform.position = _gameObject.transform.position + _offset;
+            if (_gameObject != null)
+            {
+                _camera.transform.position = _gameObject.transform.position + _offset;
+            }
+            else
+            {
+                _gameLoopController.Updated -= UpdateHandler;
+            }
         }
     }
 }
