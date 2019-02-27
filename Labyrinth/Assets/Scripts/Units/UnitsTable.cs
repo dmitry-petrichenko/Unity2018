@@ -16,6 +16,7 @@ namespace Units
         public void removeUnit(IOneUnitController oneUnitController)
         {
             _unitsList.Remove(oneUnitController);
+            SetVacant(oneUnitController.Position);
         }
 
         public IOneUnitController GetUnitOnPosition(IntVector2 index)
