@@ -1,7 +1,9 @@
 ﻿using System;
 using Scripts.Extensions;
+using Scripts.Units.Enemy;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit;
 
 namespace Scripts.Units
@@ -15,16 +17,19 @@ namespace Scripts.Units
         private readonly IAttackController _attackController;
         private readonly IUnitStateController _stateInfo;
         private readonly IUnitEvents _unitEvents;
+        private readonly ILivingStateControllerExternal _livingStateControllerExternal;
 
         public AggressiveBehaviour(
             IAttackController attackController,
             IUnitStateController stateInfo,
+            ILivingStateControllerExternal livingStateControllerExternal,
             IUnitEvents unitEvents
             )
         {
             _attackController = attackController;
             _stateInfo = stateInfo;
             _unitEvents = unitEvents;
+            _livingStateControllerExternal = livingStateControllerExternal;
         }
         
         public void Initialize(IOneUnitController oneUnitController)
@@ -34,7 +39,7 @@ namespace Scripts.Units
 
         private void AttackCompleteHandler()
         {
-            _attackController.Attack(_target.Position);
+            _livingStateControllerExternal.CurrentState.Attack(_target.Position);
         }
         
         private void TargetDiedHandler()
@@ -48,7 +53,7 @@ namespace Scripts.Units
             _target = target;
             
             _target.UnitEvents.Died += TargetDiedHandler;
-            _attackController.Attack(_target.Position);
+            _livingStateControllerExternal.CurrentState.Attack(_target.Position);
         }
 
         public void Cancel()

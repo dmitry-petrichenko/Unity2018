@@ -28,7 +28,7 @@ namespace Scripts.Units.StateInfo.UnitStates
 
         public void SetDeadState()
         {
-            _livingStateControllerInternal.SetDead();
+            //_livingStateControllerInternal.SetDead();
             _unitStateController.SetStateInternal(_unitStateController.GetDeadState());
         }
 
