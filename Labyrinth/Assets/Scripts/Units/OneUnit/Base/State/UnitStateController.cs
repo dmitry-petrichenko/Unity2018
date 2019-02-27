@@ -1,10 +1,12 @@
+using Scripts.Units.StateInfo.UnitStates;
+
 namespace Scripts.Units.StateInfo
 {
     public class UnitStateController : IUnitStateController, IUnitStateControllerInternal
     {
-        private IUnitState2 _attackState;
-        private IUnitState2 _walkState;
-        private IUnitState2 _deadState;
+        private IUnitState _attackState;
+        private IUnitState _walkState;
+        private IUnitState _deadState;
         
         public UnitStateController()
         {
@@ -15,24 +17,24 @@ namespace Scripts.Units.StateInfo
             SetInternalState(GetWalkState());
         }
 
-        public IUnitState2 CurrentState { get; private set; }
+        public IUnitState CurrentState { get; private set; }
        
-        public void SetInternalState(IUnitState2 state)
+        public void SetInternalState(IUnitState state)
         {
             CurrentState = state;
         }
 
-        public IUnitState2 GetAttackState()
+        public IUnitState GetAttackState()
         {
             return _attackState;
         }
 
-        public IUnitState2 GetWalkState()
+        public IUnitState GetWalkState()
         {
             return _walkState;
         }
 
-        public IUnitState2 GetDeadState()
+        public IUnitState GetDeadState()
         {
             return _deadState;
         }

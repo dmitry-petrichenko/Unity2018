@@ -2,16 +2,16 @@ namespace Scripts.Units.StateInfo
 {
     public interface IUnitStateController
     {
-        IUnitState2 CurrentState { get; }
+        IUnitState CurrentState { get; }
         
     }
     
     public interface IUnitStateControllerInternal
     {
-        void SetInternalState(IUnitState2 state);
+        void SetInternalState(IUnitState state);
 
-        IUnitState2 GetAttackState();
-        IUnitState2 GetWalkState();
-        IUnitState2 GetDeadState();
+        IUnitState GetAttackState();
+        IUnitState GetWalkState();
+        IUnitState GetDeadState();
     }
 }
