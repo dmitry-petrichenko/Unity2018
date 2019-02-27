@@ -3,6 +3,7 @@ using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base

@@ -4,6 +4,7 @@ using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit;
 
 namespace Units.Player
@@ -19,11 +20,10 @@ namespace Units.Player
             IEventDispatcher eventDispatcher,
             IUnitSettings unitSettings,
             IUnitsTable unitsTable,
-            MoveController moveController,
-            IAttackController attackController,
+            ILivingStateControllerExternal livingStateControllerExternal,
             IUnitEvents unitEvents,
             IUnitStateController stateInfo
-        ): base(unitsTable, moveController, attackController, unitEvents, stateInfo)
+        ) : base(unitsTable, unitEvents, livingStateControllerExternal, stateInfo)
         {
             _gameEvents = gameEvents;
             _eventDispatcher = eventDispatcher;

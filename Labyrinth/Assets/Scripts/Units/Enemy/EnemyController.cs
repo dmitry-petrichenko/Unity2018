@@ -1,5 +1,6 @@
 ﻿using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.LivingStates;
 using Units;
 using Units.OneUnit;
 
@@ -16,11 +17,10 @@ namespace Scripts.Units.Enemy
             IPeacefulBehaviour peacefulBehaviour,
             IAgressiveBehaviour agressiveBehaviour,
             IUnitsTable unitsTable,
-            MoveController moveController,
-            IAttackController attackController,
+            ILivingStateControllerExternal livingStateControllerExternal,
             IUnitEvents unitEvents,
             IUnitStateController stateInfo
-            ) : base(unitsTable, moveController, attackController, unitEvents, stateInfo)
+            ) : base(unitsTable, unitEvents, livingStateControllerExternal, stateInfo)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;

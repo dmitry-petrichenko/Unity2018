@@ -1,4 +1,5 @@
 using Scripts.Units.Events;
+using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit;
 
 namespace Scripts.Units.StateInfo.UnitStates
@@ -6,14 +7,19 @@ namespace Scripts.Units.StateInfo.UnitStates
     public class AttackUnitState : IUnitState
     {
         private readonly IUnitStateControllerInternal _unitStateController;
-        public AttackUnitState(IUnitStateControllerInternal unitStateController)
+        private readonly ILivingStateControllerInternal _livingStateControllerInternal;
+        
+        public AttackUnitState(
+            IUnitStateControllerInternal unitStateController
+            /*ILivingStateControllerInternal livingStateControllerInternal*/)
         {
             _unitStateController = unitStateController;
+            //_livingStateControllerInternal = livingStateControllerInternal;
         }
 
         public void SetWalkState()
         {
-            _unitStateController.SetInternalState(_unitStateController.GetAttackState());
+            _unitStateController.SetStateInternal(_unitStateController.GetAttackState());
         }
 
         public void SetAttackState()
@@ -22,7 +28,8 @@ namespace Scripts.Units.StateInfo.UnitStates
 
         public void SetDeadState()
         {
-            _unitStateController.SetInternalState(_unitStateController.GetDeadState());
+            _livingStateControllerInternal.SetDead();
+            _unitStateController.SetStateInternal(_unitStateController.GetDeadState());
         }
 
         public string NoWayToTileEvent => UnitEventsTypes.NO_WAY_TO_ATTACK_DESTINATION;

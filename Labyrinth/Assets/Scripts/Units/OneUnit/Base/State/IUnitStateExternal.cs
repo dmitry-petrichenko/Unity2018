@@ -4,7 +4,7 @@ namespace Scripts.Units.StateInfo
 {
     public interface IUnitStateExternal
     {
-        IntVector2 WaitPosition { get; set; }
+        IntVector2 WaitPosition { get; }
         IOneUnitController AttackTarget { get; set; }
     }
 }

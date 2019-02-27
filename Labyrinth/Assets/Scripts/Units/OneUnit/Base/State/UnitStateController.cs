@@ -14,12 +14,12 @@ namespace Scripts.Units.StateInfo
             _attackState = new AttackUnitState(this);
             _deadState = new DeadUnitState();
 
-            SetInternalState(GetWalkState());
+            SetStateInternal(GetWalkState());
         }
 
         public IUnitState CurrentState { get; private set; }
        
-        public void SetInternalState(IUnitState state)
+        public void SetStateInternal(IUnitState state)
         {
             CurrentState = state;
         }
