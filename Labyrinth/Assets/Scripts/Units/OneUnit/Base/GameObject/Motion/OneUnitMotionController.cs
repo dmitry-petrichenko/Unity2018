@@ -77,6 +77,7 @@ namespace Units.OneUnit.Base.GameObject.Motion
 
         protected override void DisposeInternal()
         {
+            Position = IntVector2Constant.UNASSIGNET;
             MoveComplete = null;
             MoveStart = null;
             base.DisposeInternal();

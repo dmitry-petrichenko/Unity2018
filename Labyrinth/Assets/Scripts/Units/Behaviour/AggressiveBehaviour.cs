@@ -13,12 +13,12 @@ namespace Scripts.Units
         private IOneUnitController _target;
         
         private readonly IAttackController _attackController;
-        private readonly IUnitState _stateInfo;
+        private readonly IUnitStateController _stateInfo;
         private readonly IUnitEvents _unitEvents;
 
         public AggressiveBehaviour(
             IAttackController attackController,
-            IUnitState stateInfo,
+            IUnitStateController stateInfo,
             IUnitEvents unitEvents
             )
         {
@@ -44,7 +44,7 @@ namespace Scripts.Units
 
         public void Start(IOneUnitController target)
         {
-            _stateInfo.AttackTarget = target;
+            _stateInfo.CurrentState.AttackTarget = target;
             _target = target;
             
             _target.UnitEvents.Died += TargetDiedHandler;

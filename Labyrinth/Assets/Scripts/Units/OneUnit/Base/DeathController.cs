@@ -2,6 +2,7 @@ using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Extensions;
 using Scripts.Units.Events;
+using Scripts.Units.StateInfo;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
@@ -9,13 +10,16 @@ namespace Units.OneUnit.Base
     public class DeathController : Disposable, IDeathController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
+        private readonly IUnitStateController _unitState;
         private readonly IEventDispatcher _eventDispatcher;
         
         public DeathController(
             IUnitGameObjectController unitGameObjectController,
+            IUnitStateController unitState,
             IEventDispatcher eventDispatcher)
         {
             _unitGameObjectController = unitGameObjectController;
+            _unitState = unitState;
             _eventDispatcher = eventDispatcher;
 
             SubscribeOnEvents();
@@ -33,6 +37,7 @@ namespace Units.OneUnit.Base
 
         private void HealthEndedHandler()
         {
+            _unitState.CurrentState.SetDeadState();
             _unitGameObjectController.SetHealthBarVisible(false);
             _unitGameObjectController.Die();
         }

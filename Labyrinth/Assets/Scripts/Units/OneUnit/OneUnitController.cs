@@ -12,16 +12,16 @@ namespace Units.OneUnit
         private readonly IAttackController _attackController;
         
         private IUnitsTable _unitsTable;
-        private IUnitState _stateInfo;
+        private IUnitStateExternal _stateInfo;
 
         public OneUnitController(
             IUnitsTable unitsTable,
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IUnitState stateInfo)
+            IUnitStateController unitStateController)
         {
-            _stateInfo = stateInfo;
+            _stateInfo = unitStateController.CurrentState;
             _unitsTable = unitsTable;
             _moveController = moveController;            
             _unitEvents = unitEvents;
@@ -31,7 +31,7 @@ namespace Units.OneUnit
             _unitEvents.DieComplete += DieCompleteHandler;
         }
 
-        public IUnitState StateInfo => _stateInfo;
+        public IUnitStateExternal StateInfo => _stateInfo;
         public IUnitEvents UnitEvents => _unitEvents;
         public IntVector2 Position => _moveController.Position;
 

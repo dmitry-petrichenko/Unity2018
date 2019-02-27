@@ -8,7 +8,7 @@ namespace Units.OneUnit
     public interface IOneUnitController : IDisposable
     {
         IntVector2 Position { get; }
-        IUnitState StateInfo { get; }
+        IUnitStateExternal StateInfo { get; }
         IUnitEvents UnitEvents { get; }
        
         void MoveTo(IntVector2 position);

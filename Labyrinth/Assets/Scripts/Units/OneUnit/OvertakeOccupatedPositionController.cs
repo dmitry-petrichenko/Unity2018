@@ -15,14 +15,14 @@ namespace Units.OneUnit
         
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
-        private IUnitState _stateInfo;
+        private IUnitStateController _stateInfo;
         private IGrid _grid;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         
         public OvertakeOccupatedPositionController(
             IEventDispatcher eventDispatcher,
             IUnitsTable unitsTable,
-            IUnitState stateInfo,
+            IUnitStateController stateInfo,
             IGrid grid
             )
         {
@@ -50,7 +50,7 @@ namespace Units.OneUnit
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
-            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_stateInfo.AttackTarget.Position);
+            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_stateInfo.CurrentState.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
                 _oneUnitController.Wait(position);

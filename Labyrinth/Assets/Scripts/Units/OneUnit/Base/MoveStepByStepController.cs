@@ -11,7 +11,7 @@ namespace Units.OneUnit.Base
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;
-        private readonly IUnitState _unitState;
+        private readonly IUnitStateController _unitState;
         
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
@@ -20,7 +20,7 @@ namespace Units.OneUnit.Base
         public IntVector2 Destination { get; set; }
 
         public MoveStepByStepController(
-            IUnitState unitState,
+            IUnitStateController unitState,
             IUnitsTable unitsTable,
             IEventDispatcher eventDispatcher,
             IUnitGameObjectController unitGameObjectController
@@ -55,7 +55,7 @@ namespace Units.OneUnit.Base
             Reset();
             if (path.Count == 0)
             {
-                _eventDispatcher.DispatchEvent(_unitState.NoWayToTileEvent, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(_unitState.CurrentState.NoWayToTileEvent, _nextOccupiedPossition);
                 return;
             }
             _unitGameObjectController.MoveComplete += MoveNextStep;
@@ -89,7 +89,7 @@ namespace Units.OneUnit.Base
             else
             {
                 Reset();
-                _eventDispatcher.DispatchEvent(_unitState.MovePathCompleteEvent);
+                _eventDispatcher.DispatchEvent(_unitState.CurrentState.MovePathCompleteEvent);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Units.OneUnit.Base
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
-                _eventDispatcher.DispatchEvent(_unitState.NextTileOccupatedEvent, _nextOccupiedPossition);
+                _eventDispatcher.DispatchEvent(_unitState.CurrentState.NextTileOccupatedEvent, _nextOccupiedPossition);
 
                 return true;
             }

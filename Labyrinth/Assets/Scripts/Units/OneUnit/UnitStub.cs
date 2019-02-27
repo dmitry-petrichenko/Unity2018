@@ -17,7 +17,7 @@ namespace Units.OneUnit
         }
 
         public IntVector2 Position { get; }
-        public IUnitState StateInfo { get; }
+        public IUnitStateExternal StateInfo { get; }
         public IUnitEvents UnitEvents => _unitEvents;
         
         public void MoveTo(IntVector2 position) {}

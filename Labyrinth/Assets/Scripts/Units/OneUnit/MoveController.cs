@@ -9,13 +9,13 @@ namespace Units.OneUnit
     public class MoveController : Disposable
     {
         private IBaseActionController _baseActionController;
-        private IUnitState _unitState;
+        private IUnitStateController _unitState;
 
         public event Action MoveToComplete;
         
         public MoveController(
             IBaseActionController baseActionController,
-            IUnitState unitState,
+            IUnitStateController unitState,
             MoveConsideringOccupatedController moveConsideringOccupatedController,
             WaitMoveTurnController waitMoveTurnController
             )
@@ -28,7 +28,7 @@ namespace Units.OneUnit
         
         public void MoveTo(IntVector2 position)
         {
-            _unitState.SetState(_unitState.GetWalkState());
+            _unitState.CurrentState.SetWalkState();
             _baseActionController.MoveTo(position);
         }
 

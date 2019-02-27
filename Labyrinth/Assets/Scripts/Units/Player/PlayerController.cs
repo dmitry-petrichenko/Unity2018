@@ -22,7 +22,7 @@ namespace Units.Player
             MoveController moveController,
             IAttackController attackController,
             IUnitEvents unitEvents,
-            IUnitState stateInfo
+            IUnitStateController stateInfo
         ): base(unitsTable, moveController, attackController, unitEvents, stateInfo)
         {
             _gameEvents = gameEvents;

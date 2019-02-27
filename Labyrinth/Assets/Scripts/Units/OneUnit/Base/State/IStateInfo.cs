@@ -10,5 +10,7 @@ namespace Scripts.Units.StateInfo
         string NoWayToTileEvent { get; }
         string NextTileOccupatedEvent { get; }
         string MovePathCompleteEvent { get; }
+        
+        
     }
 }

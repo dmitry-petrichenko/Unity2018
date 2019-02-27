@@ -12,7 +12,7 @@ namespace Units.OneUnit
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
-        private readonly IUnitState _stateInfo;
+        private readonly IUnitStateController _stateInfo;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IBaseActionController _baseActionController;
         
@@ -23,7 +23,7 @@ namespace Units.OneUnit
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IUnitState stateInfo,
+            IUnitStateController stateInfo,
             IEventDispatcher eventDispatcher,
             IBaseActionController baseActionController
             )
@@ -64,7 +64,7 @@ namespace Units.OneUnit
             }
 
             _baseActionController.Wait(_targetUnit.Position);
-            _stateInfo.WaitPosition = position;
+            _stateInfo.CurrentState.WaitPosition = position;
             _targetUnit.UnitEvents.PositionChanged += TargetUnitPositionChanged;
         }
 
