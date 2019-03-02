@@ -5,6 +5,8 @@ using Scripts;
 using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Units.OneUnit.Base;
+using Units.OneUnit.Info;
 using Units.PathFinder;
 
 namespace Units.OneUnit
@@ -15,20 +17,21 @@ namespace Units.OneUnit
         
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
-        private IUnitStateController _stateInfo;
         private IGrid _grid;
+        private IUnitInfoExternal _unitInfo;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         
         public OvertakeOccupatedPositionController(
             IEventDispatcher eventDispatcher,
             IUnitsTable unitsTable,
-            IUnitStateController stateInfo,
+            IUnitInfoExternal unitInfo,
             IGrid grid
             )
         {
             _eventDispatcher = eventDispatcher;
             _unitsTable = unitsTable;
-            _stateInfo = stateInfo;
+            _unitInfo = unitInfo;
+            
             _grid = grid;
         }
         
@@ -50,7 +53,7 @@ namespace Units.OneUnit
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
-            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_stateInfo.CurrentState.AttackTarget.Position);
+            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
                 _oneUnitController.Wait(position);

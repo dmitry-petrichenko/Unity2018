@@ -2,13 +2,14 @@
 using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Units.OneUnit.Info;
 
 namespace Units.OneUnit
 {
     public interface IOneUnitController : IDisposable
     {
         IntVector2 Position { get; }
-        IUnitStateExternal StateInfo { get; }
+        IUnitInfoExternal StateInfo { get; }
         IUnitEvents UnitEvents { get; }
        
         void MoveTo(IntVector2 position);

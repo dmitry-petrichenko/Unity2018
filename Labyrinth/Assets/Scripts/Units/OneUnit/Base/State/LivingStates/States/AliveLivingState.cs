@@ -1,5 +1,6 @@
 using Scripts.Units.Events;
 using Units.OneUnit;
+using Units.OneUnit.Info;
 
 namespace Scripts.Units.StateInfo.LivingStates.States
 {
@@ -24,7 +25,7 @@ namespace Scripts.Units.StateInfo.LivingStates.States
         }
 
         public IntVector2 Position => _moveController.Position;
-        public IUnitStateExternal StateInfo { get; }
+        public IUnitInfoExternal StateInfo { get; }
 
         public IUnitEvents UnitEvents => _unitEvents;
         public void MoveTo(IntVector2 position)

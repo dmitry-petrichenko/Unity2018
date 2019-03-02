@@ -2,6 +2,7 @@ using System;
 using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
+using Units.OneUnit.Info;
 using UnityEngine;
 
 namespace Units.OneUnit
@@ -17,7 +18,7 @@ namespace Units.OneUnit
         }
 
         public IntVector2 Position { get; }
-        public IUnitStateExternal StateInfo { get; }
+        public IUnitInfoExternal StateInfo { get; }
         public IUnitEvents UnitEvents => _unitEvents;
         
         public void MoveTo(IntVector2 position) {}

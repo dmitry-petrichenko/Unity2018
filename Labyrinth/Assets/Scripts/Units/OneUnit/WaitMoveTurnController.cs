@@ -5,6 +5,7 @@ using Scripts.Extensions;
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
+using Units.OneUnit.Info;
 
 namespace Units.OneUnit
 {
@@ -12,9 +13,9 @@ namespace Units.OneUnit
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
-        private readonly IUnitStateController _stateInfo;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IBaseActionController _baseActionController;
+        private readonly IUnitInfoInternal _unitInfo;
         
         private IOneUnitController _targetUnit;
         private IntVector2 _occupiedPoint;
@@ -23,16 +24,16 @@ namespace Units.OneUnit
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IUnitStateController stateInfo,
             IEventDispatcher eventDispatcher,
+            IUnitInfoInternal unitInfo,
             IBaseActionController baseActionController
             )
         {
             _unitsTable = unitsTable;
             _movingRandomizer = movingRandomizer;
-            _stateInfo = stateInfo;
             _eventDispatcher = eventDispatcher;
             _baseActionController = baseActionController;
+            _unitInfo = unitInfo;
 
             SubscribeOnEvents();
         }
@@ -66,7 +67,7 @@ namespace Units.OneUnit
             }
 
             _baseActionController.Wait(_targetUnit.Position);
-            _stateInfo.CurrentState.WaitPosition = position;
+            _unitInfo.SetWaitPosition(position);
             _targetUnit.UnitEvents.PositionChanged += TargetUnitPositionChanged;
         }
 

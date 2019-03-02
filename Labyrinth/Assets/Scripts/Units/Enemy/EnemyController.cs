@@ -3,6 +3,7 @@ using Scripts.Units.StateInfo;
 using Scripts.Units.StateInfo.LivingStates;
 using Units;
 using Units.OneUnit;
+using Units.OneUnit.Info;
 
 namespace Scripts.Units.Enemy
 {
@@ -19,8 +20,8 @@ namespace Scripts.Units.Enemy
             IUnitsTable unitsTable,
             ILivingStateControllerExternal livingStateControllerExternal,
             IUnitEvents unitEvents,
-            IUnitStateController stateInfo
-            ) : base(unitsTable, unitEvents, livingStateControllerExternal, stateInfo)
+            IUnitInfoExternal unitInfoExternal
+            ) : base(unitsTable, unitEvents, livingStateControllerExternal, unitInfoExternal)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;

@@ -2,6 +2,7 @@
 using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Scripts.Units.StateInfo.LivingStates;
+using Units.OneUnit.Info;
 using UnityEngine;
 
 namespace Units.OneUnit
@@ -10,26 +11,26 @@ namespace Units.OneUnit
     {
         private readonly IUnitEvents _unitEvents;
         private readonly ILivingStateControllerExternal _livingStateControllerExternal;
+        private readonly IUnitInfoExternal _unitInfoExternal;
         
         private IUnitsTable _unitsTable;
-        private IUnitStateExternal _stateInfo;
 
         public OneUnitController(
             IUnitsTable unitsTable,
             IUnitEvents unitEvents,
             ILivingStateControllerExternal livingStateControllerExternal,
-            IUnitStateController unitStateController)
+            IUnitInfoExternal unitInfoExternal)
         {
-            _stateInfo = unitStateController.CurrentState;
             _unitsTable = unitsTable;          
             _unitEvents = unitEvents;
             _livingStateControllerExternal = livingStateControllerExternal;
+            _unitInfoExternal = unitInfoExternal;
             
             _unitsTable.AddUnit(this);
             _unitEvents.DieComplete += DieCompleteHandler;
         }
 
-        public IUnitStateExternal StateInfo => _stateInfo;
+        public IUnitInfoExternal StateInfo => _unitInfoExternal;
         public IUnitEvents UnitEvents => _livingStateControllerExternal.CurrentState.UnitEvents;
         public IntVector2 Position => _livingStateControllerExternal.CurrentState.Position;
 

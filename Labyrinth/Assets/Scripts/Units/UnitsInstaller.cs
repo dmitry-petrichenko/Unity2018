@@ -19,6 +19,7 @@ using Units.OneUnit.Base.GameObject.Animation;
 using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
 using Units.OneUnit.Base.GameObject.Rotation;
+using Units.OneUnit.Info;
 using Units.PathFinder;
 using Units.Player;
 
@@ -70,6 +71,8 @@ namespace Units
             builder.RegisterType<LivingStateController>().As<ILivingStateControllerInternal>().As<ILivingStateControllerExternal>().SingleInstance();
             
             builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().As<IStateControllerMutator>().SingleInstance();
+            builder.RegisterType<UnitInfo>().As<IUnitInfoExternal>().As<IUnitInfoInternal>().SingleInstance();
+            
             
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();
@@ -80,7 +83,7 @@ namespace Units
             builder.RegisterType<TargetOvertaker2>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
-            builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
+            //builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
             builder.RegisterType<DeathController>().As<IDeathController>().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
