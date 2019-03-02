@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units;
+using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class BaseActionController : Disposable, IBaseActionController
+    public class BaseActionController : Disposable, IBaseActionController, IBaseActionControllerInternal
     {
         private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;
@@ -14,6 +14,7 @@ namespace Units.OneUnit.Base
         private readonly IApplyDamageController _applyDamageController;
         private readonly IHealthController _healthController;
         private readonly IDeathController _deathController;
+        private readonly IStateControllerInternal _stateController;
 
         public BaseActionController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
@@ -21,6 +22,7 @@ namespace Units.OneUnit.Base
             IApplyDamageController applyDamageController,
             IHealthController healthController,
             IUnitGameObjectController unitGameObjectController,
+            IStateControllerInternal stateController,
             IDeathController deathController)
         {
             _moveStepByStepController = moveStepByStepController;
@@ -28,7 +30,10 @@ namespace Units.OneUnit.Base
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
             _healthController = healthController;
+            _stateController = stateController;
             _deathController = deathController;
+            
+            _stateController.InitializeBaseActionController(this);
         }
 
         public void Attack(IntVector2 position)
@@ -54,5 +59,28 @@ namespace Units.OneUnit.Base
         public IntVector2 Position => _moveStepByStepController.Position;
         public IntVector2 Destination => _moveStepByStepController.Destination;
         public bool IsMoving => _moveStepByStepController.IsMoving;
+        public event Action<IntVector2> NoWayToAttackDestination;
+        public event Action<IntVector2> NoWayToWalkDestination;
+        public event Action<IntVector2> NextTileOccupied;
+        public event Action MovePathComplete;
+        public void RaiseNoWayToAttackDestination(IntVector2 position)
+        {
+            NoWayToAttackDestination?.Invoke(position);
+        }
+
+        public void RaiseNoWayToWalkDestination(IntVector2 position)
+        {
+            NoWayToWalkDestination?.Invoke(position);
+        }
+
+        public void RaiseNextTileOccupied(IntVector2 position)
+        {
+            NextTileOccupied?.Invoke(position);
+        }
+
+        public void RaiseMovePathComplete()
+        {
+            MovePathComplete?.Invoke();
+        }
     }
 }

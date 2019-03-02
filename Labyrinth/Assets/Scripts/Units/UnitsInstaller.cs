@@ -7,6 +7,7 @@ using Scripts.Units.Enemy;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.BaseState;
 using Scripts.Units.StateInfo.LivingStates;
 using Scripts.Units.StateInfo.LivingStates.States;
 using Scripts.Units.UnitActions;
@@ -67,6 +68,8 @@ namespace Units
             builder.RegisterType<DeadLivingState>().AsSelf().SingleInstance();
             builder.RegisterType<AliveLivingState>().AsSelf().SingleInstance();
             builder.RegisterType<LivingStateController>().As<ILivingStateControllerInternal>().As<ILivingStateControllerExternal>().SingleInstance();
+            
+            builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().As<IStateControllerMutator>().SingleInstance();
             
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();

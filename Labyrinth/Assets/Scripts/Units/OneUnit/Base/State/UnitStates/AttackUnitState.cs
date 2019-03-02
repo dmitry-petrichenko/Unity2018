@@ -10,11 +10,9 @@ namespace Scripts.Units.StateInfo.UnitStates
         private readonly ILivingStateControllerInternal _livingStateControllerInternal;
         
         public AttackUnitState(
-            IUnitStateControllerInternal unitStateController
-            /*ILivingStateControllerInternal livingStateControllerInternal*/)
+            IUnitStateControllerInternal unitStateController)
         {
             _unitStateController = unitStateController;
-            //_livingStateControllerInternal = livingStateControllerInternal;
         }
 
         public void SetWalkState()
@@ -28,7 +26,6 @@ namespace Scripts.Units.StateInfo.UnitStates
 
         public void SetDeadState()
         {
-            //_livingStateControllerInternal.SetDead();
             _unitStateController.SetStateInternal(_unitStateController.GetDeadState());
         }
 

@@ -46,13 +46,15 @@ namespace Units.OneUnit
 
         private void SubscribeOnEvent()
         {
-            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NEXT_TILE_OCCUPATED, NextPositionOccupiedHandler);
+            _baseActionController.NextTileOccupied += NextPositionOccupiedHandler;
+            //_eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NEXT_TILE_OCCUPATED, NextPositionOccupiedHandler);
         }
         
         private void UnsubscribeFromEvent()
         {
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NEXT_TILE_OCCUPATED,
-                new Action<IntVector2>(NextPositionOccupiedHandler));
+            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.NEXT_TILE_OCCUPATED,
+                //new Action<IntVector2>(NextPositionOccupiedHandler));
+            _baseActionController.NextTileOccupied -= NextPositionOccupiedHandler;   
         }
 
         private void NextPositionOccupiedHandler(IntVector2 occupiedPosition)

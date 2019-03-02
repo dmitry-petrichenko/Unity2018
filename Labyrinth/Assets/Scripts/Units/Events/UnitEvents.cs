@@ -2,6 +2,7 @@ using System;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Extensions;
 using Units.OneUnit;
+using Units.OneUnit.Base;
 
 namespace Scripts.Units.Events
 {
@@ -16,12 +17,16 @@ namespace Scripts.Units.Events
         
         private readonly IEventDispatcher _eventDispatcher;
         private readonly MoveController _moveController;
+        private readonly IBaseActionController _baseActionController;
         
-        public UnitEvents(IEventDispatcher eventDispatcher, 
+        public UnitEvents(
+            IEventDispatcher eventDispatcher, 
+            IBaseActionController baseActionController,
             MoveController moveController)
         {
             _eventDispatcher = eventDispatcher;
             _moveController = moveController;
+            _baseActionController = baseActionController;
 
             SubscribeOnEvents();
         }
@@ -34,7 +39,8 @@ namespace Scripts.Units.Events
         
         private void SubscribeOnEvents()
         {
-            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, MovePathCompleteHandler);
+            _baseActionController.MovePathComplete += MovePathCompleteHandler;
+            //_eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, MovePathCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, MoveTileCompleteHandler);
             _eventDispatcher.AddEventListener(UnitEventsTypes.ATTACK_COMPLETE, AttackCompleteHandler);
@@ -44,7 +50,8 @@ namespace Scripts.Units.Events
 
         private void UnsubscribeFromEvents()
         {
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, new Action(MovePathCompleteHandler));
+            _baseActionController.MovePathComplete -= MovePathCompleteHandler;
+            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, new Action(MovePathCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(MoveTileCompleteHandler));
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.ATTACK_COMPLETE, new Action(AttackCompleteHandler));

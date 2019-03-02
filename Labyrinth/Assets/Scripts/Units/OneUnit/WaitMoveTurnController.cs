@@ -39,12 +39,14 @@ namespace Units.OneUnit
 
         private void SubscribeOnEvents()
         {
-            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, NoWayToPointHandler);
+            _baseActionController.NoWayToWalkDestination += NoWayToPointHandler;
+            //_eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, NoWayToPointHandler);
         }
         
         private void UnsubscribeOnEvents()
         {
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, new Action<IntVector2>(NoWayToPointHandler));
+            _baseActionController.NoWayToWalkDestination -= NoWayToPointHandler;
+            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, new Action<IntVector2>(NoWayToPointHandler));
         }
 
         private void NoWayToPointHandler(IntVector2 occupiedPoint)

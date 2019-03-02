@@ -9,12 +9,9 @@ namespace Scripts.Units.StateInfo.UnitStates
         private readonly IUnitStateControllerInternal _unitStateController;
         private readonly ILivingStateControllerInternal _livingStateControllerInternal;
         
-        public WalkUnitState(
-            IUnitStateControllerInternal unitStateController
-            /*ILivingStateControllerInternal livingStateControllerInternal*/)
+        public WalkUnitState(IUnitStateControllerInternal unitStateController)
         {
             _unitStateController = unitStateController;
-            //_livingStateControllerInternal = livingStateControllerInternal;
         }
 
         public void SetWalkState()

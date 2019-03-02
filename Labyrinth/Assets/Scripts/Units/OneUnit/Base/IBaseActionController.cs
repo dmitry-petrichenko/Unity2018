@@ -18,5 +18,18 @@ namespace Units.OneUnit.Base
         IntVector2 Position { get; }
         IntVector2 Destination { get; }
         bool IsMoving { get; }
+        
+        event Action<IntVector2> NoWayToAttackDestination;
+        event Action<IntVector2> NoWayToWalkDestination;
+        event Action<IntVector2> NextTileOccupied;
+        event Action MovePathComplete;
+    }
+
+    public interface IBaseActionControllerInternal : IDisposable
+    {
+        void RaiseNoWayToAttackDestination(IntVector2 position);
+        void RaiseNoWayToWalkDestination(IntVector2 position);
+        void RaiseNextTileOccupied(IntVector2 position);
+        void RaiseMovePathComplete();
     }
 }

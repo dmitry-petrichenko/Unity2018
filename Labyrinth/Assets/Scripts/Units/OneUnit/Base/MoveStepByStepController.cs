@@ -3,6 +3,7 @@ using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Extensions;
 using Scripts.Units.StateInfo;
+using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
@@ -12,6 +13,7 @@ namespace Units.OneUnit.Base
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IUnitStateController _unitState;
+        private readonly IStateControllerExternal _stateController;
         
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
@@ -21,6 +23,7 @@ namespace Units.OneUnit.Base
 
         public MoveStepByStepController(
             IUnitStateController unitState,
+            IStateControllerExternal stateController,
             IUnitsTable unitsTable,
             IEventDispatcher eventDispatcher,
             IUnitGameObjectController unitGameObjectController
@@ -30,6 +33,7 @@ namespace Units.OneUnit.Base
             _unitsTable = unitsTable;
             _eventDispatcher = eventDispatcher;
             _unitGameObjectController = unitGameObjectController;
+            _stateController = stateController;
         }   
         
         public void SetOnPosition(IntVector2 position)
@@ -55,7 +59,8 @@ namespace Units.OneUnit.Base
             Reset();
             if (path.Count == 0)
             {
-                _eventDispatcher.DispatchEvent(_unitState.CurrentState.NoWayToTileEvent, _nextOccupiedPossition);
+                _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
+                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.NoWayToTileEvent, _nextOccupiedPossition);
                 return;
             }
             _unitGameObjectController.MoveComplete += MoveNextStep;
@@ -89,7 +94,8 @@ namespace Units.OneUnit.Base
             else
             {
                 Reset();
-                _eventDispatcher.DispatchEvent(_unitState.CurrentState.MovePathCompleteEvent);
+                _stateController.CurrentState.RaiseMovePathComplete();
+                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.MovePathCompleteEvent);
             }
         }
 
@@ -106,7 +112,8 @@ namespace Units.OneUnit.Base
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
-                _eventDispatcher.DispatchEvent(_unitState.CurrentState.NextTileOccupatedEvent, _nextOccupiedPossition);
+                _stateController.CurrentState.RaiseNextTileOccupied(_nextOccupiedPossition);
+                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.NextTileOccupatedEvent, _nextOccupiedPossition);
 
                 return true;
             }
