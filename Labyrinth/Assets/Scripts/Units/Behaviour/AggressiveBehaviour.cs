@@ -5,6 +5,7 @@ using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit;
+using Units.OneUnit.Info;
 
 namespace Scripts.Units
 {
@@ -15,19 +16,19 @@ namespace Scripts.Units
         private IOneUnitController _target;
         
         private readonly IAttackController _attackController;
-        private readonly IUnitStateController _stateInfo;
+        private readonly IUnitInfoInternal _unitInfo;
         private readonly IUnitEvents _unitEvents;
         private readonly ILivingStateControllerExternal _livingStateControllerExternal;
 
         public AggressiveBehaviour(
             IAttackController attackController,
-            IUnitStateController stateInfo,
+            IUnitInfoInternal unitInfo,
             ILivingStateControllerExternal livingStateControllerExternal,
             IUnitEvents unitEvents
             )
         {
             _attackController = attackController;
-            _stateInfo = stateInfo;
+            _unitInfo = unitInfo;
             _unitEvents = unitEvents;
             _livingStateControllerExternal = livingStateControllerExternal;
         }
@@ -49,7 +50,7 @@ namespace Scripts.Units
 
         public void Start(IOneUnitController target)
         {
-            _stateInfo.CurrentState.AttackTarget = target;
+            _unitInfo.SetAttackTarget(target);
             _target = target;
             
             _target.UnitEvents.Died += TargetDiedHandler;

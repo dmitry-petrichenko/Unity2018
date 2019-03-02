@@ -15,9 +15,11 @@ namespace Units.OneUnit.Base
         void SetOnPosition(IntVector2 position);
         void TakeDamage(int value);
         
+        void SetAttackState();
+        void SetPlacidState();
+        
         IntVector2 Position { get; }
         IntVector2 Destination { get; }
-        bool IsMoving { get; }
         
         event Action<IntVector2> NoWayToAttackDestination;
         event Action<IntVector2> NoWayToWalkDestination;

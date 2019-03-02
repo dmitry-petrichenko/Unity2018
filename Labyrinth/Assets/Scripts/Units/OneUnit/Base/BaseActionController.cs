@@ -43,6 +43,15 @@ namespace Units.OneUnit.Base
         }
 
         public void TakeDamage(int value) { _healthController.TakeDamage(value); }
+        public void SetAttackState()
+        {
+            _stateController.SetAttackState();
+        }
+
+        public void SetPlacidState()
+        {
+            _stateController.SetPlacidState();
+        }
 
         public void MoveTo(IntVector2 position) => _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);
 
@@ -58,7 +67,6 @@ namespace Units.OneUnit.Base
 
         public IntVector2 Position => _moveStepByStepController.Position;
         public IntVector2 Destination => _moveStepByStepController.Destination;
-        public bool IsMoving => _moveStepByStepController.IsMoving;
         public event Action<IntVector2> NoWayToAttackDestination;
         public event Action<IntVector2> NoWayToWalkDestination;
         public event Action<IntVector2> NextTileOccupied;

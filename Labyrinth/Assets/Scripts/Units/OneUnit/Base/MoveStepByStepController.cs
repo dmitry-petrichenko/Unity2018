@@ -11,8 +11,6 @@ namespace Units.OneUnit.Base
     public class MoveStepByStepController : Disposable, IMoveStepByStepController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
-        private readonly IEventDispatcher _eventDispatcher;
-        private readonly IUnitStateController _unitState;
         private readonly IStateControllerExternal _stateController;
         
         private List<IntVector2> _path;
@@ -22,16 +20,12 @@ namespace Units.OneUnit.Base
         public IntVector2 Destination { get; set; }
 
         public MoveStepByStepController(
-            IUnitStateController unitState,
             IStateControllerExternal stateController,
             IUnitsTable unitsTable,
-            IEventDispatcher eventDispatcher,
             IUnitGameObjectController unitGameObjectController
             )
         {
-            _unitState = unitState;
             _unitsTable = unitsTable;
-            _eventDispatcher = eventDispatcher;
             _unitGameObjectController = unitGameObjectController;
             _stateController = stateController;
         }   
@@ -60,7 +54,6 @@ namespace Units.OneUnit.Base
             if (path.Count == 0)
             {
                 _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
-                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.NoWayToTileEvent, _nextOccupiedPossition);
                 return;
             }
             _unitGameObjectController.MoveComplete += MoveNextStep;
@@ -95,7 +88,6 @@ namespace Units.OneUnit.Base
             {
                 Reset();
                 _stateController.CurrentState.RaiseMovePathComplete();
-                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.MovePathCompleteEvent);
             }
         }
 
@@ -113,7 +105,6 @@ namespace Units.OneUnit.Base
             {
                 _nextOccupiedPossition = nextPosition;
                 _stateController.CurrentState.RaiseNextTileOccupied(_nextOccupiedPossition);
-                //_eventDispatcher.DispatchEvent(_unitState.CurrentState.NextTileOccupatedEvent, _nextOccupiedPossition);
 
                 return true;
             }

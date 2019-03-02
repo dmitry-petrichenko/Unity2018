@@ -1,7 +1,5 @@
 ﻿using System;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
@@ -9,18 +7,15 @@ namespace Units.OneUnit
     public class MoveController : Disposable
     {
         private IBaseActionController _baseActionController;
-        private IUnitStateController _unitState;
 
         public event Action MoveToComplete;
         
         public MoveController(
             IBaseActionController baseActionController,
-            IUnitStateController unitState,
             MoveConsideringOccupatedController moveConsideringOccupatedController,
             WaitMoveTurnController waitMoveTurnController
             )
         {
-            _unitState = unitState;
             _baseActionController = baseActionController;
         }
         
@@ -28,7 +23,7 @@ namespace Units.OneUnit
         
         public void MoveTo(IntVector2 position)
         {
-            _unitState.CurrentState.SetWalkState();
+            _baseActionController.SetPlacidState();
             _baseActionController.MoveTo(position);
         }
 

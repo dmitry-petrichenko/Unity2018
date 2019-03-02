@@ -10,20 +10,17 @@ namespace Units.OneUnit
         private IBaseActionController _baseActionController;
         private TargetOvertaker2 _targetOvertaker;
         private IOneUnitController _targetUnit;
-        private IUnitStateController _unitState;
         
         private readonly IUnitsTable _unitsTable;
 
         public AttackController(
             IBaseActionController baseActionController,
             TargetOvertaker2 targetOvertaker,
-            IUnitsTable unitsTable,
-            IUnitStateController unitState)
+            IUnitsTable unitsTable)
         {
             _baseActionController = baseActionController;
             _targetOvertaker = targetOvertaker;
             _unitsTable = unitsTable;
-            _unitState = unitState;
         }
 
         public void Cancel()
@@ -35,7 +32,7 @@ namespace Units.OneUnit
         public void Attack(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            _unitState.CurrentState.SetAttackState();
+            _baseActionController.SetAttackState();
             _targetOvertaker.Complete += OvertakeTargetHandler;
             _targetOvertaker.Overtake(_targetUnit);
         }

@@ -65,7 +65,6 @@ namespace Units
             builder.CreateScopeForType<BaseActionController>(InstallBaseMovingSubComponents)
                 .As<IBaseActionController>().SingleInstance();
             
-            builder.RegisterType<UnitStateController>().As<IUnitStateController>().As<IUnitStateControllerInternal>().SingleInstance();
             builder.RegisterType<DeadLivingState>().AsSelf().SingleInstance();
             builder.RegisterType<AliveLivingState>().AsSelf().SingleInstance();
             builder.RegisterType<LivingStateController>().As<ILivingStateControllerInternal>().As<ILivingStateControllerExternal>().SingleInstance();
