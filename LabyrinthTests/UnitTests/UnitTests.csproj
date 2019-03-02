@@ -97,6 +97,7 @@
     <Compile Include="PathFinder\PathFinderTestData.cs" />
     <Compile Include="PathFinder\PathFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\StateControllerTests.cs" />
     <Compile Include="UnitsTableTests.cs" />
   </ItemGroup>
   <ItemGroup>

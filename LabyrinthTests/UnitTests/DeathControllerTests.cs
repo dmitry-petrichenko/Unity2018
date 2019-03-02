@@ -1,5 +1,6 @@
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts.Units.Events;
+using Scripts.Units.StateInfo;
 using Telerik.JustMock;
 using Units.OneUnit.Base;
 using Units.OneUnit.Base.GameObject;
