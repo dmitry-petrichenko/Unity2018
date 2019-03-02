@@ -44,11 +44,13 @@ namespace Scripts.Units.StateInfo.BaseState
 
         public IState GetAttackState()
         {
+            CheckStatesInitialized();
             return _attackState;
         }
 
         public IState GetPlacidState()
         {
+            CheckStatesInitialized();
             return _placidState;
         }
         //--------------------------
@@ -62,9 +64,21 @@ namespace Scripts.Units.StateInfo.BaseState
         private void CheckInitialization()
         {
             if (_baseActionController == null)
+            {
                 throw new System.Exception("BaseActionController not initialized");
+            }
             if (CurrentState == null)
+            {
                 throw new System.Exception("StateController.CurrentState not initialized");
+            } 
         }
+        
+        private void CheckStatesInitialized()
+        {
+            if (_attackState == null && _placidState == null)
+            {
+                throw new System.Exception("States are not initialized");
+            }   
+        }  
     }
 }

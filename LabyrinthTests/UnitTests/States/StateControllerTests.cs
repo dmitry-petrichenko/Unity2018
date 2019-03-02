@@ -94,5 +94,26 @@ namespace Tests.Scripts.Units.States
             // Assert 
             Assert.True(exeptionCalled);
         }
+        
+        [Fact]
+        public void GetAnyState_ShouldThrowExeptionOnNotInitialized()
+        {
+            // Arrange
+            _stateController = new StateController();
+            bool exeptionCalled = false;
+
+            // Act
+            try
+            {
+                _stateController.GetAttackState();
+            }
+            catch (Exception e)
+            {
+                exeptionCalled = true;
+            }
+
+            // Assert 
+            Assert.True(exeptionCalled);
+        }
     }
 }
