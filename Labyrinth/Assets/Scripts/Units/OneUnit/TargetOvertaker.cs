@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class TargetOvertaker2 : Disposable
+    public class TargetOvertaker : Disposable
     {
         public event Action Complete;
         public event Action StartFollow;
@@ -21,7 +21,7 @@ namespace Units.OneUnit
         
         private IOneUnitController _target;
 
-        public TargetOvertaker2(
+        public TargetOvertaker(
             IPathFinderController pathFinderController,
             IUnitEvents unitEvents,
             IBaseActionController baseActionController)

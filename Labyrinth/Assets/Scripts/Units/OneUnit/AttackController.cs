@@ -8,14 +8,14 @@ namespace Units.OneUnit
     public class AttackController : Disposable, IAttackController
     {
         private IBaseActionController _baseActionController;
-        private TargetOvertaker2 _targetOvertaker;
+        private TargetOvertaker _targetOvertaker;
         private IOneUnitController _targetUnit;
         
         private readonly IUnitsTable _unitsTable;
 
         public AttackController(
             IBaseActionController baseActionController,
-            TargetOvertaker2 targetOvertaker,
+            TargetOvertaker targetOvertaker,
             OvertakeOccupatedPositionController overtakeOccupatedPositionController,
             IUnitsTable unitsTable)
         {
