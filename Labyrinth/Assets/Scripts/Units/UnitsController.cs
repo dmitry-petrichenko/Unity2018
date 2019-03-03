@@ -1,7 +1,10 @@
-﻿using Scripts;
+﻿using System;
+using Scripts;
 using Scripts.Extensions;
 using Scripts.Units.Enemy;
 using Units.ExternalAPI;
+using Units.OneUnit;
+using Units.PathFinder;
 using Units.Player;
 
 namespace Units
@@ -11,41 +14,61 @@ namespace Units
         private EnemyController _enemy;
         private EnemyController _enemy2;
         private IPlayerController _player;
+
+        private readonly IUnitsTable _unitsTable;
+        private readonly IGrid _grid;
+        private readonly EnemyController.Factory _enemyFactory;
         
-        public UnitsController(EnemyController.Factory enemyFactory, IPlayerController player)
+        public UnitsController(
+            EnemyController.Factory enemyFactory, 
+            IUnitsTable unitsTable, 
+            IGrid grid,
+            IPlayerController player)
         {
+            _unitsTable = unitsTable;
+            _enemyFactory = enemyFactory;
+            _grid = grid;
+            
             _player = player;
-            
-            _enemy = enemyFactory.Invoke();
-            _enemy.SetOnPosition(new IntVector2(2, 0));
-            //_enemy.MoveTo(new IntVector2(3, 3));
-            _enemy.Attack(player);
-            //_enemy.Animate();
-  /*          
-            EnemyController _enemy4 = enemyFactory.Invoke();
-            _enemy4.SetOnPosition(new IntVector2(2, 2));
-            //_enemy4.Animate();
-            _enemy4.Attack(player);
-            
-            EnemyController _enemy3 = enemyFactory.Invoke();
-            _enemy3.SetOnPosition(new IntVector2(0, 2));
-            //_enemy3.Animate();
-            _enemy3.Attack(player);
-            
-            _enemy2 = enemyFactory.Invoke();
-            _enemy2.SetOnPosition(new IntVector2(0, 0));
-            _enemy2.Attack(player);
-            
-            EnemyController _enemy5 = enemyFactory.Invoke();
-            _enemy5.SetOnPosition(new IntVector2(0, 5));
-            _enemy5.Animate();
-            
-            EnemyController _enemy7 = enemyFactory.Invoke();
-            _enemy7.SetOnPosition(new IntVector2(0, 7));*/
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                GenerateEnemy();
+            }
         }
 
         public IPlayer Player => _player;
 
+        public void GenerateEnemy()
+        {
+            START:
+            var point = GetRandomPoint();
+            if(!_grid.GetCell(point))
+                goto START;
+            if (_unitsTable.GetUnitOnPosition(point) is UnitStub)
+            {
+                var enemy = _enemyFactory.Invoke();
+                enemy.SetOnPosition(point);
+                enemy.Animate();
+            }
+            else
+            {
+                goto START;
+            }
+        }
+
+        IntVector2 GetRandomPoint()
+        {
+            int GetNumber()
+            {
+                Random r = new Random();
+                return r.Next(15);
+            }
+
+            return new IntVector2(GetNumber(), GetNumber());
+        }
+        
         protected override void DisposeInternal()
         {
             base.DisposeInternal();

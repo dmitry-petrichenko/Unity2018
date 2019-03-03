@@ -42,10 +42,11 @@ public class MainEditorController : MonoBehaviour
         _mapInfoStoreController = new MapInfoStoreController(_settingsList);
         
         //UPLOAD MAP FROM DISK
-        _mapTilesInfo = UploadNewSectorByIndex(0,0);
+        //_mapTilesInfo = UploadNewSectorByIndex(0,0);
         //------------------
         // INITIALIZE NEW SECTOR
-        //_mapTilesInfo = InitializeNewSectorByIndex(0,0);
+        _mapTilesInfo = InitializeNewSectorByIndex(0,0);
+        //------------------
         
         _mapViewController = new EditorMapViewController();
         _mapViewController.Initialize(_graphicsController);
