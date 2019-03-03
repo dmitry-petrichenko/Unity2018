@@ -13,42 +13,37 @@ namespace Units.OneUnit
 {
     public class OvertakeOccupatedPositionController : Disposable
     {
-        private readonly IEventDispatcher _eventDispatcher;
-        
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
         private IGrid _grid;
         private IUnitInfoExternal _unitInfo;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
+        private IBaseActionController _baseActionController;
         
         public OvertakeOccupatedPositionController(
-            IEventDispatcher eventDispatcher,
             IUnitsTable unitsTable,
             IUnitInfoExternal unitInfo,
+            IBaseActionController baseActionController,
             IGrid grid
             )
         {
-            _eventDispatcher = eventDispatcher;
             _unitsTable = unitsTable;
             _unitInfo = unitInfo;
+            _baseActionController = baseActionController;
             
             _grid = grid;
-        }
-        
-        public void Initialize(IOneUnitController oneUnitController)
-        {
+            
             SubscribeOnEvents();
-            _oneUnitController = oneUnitController;
         }
 
         private void SubscribeOnEvents()
         {
-            _eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_ATTACK_DESTINATION, NoWayToAttackPointHandler);
+            _baseActionController.NoWayToAttackDestination += NoWayToAttackPointHandler;
         }
 
         private void UnsubscribeOnEvents()
         {
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_ATTACK_DESTINATION, new Action<IntVector2>(NoWayToAttackPointHandler));
+            _baseActionController.NoWayToAttackDestination -= NoWayToAttackPointHandler;
         }
 
         private void NoWayToAttackPointHandler(IntVector2 position)
@@ -56,11 +51,11 @@ namespace Units.OneUnit
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
-                _oneUnitController.Wait(position);
+                _baseActionController.Wait(position);
                 return;
             }
             
-            _oneUnitController.MoveTo(freePosition);
+            _baseActionController.MoveTo(freePosition);
         }
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
@@ -130,8 +125,8 @@ namespace Units.OneUnit
 
         private int GetH(IntVector2 intVector2)
         {
-            return Math.Abs(_oneUnitController.Position.x - intVector2.x) +
-                Math.Abs(_oneUnitController.Position.y - intVector2.y);
+            return Math.Abs(_baseActionController.Position.x - intVector2.x) +
+                Math.Abs(_baseActionController.Position.y - intVector2.y);
         }
         
         private bool IsFreePosition(IntVector2 position)
@@ -141,7 +136,7 @@ namespace Units.OneUnit
 
         protected override void DisposeInternal()
         {
-            _freePositions.Clear();
+            _freePositions?.Clear();
             UnsubscribeOnEvents();
             base.DisposeInternal();
         }

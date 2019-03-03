@@ -16,6 +16,7 @@ namespace Units.OneUnit
         public AttackController(
             IBaseActionController baseActionController,
             TargetOvertaker2 targetOvertaker,
+            OvertakeOccupatedPositionController overtakeOccupatedPositionController,
             IUnitsTable unitsTable)
         {
             _baseActionController = baseActionController;

@@ -82,7 +82,7 @@ namespace Units
             builder.RegisterType<TargetOvertaker2>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
-            //builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
+            builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
             builder.RegisterType<DeathController>().As<IDeathController>().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
