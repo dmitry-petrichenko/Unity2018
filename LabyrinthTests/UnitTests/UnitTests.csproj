@@ -92,7 +92,7 @@
   <ItemGroup>
     <Compile Include="DeathControllerTests.cs" />
     <Compile Include="Extensions\AutofacExtensionsTests.cs" />
-    <Compile Include="Moving\MoveStepByStepTestData.cs" />
+    <Compile Include="Moving\MoveStepByStepTestData1.cs" />
     <Compile Include="Moving\MoveStepByStepTests.cs" />
     <Compile Include="PathFinder\PathFinderDestinationTestData.cs" />
     <Compile Include="PathFinder\PathFinderNoWayTestData.cs" />
