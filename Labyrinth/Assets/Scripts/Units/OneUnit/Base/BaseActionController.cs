@@ -15,6 +15,7 @@ namespace Units.OneUnit.Base
         private readonly IHealthController _healthController;
         private readonly IDeathController _deathController;
         private readonly IStateControllerInternal _stateController;
+        private readonly IUnitsTable _unitsTable;
 
         public BaseActionController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
@@ -23,6 +24,7 @@ namespace Units.OneUnit.Base
             IHealthController healthController,
             IUnitGameObjectController unitGameObjectController,
             IStateControllerInternal stateController,
+            IUnitsTable unitsTable,
             IDeathController deathController)
         {
             _moveStepByStepController = moveStepByStepController;
@@ -32,6 +34,7 @@ namespace Units.OneUnit.Base
             _healthController = healthController;
             _stateController = stateController;
             _deathController = deathController;
+            _unitsTable = unitsTable;
             
             _stateController.InitializeBaseActionController(this);
         }
@@ -57,15 +60,19 @@ namespace Units.OneUnit.Base
 
         public void MoveTo(List<IntVector2> path) => _moveStepByStepController.MoveTo(path);
         
-        public void Wait() => _moveStepByStepController.Wait();
+        public void Wait() => _unitGameObjectController.Wait();
         
-        public void Wait(IntVector2 position) => _moveStepByStepController.Wait(position);
+        public void Wait(IntVector2 position) => _unitGameObjectController.Wait(position);
         
         public void Cancel() => _moveStepByStepController.Cancel();
         
-        public void SetOnPosition(IntVector2 position) => _moveStepByStepController.SetOnPosition(position);
+        public void SetOnPosition(IntVector2 position)
+        {
+            _unitGameObjectController.SetOnPosition(position);
+            _unitsTable.SetOccupied(position);
+        }
 
-        public IntVector2 Position => _moveStepByStepController.Position;
+        public IntVector2 Position => _unitGameObjectController.Position;
         public IntVector2 Destination => _moveStepByStepController.Destination;
         public event Action<IntVector2> NoWayToAttackDestination;
         public event Action<IntVector2> NoWayToWalkDestination;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units.Events;
+using Units.OneUnit.Base.GameObject;
 using Units.PathFinder;
 
 namespace Units.OneUnit.Base
@@ -13,20 +14,23 @@ namespace Units.OneUnit.Base
         private IntVector2 _newPosition;
         private IPathFinderController _pathFinderController;
         private readonly IEventDispatcher _eventDispatcher;
+        private readonly IUnitGameObjectController _unitGameObjectController;
         
         public ChangeDirrectionAfterMoveTileCompleteController(
             IPathFinderController pathFinderController,
             IMoveStepByStepController moveStepByStepController, 
+            IUnitGameObjectController unitGameObjectController,
             IEventDispatcher eventDispatcher)
         {
             _moveStepByStepController = moveStepByStepController;
             _pathFinderController = pathFinderController;
             _eventDispatcher = eventDispatcher;
+            _unitGameObjectController = unitGameObjectController;
         }
 
         public void MoveTo(IntVector2 position)
         {
-            if (_moveStepByStepController.IsMoving)
+            if (_unitGameObjectController.IsMoving)
             {
                 _newPosition = position;
                 ChangeDirrection();
@@ -39,7 +43,7 @@ namespace Units.OneUnit.Base
 
         private void MoveToDirrection(IntVector2 position)
         {
-            List<IntVector2> path = _pathFinderController.GetPath(_moveStepByStepController.Position, position, null);
+            List<IntVector2> path = _pathFinderController.GetPath(_unitGameObjectController.Position, position, null);
             _moveStepByStepController.Destination = position;
             _moveStepByStepController.MoveTo(path);
         }

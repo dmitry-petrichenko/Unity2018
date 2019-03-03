@@ -29,24 +29,6 @@ namespace Units.OneUnit.Base
             _unitGameObjectController = unitGameObjectController;
             _stateController = stateController;
         }   
-        
-        public void SetOnPosition(IntVector2 position)
-        {
-            _unitGameObjectController.SetOnPosition(position);
-            _unitsTable.SetOccupied(position);
-        }
-
-        public IntVector2 Position => _unitGameObjectController.Position;
-
-        public void Wait()
-        {
-            _unitGameObjectController.Wait();
-        }
-        
-        public void Wait(IntVector2 position)
-        {
-            _unitGameObjectController.Wait(position);
-        }
 
         public void MoveTo(List<IntVector2> path)
         {
@@ -71,8 +53,6 @@ namespace Units.OneUnit.Base
         {
             _unitGameObjectController.MoveComplete -= MoveNextStep;
         }
-
-        public bool IsMoving => _unitGameObjectController.IsMoving; //TODO move to state
 
         private void MoveNextStep()
         {
