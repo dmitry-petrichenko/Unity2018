@@ -6,6 +6,7 @@ using Scripts.Units.Events;
 using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
+using UnityEngine;
 
 namespace Units.OneUnit
 {
@@ -41,13 +42,11 @@ namespace Units.OneUnit
         private void SubscribeOnEvents()
         {
             _baseActionController.NoWayToWalkDestination += NoWayToPointHandler;
-            //_eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, NoWayToPointHandler);
         }
         
         private void UnsubscribeOnEvents()
         {
             _baseActionController.NoWayToWalkDestination -= NoWayToPointHandler;
-            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.NO_WAY_TO_WALK_DESTINATION, new Action<IntVector2>(NoWayToPointHandler));
         }
 
         private void NoWayToPointHandler(IntVector2 occupiedPoint)

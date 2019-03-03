@@ -7,7 +7,5 @@ namespace Units.OneUnit.Base
     {
         void MoveTo(List<IntVector2> path);
         void Cancel();
-        
-        IntVector2 Destination { get; set; }
     }
 }

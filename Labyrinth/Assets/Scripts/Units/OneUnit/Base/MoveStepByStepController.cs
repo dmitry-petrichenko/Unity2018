@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Scripts;
 using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
+using UnityEngine;
 
 namespace Units.OneUnit.Base
 {
@@ -13,8 +15,8 @@ namespace Units.OneUnit.Base
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
         private IntVector2 _nextOccupiedPossition;
-        
-        public IntVector2 Destination { get; set; }
+
+        public IntVector2 _destination;
 
         public MoveStepByStepController(
             IStateControllerExternal stateController,
@@ -32,12 +34,14 @@ namespace Units.OneUnit.Base
             Cancel();
             _unitGameObjectController.MoveComplete += MoveNextStep;
             _path = path;
+            _destination = _path.Last();
             MoveNextStep();
         }
 
         public void Cancel()
         {
             _path = null;
+            _destination = IntVector2Constant.UNASSIGNET;
             _unitGameObjectController.MoveComplete -= MoveNextStep;
         }
 
@@ -71,7 +75,15 @@ namespace Units.OneUnit.Base
             if (!_unitsTable.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
-                _stateController.CurrentState.RaiseNextTileOccupied(_nextOccupiedPossition);
+
+                if (_nextOccupiedPossition.Equals(_destination))
+                {
+                    _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
+                }
+                else
+                {
+                    _stateController.CurrentState.RaiseNextTileOccupied(_nextOccupiedPossition);
+                }
 
                 return true;
             }

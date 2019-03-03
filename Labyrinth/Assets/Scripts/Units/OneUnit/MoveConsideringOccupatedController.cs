@@ -47,7 +47,7 @@ namespace Units.OneUnit
             _baseActionController.Cancel();
             _occupiedPossitions = _unitsTable.GetOccupiedPositions();
             RemoveCurrentUnitPosition();
-            _baseActionController.MoveToAvoidingOccupiedCells(_baseActionController.Position, _occupiedPossitions);
+            _baseActionController.MoveToAvoidingOccupiedCells(_baseActionController.Destination, _occupiedPossitions);
         }
 
         private void RemoveCurrentUnitPosition()
