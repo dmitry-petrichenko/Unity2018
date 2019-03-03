@@ -4,7 +4,6 @@ using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject;
-using Units.PathFinder;
 
 namespace Units.OneUnit.Base
 {
