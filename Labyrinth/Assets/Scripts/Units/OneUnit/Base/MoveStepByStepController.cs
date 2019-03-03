@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.StateInfo;
 using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
 
@@ -32,7 +29,7 @@ namespace Units.OneUnit.Base
 
         public void MoveTo(List<IntVector2> path)
         {
-            Reset();
+            Cancel();
             if (path.Count == 0)
             {
                 _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
@@ -43,14 +40,9 @@ namespace Units.OneUnit.Base
             MoveNextStep();
         }
 
-        private void Reset()
-        {
-            _path = null;
-            _unitGameObjectController.MoveComplete -= MoveNextStep;
-        }
-
         public void Cancel()
         {
+            _path = null;
             _unitGameObjectController.MoveComplete -= MoveNextStep;
         }
 
@@ -66,7 +58,7 @@ namespace Units.OneUnit.Base
             }
             else
             {
-                Reset();
+                Cancel();
                 _stateController.CurrentState.RaiseMovePathComplete();
             }
         }
@@ -100,7 +92,7 @@ namespace Units.OneUnit.Base
 
         protected override void DisposeInternal()
         {
-            Reset();
+            Cancel();
             base.DisposeInternal();
         }
     }
