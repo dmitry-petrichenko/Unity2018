@@ -12,6 +12,7 @@ namespace Units.OneUnit.Base
     {
         private IMoveStepByStepController _moveStepByStepController;
         private IntVector2 _newPosition;
+        private List<IntVector2> _newPath;
         private IPathFinderController _pathFinderController;
         private readonly IEventDispatcher _eventDispatcher;
         private readonly IUnitGameObjectController _unitGameObjectController;
@@ -40,6 +41,31 @@ namespace Units.OneUnit.Base
                 MoveToDirrection(position);
             }
         }
+        
+        public void MoveTo(List<IntVector2> path)
+        {
+            if (_unitGameObjectController.IsMoving)
+            {
+                _newPath = path;
+                ChangeDirrectionPath();
+            }
+            else
+            {
+                MoveToDirrectionPath(path);
+            }
+        }
+        
+        private void ChangeDirrectionPath()
+        {
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMovePathCmplete));
+            _moveStepByStepController.Cancel();
+            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, OnChangeDirrectionMovePathCmplete);
+        }
+        
+        private void MoveToDirrectionPath(List<IntVector2> path)
+        {
+            _moveStepByStepController.MoveTo(path);
+        }
 
         private void MoveToDirrection(IntVector2 position)
         {
@@ -53,6 +79,12 @@ namespace Units.OneUnit.Base
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMoveCmplete));
             _moveStepByStepController.Cancel();
             _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, OnChangeDirrectionMoveCmplete);
+        }
+        
+        private void OnChangeDirrectionMovePathCmplete()
+        {
+            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(OnChangeDirrectionMovePathCmplete));
+            MoveToDirrectionPath(_newPath);
         }
         
         private void OnChangeDirrectionMoveCmplete()

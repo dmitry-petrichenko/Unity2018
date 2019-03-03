@@ -1,34 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using ID5D6AAC.Common.EventDispatcher;
+﻿using System.Collections.Generic;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units;
-using Scripts.Units.Events;
 using Units.OneUnit.Base;
-using Units.PathFinder;
 
 namespace Units.OneUnit
 {
     public class MoveConsideringOccupatedController : Disposable
     {
         private readonly IUnitsTable _unitsTable;
-        private readonly IPathFinderController _pathFinderController;
         private readonly IBaseActionController _baseActionController;
-        private readonly IEventDispatcher _eventDispatcher;
         private List<IntVector2> _occupiedPossitions;
         
         public MoveConsideringOccupatedController(
             IUnitsTable unitsTable,
-            IPathFinderController pathFinderController,
-            IBaseActionController baseActionController,
-            IEventDispatcher eventDispatcher
+            IBaseActionController baseActionController
             )
         {
             _unitsTable = unitsTable;
             _baseActionController = baseActionController;
-            _pathFinderController = pathFinderController;
-            _eventDispatcher = eventDispatcher;
 
             Initialize();
         }
@@ -47,13 +35,10 @@ namespace Units.OneUnit
         private void SubscribeOnEvent()
         {
             _baseActionController.NextTileOccupied += NextPositionOccupiedHandler;
-            //_eventDispatcher.AddEventListener<IntVector2>(UnitEventsTypes.NEXT_TILE_OCCUPATED, NextPositionOccupiedHandler);
         }
         
         private void UnsubscribeFromEvent()
         {
-            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.NEXT_TILE_OCCUPATED,
-                //new Action<IntVector2>(NextPositionOccupiedHandler));
             _baseActionController.NextTileOccupied -= NextPositionOccupiedHandler;   
         }
 
@@ -62,9 +47,7 @@ namespace Units.OneUnit
             _baseActionController.Cancel();
             _occupiedPossitions = _unitsTable.GetOccupiedPositions();
             RemoveCurrentUnitPosition();
-            List<IntVector2> newPath = _pathFinderController.GetPath(_baseActionController.Position,
-                _baseActionController.Destination, _occupiedPossitions);
-            _baseActionController.MoveTo(newPath);
+            _baseActionController.MoveToAvoidingOccupiedCells(_baseActionController.Position, _occupiedPossitions);
         }
 
         private void RemoveCurrentUnitPosition()

@@ -24,12 +24,12 @@ namespace Units.OneUnit
         public void MoveTo(IntVector2 position)
         {
             _baseActionController.SetPlacidState();
-            _baseActionController.MoveTo(position);
+            _baseActionController.MoveToPosition(position);
         }
 
         public void Wait() => _baseActionController.Wait();
         
-        public void Wait(IntVector2 position) => _baseActionController.Wait(position);
+        public void Wait(IntVector2 position) => _baseActionController.WaitPosition(position);
         
         public void SetOnPosition(IntVector2 position) => _baseActionController.SetOnPosition(position);
     }

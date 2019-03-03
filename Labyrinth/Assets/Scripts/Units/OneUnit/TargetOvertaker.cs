@@ -74,7 +74,7 @@ namespace Units.OneUnit
             }
             else
             {
-                _baseActionController.MoveTo(path[0]);
+                _baseActionController.MoveToPosition(path[0]);
             }
         }
 

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
 using Units.PathFinder;
@@ -51,11 +47,11 @@ namespace Units.OneUnit
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
-                _baseActionController.Wait(position);
+                _baseActionController.WaitPosition(position);
                 return;
             }
             
-            _baseActionController.MoveTo(freePosition);
+            _baseActionController.MoveToPosition(freePosition);
         }
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)

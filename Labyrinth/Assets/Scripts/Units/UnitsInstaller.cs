@@ -72,7 +72,6 @@ namespace Units
             builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().As<IStateControllerMutator>().SingleInstance();
             builder.RegisterType<UnitInfo>().As<IUnitInfoExternal>().As<IUnitInfoInternal>().SingleInstance();
             
-            
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().AsSelf().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
@@ -103,6 +102,7 @@ namespace Units
         {
             builder.RegisterType<ChangeDirrectionAfterMoveTileCompleteController>().AsSelf().SingleInstance();
             builder.RegisterType<MoveStepByStepController>().As<IMoveStepByStepController>().SingleInstance();
+            builder.RegisterType<PathGeneratorController>().As<IPathGeneratorController>().SingleInstance();
         }
     }
 }

@@ -8,33 +8,33 @@ namespace Units.OneUnit.Base
 {
     public class BaseActionController : Disposable, IBaseActionController, IBaseActionControllerInternal
     {
-        private readonly ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private readonly IMoveStepByStepController _moveStepByStepController;
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
         private readonly IHealthController _healthController;
         private readonly IDeathController _deathController;
         private readonly IStateControllerInternal _stateController;
+        private readonly IPathGeneratorController _pathGeneratorController;
         private readonly IUnitsTable _unitsTable;
 
         public BaseActionController(
-            ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
             IHealthController healthController,
             IUnitGameObjectController unitGameObjectController,
             IStateControllerInternal stateController,
             IUnitsTable unitsTable,
+            IPathGeneratorController pathGeneratorController,
             IDeathController deathController)
         {
             _moveStepByStepController = moveStepByStepController;
-            _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
             _healthController = healthController;
             _stateController = stateController;
             _deathController = deathController;
             _unitsTable = unitsTable;
+            _pathGeneratorController = pathGeneratorController;
             
             _stateController.InitializeBaseActionController(this);
         }
@@ -45,7 +45,11 @@ namespace Units.OneUnit.Base
             _unitGameObjectController.Attack(position);
         }
 
-        public void TakeDamage(int value) { _healthController.TakeDamage(value); }
+        public void TakeDamage(int value)
+        {
+            _healthController.TakeDamage(value);
+        }
+        
         public void SetAttackState()
         {
             _stateController.SetAttackState();
@@ -56,13 +60,19 @@ namespace Units.OneUnit.Base
             _stateController.SetPlacidState();
         }
 
-        public void MoveTo(IntVector2 position) => _changeDirrectionAfterMoveTileCompleteController.MoveTo(position);
+        public void MoveToPosition(IntVector2 position)
+        {
+            _pathGeneratorController.MoveToPosition(position);
+        } 
 
-        public void MoveTo(List<IntVector2> path) => _moveStepByStepController.MoveTo(path);
-        
+        public void MoveToAvoidingOccupiedCells(IntVector2 position, List<IntVector2> cells)
+        {
+            _pathGeneratorController.MoveToPositionAvoidingOccupiedCells(position, cells);
+        }
+
         public void Wait() => _unitGameObjectController.Wait();
         
-        public void Wait(IntVector2 position) => _unitGameObjectController.Wait(position);
+        public void WaitPosition(IntVector2 position) => _unitGameObjectController.Wait(position);
         
         public void Cancel() => _moveStepByStepController.Cancel();
         
@@ -73,7 +83,7 @@ namespace Units.OneUnit.Base
         }
 
         public IntVector2 Position => _unitGameObjectController.Position;
-        public IntVector2 Destination => _moveStepByStepController.Destination;
+        public IntVector2 Destination => _pathGeneratorController.Destination;
         public event Action<IntVector2> NoWayToAttackDestination;
         public event Action<IntVector2> NoWayToWalkDestination;
         public event Action<IntVector2> NextTileOccupied;

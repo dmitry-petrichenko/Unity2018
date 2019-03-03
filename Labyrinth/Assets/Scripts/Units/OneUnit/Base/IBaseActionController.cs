@@ -7,10 +7,10 @@ namespace Units.OneUnit.Base
     public interface IBaseActionController : IDisposable
     {
         void Wait();
-        void Wait(IntVector2 position);
+        void WaitPosition(IntVector2 position);
         void Attack(IntVector2 position);
-        void MoveTo(IntVector2 position);
-        void MoveTo(List<IntVector2> path);
+        void MoveToPosition(IntVector2 position);
+        void MoveToAvoidingOccupiedCells(IntVector2 position, List<IntVector2> cells);
         void Cancel();
         void SetOnPosition(IntVector2 position);
         void TakeDamage(int value);

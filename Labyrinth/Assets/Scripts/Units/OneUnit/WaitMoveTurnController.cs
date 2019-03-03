@@ -62,11 +62,11 @@ namespace Units.OneUnit
             if (Equals(_targetUnit.StateInfo.WaitPosition, _baseActionController.Position))
             {
                 IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseActionController.Position);
-                _baseActionController.MoveTo(newPosition);
+                _baseActionController.MoveToPosition(newPosition);
                 return;
             }
 
-            _baseActionController.Wait(_targetUnit.Position);
+            _baseActionController.WaitPosition(_targetUnit.Position);
             _unitInfo.SetWaitPosition(position);
             _targetUnit.UnitEvents.PositionChanged += TargetUnitPositionChanged;
         }
@@ -86,7 +86,7 @@ namespace Units.OneUnit
 
         private void MoveToDestination()
         {
-            _baseActionController.MoveTo(_baseActionController.Destination);
+            _baseActionController.MoveToPosition(_baseActionController.Destination);
         }
 
         protected override void DisposeInternal()
