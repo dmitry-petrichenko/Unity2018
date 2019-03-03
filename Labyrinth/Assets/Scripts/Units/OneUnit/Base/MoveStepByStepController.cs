@@ -30,11 +30,6 @@ namespace Units.OneUnit.Base
         public void MoveTo(List<IntVector2> path)
         {
             Cancel();
-            if (path.Count == 0)
-            {
-                _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
-                return;
-            }
             _unitGameObjectController.MoveComplete += MoveNextStep;
             _path = path;
             MoveNextStep();
