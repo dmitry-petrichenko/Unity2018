@@ -8,6 +8,7 @@ using Scripts.Units.StateInfo.LivingStates;
 using Units.ExternalAPI;
 using Units.OneUnit;
 using Units.OneUnit.Info;
+using Units.OneUnit.State1E;
 
 namespace Units.Player
 {
@@ -22,10 +23,10 @@ namespace Units.Player
             IEventDispatcher eventDispatcher,
             IUnitSettings unitSettings,
             IUnitsTable unitsTable,
-            ILivingStateControllerExternal livingStateControllerExternal,
+            IStateControllerExternal stateController,
             IUnitEvents unitEvents,
             IUnitInfoExternal unitInfo
-        ) : base(unitsTable, unitEvents, livingStateControllerExternal, unitInfo)
+        ) : base(unitsTable, unitEvents, stateController, unitInfo)
         {
             _gameEvents = gameEvents;
             _eventDispatcher = eventDispatcher;
@@ -37,18 +38,14 @@ namespace Units.Player
         private void Initialize()
         {
             UnitEvents.MovePathComplete += Wait;
-            //_eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
             SetOnPosition(new IntVector2(1, 1));
         }
-
-        //private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position); //TODO remove
 
         public object GraphicObject => _unitSettings.GraphicObject;
 
         protected override void DisposeInternal()
         {
             UnitEvents.MovePathComplete -= Wait;
-           // _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
             base.DisposeInternal();
         }
     }

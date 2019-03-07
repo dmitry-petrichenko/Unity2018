@@ -7,7 +7,7 @@ using Units.PathFinder;
 
 namespace Units.OneUnit
 {
-    public class OvertakeOccupatedPositionController : Disposable
+    public class OvertakeOccupatedPositionController : Disposable, IActivatable
     {
         private IOneUnitController _oneUnitController;
         private IUnitsTable _unitsTable;
@@ -28,8 +28,16 @@ namespace Units.OneUnit
             _baseActionController = baseActionController;
             
             _grid = grid;
-            
+        }
+
+        public void Activate()
+        {
             SubscribeOnEvents();
+        }
+
+        public void Deactivate()
+        {
+            UnsubscribeOnEvents();
         }
 
         private void SubscribeOnEvents()

@@ -15,13 +15,13 @@ namespace Scripts.Units.Events
         public event Action DieComplete;
         
         private readonly IEventDispatcher _eventDispatcher;
-        private readonly MoveController _moveController;
+        private readonly IMoveController _moveController;
         private readonly IBaseActionController _baseActionController;
         
         public UnitEvents(
             IEventDispatcher eventDispatcher, 
             IBaseActionController baseActionController,
-            MoveController moveController)
+            IMoveController moveController)
         {
             _eventDispatcher = eventDispatcher;
             _moveController = moveController;

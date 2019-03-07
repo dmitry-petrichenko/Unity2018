@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class WaitMoveTurnController : Disposable
+    public class WaitMoveTurnController : Disposable, IActivatable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
@@ -35,8 +35,16 @@ namespace Units.OneUnit
             _eventDispatcher = eventDispatcher;
             _baseActionController = baseActionController;
             _unitInfo = unitInfo;
-
+        }
+        
+        public void Activate()
+        {
             SubscribeOnEvents();
+        }
+
+        public void Deactivate()
+        {
+            UnsubscribeOnEvents();
         }
 
         private void SubscribeOnEvents()
@@ -58,7 +66,7 @@ namespace Units.OneUnit
         private void WaitUnitOnPosition(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            if (Equals(_targetUnit.StateInfo.WaitPosition, _baseActionController.Position))
+            if (Equals(_targetUnit.DynamicInfo.WaitPosition, _baseActionController.Position))
             {
                 IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseActionController.Position);
                 _baseActionController.MoveToPosition(newPosition);

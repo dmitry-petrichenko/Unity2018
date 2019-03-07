@@ -3,7 +3,7 @@ using Units.OneUnit.Base;
 
 namespace Scripts.Units.StateInfo.BaseState
 {
-    public class StateController : IStateControllerExternal, IStateControllerInternal, IStateControllerMutator
+    public class StateController2 : IStateControllerExternal2, IStateControllerInternal2, IStateControllerMutator
     {
         private IState _currentState;
         private IState _attackState;
@@ -13,7 +13,7 @@ namespace Scripts.Units.StateInfo.BaseState
         
         public IState CurrentState => _currentState;
         
-        public StateController()
+        public StateController2()
         {
         }
 

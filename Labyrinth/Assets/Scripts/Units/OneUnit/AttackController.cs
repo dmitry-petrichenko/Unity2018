@@ -12,6 +12,7 @@ namespace Units.OneUnit
         private IOneUnitController _targetUnit;
         
         private readonly IUnitsTable _unitsTable;
+        private readonly OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
 
         public AttackController(
             IBaseActionController baseActionController,
@@ -22,6 +23,18 @@ namespace Units.OneUnit
             _baseActionController = baseActionController;
             _targetOvertaker = targetOvertaker;
             _unitsTable = unitsTable;
+            _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
+        }
+
+        public void Activate()
+        {
+            _overtakeOccupatedPositionController.Activate();
+        }
+
+        public void Deactivate()
+        {
+            Cancel();
+            _overtakeOccupatedPositionController.Deactivate();
         }
 
         public void Cancel()

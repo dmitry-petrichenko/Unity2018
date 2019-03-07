@@ -10,7 +10,7 @@ namespace Units.OneUnit.Base
     public class MoveStepByStepController : Disposable, IMoveStepByStepController
     {
         private readonly IUnitGameObjectController _unitGameObjectController;
-        private readonly IStateControllerExternal _stateController;
+        private readonly IStateControllerExternal2 _stateController;
         
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
@@ -19,7 +19,7 @@ namespace Units.OneUnit.Base
         public IntVector2 _destination;
 
         public MoveStepByStepController(
-            IStateControllerExternal stateController,
+            IStateControllerExternal2 stateController,
             IUnitsTable unitsTable,
             IUnitGameObjectController unitGameObjectController
             )

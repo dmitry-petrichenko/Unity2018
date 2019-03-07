@@ -4,12 +4,14 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveController : Disposable
+    public class MoveController : Disposable, IMoveController, IActivatable
     {
-        private IBaseActionController _baseActionController;
-
         public event Action MoveToComplete;
         
+        private readonly MoveConsideringOccupatedController _moveConsideringOccupatedController;
+        private readonly WaitMoveTurnController _waitMoveTurnController;
+        private readonly IBaseActionController _baseActionController;
+
         public MoveController(
             IBaseActionController baseActionController,
             MoveConsideringOccupatedController moveConsideringOccupatedController,
@@ -17,6 +19,8 @@ namespace Units.OneUnit
             )
         {
             _baseActionController = baseActionController;
+            _waitMoveTurnController = waitMoveTurnController;
+            _moveConsideringOccupatedController = moveConsideringOccupatedController;
         }
         
         public IntVector2 Position => _baseActionController.Position;
@@ -32,5 +36,17 @@ namespace Units.OneUnit
         public void Wait(IntVector2 position) => _baseActionController.WaitPosition(position);
         
         public void SetOnPosition(IntVector2 position) => _baseActionController.SetOnPosition(position);
+        
+        public void Activate()
+        {
+            _waitMoveTurnController.Activate();
+            _moveConsideringOccupatedController.Activate();
+        }
+
+        public void Deactivate()
+        {
+            _waitMoveTurnController.Deactivate();
+            _moveConsideringOccupatedController.Deactivate();
+        }
     }
 }

@@ -20,6 +20,7 @@ using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
 using Units.OneUnit.Base.GameObject.Rotation;
 using Units.OneUnit.Info;
+using Units.OneUnit.State1E;
 using Units.PathFinder;
 using Units.Player;
 
@@ -69,11 +70,15 @@ namespace Units
             builder.RegisterType<AliveLivingState>().AsSelf().SingleInstance();
             builder.RegisterType<LivingStateController>().As<ILivingStateControllerInternal>().As<ILivingStateControllerExternal>().SingleInstance();
             
-            builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().As<IStateControllerMutator>().SingleInstance();
+            builder.RegisterType<StateController2>().As<IStateControllerExternal2>().As<IStateControllerInternal2>().As<IStateControllerMutator>().SingleInstance();
             builder.RegisterType<UnitInfo>().As<IUnitInfoExternal>().As<IUnitInfoInternal>().SingleInstance();
             
+            builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().SingleInstance();
+            builder.RegisterType<HostileState>().As<IHostileState>().SingleInstance();
+            builder.RegisterType<PlacidState>().As<IPlacidState>().SingleInstance();
+            
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
-            builder.RegisterType<MoveController>().AsSelf().SingleInstance();
+            builder.RegisterType<MoveController>().As<IMoveController>().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
             builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();

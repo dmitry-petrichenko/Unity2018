@@ -4,7 +4,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveConsideringOccupatedController : Disposable
+    public class MoveConsideringOccupatedController : Disposable, IActivatable
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IBaseActionController _baseActionController;
@@ -17,13 +17,16 @@ namespace Units.OneUnit
         {
             _unitsTable = unitsTable;
             _baseActionController = baseActionController;
-
-            Initialize();
+        }
+        
+        public void Activate()
+        {
+            SubscribeOnEvent();
         }
 
-        public void Initialize()
+        public void Deactivate()
         {
-            SubscribeOnEvent();            
+            UnsubscribeFromEvent();
         }
 
         protected override void DisposeInternal()

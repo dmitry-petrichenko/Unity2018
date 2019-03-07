@@ -1,33 +1,45 @@
-using Scripts.Units.Events;
-using Units.OneUnit;
+using Scripts;
 using Units.OneUnit.Info;
 
-namespace Scripts.Units.StateInfo.LivingStates.States
+namespace Units.OneUnit.State1E
 {
-    public class AliveLivingState : ILivingState
-    {   
-        private readonly IUnitEvents _unitEvents;
+    public class PlacidState : IPlacidState
+    {
+        public IntVector2 Position { get; }
+        public IUnitInfoExternal DynamicInfo { get; }
+        
         private readonly IMoveController _moveController;
         private readonly IAttackController _attackController;
         
-        public AliveLivingState(
+        private IStateControllerInternal _stateController;
+        
+        public PlacidState(
             IMoveController moveController,
-            IAttackController attackController,
-            IUnitEvents unitEvents)
+            IAttackController attackController)
         {
-            _unitEvents = unitEvents;
             _moveController = moveController;
             _attackController = attackController;
+        }
+
+        public void InitializeStateController(IStateControllerInternal stateController)
+        {
+            _stateController = stateController;
+        }
+
+        public void Activate()
+        {
+            _moveController.Activate();
+        }
+
+        public void Deactivate()
+        {
+            _moveController.Deactivate();
         }
 
         public void Dispose()
         {
         }
-
-        public IntVector2 Position => _moveController.Position;
-        public IUnitInfoExternal DynamicInfo { get; }
-
-        public IUnitEvents UnitEvents => _unitEvents;
+        
         public void MoveTo(IntVector2 position)
         {
             _moveController.MoveTo(position);
@@ -50,7 +62,8 @@ namespace Scripts.Units.StateInfo.LivingStates.States
 
         public void Attack(IntVector2 position)
         {
-            _attackController.Attack(position);
+            _stateController.SetState(_stateController.GetHostileState());
+            _stateController.CurrentState.Attack(position);
         }
 
         public void TakeDamage(int value)

@@ -26,5 +26,15 @@ namespace Units.Enemy
         {
             base.DisposeInternal();
         }
+
+        public void Activate()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Deactivate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

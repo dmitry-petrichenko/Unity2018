@@ -31,5 +31,15 @@ namespace Units.Player
         {
             _baseActionController.TakeDamage(value);
         }
+
+        public void Activate()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Deactivate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

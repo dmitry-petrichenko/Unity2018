@@ -13,12 +13,12 @@ namespace Units.OneUnit.Base
         private ChangeDirrectionAfterMoveTileCompleteController _changeDirrectionAfterMoveTileCompleteController;
         private IPathFinderController _pathFinderController;
         private IUnitGameObjectController _unitGameObjectController;
-        private IStateControllerExternal _stateController;
+        private IStateControllerExternal2 _stateController;
         
         public PathGeneratorController(
             ChangeDirrectionAfterMoveTileCompleteController changeDirrectionAfterMoveTileCompleteController,
             IPathFinderController pathFinderController,
-            IStateControllerExternal stateController,
+            IStateControllerExternal2 stateController,
             IUnitGameObjectController unitGameObjectController)
         {
             _changeDirrectionAfterMoveTileCompleteController = changeDirrectionAfterMoveTileCompleteController;

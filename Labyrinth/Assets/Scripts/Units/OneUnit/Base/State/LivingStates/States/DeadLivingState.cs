@@ -6,9 +6,9 @@ namespace Scripts.Units.StateInfo.LivingStates.States
 {
     public class DeadLivingState : ILivingState
     {
-        private readonly MoveController _moveController;
+        private readonly IMoveController _moveController;
         
-        public DeadLivingState(MoveController moveController)
+        public DeadLivingState(IMoveController moveController)
         {
             _moveController = moveController;
         }
@@ -18,7 +18,7 @@ namespace Scripts.Units.StateInfo.LivingStates.States
         }
 
         public IntVector2 Position => _moveController.Position;
-        public IUnitInfoExternal StateInfo { get; }
+        public IUnitInfoExternal DynamicInfo { get; }
         public IUnitEvents UnitEvents => new UnitEventsStub();
         public void MoveTo(IntVector2 position)
         {

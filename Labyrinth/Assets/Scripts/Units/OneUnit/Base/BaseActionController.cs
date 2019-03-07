@@ -13,7 +13,7 @@ namespace Units.OneUnit.Base
         private readonly IApplyDamageController _applyDamageController;
         private readonly IHealthController _healthController;
         private readonly IDeathController _deathController;
-        private readonly IStateControllerInternal _stateController;
+        private readonly IStateControllerInternal2 _stateController;
         private readonly IPathGeneratorController _pathGeneratorController;
         private readonly IUnitsTable _unitsTable;
 
@@ -22,7 +22,7 @@ namespace Units.OneUnit.Base
             IApplyDamageController applyDamageController,
             IHealthController healthController,
             IUnitGameObjectController unitGameObjectController,
-            IStateControllerInternal stateController,
+            IStateControllerInternal2 stateController,
             IUnitsTable unitsTable,
             IPathGeneratorController pathGeneratorController,
             IDeathController deathController)
