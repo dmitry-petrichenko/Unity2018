@@ -5,6 +5,7 @@ namespace Units.OneUnit.State1E
         void SetState(IState state);
         IState GetPlacidState();
         IState GetHostileState();
+        IState GetDeadState();
         IState CurrentState { get; }
     }
 }

@@ -73,9 +73,7 @@ namespace Units
             builder.RegisterType<StateController2>().As<IStateControllerExternal2>().As<IStateControllerInternal2>().As<IStateControllerMutator>().SingleInstance();
             builder.RegisterType<UnitInfo>().As<IUnitInfoExternal>().As<IUnitInfoInternal>().SingleInstance();
             
-            builder.RegisterType<StateController>().As<IStateControllerExternal>().As<IStateControllerInternal>().SingleInstance();
-            builder.RegisterType<HostileState>().As<IHostileState>().SingleInstance();
-            builder.RegisterType<PlacidState>().As<IPlacidState>().SingleInstance();
+            builder.CreateScopeForType<StateController>(InitializeStateComponents).As<IStateControllerExternal>().As<IStateControllerInternal>().SingleInstance();
             
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().As<IMoveController>().SingleInstance();
@@ -93,6 +91,12 @@ namespace Units
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
             
             builder.CreateScopeForType<UnitGameObjectController>(InstallUnitGameObjectComponents).As<IUnitGameObjectController>().SingleInstance();
+        }
+
+        private void InitializeStateComponents(ContainerBuilder builder)
+        {
+            builder.RegisterType<HostileState>().As<IHostileState>().SingleInstance();
+            builder.RegisterType<PlacidState>().As<IPlacidState>().SingleInstance();
         }
 
         private void InstallUnitGameObjectComponents(ContainerBuilder builder)

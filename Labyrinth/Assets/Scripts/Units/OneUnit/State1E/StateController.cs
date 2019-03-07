@@ -1,21 +1,26 @@
 namespace Units.OneUnit.State1E
 {
-    public class StateController : IStateControllerExternal, IStateControllerInternal
+    public class StateController : Disposable, IStateControllerExternal, IStateControllerInternal
     {
         private readonly IPlacidState _placidState;
         private readonly IHostileState _hostileState;
+        private readonly IDeadState _deadState;
 
         private IState _currentState;
         
         public StateController(
             IPlacidState placidState,
-            IHostileState hostileState)
+            IHostileState hostileState,
+            IDeadState deadState)
         {
             _placidState = placidState;
             _placidState.InitializeStateController(this);
             
             _hostileState = hostileState;
             _hostileState.InitializeStateController(this);
+
+            _deadState = deadState;
+            _deadState.InitializeStateController(this);
             
             SetState(GetPlacidState());
         }
@@ -36,7 +41,18 @@ namespace Units.OneUnit.State1E
         {
             return _hostileState;
         }
+        
+        public IState GetDeadState()
+        {
+            return _deadState;
+        }
 
         public IState CurrentState => _currentState;
+
+        protected override void DisposeInternal()
+        {
+            _currentState = null;
+            base.DisposeInternal();
+        }
     }
 }
