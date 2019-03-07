@@ -45,8 +45,8 @@ namespace Tests.Scripts.Units.Moving
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { GetList0_1_3_2(), new IntVector2(2, 1) };
-            yield return new object[] { GetList0_0_5_5(), new IntVector2(5, 5) };
+            yield return new object[] { GetList0_1_3_2(), new IntVector2(2, 1), false };
+            yield return new object[] { GetList0_0_5_5(), new IntVector2(5, 5), true };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

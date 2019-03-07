@@ -14,7 +14,6 @@ namespace Units.OneUnit.Base
         void Cancel();
         void SetOnPosition(IntVector2 position);
         void TakeDamage(int value);
-        
         void SetAttackState();
         void SetPlacidState();
         
@@ -25,6 +24,10 @@ namespace Units.OneUnit.Base
         event Action<IntVector2> NoWayToWalkDestination;
         event Action<IntVector2> NextTileOccupied;
         event Action MovePathComplete;
+        event Action MoveTileComplete;
+        event Action MoveTileStart;
+        event Action AttackComplete;
+        event Action DieComplete;
     }
 
     public interface IBaseActionControllerInternal : IDisposable

@@ -32,7 +32,7 @@ namespace Units.OneUnit.Base
         public void MoveTo(List<IntVector2> path)
         {
             Cancel();
-            _unitGameObjectController.MoveComplete += MoveNextStep;
+            _unitGameObjectController.MoveTileComplete += MoveNextStep;
             _path = path;
             _destination = _path.Last();
             MoveNextStep();
@@ -42,7 +42,7 @@ namespace Units.OneUnit.Base
         {
             _path = null;
             _destination = IntVector2Constant.UNASSIGNET;
-            _unitGameObjectController.MoveComplete -= MoveNextStep;
+            _unitGameObjectController.MoveTileComplete -= MoveNextStep;
         }
 
         private void MoveNextStep()

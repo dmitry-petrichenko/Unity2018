@@ -107,5 +107,29 @@ namespace Units.OneUnit.Base
         {
             MovePathComplete?.Invoke();
         }
+        
+        public event Action MoveTileComplete
+        {
+            add =>  _unitGameObjectController.MoveTileComplete += value;
+            remove =>  _unitGameObjectController.MoveTileComplete -= value;
+        }
+        
+        public event Action MoveTileStart
+        {
+            add =>  _unitGameObjectController.MoveTileStart += value;
+            remove =>  _unitGameObjectController.MoveTileStart -= value;
+        }
+            
+        public event Action AttackComplete
+        {
+            add => _unitGameObjectController.AttackComplete += value;
+            remove => _unitGameObjectController.AttackComplete -= value;
+        }
+        
+        public event Action DieComplete
+        {
+            add => _unitGameObjectController.DieComplete += value;
+            remove => _unitGameObjectController.DieComplete -= value;
+        }
     }
 }

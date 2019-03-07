@@ -37,18 +37,18 @@ namespace Units.Player
         private void Initialize()
         {
             UnitEvents.MovePathComplete += Wait;
-            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
+            //_eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
             SetOnPosition(new IntVector2(1, 1));
         }
 
-        private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position);
+        //private void MoveTileStartHandler() => _gameEvents.TriggerPlayerPositionChanged(Position); //TODO remove
 
         public object GraphicObject => _unitSettings.GraphicObject;
 
         protected override void DisposeInternal()
         {
             UnitEvents.MovePathComplete -= Wait;
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
+           // _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
             base.DisposeInternal();
         }
     }

@@ -77,16 +77,19 @@ namespace Tests.Scripts.Units.Moving
         
         [Theory]
         [ClassData(typeof(MoveStepByStepTestData2))]
-        public void MoveTo_AnyPath_ShouldRiseNextTileOccupied(List<IntVector2> path, IntVector2 occupiedPosition)
+        public void MoveTo_AnyPath_ShouldRiseNextTileOccupied(List<IntVector2> path, IntVector2 occupiedPosition, bool NoWayToDestination)
         {
             // Arrange
             bool nextTileOccupiedCalled = false;
+            bool nexNoWayToDestinationCalled = false;
             Mock.Arrange(() => _unitsTable.IsVacantPosition(Arg.IsAny<IntVector2>()))
                 .Returns(true);
             Mock.Arrange(() => _unitsTable.IsVacantPosition(occupiedPosition))
                 .Returns(false);
             Mock.Arrange(() => _stateController.CurrentState.RaiseNextTileOccupied(Arg.IsAny<IntVector2>()))
                 .DoInstead(() => { nextTileOccupiedCalled = true; });
+            Mock.Arrange(() => _stateController.CurrentState.RaiseNoWayToDestination(Arg.IsAny<IntVector2>()))
+                .DoInstead(() => { nexNoWayToDestinationCalled = true; });
             
             _moveStepByStepController = new MoveStepByStepController(
                 _stateController, 
@@ -97,7 +100,14 @@ namespace Tests.Scripts.Units.Moving
             _moveStepByStepController.MoveTo(path);
             
             // Assert
-            Assert.True(nextTileOccupiedCalled);
+            if (NoWayToDestination)
+            {
+                Assert.True(nexNoWayToDestinationCalled);
+            }
+            else
+            {
+                Assert.True(nextTileOccupiedCalled);
+            }
         }
         
         [Theory]
@@ -148,11 +158,14 @@ namespace Tests.Scripts.Units.Moving
 
         public IntVector2 Position { get; }
         public bool IsMoving { get; }
-        public event Action MoveComplete;
+        public event Action MoveTileComplete;
+        public event Action MoveTileStart;
+        public event Action AttackComplete;
+        public event Action DieComplete;
         
         public void MoveTo(IntVector2 position)
         {
-            MoveComplete?.Invoke();
+            MoveTileComplete?.Invoke();
         }
     }
 }
