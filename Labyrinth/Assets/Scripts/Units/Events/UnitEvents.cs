@@ -1,6 +1,5 @@
 using System;
 using ID5D6AAC.Common.EventDispatcher;
-using Scripts.Extensions;
 using Units.OneUnit;
 using Units.OneUnit.Base;
 
@@ -40,23 +39,21 @@ namespace Scripts.Units.Events
         private void SubscribeOnEvents()
         {
             _baseActionController.MovePathComplete += MovePathCompleteHandler;
-            //_eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, MovePathCompleteHandler);
-            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_START, MoveTileStartHandler);
-            _eventDispatcher.AddEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, MoveTileCompleteHandler);
-            _eventDispatcher.AddEventListener(UnitEventsTypes.ATTACK_COMPLETE, AttackCompleteHandler);
+            _baseActionController.MoveTileStart += MoveTileStartHandler;
+            _baseActionController.MoveTileComplete += MoveTileCompleteHandler;
+            _baseActionController.AttackComplete += AttackCompleteHandler;
+            _baseActionController.DieComplete += DieCompleteHandler;
             _eventDispatcher.AddEventListener(UnitEventsTypes.HEALTH_ENDED, HealthEndedHandler);
-            _eventDispatcher.AddEventListener(UnitEventsTypes.DIE_COMPLETE, DieCompleteHandler);
         }
 
         private void UnsubscribeFromEvents()
         {
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
-            //_eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_PATH_COMPLETE, new Action(MovePathCompleteHandler));
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_START, new Action(MoveTileStartHandler));
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.MOVE_TILE_COMPLETE, new Action(MoveTileCompleteHandler));
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.ATTACK_COMPLETE, new Action(AttackCompleteHandler));
+            _baseActionController.MoveTileStart -= MoveTileStartHandler;
+            _baseActionController.MoveTileComplete -= MoveTileCompleteHandler;
+            _baseActionController.AttackComplete -= AttackCompleteHandler;
+            _baseActionController.DieComplete -= DieCompleteHandler;
             _eventDispatcher.RemoveEventListener(UnitEventsTypes.HEALTH_ENDED, new Action(HealthEndedHandler));
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.DIE_COMPLETE, new Action(DieCompleteHandler));
         }
         
         private void MoveTileStartHandler() => PositionChanged?.Invoke(_moveController.Position);

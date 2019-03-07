@@ -1,7 +1,5 @@
 using System;
-using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Units.Events;
 using Units.OneUnit.Base.GameObject.Animation;
 using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
@@ -15,7 +13,6 @@ namespace Units.OneUnit.Base.GameObject
         private readonly IOneUnitAnimationController _animationController;
         private readonly IOneUnitMotionController _motionController;
         private readonly IOneUnitHealthController _oneUnitHealthController;
-        private readonly IEventDispatcher _eventDispatcher;
 
         public IntVector2 Position => _motionController.Position;
 
@@ -23,19 +20,13 @@ namespace Units.OneUnit.Base.GameObject
             IOneUnitRotationController oneUnitRotationController,
             IOneUnitAnimationController oneUnitAnimationController,
             IOneUnitMotionController oneUnitMotionController,
-            IOneUnitHealthController oneUnitHealthController,
-            IEventDispatcher eventDispatcher
+            IOneUnitHealthController oneUnitHealthController
         )
         {
             _rotationController = oneUnitRotationController;
             _animationController = oneUnitAnimationController;
             _motionController = oneUnitMotionController;
             _oneUnitHealthController = oneUnitHealthController;
-            _eventDispatcher = eventDispatcher;
-
-            _motionController.MoveStart += StartMoveHandler;
-            _motionController.MoveComplete += MoveStepCompleteHandler;
-            _animationController.AttackComplete += AttackCompleteHandler;
         }
 
         public void MoveTo(IntVector2 position)
@@ -64,7 +55,6 @@ namespace Units.OneUnit.Base.GameObject
 
         public void Die()
         {
-            _animationController.DieComplete += DieCompleteHandler;
             _animationController.PlayDieAnimation();
         }
 
@@ -78,43 +68,35 @@ namespace Units.OneUnit.Base.GameObject
             _oneUnitHealthController.SetHealthBarVisible(value);
         }
 
+        public event Action MoveTileComplete
+        {
+            add =>  _motionController.MoveComplete += value;
+            remove =>  _motionController.MoveComplete -= value;
+        }
+        
+        public event Action MoveTileStart
+        {
+            add =>  _motionController.MoveStart += value;
+            remove =>  _motionController.MoveStart -= value;
+        }
+
+        public event Action AttackComplete
+        {
+            add => _animationController.AttackComplete += value;
+            remove => _animationController.AttackComplete -= value;
+        }
+        
+        public event Action DieComplete
+        {
+            add => _animationController.DieComplete += value;
+            remove => _animationController.DieComplete -= value;
+        }
+         
         public void SetOnPosition(IntVector2 position)
         {
             _motionController.SetOnPosition(position);
         }
 
-        public event Action MoveComplete
-        {
-            add => _motionController.MoveComplete += value;
-            remove => _motionController.MoveComplete -= value;
-        }
-
         public bool IsMoving => _motionController.IsMoving;
-
-        protected override void DisposeInternal()
-        {
-            _animationController.DieComplete -= DieCompleteHandler;
-            base.DisposeInternal();
-        }
-
-        private void StartMoveHandler()
-        {
-            _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_START);
-        }
-
-        private void MoveStepCompleteHandler()
-        {
-            _eventDispatcher.DispatchEvent(UnitEventsTypes.MOVE_TILE_COMPLETE);
-        }
-
-        private void AttackCompleteHandler()
-        {
-            _eventDispatcher.DispatchEvent(UnitEventsTypes.ATTACK_COMPLETE);
-        }
-
-        private void DieCompleteHandler()
-        {
-            _eventDispatcher.DispatchEvent(UnitEventsTypes.DIE_COMPLETE);
-        }
     }
 }
