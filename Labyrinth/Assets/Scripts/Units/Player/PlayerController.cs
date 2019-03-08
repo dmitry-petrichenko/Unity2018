@@ -1,11 +1,7 @@
-﻿using System;
-using ID5D6AAC.Common.EventDispatcher;
+﻿using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
-using Scripts.Units.StateInfo;
-using Scripts.Units.StateInfo.LivingStates;
-using Units.ExternalAPI;
 using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State1E;

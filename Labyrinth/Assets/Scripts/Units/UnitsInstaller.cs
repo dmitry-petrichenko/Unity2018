@@ -6,10 +6,7 @@ using Scripts.Units.Behaviour.UnitActions;
 using Scripts.Units.Enemy;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
-using Scripts.Units.StateInfo;
 using Scripts.Units.StateInfo.BaseState;
-using Scripts.Units.StateInfo.LivingStates;
-using Scripts.Units.StateInfo.LivingStates.States;
 using Scripts.Units.UnitActions;
 using Units.ExternalAPI;
 using Units.OneUnit;
@@ -65,10 +62,6 @@ namespace Units
         {
             builder.CreateScopeForType<BaseActionController>(InstallBaseMovingSubComponents)
                 .As<IBaseActionController>().SingleInstance();
-            
-            builder.RegisterType<DeadLivingState>().AsSelf().SingleInstance();
-            builder.RegisterType<AliveLivingState>().AsSelf().SingleInstance();
-            builder.RegisterType<LivingStateController>().As<ILivingStateControllerInternal>().As<ILivingStateControllerExternal>().SingleInstance();
             
             builder.RegisterType<StateController2>().As<IStateControllerExternal2>().As<IStateControllerInternal2>().As<IStateControllerMutator>().SingleInstance();
             builder.RegisterType<UnitInfo>().As<IUnitInfoExternal>().As<IUnitInfoInternal>().SingleInstance();

@@ -1,11 +1,8 @@
 ﻿using System;
-using Scripts.Extensions;
-using Scripts.Units.Enemy;
 using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
-using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit;
 using Units.OneUnit.Info;
+using Units.OneUnit.State1E;
 
 namespace Scripts.Units
 {
@@ -18,19 +15,19 @@ namespace Scripts.Units
         private readonly IAttackController _attackController;
         private readonly IUnitInfoInternal _unitInfo;
         private readonly IUnitEvents _unitEvents;
-        private readonly ILivingStateControllerExternal _livingStateControllerExternal;
+        private readonly IStateControllerExternal _stateController;
 
         public AggressiveBehaviour(
             IAttackController attackController,
             IUnitInfoInternal unitInfo,
-            ILivingStateControllerExternal livingStateControllerExternal,
+            IStateControllerExternal stateController,
             IUnitEvents unitEvents
             )
         {
             _attackController = attackController;
             _unitInfo = unitInfo;
             _unitEvents = unitEvents;
-            _livingStateControllerExternal = livingStateControllerExternal;
+            _stateController = stateController;
         }
         
         public void Initialize(IOneUnitController oneUnitController)
@@ -40,7 +37,7 @@ namespace Scripts.Units
 
         private void AttackCompleteHandler()
         {
-            _livingStateControllerExternal.CurrentState.Attack(_target.Position);
+            _stateController.CurrentState.Attack(_target.Position);
         }
         
         private void TargetDiedHandler()
@@ -54,7 +51,7 @@ namespace Scripts.Units
             _target = target;
             
             _target.UnitEvents.Died += TargetDiedHandler;
-            _livingStateControllerExternal.CurrentState.Attack(_target.Position);
+            _stateController.CurrentState.Attack(_target.Position);
         }
 
         public void Cancel()
