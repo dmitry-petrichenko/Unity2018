@@ -1,36 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts;
-using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
 {
-    public class BaseActionController : Disposable, IBaseActionController, IBaseActionControllerInternal
-    {
+    public class BaseActionController : Disposable, IBaseActionController
+    {   
         private readonly IMoveStepByStepController _moveStepByStepController;
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
-        private readonly IStateControllerInternal2 _stateController;
         private readonly IPathGeneratorController _pathGeneratorController;
         private readonly IUnitsTable _unitsTable;
+        
+        public IntVector2 Position => _unitGameObjectController.Position;
+        public IntVector2 Destination => _pathGeneratorController.Destination;
 
         public BaseActionController(
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
             IUnitGameObjectController unitGameObjectController,
-            IStateControllerInternal2 stateController,
             IUnitsTable unitsTable,
             IPathGeneratorController pathGeneratorController)
         {
             _moveStepByStepController = moveStepByStepController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
-            _stateController = stateController;
             _unitsTable = unitsTable;
             _pathGeneratorController = pathGeneratorController;
-            
-            _stateController.InitializeBaseActionController(this);
+
+            _pathGeneratorController.NoWayToDestination += NoWayToDestinationHandler;
+            _moveStepByStepController.NoWayToDestination += NoWayToDestinationHandler;
+        }
+
+        private void NoWayToDestinationHandler(IntVector2 position)
+        {
+            NoWayToDestination?.Invoke(position);
         }
 
         public void Attack(IntVector2 position)
@@ -42,16 +47,6 @@ namespace Units.OneUnit.Base
         public void SetHealthBarValue(float value)
         {
             _unitGameObjectController.SetHealthBarValue(value);
-        }
-
-        public void SetAttackState()
-        {
-            _stateController.SetAttackState();
-        }
-
-        public void SetPlacidState()
-        {
-            _stateController.SetPlacidState();
         }
 
         public void Die()
@@ -82,30 +77,18 @@ namespace Units.OneUnit.Base
             _unitsTable.SetOccupied(position);
         }
 
-        public IntVector2 Position => _unitGameObjectController.Position;
-        public IntVector2 Destination => _pathGeneratorController.Destination;
-        public event Action<IntVector2> NoWayToAttackDestination;
-        public event Action<IntVector2> NoWayToWalkDestination;
-        public event Action<IntVector2> NextTileOccupied;
-        public event Action MovePathComplete;
-        public void RaiseNoWayToAttackDestination(IntVector2 position)
+        public event Action<IntVector2> NoWayToDestination;
+        
+        public event Action<IntVector2> NextTileOccupied
         {
-            NoWayToAttackDestination?.Invoke(position);
+            add =>  _moveStepByStepController.NextTileOccupied += value;
+            remove =>  _moveStepByStepController.NextTileOccupied -= value;
         }
-
-        public void RaiseNoWayToWalkDestination(IntVector2 position)
+        
+        public event Action MovePathComplete
         {
-            NoWayToWalkDestination?.Invoke(position);
-        }
-
-        public void RaiseNextTileOccupied(IntVector2 position)
-        {
-            NextTileOccupied?.Invoke(position);
-        }
-
-        public void RaiseMovePathComplete()
-        {
-            MovePathComplete?.Invoke();
+            add =>  _moveStepByStepController.MovePathComplete += value;
+            remove =>  _moveStepByStepController.MovePathComplete -= value;
         }
         
         public event Action MoveTileComplete
@@ -130,6 +113,13 @@ namespace Units.OneUnit.Base
         {
             add => _unitGameObjectController.DieComplete += value;
             remove => _unitGameObjectController.DieComplete -= value;
+        }
+
+        protected override void DisposeInternal()
+        {
+            _pathGeneratorController.NoWayToDestination -= NoWayToDestinationHandler;
+            _moveStepByStepController.NoWayToDestination -= NoWayToDestinationHandler;
+            base.DisposeInternal();
         }
     }
 }

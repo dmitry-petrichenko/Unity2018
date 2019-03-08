@@ -42,12 +42,12 @@ namespace Units.OneUnit
 
         private void SubscribeOnEvents()
         {
-            _baseActionController.NoWayToAttackDestination += NoWayToAttackPointHandler;
+            _baseActionController.NoWayToDestination += NoWayToAttackPointHandler;
         }
 
         private void UnsubscribeOnEvents()
         {
-            _baseActionController.NoWayToAttackDestination -= NoWayToAttackPointHandler;
+            _baseActionController.NoWayToDestination -= NoWayToAttackPointHandler;
         }
 
         private void NoWayToAttackPointHandler(IntVector2 position)

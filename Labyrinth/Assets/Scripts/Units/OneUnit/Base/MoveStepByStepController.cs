@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Scripts;
-using Scripts.Units.StateInfo.BaseState;
 using Units.OneUnit.Base.GameObject;
-using UnityEngine;
 
 namespace Units.OneUnit.Base
 {
     public class MoveStepByStepController : Disposable, IMoveStepByStepController
-    {
+    {        
+        public event Action MovePathComplete;
+        public event Action<IntVector2> NoWayToDestination;
+        public event Action<IntVector2> NextTileOccupied;
+        
         private readonly IUnitGameObjectController _unitGameObjectController;
-        private readonly IStateControllerExternal2 _stateController;
         
         private List<IntVector2> _path;
         private IUnitsTable _unitsTable;
@@ -19,15 +21,13 @@ namespace Units.OneUnit.Base
         public IntVector2 _destination;
 
         public MoveStepByStepController(
-            IStateControllerExternal2 stateController,
             IUnitsTable unitsTable,
             IUnitGameObjectController unitGameObjectController
             )
         {
             _unitsTable = unitsTable;
             _unitGameObjectController = unitGameObjectController;
-            _stateController = stateController;
-        }   
+        }
 
         public void MoveTo(List<IntVector2> path)
         {
@@ -58,7 +58,7 @@ namespace Units.OneUnit.Base
             else
             {
                 Cancel();
-                _stateController.CurrentState.RaiseMovePathComplete();
+                MovePathComplete?.Invoke();
             }
         }
 
@@ -78,11 +78,11 @@ namespace Units.OneUnit.Base
 
                 if (_nextOccupiedPossition.Equals(_destination))
                 {
-                    _stateController.CurrentState.RaiseNoWayToDestination(_nextOccupiedPossition);
+                    NoWayToDestination?.Invoke(_nextOccupiedPossition);
                 }
                 else
                 {
-                    _stateController.CurrentState.RaiseNextTileOccupied(_nextOccupiedPossition);
+                    NextTileOccupied?.Invoke(_nextOccupiedPossition);
                 }
 
                 return true;

@@ -1,12 +1,7 @@
-﻿using System;
-using ID5D6AAC.Common.EventDispatcher;
+﻿using ID5D6AAC.Common.EventDispatcher;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
-using UnityEngine;
 
 namespace Units.OneUnit
 {
@@ -14,7 +9,6 @@ namespace Units.OneUnit
     {
         private readonly IUnitsTable _unitsTable;
         private readonly IMovingRandomizer _movingRandomizer;
-        private readonly IEventDispatcher _eventDispatcher;
         private readonly IBaseActionController _baseActionController;
         private readonly IUnitInfoInternal _unitInfo;
         
@@ -25,14 +19,12 @@ namespace Units.OneUnit
         public WaitMoveTurnController(
             IUnitsTable unitsTable,
             IMovingRandomizer movingRandomizer,
-            IEventDispatcher eventDispatcher,
             IUnitInfoInternal unitInfo,
             IBaseActionController baseActionController
             )
         {
             _unitsTable = unitsTable;
             _movingRandomizer = movingRandomizer;
-            _eventDispatcher = eventDispatcher;
             _baseActionController = baseActionController;
             _unitInfo = unitInfo;
         }
@@ -49,12 +41,12 @@ namespace Units.OneUnit
 
         private void SubscribeOnEvents()
         {
-            _baseActionController.NoWayToWalkDestination += NoWayToPointHandler;
+            _baseActionController.NoWayToDestination += NoWayToPointHandler;
         }
         
         private void UnsubscribeOnEvents()
         {
-            _baseActionController.NoWayToWalkDestination -= NoWayToPointHandler;
+            _baseActionController.NoWayToDestination -= NoWayToPointHandler;
         }
 
         private void NoWayToPointHandler(IntVector2 occupiedPoint)

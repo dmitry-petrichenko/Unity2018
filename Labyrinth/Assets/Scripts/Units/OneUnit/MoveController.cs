@@ -27,7 +27,6 @@ namespace Units.OneUnit
         
         public void MoveTo(IntVector2 position)
         {
-            _baseActionController.SetPlacidState();
             _baseActionController.MoveToPosition(position);
         }
 

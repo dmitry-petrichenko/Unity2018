@@ -1,7 +1,6 @@
 using System;
 using Scripts;
 using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
 using Units.OneUnit.Info;
 using UnityEngine;
 

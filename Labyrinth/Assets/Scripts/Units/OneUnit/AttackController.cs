@@ -1,6 +1,4 @@
 ﻿using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.StateInfo;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
@@ -46,7 +44,6 @@ namespace Units.OneUnit
         public void Attack(IntVector2 position)
         {
             _targetUnit = _unitsTable.GetUnitOnPosition(position);
-            _baseActionController.SetAttackState();
             _targetOvertaker.Complete += OvertakeTargetHandler;
             _targetOvertaker.Overtake(_targetUnit);
         }
