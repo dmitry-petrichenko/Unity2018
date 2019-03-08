@@ -7,6 +7,5 @@ namespace Units.OneUnit
     {
         void Cancel();
         void Attack(IntVector2 position);
-        void TakeDamage(int value);
     }
 }

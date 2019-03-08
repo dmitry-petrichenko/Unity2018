@@ -11,8 +11,6 @@ namespace Units.OneUnit.Base
         private readonly IMoveStepByStepController _moveStepByStepController;
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
-        private readonly IHealthController _healthController;
-        private readonly IDeathController _deathController;
         private readonly IStateControllerInternal2 _stateController;
         private readonly IPathGeneratorController _pathGeneratorController;
         private readonly IUnitsTable _unitsTable;
@@ -20,19 +18,15 @@ namespace Units.OneUnit.Base
         public BaseActionController(
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
-            IHealthController healthController,
             IUnitGameObjectController unitGameObjectController,
             IStateControllerInternal2 stateController,
             IUnitsTable unitsTable,
-            IPathGeneratorController pathGeneratorController,
-            IDeathController deathController)
+            IPathGeneratorController pathGeneratorController)
         {
             _moveStepByStepController = moveStepByStepController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
-            _healthController = healthController;
             _stateController = stateController;
-            _deathController = deathController;
             _unitsTable = unitsTable;
             _pathGeneratorController = pathGeneratorController;
             
@@ -45,11 +39,11 @@ namespace Units.OneUnit.Base
             _unitGameObjectController.Attack(position);
         }
 
-        public void TakeDamage(int value)
+        public void SetHealthBarValue(float value)
         {
-            _healthController.TakeDamage(value);
+            _unitGameObjectController.SetHealthBarValue(value);
         }
-        
+
         public void SetAttackState()
         {
             _stateController.SetAttackState();
@@ -58,6 +52,12 @@ namespace Units.OneUnit.Base
         public void SetPlacidState()
         {
             _stateController.SetPlacidState();
+        }
+
+        public void Die()
+        {
+            _unitGameObjectController.SetHealthBarVisible(false);
+            _unitGameObjectController.Die();
         }
 
         public void MoveToPosition(IntVector2 position)

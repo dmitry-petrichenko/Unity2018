@@ -13,9 +13,10 @@ namespace Units.OneUnit.Base
         void MoveToAvoidingOccupiedCells(IntVector2 position, List<IntVector2> cells);
         void Cancel();
         void SetOnPosition(IntVector2 position);
-        void TakeDamage(int value);
+        void SetHealthBarValue(float value);
         void SetAttackState();
         void SetPlacidState();
+        void Die();
         
         IntVector2 Position { get; }
         IntVector2 Destination { get; }

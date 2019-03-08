@@ -24,8 +24,8 @@ namespace Units.OneUnit.State1E
 
         public void Deactivate() {}
 
-        public void InitializeStateController(IStateControllerInternal stateController)
-        {
-        }
+        public void InitializeStateController(IStateControllerInternal stateController) {}
+
+        public void Die() {}
     }
 }

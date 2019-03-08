@@ -55,7 +55,6 @@ namespace Scripts.Units.StateInfo.LivingStates.States
 
         public void TakeDamage(int value)
         {
-            _attackController.TakeDamage(value);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Scripts;
 using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
-using Scripts.Units.StateInfo.LivingStates;
 using Units.OneUnit.Info;
 using Units.OneUnit.State1E;
 using UnityEngine;
@@ -13,6 +11,7 @@ namespace Units.OneUnit
         private readonly IUnitEvents _unitEvents;
         private readonly IUnitInfoExternal _unitInfoExternal;
         private readonly IStateControllerExternal _stateController;
+        private readonly ILifeController _lifeController;
         
         private IUnitsTable _unitsTable;
 
@@ -20,15 +19,19 @@ namespace Units.OneUnit
             IUnitsTable unitsTable,
             IUnitEvents unitEvents,
             IStateControllerExternal stateController,
+            ILifeController lifeController,
             IUnitInfoExternal unitInfoExternal)
         {
             _unitsTable = unitsTable;          
             _unitEvents = unitEvents;
             _unitInfoExternal = unitInfoExternal;
             _stateController = stateController;
+            _lifeController = lifeController;
             
             _unitsTable.AddUnit(this);
+            _unitEvents.Died += HealthEndedHandler;
             _unitEvents.DieComplete += DieCompleteHandler;
+            _lifeController.HealthEnded += HealthEndedHandler;
         }
 
         public IUnitInfoExternal DynamicInfo => _unitInfoExternal;
@@ -67,9 +70,15 @@ namespace Units.OneUnit
 
         protected override void DisposeInternal()
         {
-            _unitsTable.removeUnit(this);
+            _unitEvents.Died -= HealthEndedHandler;
             _unitEvents.DieComplete -= DieCompleteHandler;
             base.DisposeInternal();
+        }
+        
+        private void HealthEndedHandler()
+        {
+            _unitsTable.removeUnit(this);
+            _stateController.CurrentState.Die();
         }
 
         private void DieCompleteHandler()

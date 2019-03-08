@@ -27,11 +27,6 @@ namespace Units.Player
             _baseActionController.Attack(position);
         }
 
-        public void TakeDamage(int value)
-        {
-            _baseActionController.TakeDamage(value);
-        }
-
         public void Activate()
         {
             throw new System.NotImplementedException();

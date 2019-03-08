@@ -24,9 +24,10 @@ namespace Units.Player
             IUnitSettings unitSettings,
             IUnitsTable unitsTable,
             IStateControllerExternal stateController,
+            ILifeController lifeController,
             IUnitEvents unitEvents,
             IUnitInfoExternal unitInfo
-        ) : base(unitsTable, unitEvents, stateController, unitInfo)
+        ) : base(unitsTable, unitEvents, stateController, lifeController, unitInfo)
         {
             _gameEvents = gameEvents;
             _eventDispatcher = eventDispatcher;

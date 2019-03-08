@@ -75,6 +75,8 @@ namespace Units
             
             builder.CreateScopeForType<StateController>(InitializeStateComponents).As<IStateControllerExternal>().As<IStateControllerInternal>().SingleInstance();
             
+            builder.RegisterType<LifeController>().As<ILifeController>().SingleInstance();
+            
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<MoveController>().As<IMoveController>().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
@@ -85,9 +87,7 @@ namespace Units
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
-            builder.RegisterType<DeathController>().As<IDeathController>().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
-            builder.RegisterType<HealthController>().As<IHealthController>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
             
             builder.CreateScopeForType<UnitGameObjectController>(InstallUnitGameObjectComponents).As<IUnitGameObjectController>().SingleInstance();
@@ -97,6 +97,7 @@ namespace Units
         {
             builder.RegisterType<HostileState>().As<IHostileState>().SingleInstance();
             builder.RegisterType<PlacidState>().As<IPlacidState>().SingleInstance();
+            builder.RegisterType<DeadState>().As<IDeadState>().SingleInstance();
         }
 
         private void InstallUnitGameObjectComponents(ContainerBuilder builder)

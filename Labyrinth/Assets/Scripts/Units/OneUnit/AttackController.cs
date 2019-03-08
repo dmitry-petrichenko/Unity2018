@@ -57,11 +57,6 @@ namespace Units.OneUnit
             _baseActionController.Attack(_targetUnit.Position);
         }
 
-        public void TakeDamage(int value)
-        {
-            _baseActionController.TakeDamage(value);
-        }
-
         protected override void DisposeInternal()
         {
             Cancel();

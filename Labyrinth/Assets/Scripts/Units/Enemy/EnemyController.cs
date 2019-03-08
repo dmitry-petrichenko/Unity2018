@@ -20,9 +20,10 @@ namespace Scripts.Units.Enemy
             IAgressiveBehaviour agressiveBehaviour,
             IUnitsTable unitsTable,
             IStateControllerExternal stateController,
+            ILifeController lifeController,
             IUnitEvents unitEvents,
             IUnitInfoExternal unitInfoExternal
-            ) : base(unitsTable, unitEvents, stateController, unitInfoExternal)
+            ) : base(unitsTable, unitEvents, stateController, lifeController, unitInfoExternal)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;

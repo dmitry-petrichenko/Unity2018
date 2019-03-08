@@ -9,21 +9,26 @@ namespace Units.OneUnit.State1E
         public IUnitInfoExternal DynamicInfo { get; }
         
         private readonly IMoveController _moveController;
-        private readonly IAttackController _attackController;
+        private readonly ILifeController _lifeController;
         
         private IStateControllerInternal _stateController;
         
         public PlacidState(
             IMoveController moveController,
-            IAttackController attackController)
+            ILifeController lifeController)
         {
             _moveController = moveController;
-            _attackController = attackController;
+            _lifeController = lifeController;
         }
 
         public void InitializeStateController(IStateControllerInternal stateController)
         {
             _stateController = stateController;
+        }
+        
+        public void Die()
+        {
+            _stateController.SetState(_stateController.GetDeadState());
         }
 
         public void Activate()
@@ -68,7 +73,7 @@ namespace Units.OneUnit.State1E
 
         public void TakeDamage(int value)
         {
-            _attackController.TakeDamage(value);
+            _lifeController.TakeDamage(value);
         }
     }
 }
