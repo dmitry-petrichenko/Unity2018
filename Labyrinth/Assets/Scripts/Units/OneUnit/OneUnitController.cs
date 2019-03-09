@@ -1,5 +1,6 @@
 ﻿using Scripts;
 using Scripts.Units.Events;
+using Units.OccupatedMap;
 using Units.OneUnit.Info;
 using Units.OneUnit.State1E;
 using UnityEngine;
@@ -13,22 +14,22 @@ namespace Units.OneUnit
         private readonly IStateControllerExternal _stateController;
         private readonly ILifeController _lifeController;
         
-        private IUnitsTable _unitsTable;
+        private IOccupatedPossitionsMap _occupatedPossitionsMap;
 
         public OneUnitController(
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IUnitEvents unitEvents,
             IStateControllerExternal stateController,
             ILifeController lifeController,
             IUnitInfoExternal unitInfoExternal)
         {
-            _unitsTable = unitsTable;          
+            _occupatedPossitionsMap = occupatedPossitionsMap;          
             _unitEvents = unitEvents;
             _unitInfoExternal = unitInfoExternal;
             _stateController = stateController;
             _lifeController = lifeController;
             
-            _unitsTable.AddUnit(this);
+            _occupatedPossitionsMap.AddUnit(this);
             _unitEvents.HealthEnded += HealthEndedHandler;
             _unitEvents.DieComplete += DieCompleteHandler;
             _lifeController.HealthEnded += HealthEndedHandler;
@@ -77,7 +78,7 @@ namespace Units.OneUnit
         
         private void HealthEndedHandler()
         {
-            _unitsTable.removeUnit(this);
+            _occupatedPossitionsMap.RemoveUnit(this);
             _stateController.CurrentState.Die();
         }
 

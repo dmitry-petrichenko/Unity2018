@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using Scripts;
+using Units.OccupatedMap;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
     public class MoveConsideringOccupatedController : Disposable, IActivatable
     {
-        private readonly IUnitsTable _unitsTable;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly IBaseActionController _baseActionController;
         private List<IntVector2> _occupiedPossitions;
         
         public MoveConsideringOccupatedController(
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IBaseActionController baseActionController
             )
         {
-            _unitsTable = unitsTable;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             _baseActionController = baseActionController;
         }
         
@@ -48,7 +49,7 @@ namespace Units.OneUnit
         private void NextPositionOccupiedHandler(IntVector2 occupiedPosition)
         {
             _baseActionController.Cancel();
-            _occupiedPossitions = _unitsTable.GetOccupiedPositions();
+            _occupiedPossitions = _occupatedPossitionsMap.GetOccupiedPositions();
             RemoveCurrentUnitPosition();
             _baseActionController.MoveToAvoidingOccupiedCells(_baseActionController.Destination, _occupiedPossitions);
         }

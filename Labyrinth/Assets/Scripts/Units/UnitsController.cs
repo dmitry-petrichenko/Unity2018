@@ -2,6 +2,7 @@
 using Scripts;
 using Scripts.Units.Enemy;
 using Units.ExternalAPI;
+using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.PathFinder;
 using Units.Player;
@@ -14,17 +15,17 @@ namespace Units
         private EnemyController _enemy2;
         private IPlayerController _player;
 
-        private readonly IUnitsTable _unitsTable;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly IGrid _grid;
         private readonly EnemyController.Factory _enemyFactory;
         
         public UnitsController(
             EnemyController.Factory enemyFactory, 
-            IUnitsTable unitsTable, 
+            IOccupatedPossitionsMap occupatedPossitionsMap, 
             IGrid grid,
             IPlayerController player)
         {
-            _unitsTable = unitsTable;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             _enemyFactory = enemyFactory;
             _grid = grid;
             
@@ -45,7 +46,7 @@ namespace Units
             var point = GetRandomPoint();
             if(!_grid.GetCell(point))
                 goto START;
-            if (_unitsTable.GetUnitOnPosition(point) is UnitStub)
+            if (_occupatedPossitionsMap.GetUnitOnPosition(point) is UnitStub)
             {
                 var enemy = _enemyFactory.Invoke();
                 enemy.SetOnPosition(point);

@@ -1,5 +1,5 @@
-﻿using ID5D6AAC.Common.EventDispatcher;
-using Scripts;
+﻿using Scripts;
+using Units.OccupatedMap;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
 
@@ -7,7 +7,7 @@ namespace Units.OneUnit
 {
     public class WaitMoveTurnController : Disposable, IActivatable
     {
-        private readonly IUnitsTable _unitsTable;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly IMovingRandomizer _movingRandomizer;
         private readonly IBaseActionController _baseActionController;
         private readonly IUnitInfoInternal _unitInfo;
@@ -17,13 +17,13 @@ namespace Units.OneUnit
         private IOneUnitController _oneUnitController;
         
         public WaitMoveTurnController(
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IMovingRandomizer movingRandomizer,
             IUnitInfoInternal unitInfo,
             IBaseActionController baseActionController
             )
         {
-            _unitsTable = unitsTable;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             _movingRandomizer = movingRandomizer;
             _baseActionController = baseActionController;
             _unitInfo = unitInfo;
@@ -57,7 +57,7 @@ namespace Units.OneUnit
 
         private void WaitUnitOnPosition(IntVector2 position)
         {
-            _targetUnit = _unitsTable.GetUnitOnPosition(position);
+            _targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
             if (Equals(_targetUnit.DynamicInfo.WaitPosition, _baseActionController.Position))
             {
                 IntVector2 newPosition = _movingRandomizer.GetRandomPoint(_baseActionController.Position);
@@ -73,7 +73,7 @@ namespace Units.OneUnit
         private void TargetUnitPositionChanged(IntVector2 position)
         {
             _targetUnit.UnitEvents.PositionChanged -= TargetUnitPositionChanged;
-            if (_unitsTable.IsVacantPosition(_occupiedPoint))
+            if (_occupatedPossitionsMap.IsVacantPosition(_occupiedPoint))
             {
                 MoveToDestination();
             }

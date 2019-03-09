@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts;
+using Units.OccupatedMap;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
 using Units.PathFinder;
@@ -10,20 +11,20 @@ namespace Units.OneUnit
     public class OvertakeOccupatedPositionController : Disposable, IActivatable
     {
         private IOneUnitController _oneUnitController;
-        private IUnitsTable _unitsTable;
+        private IOccupatedPossitionsMap _occupatedPossitionsMap;
         private IGrid _grid;
         private IUnitInfoExternal _unitInfo;
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         private IBaseActionController _baseActionController;
         
         public OvertakeOccupatedPositionController(
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IUnitInfoExternal unitInfo,
             IBaseActionController baseActionController,
             IGrid grid
             )
         {
-            _unitsTable = unitsTable;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             _unitInfo = unitInfo;
             _baseActionController = baseActionController;
             
@@ -135,7 +136,7 @@ namespace Units.OneUnit
         
         private bool IsFreePosition(IntVector2 position)
         {
-            return _grid.GetCell(position) && _unitsTable.IsVacantPosition(position);
+            return _grid.GetCell(position) && _occupatedPossitionsMap.IsVacantPosition(position);
         }
 
         protected override void DisposeInternal()

@@ -1,5 +1,5 @@
 ﻿using Scripts.Units.Events;
-using Units;
+using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State1E;
@@ -16,12 +16,12 @@ namespace Scripts.Units.Enemy
         public EnemyController(
             IPeacefulBehaviour peacefulBehaviour,
             IAgressiveBehaviour agressiveBehaviour,
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IStateControllerExternal stateController,
             ILifeController lifeController,
             IUnitEvents unitEvents,
             IUnitInfoExternal unitInfoExternal
-            ) : base(unitsTable, unitEvents, stateController, lifeController, unitInfoExternal)
+            ) : base(occupatedPossitionsMap, unitEvents, stateController, lifeController, unitInfoExternal)
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;

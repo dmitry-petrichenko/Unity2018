@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Units.OccupatedMap;
 using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit.Base
@@ -13,20 +14,19 @@ namespace Units.OneUnit.Base
         public event Action<IntVector2> NextTileOccupied;
         
         private readonly IUnitGameObjectController _unitGameObjectController;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         
         private List<IntVector2> _path;
-        private IUnitsTable _unitsTable;
         private IntVector2 _nextOccupiedPossition;
 
         public IntVector2 _destination;
 
         public MoveStepByStepController(
-            IUnitsTable unitsTable,
-            IUnitGameObjectController unitGameObjectController
-            )
+            IUnitGameObjectController unitGameObjectController,
+            IOccupatedPossitionsMap occupatedPossitionsMap)
         {
-            _unitsTable = unitsTable;
             _unitGameObjectController = unitGameObjectController;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
         }
 
         public void MoveTo(List<IntVector2> path)
@@ -52,7 +52,6 @@ namespace Units.OneUnit.Base
             {
                 nextPosition = GetNextPossition();
                 if (IsPositionOccupated(nextPosition)) return;
-                UpdateOccupationMap(nextPosition, _unitGameObjectController.Position);
                 _unitGameObjectController.MoveTo(nextPosition);
             }
             else
@@ -72,7 +71,7 @@ namespace Units.OneUnit.Base
 
         private bool IsPositionOccupated(IntVector2 nextPosition)
         {
-            if (!_unitsTable.IsVacantPosition(nextPosition))
+            if (!_occupatedPossitionsMap.IsVacantPosition(nextPosition))
             {
                 _nextOccupiedPossition = nextPosition;
 
@@ -89,12 +88,6 @@ namespace Units.OneUnit.Base
             }
 
             return false;
-        }
-
-        private void UpdateOccupationMap(IntVector2 newPosition, IntVector2 previousPosition)
-        {
-            _unitsTable.SetOccupied(newPosition);
-            _unitsTable.SetVacant(previousPosition);
         }
 
         protected override void DisposeInternal()

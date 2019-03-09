@@ -11,7 +11,6 @@ namespace Units.OneUnit.Base
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
         private readonly IPathGeneratorController _pathGeneratorController;
-        private readonly IUnitsTable _unitsTable;
         
         public IntVector2 Position => _unitGameObjectController.Position;
         public IntVector2 Destination => _pathGeneratorController.Destination;
@@ -20,13 +19,11 @@ namespace Units.OneUnit.Base
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
             IUnitGameObjectController unitGameObjectController,
-            IUnitsTable unitsTable,
             IPathGeneratorController pathGeneratorController)
         {
             _moveStepByStepController = moveStepByStepController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
-            _unitsTable = unitsTable;
             _pathGeneratorController = pathGeneratorController;
 
             _pathGeneratorController.NoWayToDestination += NoWayToDestinationHandler;
@@ -74,7 +71,6 @@ namespace Units.OneUnit.Base
         public void SetOnPosition(IntVector2 position)
         {
             _unitGameObjectController.SetOnPosition(position);
-            _unitsTable.SetOccupied(position);
         }
 
         public event Action<IntVector2> NoWayToDestination;

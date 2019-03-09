@@ -8,6 +8,7 @@ using Scripts.Units.Events;
 using Scripts.Units.Settings;
 using Scripts.Units.UnitActions;
 using Units.ExternalAPI;
+using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Base;
 using Units.OneUnit.Base.GameObject;
@@ -34,8 +35,7 @@ namespace Units
             builder.RegisterType<UnitsController>().AsSelf().SingleInstance();
             builder.RegisterType<PathFinderController>().As<IPathFinderController>().SingleInstance();
             builder.RegisterType<MoveToPositionAction>().AsSelf().InstancePerDependency();
-            builder.RegisterType<OccupatedPossitionsTable>().As<IOccupatedPossitionsTable>().SingleInstance();
-            builder.RegisterType<UnitsTable>().As<IUnitsTable>().SingleInstance();
+            builder.RegisterType<OccupatedPossitionsMap>().As<IOccupatedPossitionsMap>().SingleInstance();
             builder.RegisterType<MovingRandomizer>().As<IMovingRandomizer>().SingleInstance();
             builder.RegisterType<UnitBehaviourGenerator>().AsSelf().InstancePerDependency();
         

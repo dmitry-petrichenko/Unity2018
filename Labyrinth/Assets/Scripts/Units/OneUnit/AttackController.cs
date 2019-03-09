@@ -1,4 +1,5 @@
 ﻿using Scripts;
+using Units.OccupatedMap;
 using Units.OneUnit.Base;
 
 namespace Units.OneUnit
@@ -9,18 +10,18 @@ namespace Units.OneUnit
         private TargetOvertaker _targetOvertaker;
         private IOneUnitController _targetUnit;
         
-        private readonly IUnitsTable _unitsTable;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
 
         public AttackController(
             IBaseActionController baseActionController,
             TargetOvertaker targetOvertaker,
             OvertakeOccupatedPositionController overtakeOccupatedPositionController,
-            IUnitsTable unitsTable)
+            IOccupatedPossitionsMap occupatedPossitionsMap)
         {
             _baseActionController = baseActionController;
             _targetOvertaker = targetOvertaker;
-            _unitsTable = unitsTable;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
         }
 
@@ -43,7 +44,7 @@ namespace Units.OneUnit
         
         public void Attack(IntVector2 position)
         {
-            _targetUnit = _unitsTable.GetUnitOnPosition(position);
+            _targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
             _targetOvertaker.Complete += OvertakeTargetHandler;
             _targetOvertaker.Overtake(_targetUnit);
         }

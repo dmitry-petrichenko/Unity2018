@@ -2,6 +2,7 @@
 using Scripts;
 using Scripts.Units.Events;
 using Scripts.Units.Settings;
+using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State1E;
@@ -18,12 +19,12 @@ namespace Units.Player
             IGameEvents gameEvents,
             IEventDispatcher eventDispatcher,
             IUnitSettings unitSettings,
-            IUnitsTable unitsTable,
+            IOccupatedPossitionsMap occupatedPossitionsMap,
             IStateControllerExternal stateController,
             ILifeController lifeController,
             IUnitEvents unitEvents,
             IUnitInfoExternal unitInfo
-        ) : base(unitsTable, unitEvents, stateController, lifeController, unitInfo)
+        ) : base(occupatedPossitionsMap, unitEvents, stateController, lifeController, unitInfo)
         {
             _gameEvents = gameEvents;
             _eventDispatcher = eventDispatcher;
