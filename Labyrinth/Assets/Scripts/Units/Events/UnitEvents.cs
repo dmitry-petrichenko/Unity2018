@@ -1,5 +1,4 @@
 using System;
-using ID5D6AAC.Common.EventDispatcher;
 using Units.OneUnit;
 using Units.OneUnit.Base;
 
@@ -14,18 +13,18 @@ namespace Scripts.Units.Events
         public event Action HealthEnded;
         public event Action DieComplete;
         
-        private readonly IEventDispatcher _eventDispatcher;
         private readonly IMoveController _moveController;
         private readonly IBaseActionController _baseActionController;
+        private readonly ILifeController _lifeController;
         
         public UnitEvents(
-            IEventDispatcher eventDispatcher, 
             IBaseActionController baseActionController,
+            ILifeController lifeController,
             IMoveController moveController)
         {
-            _eventDispatcher = eventDispatcher;
             _moveController = moveController;
             _baseActionController = baseActionController;
+            _lifeController = lifeController;
 
             SubscribeOnEvents();
         }
@@ -43,7 +42,7 @@ namespace Scripts.Units.Events
             _baseActionController.MoveTileComplete += MoveTileCompleteHandler;
             _baseActionController.AttackComplete += AttackCompleteHandler;
             _baseActionController.DieComplete += DieCompleteHandler;
-            _eventDispatcher.AddEventListener(UnitEventsTypes.HEALTH_ENDED, HealthEndedHandler);
+            _lifeController.HealthEnded += HealthEndedHandler;
         }
 
         private void UnsubscribeFromEvents()
@@ -53,7 +52,7 @@ namespace Scripts.Units.Events
             _baseActionController.MoveTileComplete -= MoveTileCompleteHandler;
             _baseActionController.AttackComplete -= AttackCompleteHandler;
             _baseActionController.DieComplete -= DieCompleteHandler;
-            _eventDispatcher.RemoveEventListener(UnitEventsTypes.HEALTH_ENDED, new Action(HealthEndedHandler));
+            _lifeController.HealthEnded -= HealthEndedHandler;
         }
         
         private void MoveTileStartHandler() => PositionChanged?.Invoke(_moveController.Position);
