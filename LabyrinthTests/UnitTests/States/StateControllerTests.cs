@@ -1,119 +1,128 @@
-using System;
-using Scripts;
-using Scripts.Units.StateInfo.BaseState;
 using Telerik.JustMock;
-using Units.OneUnit.Base;
+using Units.OneUnit.State1E;
 using Xunit;
 
 namespace Tests.Scripts.Units.States
 {
     public class StateControllerTests
     {
-        private IBaseActionControllerInternal _baseActionController;
+        private IPlacidState _placidState;
+        private IHostileState _hostileState;
+        private IDeadState _deadState;
         private StateController _stateController;
+        private IStateControllerExternal _stateControllerExternal;
+        private IStateControllerInternal _stateControllerInternal;
 
         public StateControllerTests()
         {
-            _baseActionController = Mock.Create<IBaseActionControllerInternal>();
-        }
-
-        [Theory]
-        [InlineData(true, false, true)]
-        [InlineData(false, true, false)]
-        //tested method]_[expected input]_[expected behavior]
-        public void SetAttackState_ShouldRiseCorrectNoWayEvents(bool attackState, bool walkCalled, bool attackCalled)
-        {
-            // Arrange
-            _stateController = new StateController();
-            _stateController.InitializeBaseActionController(_baseActionController);
-            bool noWayToWalkCalled = false;
-            bool noWayToAttackCalled = false;
-            Mock.Arrange(() => _baseActionController.RaiseNoWayToWalkDestination(Arg.IsAny<IntVector2>()))
-                .DoInstead(() => { noWayToWalkCalled = true; });
-            Mock.Arrange(() => _baseActionController.RaiseNoWayToAttackDestination(Arg.IsAny<IntVector2>()))
-                .DoInstead(() => { noWayToAttackCalled = true; });
-
-            // Act
-            if (attackState)
-            {
-                _stateController.SetAttackState();
-            }
-            _stateController.CurrentState.RaiseNoWayToDestination(new IntVector2());
-
-            // Assert 
-            Assert.Equal(noWayToWalkCalled, walkCalled);
-            Assert.Equal(noWayToAttackCalled, attackCalled);
-        }
-        
-        [Theory]
-        [InlineData(true, false)]
-        [InlineData(false, true)]
-        //tested method]_[expected input]_[expected behavior]
-        public void SetAnyState_ShouldRiseCorrectEvents(bool attackState, bool walkState)
-        {
-            // Arrange
-            _stateController = new StateController();
-            _stateController.InitializeBaseActionController(_baseActionController);
-            bool moveCompleteCalled = false;
-            bool nexTileOccupiedCalled = false;
-            Mock.Arrange(() => _baseActionController.RaiseMovePathComplete())
-                .DoInstead(() => { moveCompleteCalled = true; });
-            Mock.Arrange(() => _baseActionController.RaiseNextTileOccupied(Arg.IsAny<IntVector2>()))
-                .DoInstead(() => { nexTileOccupiedCalled = true; });
-
-            // Act
-            if (attackState)
-            {
-                _stateController.SetAttackState();
-            }
-            _stateController.CurrentState.RaiseNextTileOccupied(new IntVector2());
-            _stateController.CurrentState.RaiseMovePathComplete();
-
-            // Assert 
-            Assert.True(nexTileOccupiedCalled);
-            Assert.True(moveCompleteCalled);
+            _placidState = Mock.Create<IPlacidState>();
+            _hostileState = Mock.Create<IHostileState>();
+            _deadState = Mock.Create<IDeadState>();
         }
         
         [Fact]
-        public void SetAnyState_ShouldThrowExeptionOnNotInitialized()
+        public void SetState_AnyState_ShouldActivateDeactivate()
         {
             // Arrange
-            _stateController = new StateController();
-            bool exeptionCalled = false;
+            bool deactivateCalled = false;
+            bool activateCalled = false;
+            InitializeStateController();
+            Mock.Arrange(() => _placidState.Deactivate()).DoInstead(() => { deactivateCalled = true; });
+            Mock.Arrange(() => _hostileState.Activate()).DoInstead(() => { activateCalled = true; });
 
             // Act
-            try
-            {
-                _stateController.SetAttackState();
-            }
-            catch (Exception e)
-            {
-                exeptionCalled = true;
-            }
+            _stateControllerInternal.SetState(_stateController.GetHostileState());
 
             // Assert 
-            Assert.True(exeptionCalled);
+            Assert.True(deactivateCalled);
+            Assert.True(activateCalled);
         }
         
         [Fact]
-        public void GetAnyState_ShouldThrowExeptionOnNotInitialized()
+        public void Dispose_ShouldSetCurrentStateNull()
         {
             // Arrange
-            _stateController = new StateController();
-            bool exeptionCalled = false;
+            //InitializeStateController();
 
             // Act
-            try
-            {
-                _stateController.GetAttackState();
-            }
-            catch (Exception e)
-            {
-                exeptionCalled = true;
-            }
+            //_stateController.Dispose();
 
             // Assert 
-            Assert.True(exeptionCalled);
+            //Assert.True(_stateController.CurrentState == null);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SetState_DeadState_ShouldSetCorrectState(bool set)
+        {
+            // Arrange
+            InitializeStateController();
+
+            // Act
+            if (set)
+                _stateControllerInternal.SetState(_stateController.GetDeadState());
+            else
+                _stateControllerInternal.SetState(_stateController.GetHostileState());
+
+            // Assert 
+            if (set)
+                Assert.True(_stateControllerExternal.CurrentState == _deadState);
+            else
+                Assert.False(_stateControllerExternal.CurrentState == _deadState);
+        }
+        
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SetState_PlacidState_ShouldSetCorrectState(bool set)
+        {
+            // Arrange
+            InitializeStateController();
+
+            // Act
+            if (set)
+                _stateControllerInternal.SetState(_stateController.GetPlacidState());
+            else
+                _stateControllerInternal.SetState(_stateController.GetHostileState());
+
+            // Assert 
+            if (set)
+                Assert.True(_stateControllerExternal.CurrentState == _placidState);
+            else
+                Assert.False(_stateControllerExternal.CurrentState == _placidState);
+        }
+        
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SetState_HostileState_ShouldSetCorrectState(bool set)
+        {
+            // Arrange
+            InitializeStateController();
+
+            // Act
+            if (set)
+                _stateControllerInternal.SetState(_stateController.GetHostileState());
+            else
+                _stateControllerInternal.SetState(_stateController.GetPlacidState());
+
+            // Assert 
+            if (set)
+                Assert.True(_stateControllerExternal.CurrentState == _hostileState);
+            else
+                Assert.False(_stateControllerExternal.CurrentState == _hostileState);
+        }
+
+        private void InitializeStateController()
+        {
+            _stateController = new StateController(
+                _placidState,
+                _hostileState,
+                _deadState);
+
+            _stateControllerExternal = _stateController;
+            _stateControllerInternal = _stateController;
         }
     }
 }

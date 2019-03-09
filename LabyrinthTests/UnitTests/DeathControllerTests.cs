@@ -1,13 +1,10 @@
 using ID5D6AAC.Common.EventDispatcher;
-using Scripts.Units.Events;
-using Scripts.Units.StateInfo;
 using Telerik.JustMock;
-using Units.OneUnit.Base;
 using Units.OneUnit.Base.GameObject;
 using Xunit;
 
 namespace Tests.Scripts.Units
-{
+{/*
     public class DeathControllerTests
     {
         private IUnitGameObjectController _unitGameObjectController;
@@ -37,5 +34,5 @@ namespace Tests.Scripts.Units
             // Assert 
             Assert.Equal(expectedResult, dieCalled);
         }
-    }
+    }*/
 }

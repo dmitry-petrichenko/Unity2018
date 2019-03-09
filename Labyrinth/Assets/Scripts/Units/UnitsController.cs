@@ -1,6 +1,5 @@
 ﻿using System;
 using Scripts;
-using Scripts.Extensions;
 using Scripts.Units.Enemy;
 using Units.ExternalAPI;
 using Units.OneUnit;
@@ -50,7 +49,7 @@ namespace Units
             {
                 var enemy = _enemyFactory.Invoke();
                 enemy.SetOnPosition(point);
-                enemy.Animate();
+                enemy.Attack(_player);
             }
             else
             {

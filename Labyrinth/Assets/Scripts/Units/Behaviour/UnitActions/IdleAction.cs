@@ -9,7 +9,7 @@ namespace Scripts.Units.UnitActions
 {
     public class IdleAction : Disposable, IUnitAction
     {
-        public delegate MoveToPositionAction Factory();
+        public delegate IdleAction Factory();
         
         private float delayTime;
         private IGameLoopController _gameloopController;

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Scripts;
-using Scripts.Extensions;
-using UnityEngine;
 
 namespace Units
 {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Scripts;
-using Scripts.Units.StateInfo.BaseState;
 using Telerik.JustMock;
 using Units;
 using Units.OneUnit.Base;
@@ -9,7 +8,7 @@ using Units.OneUnit.Base.GameObject;
 using Xunit;
 
 namespace Tests.Scripts.Units.Moving
-{
+{/*
     public class MoveStepByStepTests
     {
         private IUnitGameObjectController _unitGameObjectController;
@@ -167,5 +166,5 @@ namespace Tests.Scripts.Units.Moving
         {
             MoveTileComplete?.Invoke();
         }
-    }
+    }*/
 }

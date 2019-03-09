@@ -11,6 +11,7 @@ namespace Units
         public void AddUnit(IOneUnitController oneUnitController)
         {
             _unitsList.Add(oneUnitController);
+            SetOccupied(oneUnitController.Position);
         }
 
         public void removeUnit(IOneUnitController oneUnitController)
