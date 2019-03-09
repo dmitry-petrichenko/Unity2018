@@ -94,6 +94,9 @@
     <Compile Include="Extensions\AutofacExtensionsTests.cs" />
     <Compile Include="Moving\MoveStepByStepTestData1.cs" />
     <Compile Include="Moving\MoveStepByStepTests.cs" />
+    <Compile Include="OccupatedMap\GetRegionUnitsTestData.cs" />
+    <Compile Include="OccupatedMap\OccupatedMapExtensionsTests.cs" />
+    <Compile Include="OccupatedMap\OneUnitControllerMock.cs" />
     <Compile Include="PathFinder\PathFinderDestinationTestData.cs" />
     <Compile Include="PathFinder\PathFinderNoWayTestData.cs" />
     <Compile Include="PathFinder\PathFinderTestData.cs" />

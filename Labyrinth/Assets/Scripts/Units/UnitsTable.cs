@@ -24,8 +24,7 @@ namespace Units
         {
             foreach (var oneUnitController in _unitsList)
             {
-                if (oneUnitController.Position.x == index.x &&
-                    oneUnitController.Position.y == index.y)
+                if (oneUnitController.Position.Equals(index))
                 {
                     return oneUnitController;
                 }
