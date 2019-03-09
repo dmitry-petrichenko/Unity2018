@@ -11,7 +11,7 @@ namespace Scripts.Units.Events
         public event Action MovePathComplete;
         public event Action MoveTileComplete;
         public event Action AttackComplete;
-        public event Action Died;
+        public event Action HealthEnded;
         public event Action DieComplete;
         
         private readonly IEventDispatcher _eventDispatcher;
@@ -64,7 +64,7 @@ namespace Scripts.Units.Events
         
         private void AttackCompleteHandler() => AttackComplete?.Invoke();
         
-        private void HealthEndedHandler() => Died?.Invoke();
+        private void HealthEndedHandler() => HealthEnded?.Invoke();
         
         private void DieCompleteHandler() => DieComplete?.Invoke();
     }

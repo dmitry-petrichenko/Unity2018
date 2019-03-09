@@ -40,7 +40,7 @@ namespace Scripts.Units
             _stateController.CurrentState.Attack(_target.Position);
         }
         
-        private void TargetDiedHandler()
+        private void TargetHealthEndedHandler()
         {
             Cancel();
         }
@@ -50,14 +50,14 @@ namespace Scripts.Units
             _unitInfo.SetAttackTarget(target);
             _target = target;
             
-            _target.UnitEvents.Died += TargetDiedHandler;
+            _target.UnitEvents.HealthEnded += TargetHealthEndedHandler;
             _stateController.CurrentState.Attack(_target.Position);
         }
 
         public void Cancel()
         {
             _unitEvents.AttackComplete -= AttackCompleteHandler;
-            _target.UnitEvents.Died -= TargetDiedHandler;
+            _target.UnitEvents.HealthEnded -= TargetHealthEndedHandler;
             _attackController.Cancel();
         }
 

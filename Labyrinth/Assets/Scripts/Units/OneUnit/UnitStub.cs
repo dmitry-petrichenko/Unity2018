@@ -39,7 +39,7 @@ namespace Units.OneUnit
         public event Action MovePathComplete;
         public event Action MoveTileComplete;
         public event Action AttackComplete;
-        public event Action Died;
+        public event Action HealthEnded;
         public event Action DieComplete;
     }
 }

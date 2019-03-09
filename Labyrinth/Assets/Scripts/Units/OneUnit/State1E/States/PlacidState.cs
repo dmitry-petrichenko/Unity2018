@@ -5,7 +5,7 @@ namespace Units.OneUnit.State1E
 {
     public class PlacidState : IPlacidState
     {
-        public IntVector2 Position { get; }
+        public IntVector2 Position => _moveController.Position;
         public IUnitInfoExternal DynamicInfo { get; }
         
         private readonly IMoveController _moveController;

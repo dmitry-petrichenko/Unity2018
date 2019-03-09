@@ -29,7 +29,7 @@ namespace Units.OneUnit
             _lifeController = lifeController;
             
             _unitsTable.AddUnit(this);
-            _unitEvents.Died += HealthEndedHandler;
+            _unitEvents.HealthEnded += HealthEndedHandler;
             _unitEvents.DieComplete += DieCompleteHandler;
             _lifeController.HealthEnded += HealthEndedHandler;
         }
@@ -70,7 +70,7 @@ namespace Units.OneUnit
 
         protected override void DisposeInternal()
         {
-            _unitEvents.Died -= HealthEndedHandler;
+            _unitEvents.HealthEnded -= HealthEndedHandler;
             _unitEvents.DieComplete -= DieCompleteHandler;
             base.DisposeInternal();
         }

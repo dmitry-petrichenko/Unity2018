@@ -8,7 +8,7 @@ namespace Scripts.Units.Events
         event Action MovePathComplete;
         event Action MoveTileComplete;
         event Action AttackComplete;
-        event Action Died;
+        event Action HealthEnded;
         event Action DieComplete;
     }
 }
