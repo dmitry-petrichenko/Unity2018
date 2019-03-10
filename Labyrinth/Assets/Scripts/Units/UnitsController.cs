@@ -1,4 +1,5 @@
 ﻿using System;
+using Castle.Core.Internal;
 using Scripts;
 using Scripts.Units.Enemy;
 using Units.ExternalAPI;
@@ -50,7 +51,23 @@ namespace Units
             {
                 var enemy = _enemyFactory.Invoke();
                 enemy.SetOnPosition(point);
-                enemy.Attack(_player);
+                enemy.UnitEvents.HealthEnded += HealthEndedHandler;
+                enemy.UnitEvents.AttackComplete += AttackCompleteHandler;
+                
+                var un = GetRUn(enemy.Position);
+                if (un == null)
+                {
+                    enemy.Animate();
+                }
+                else
+                {
+                    enemy.Attack(un);
+                }
+
+                void AttackCompleteHandler()
+                {
+                    enemy.Attack(GetRUn(enemy.Position));
+                }
             }
             else
             {
@@ -58,12 +75,28 @@ namespace Units
             }
         }
 
+        private IOneUnitController GetRUn(IntVector2 position)
+        {
+            var list = _occupatedPossitionsMap.GetUnitsInRegion(new IntVector2(0, 0), new IntVector2(15, 15));
+
+            if (list.IsNullOrEmpty())
+                throw new NotImplementedException();
+            
+            var u = NearestUnitResolver.GetNearestUnit(position, list);
+            return u;
+        }
+
+        private void HealthEndedHandler()
+        {
+            GenerateEnemy();
+        }
+
         IntVector2 GetRandomPoint()
         {
             int GetNumber()
             {
                 Random r = new Random();
-                return r.Next(15);
+                return r.Next(10);
             }
 
             return new IntVector2(GetNumber(), GetNumber());

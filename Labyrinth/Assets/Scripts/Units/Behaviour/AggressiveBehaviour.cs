@@ -43,6 +43,7 @@ namespace Scripts.Units
         private void TargetHealthEndedHandler()
         {
             Cancel();
+            Complete?.Invoke();
         }
 
         public void Start(IOneUnitController target)

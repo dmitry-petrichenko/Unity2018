@@ -22,6 +22,7 @@ namespace Units.OccupatedMap
                     }
                 }
             }
+            
             return units;
         }
         

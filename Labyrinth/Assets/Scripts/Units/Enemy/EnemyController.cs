@@ -1,4 +1,5 @@
-﻿using Scripts.Units.Events;
+﻿using System;
+using Scripts.Units.Events;
 using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Info;
@@ -8,6 +9,8 @@ namespace Scripts.Units.Enemy
 {
     public class EnemyController : OneUnitController
     {
+        public event Action AttackComplete;
+        
         public delegate EnemyController Factory();
         
         private IPeacefulBehaviour _peacefulBehaviour; 
@@ -43,7 +46,15 @@ namespace Scripts.Units.Enemy
 
         public void Attack(IOneUnitController oneUnitController)
         {
+            _agressiveBehaviour.Complete += AcctackCompleteHandler;
             _agressiveBehaviour.Start(oneUnitController);
+
+        }
+
+        private void AcctackCompleteHandler()
+        {
+            _agressiveBehaviour.Complete -= AcctackCompleteHandler;
+            AttackComplete.Invoke();
         }
     }
 }
