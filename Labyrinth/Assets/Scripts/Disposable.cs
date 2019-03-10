@@ -5,6 +5,6 @@ public class Disposable : AutofacDisposable
 {
     protected override void DisposeInternal()
     {
-        Debug.Log(GetType().Name + " Disposed");
+        //Debug.Log(GetType().Name + " Disposed");
     }
 }

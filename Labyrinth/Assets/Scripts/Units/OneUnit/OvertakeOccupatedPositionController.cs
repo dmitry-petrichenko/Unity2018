@@ -5,6 +5,7 @@ using Units.OccupatedMap;
 using Units.OneUnit.Base;
 using Units.OneUnit.Info;
 using Units.PathFinder;
+using UnityEngine;
 
 namespace Units.OneUnit
 {
@@ -53,9 +54,11 @@ namespace Units.OneUnit
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
+            Debug.Log("NoWayToAttackPointHandler");
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
+                Debug.Log("wait " + position);
                 _baseActionController.WaitPosition(position);
                 return;
             }
@@ -66,47 +69,9 @@ namespace Units.OneUnit
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
         {
             _freePositions = new List<KeyValuePair<IntVector2, int>>();
-            IntVector2 position1 = new IntVector2(position.x - 1, position.y + 1);
-            if (IsFreePosition(position1))
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x - 1, position.y);
-            if (IsFreePosition(position1))
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x - 1, position.y - 1);
-            if (IsFreePosition(position1))
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x, position.y - 1);
-            if (IsFreePosition(position1)) 
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x + 1, position.y - 1);
-            if (IsFreePosition(position1)) 
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x + 1, position.y + 1);
-            if (IsFreePosition(position1)) 
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x, position.y + 1);
-            if (IsFreePosition(position1)) 
-            {
-                AddFreePosition(position1);
-            }
-            position1 = new IntVector2(position.x + 1, position.y);
-            if (IsFreePosition(position1))
-            {
-                AddFreePosition(position1);
-            }
-            
+            var adjacentPoints = position.GetAdjacentPoints(IsFreePosition);
+            adjacentPoints.ForEach(point => AddFreePosition(point));
+
             _freePositions.Sort(
                 delegate(KeyValuePair<IntVector2, int> pair1,
                     KeyValuePair<IntVector2, int> pair2)

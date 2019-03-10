@@ -19,7 +19,10 @@ namespace Units.OccupatedMap
                 list.Add(new UnitInfo(unit, GetDistance(targetPosition, unit.Position)));
             }
 
-            list.Sort();
+            if (list.Count == 0)
+                return null;
+            
+             list.Sort();
             return list.First().Unit;
         }
         

@@ -1,10 +1,11 @@
 using System;
 using Scripts.Units.Settings;
 using Units.OneUnit.Base;
+using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class LifeController : ILifeController
+    public class LifeController : Disposable, ILifeController
     {
         public event Action HealthEnded;
         

@@ -49,6 +49,11 @@ namespace Units.OneUnit.Base.GameObject
 
         public void Attack(IntVector2 position)
         {
+            var adjacentPoints = _motionController.Position.GetAdjacentPoints();
+            
+            if (!adjacentPoints.Contains(position))
+                throw new Exception("Attacked possition isn't in unit range");
+            
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayAttackAnimation();
         }

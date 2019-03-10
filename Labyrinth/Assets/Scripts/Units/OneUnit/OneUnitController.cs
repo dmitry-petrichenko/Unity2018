@@ -84,7 +84,6 @@ namespace Units.OneUnit
 
         private void DieCompleteHandler()
         {
-            Debug.Log("Die complete");
             Dispose();
         }
     }

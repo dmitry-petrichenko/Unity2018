@@ -54,7 +54,7 @@ namespace Scripts.Units.Enemy
         private void AcctackCompleteHandler()
         {
             _agressiveBehaviour.Complete -= AcctackCompleteHandler;
-            AttackComplete.Invoke();
+            AttackComplete?.Invoke();
         }
     }
 }

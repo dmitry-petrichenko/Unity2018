@@ -33,7 +33,7 @@ namespace Units
             _player = player;
 
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 8; i++)
             {
                 GenerateEnemy();
             }
@@ -52,8 +52,9 @@ namespace Units
                 var enemy = _enemyFactory.Invoke();
                 enemy.SetOnPosition(point);
                 enemy.UnitEvents.HealthEnded += HealthEndedHandler;
-                enemy.UnitEvents.AttackComplete += AttackCompleteHandler;
-                
+                enemy.Attack(_player);
+                //enemy.AttackComplete += AttackCompleteHandler;
+                /*
                 var un = GetRUn(enemy.Position);
                 if (un == null)
                 {
@@ -67,7 +68,7 @@ namespace Units
                 void AttackCompleteHandler()
                 {
                     enemy.Attack(GetRUn(enemy.Position));
-                }
+                }*/
             }
             else
             {
@@ -79,8 +80,20 @@ namespace Units
         {
             var list = _occupatedPossitionsMap.GetUnitsInRegion(new IntVector2(0, 0), new IntVector2(15, 15));
 
+            IOneUnitController p = null;
+            foreach (var unit in list)
+            {
+                if (unit.Position.Equals(Player.Position))
+                {
+                    p = unit;
+                }
+            }
+
+            if(p!=null)
+                list.Remove(p);
+            
             if (list.IsNullOrEmpty())
-                throw new NotImplementedException();
+                return null;
             
             var u = NearestUnitResolver.GetNearestUnit(position, list);
             return u;
@@ -96,7 +109,7 @@ namespace Units
             int GetNumber()
             {
                 Random r = new Random();
-                return r.Next(10);
+                return r.Next(14);
             }
 
             return new IntVector2(GetNumber(), GetNumber());

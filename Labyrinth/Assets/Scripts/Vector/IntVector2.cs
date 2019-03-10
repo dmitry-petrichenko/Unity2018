@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Scripts
 {
@@ -18,10 +19,5 @@ namespace Scripts
         {
             return other.x == x && other.y == y;
         }
-    }
-
-    public struct IntVector2Constant
-    {
-        public static IntVector2 UNASSIGNET = new IntVector2(-1000, -1000);
     }
 }

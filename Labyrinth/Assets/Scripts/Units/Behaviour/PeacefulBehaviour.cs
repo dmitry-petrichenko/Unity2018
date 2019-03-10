@@ -44,7 +44,7 @@ namespace Scripts.Units
 
             action = _moveActionFactory.Invoke();
             action.Initialize(_oneUnitController);
-            actions.Add(action);
+            //actions.Add(action);
             
             _unitBehaviourGenerator.Initialize(actions);
             
