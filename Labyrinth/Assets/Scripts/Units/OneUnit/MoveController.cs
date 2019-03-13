@@ -8,19 +8,16 @@ namespace Units.OneUnit
     {
         public event Action MoveToComplete;
         
-        private readonly MoveConsideringOccupatedController _moveConsideringOccupatedController;
         private readonly WaitMoveTurnController _waitMoveTurnController;
         private readonly IBaseActionController _baseActionController;
 
         public MoveController(
             IBaseActionController baseActionController,
-            MoveConsideringOccupatedController moveConsideringOccupatedController,
             WaitMoveTurnController waitMoveTurnController
             )
         {
             _baseActionController = baseActionController;
             _waitMoveTurnController = waitMoveTurnController;
-            _moveConsideringOccupatedController = moveConsideringOccupatedController;
         }
         
         public IntVector2 Position => _baseActionController.Position;
@@ -39,13 +36,11 @@ namespace Units.OneUnit
         public void Activate()
         {
             _waitMoveTurnController.Activate();
-            _moveConsideringOccupatedController.Activate();
         }
 
         public void Deactivate()
         {
             _waitMoveTurnController.Deactivate();
-            _moveConsideringOccupatedController.Deactivate();
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Scripts;
 using Units.OneUnit.Base.GameObject;
-using UnityEngine;
 
 namespace Units.OneUnit.Base
 {
@@ -12,6 +11,7 @@ namespace Units.OneUnit.Base
         private readonly IUnitGameObjectController _unitGameObjectController;
         private readonly IApplyDamageController _applyDamageController;
         private readonly IPathGeneratorController _pathGeneratorController;
+        private readonly MoveConsideringOccupatedController _moveConsideringOccupatedController;
         
         public IntVector2 Position => _unitGameObjectController.Position;
         public IntVector2 Destination => _pathGeneratorController.Destination;
@@ -20,12 +20,14 @@ namespace Units.OneUnit.Base
             IMoveStepByStepController moveStepByStepController,
             IApplyDamageController applyDamageController,
             IUnitGameObjectController unitGameObjectController,
+            MoveConsideringOccupatedController moveConsideringOccupatedController,
             IPathGeneratorController pathGeneratorController)
         {
             _moveStepByStepController = moveStepByStepController;
             _unitGameObjectController = unitGameObjectController;
             _applyDamageController = applyDamageController;
             _pathGeneratorController = pathGeneratorController;
+            _moveConsideringOccupatedController = moveConsideringOccupatedController;
 
             _pathGeneratorController.NoWayToDestination += NoWayToDestinationHandler;
             _moveStepByStepController.NoWayToDestination += NoWayToDestinationHandler;

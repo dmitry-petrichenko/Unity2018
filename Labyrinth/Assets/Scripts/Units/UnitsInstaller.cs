@@ -73,7 +73,6 @@ namespace Units
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
             builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
-            builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
             builder.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
@@ -104,6 +103,7 @@ namespace Units
             builder.RegisterType<ChangeDirrectionAfterMoveTileCompleteController>().AsSelf().SingleInstance();
             builder.RegisterType<MoveStepByStepController>().As<IMoveStepByStepController>().SingleInstance();
             builder.RegisterType<PathGeneratorController>().As<IPathGeneratorController>().SingleInstance();
+            builder.RegisterType<MoveConsideringOccupatedController>().AsSelf().SingleInstance();
         }
     }
 }

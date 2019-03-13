@@ -2,32 +2,32 @@
 using Scripts;
 using Units.OccupatedMap;
 using Units.OneUnit.Base;
+using Units.OneUnit.Base.GameObject;
 
 namespace Units.OneUnit
 {
-    public class MoveConsideringOccupatedController : Disposable, IActivatable
+    public class MoveConsideringOccupatedController : Disposable
     {
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
-        private readonly IBaseActionController _baseActionController;
+        private readonly IMoveStepByStepController _moveStepByStepController;
+        private readonly IPathGeneratorController _pathGeneratorController;
+        private readonly IUnitGameObjectController _unitGameObjectController;
+        
         private List<IntVector2> _occupiedPossitions;
         
         public MoveConsideringOccupatedController(
             IOccupatedPossitionsMap occupatedPossitionsMap,
-            IBaseActionController baseActionController
+            IUnitGameObjectController unitGameObjectController,
+            IPathGeneratorController pathGeneratorController,
+            IMoveStepByStepController moveStepByStepController
             )
         {
             _occupatedPossitionsMap = occupatedPossitionsMap;
-            _baseActionController = baseActionController;
-        }
-        
-        public void Activate()
-        {
-            SubscribeOnEvent();
-        }
+            _moveStepByStepController = moveStepByStepController;
+            _unitGameObjectController = unitGameObjectController;
+            _pathGeneratorController = pathGeneratorController;
 
-        public void Deactivate()
-        {
-            UnsubscribeFromEvent();
+            SubscribeOnEvent();
         }
 
         protected override void DisposeInternal()
@@ -38,20 +38,20 @@ namespace Units.OneUnit
 
         private void SubscribeOnEvent()
         {
-            _baseActionController.NextTileOccupied += NextPositionOccupiedHandler;
+            _moveStepByStepController.NextTileOccupied += NextPositionOccupiedHandler;
         }
         
         private void UnsubscribeFromEvent()
         {
-            _baseActionController.NextTileOccupied -= NextPositionOccupiedHandler;   
+            _moveStepByStepController.NextTileOccupied -= NextPositionOccupiedHandler;   
         }
 
         private void NextPositionOccupiedHandler(IntVector2 occupiedPosition)
         {
-            _baseActionController.Cancel();
+            _moveStepByStepController.Cancel();
             _occupiedPossitions = _occupatedPossitionsMap.GetOccupiedPositions();
             RemoveCurrentUnitPosition();
-            _baseActionController.MoveToAvoidingOccupiedCells(_baseActionController.Destination, _occupiedPossitions);
+            _pathGeneratorController.MoveToPositionAvoidingOccupiedCells(_pathGeneratorController.Destination, _occupiedPossitions);
         }
 
         private void RemoveCurrentUnitPosition()
@@ -59,7 +59,7 @@ namespace Units.OneUnit
             List<IntVector2> copy;
             copy = CopyDictionary(_occupiedPossitions);
             _occupiedPossitions = copy;
-            _occupiedPossitions.Remove(_baseActionController.Position);
+            _occupiedPossitions.Remove(_unitGameObjectController.Position);
         }
         
         private List<IntVector2> CopyDictionary(List<IntVector2> value)
