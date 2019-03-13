@@ -1,7 +1,7 @@
 using Scripts;
 using Units.OneUnit.Info;
 
-namespace Units.OneUnit.State1E
+namespace Units.OneUnit.State.States
 {
     public class PlacidState : IPlacidState
     {

@@ -1,4 +1,6 @@
-namespace Units.OneUnit.State1E
+using Units.OneUnit.State.States;
+
+namespace Units.OneUnit.State
 {
     public class StateController : Disposable, IStateControllerExternal, IStateControllerInternal
     {

@@ -1,4 +1,4 @@
-namespace Units.OneUnit.State1E
+namespace Units.OneUnit.State.States
 {
     public interface IState : IOneUnitApi, IActivatable
     {

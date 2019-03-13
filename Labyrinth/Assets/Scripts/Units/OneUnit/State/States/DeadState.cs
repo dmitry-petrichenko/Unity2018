@@ -1,6 +1,6 @@
 using Scripts;
 
-namespace Units.OneUnit.State1E
+namespace Units.OneUnit.State.States
 {
     public class DeadState : IDeadState
     {
