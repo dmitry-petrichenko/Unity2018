@@ -3,7 +3,7 @@ using Scripts;
 
 namespace Units.OneUnit
 {
-    public interface IMoveController : IActivatable, IDisposable
+    public interface IPlacidController : IActivatable, IDisposable
     {
         IntVector2 Position { get; }
 

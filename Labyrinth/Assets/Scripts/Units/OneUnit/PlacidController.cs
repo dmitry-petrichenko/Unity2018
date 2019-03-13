@@ -4,14 +4,14 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class MoveController : Disposable, IMoveController, IActivatable
+    public class PlacidController : Disposable, IPlacidController, IActivatable
     {
         public event Action MoveToComplete;
         
         private readonly NoWayPlacidController _noWayPlacidController;
         private readonly IBaseActionController _baseActionController;
 
-        public MoveController(
+        public PlacidController(
             IBaseActionController baseActionController,
             NoWayPlacidController noWayPlacidController
             )

@@ -4,11 +4,11 @@ using Units.OneUnit.Base;
 
 namespace Units.Player
 {
-    public class PlayerAttackController : Disposable, IAttackController
+    public class PlayerHostileController : Disposable, IHostileController
     {
         private IBaseActionController _baseActionController;
         
-        public PlayerAttackController(IBaseActionController baseActionController)
+        public PlayerHostileController(IBaseActionController baseActionController)
         {
             _baseActionController = baseActionController;
         }

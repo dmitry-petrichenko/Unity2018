@@ -46,14 +46,14 @@ namespace Units
         private void InstallPlayerComponents(ContainerBuilder builder)
         {
             builder.RegisterType<PlayerSettings>().As<IUnitSettings>().SingleInstance();
-            builder.RegisterType<AttackController>().As<IAttackController>().SingleInstance();
+            builder.RegisterType<HostileController>().As<IHostileController>().SingleInstance();
             InstallOneUnitComponents(builder);
         }
     
         private void InstallEnemyComponents(ContainerBuilder builder)
         {
             builder.RegisterType<EnemySettings>().As<IUnitSettings>().SingleInstance();
-            builder.RegisterType<AttackController>().As<IAttackController>().SingleInstance();
+            builder.RegisterType<HostileController>().As<IHostileController>().SingleInstance();
             InstallOneUnitComponents(builder);
         }
 
@@ -69,7 +69,7 @@ namespace Units
             builder.RegisterType<LifeController>().As<ILifeController>().SingleInstance();
             
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
-            builder.RegisterType<MoveController>().As<IMoveController>().SingleInstance();
+            builder.RegisterType<PlacidController>().As<IPlacidController>().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
             builder.RegisterType<NoWayPlacidController>().AsSelf().SingleInstance();

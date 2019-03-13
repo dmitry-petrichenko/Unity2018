@@ -13,19 +13,19 @@ namespace Scripts.Units
 
         private IOneUnitController _target;
         
-        private readonly IAttackController _attackController;
+        private readonly IHostileController _hostileController;
         private readonly IUnitInfoInternal _unitInfo;
         private readonly IUnitEvents _unitEvents;
         private readonly IStateControllerExternal _stateController;
 
         public AggressiveBehaviour(
-            IAttackController attackController,
+            IHostileController hostileController,
             IUnitInfoInternal unitInfo,
             IStateControllerExternal stateController,
             IUnitEvents unitEvents
             )
         {
-            _attackController = attackController;
+            _hostileController = hostileController;
             _unitInfo = unitInfo;
             _unitEvents = unitEvents;
             _stateController = stateController;
@@ -60,7 +60,7 @@ namespace Scripts.Units
         {
             _unitEvents.AttackComplete -= AttackCompleteHandler;
             _target.UnitEvents.HealthEnded -= TargetHealthEndedHandler;
-            _attackController.Cancel();
+            _hostileController.Cancel();
         }
 
         public void DisposeInternal()

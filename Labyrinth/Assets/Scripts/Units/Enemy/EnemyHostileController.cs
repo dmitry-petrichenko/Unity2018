@@ -3,7 +3,7 @@ using Units.OneUnit;
 
 namespace Units.Enemy
 {
-    public class EnemyAttackController : Disposable, IAttackController
+    public class EnemyHostileController : Disposable, IHostileController
     {
         public void Initialize(IOneUnitController unitController)
         {

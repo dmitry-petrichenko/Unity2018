@@ -4,7 +4,7 @@ using Units.OneUnit.Base;
 
 namespace Units.OneUnit
 {
-    public class AttackController : Disposable, IAttackController
+    public class HostileController : Disposable, IHostileController
     {
         private IBaseActionController _baseActionController;
         private TargetOvertaker _targetOvertaker;
@@ -13,7 +13,7 @@ namespace Units.OneUnit
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly NoWayHostileController _noWayHostileController;
 
-        public AttackController(
+        public HostileController(
             IBaseActionController baseActionController,
             TargetOvertaker targetOvertaker,
             NoWayHostileController noWayHostileController,

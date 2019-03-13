@@ -13,16 +13,16 @@ namespace Scripts.Units.Events
         public event Action HealthEnded;
         public event Action DieComplete;
         
-        private readonly IMoveController _moveController;
+        private readonly IPlacidController _placidController;
         private readonly IBaseActionController _baseActionController;
         private readonly ILifeController _lifeController;
         
         public UnitEvents(
             IBaseActionController baseActionController,
             ILifeController lifeController,
-            IMoveController moveController)
+            IPlacidController placidController)
         {
-            _moveController = moveController;
+            _placidController = placidController;
             _baseActionController = baseActionController;
             _lifeController = lifeController;
 
@@ -55,7 +55,7 @@ namespace Scripts.Units.Events
             _lifeController.HealthEnded -= HealthEndedHandler;
         }
         
-        private void MoveTileStartHandler() => PositionChanged?.Invoke(_moveController.Position);
+        private void MoveTileStartHandler() => PositionChanged?.Invoke(_placidController.Position);
         
         private void MoveTileCompleteHandler() => MoveTileComplete?.Invoke();
 

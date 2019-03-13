@@ -5,21 +5,21 @@ namespace Units.OneUnit.State1E
 {
     public class HostileState : IHostileState
     {
-        public IntVector2 Position => _moveController.Position;
+        public IntVector2 Position => _placidController.Position;
         
-        private readonly IMoveController _moveController;
-        private readonly IAttackController _attackController;
+        private readonly IPlacidController _placidController;
+        private readonly IHostileController _hostileController;
         private readonly ILifeController _lifeController;
         
         private IStateControllerInternal _stateController;
         
         public HostileState(
-            IMoveController moveController,
-            IAttackController attackController,
+            IPlacidController placidController,
+            IHostileController hostileController,
             ILifeController lifeController)
         {
-            _moveController = moveController;
-            _attackController = attackController;
+            _placidController = placidController;
+            _hostileController = hostileController;
             _lifeController = lifeController;
         }
 
@@ -35,12 +35,12 @@ namespace Units.OneUnit.State1E
 
         public void Activate()
         {
-            _attackController.Activate();
+            _hostileController.Activate();
         }
 
         public void Deactivate()
         {
-            _attackController.Deactivate();
+            _hostileController.Deactivate();
         }
 
         public void Dispose()
@@ -67,12 +67,12 @@ namespace Units.OneUnit.State1E
 
         public void SetOnPosition(IntVector2 position)
         {
-            _moveController.SetOnPosition(position);
+            _placidController.SetOnPosition(position);
         }
 
         public void Attack(IntVector2 position)
         {
-            _attackController.Attack(position);
+            _hostileController.Attack(position);
         }
 
         public void TakeDamage(int value)

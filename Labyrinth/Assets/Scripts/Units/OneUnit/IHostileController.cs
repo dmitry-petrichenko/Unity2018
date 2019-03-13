@@ -3,7 +3,7 @@ using Scripts;
 
 namespace Units.OneUnit
 {
-    public interface IAttackController : IActivatable, IDisposable
+    public interface IHostileController : IActivatable, IDisposable
     {
         void Cancel();
         void Attack(IntVector2 position);

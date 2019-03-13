@@ -5,19 +5,19 @@ namespace Units.OneUnit.State1E
 {
     public class PlacidState : IPlacidState
     {
-        public IntVector2 Position => _moveController.Position;
+        public IntVector2 Position => _placidController.Position;
         public IUnitInfoExternal DynamicInfo { get; }
         
-        private readonly IMoveController _moveController;
+        private readonly IPlacidController _placidController;
         private readonly ILifeController _lifeController;
         
         private IStateControllerInternal _stateController;
         
         public PlacidState(
-            IMoveController moveController,
+            IPlacidController placidController,
             ILifeController lifeController)
         {
-            _moveController = moveController;
+            _placidController = placidController;
             _lifeController = lifeController;
         }
 
@@ -33,12 +33,12 @@ namespace Units.OneUnit.State1E
 
         public void Activate()
         {
-            _moveController.Activate();
+            _placidController.Activate();
         }
 
         public void Deactivate()
         {
-            _moveController.Deactivate();
+            _placidController.Deactivate();
         }
 
         public void Dispose()
@@ -47,22 +47,22 @@ namespace Units.OneUnit.State1E
         
         public void MoveTo(IntVector2 position)
         {
-            _moveController.MoveTo(position);
+            _placidController.MoveTo(position);
         }
 
         public void Wait()
         {
-            _moveController.Wait();
+            _placidController.Wait();
         }
 
         public void Wait(IntVector2 position)
         {
-            _moveController.Wait(position);
+            _placidController.Wait(position);
         }
 
         public void SetOnPosition(IntVector2 position)
         {
-            _moveController.SetOnPosition(position);
+            _placidController.SetOnPosition(position);
         }
 
         public void Attack(IntVector2 position)
