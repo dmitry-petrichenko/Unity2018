@@ -2,8 +2,7 @@
 using Scripts.Units.Events;
 using Units.OccupatedMap;
 using Units.OneUnit.Info;
-using Units.OneUnit.State1E;
-using UnityEngine;
+using Units.OneUnit.State;
 
 namespace Units.OneUnit
 {

@@ -3,7 +3,7 @@ using Scripts.Units.Events;
 using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Info;
-using Units.OneUnit.State1E;
+using Units.OneUnit.State;
 
 namespace Scripts.Units.Enemy
 {

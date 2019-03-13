@@ -17,7 +17,8 @@ using Units.OneUnit.Base.GameObject.Health;
 using Units.OneUnit.Base.GameObject.Motion;
 using Units.OneUnit.Base.GameObject.Rotation;
 using Units.OneUnit.Info;
-using Units.OneUnit.State1E;
+using Units.OneUnit.State;
+using Units.OneUnit.State.States;
 using Units.PathFinder;
 using Units.Player;
 
