@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Units.OneUnit
 {
-    public class OvertakeOccupatedPositionController : Disposable, IActivatable
+    public class NoWayHostileController : Disposable, IActivatable
     {
         private IOneUnitController _oneUnitController;
         private IOccupatedPossitionsMap _occupatedPossitionsMap;
@@ -18,7 +18,7 @@ namespace Units.OneUnit
         private List<KeyValuePair<IntVector2, int>> _freePositions;
         private IBaseActionController _baseActionController;
         
-        public OvertakeOccupatedPositionController(
+        public NoWayHostileController(
             IOccupatedPossitionsMap occupatedPossitionsMap,
             IUnitInfoExternal unitInfo,
             IBaseActionController baseActionController,

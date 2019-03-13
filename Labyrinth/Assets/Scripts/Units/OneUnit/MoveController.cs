@@ -8,16 +8,16 @@ namespace Units.OneUnit
     {
         public event Action MoveToComplete;
         
-        private readonly WaitMoveTurnController _waitMoveTurnController;
+        private readonly NoWayPlacidController _noWayPlacidController;
         private readonly IBaseActionController _baseActionController;
 
         public MoveController(
             IBaseActionController baseActionController,
-            WaitMoveTurnController waitMoveTurnController
+            NoWayPlacidController noWayPlacidController
             )
         {
             _baseActionController = baseActionController;
-            _waitMoveTurnController = waitMoveTurnController;
+            _noWayPlacidController = noWayPlacidController;
         }
         
         public IntVector2 Position => _baseActionController.Position;
@@ -35,12 +35,12 @@ namespace Units.OneUnit
         
         public void Activate()
         {
-            _waitMoveTurnController.Activate();
+            _noWayPlacidController.Activate();
         }
 
         public void Deactivate()
         {
-            _waitMoveTurnController.Deactivate();
+            _noWayPlacidController.Deactivate();
         }
     }
 }

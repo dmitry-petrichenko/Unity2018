@@ -72,11 +72,11 @@ namespace Units
             builder.RegisterType<MoveController>().As<IMoveController>().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();
             builder.RegisterType<PeacefulBehaviour>().As<IPeacefulBehaviour>().SingleInstance();
-            builder.RegisterType<WaitMoveTurnController>().AsSelf().SingleInstance();
+            builder.RegisterType<NoWayPlacidController>().AsSelf().SingleInstance();
             builder.RegisterType<TargetOvertaker>().AsSelf().SingleInstance();
             builder.RegisterType<IdleAction>().AsSelf().InstancePerDependency();
             builder.RegisterType<AttackAction>().AsSelf().InstancePerDependency();
-            builder.RegisterType<OvertakeOccupatedPositionController>().AsSelf().SingleInstance();
+            builder.RegisterType<NoWayHostileController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
             

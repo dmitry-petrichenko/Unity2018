@@ -11,29 +11,29 @@ namespace Units.OneUnit
         private IOneUnitController _targetUnit;
         
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
-        private readonly OvertakeOccupatedPositionController _overtakeOccupatedPositionController;
+        private readonly NoWayHostileController _noWayHostileController;
 
         public AttackController(
             IBaseActionController baseActionController,
             TargetOvertaker targetOvertaker,
-            OvertakeOccupatedPositionController overtakeOccupatedPositionController,
+            NoWayHostileController noWayHostileController,
             IOccupatedPossitionsMap occupatedPossitionsMap)
         {
             _baseActionController = baseActionController;
             _targetOvertaker = targetOvertaker;
             _occupatedPossitionsMap = occupatedPossitionsMap;
-            _overtakeOccupatedPositionController = overtakeOccupatedPositionController;
+            _noWayHostileController = noWayHostileController;
         }
 
         public void Activate()
         {
-            _overtakeOccupatedPositionController.Activate();
+            _noWayHostileController.Activate();
         }
 
         public void Deactivate()
         {
             Cancel();
-            _overtakeOccupatedPositionController.Deactivate();
+            _noWayHostileController.Deactivate();
         }
 
         public void Cancel()

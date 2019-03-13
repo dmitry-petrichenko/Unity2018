@@ -5,7 +5,7 @@ using Units.OneUnit.Info;
 
 namespace Units.OneUnit
 {
-    public class WaitMoveTurnController : Disposable, IActivatable
+    public class NoWayPlacidController : Disposable, IActivatable
     {
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly IMovingRandomizer _movingRandomizer;
@@ -16,7 +16,7 @@ namespace Units.OneUnit
         private IntVector2 _occupiedPoint;
         private IOneUnitController _oneUnitController;
         
-        public WaitMoveTurnController(
+        public NoWayPlacidController(
             IOccupatedPossitionsMap occupatedPossitionsMap,
             IMovingRandomizer movingRandomizer,
             IUnitInfoInternal unitInfo,
