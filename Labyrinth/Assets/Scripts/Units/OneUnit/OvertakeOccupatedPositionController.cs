@@ -54,7 +54,7 @@ namespace Units.OneUnit
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
-            //Debug.Log("NoWayToAttackPointHandler");
+            Debug.Log("NoWayToAttackPointHandler");
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
             if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
             {
@@ -62,32 +62,8 @@ namespace Units.OneUnit
                 _baseActionController.WaitPosition(position);
                 return;
             }
-            Debug.Log("freePosition " + freePosition.x + " " + freePosition.y);
             
-            _baseActionController.Cancel();
-            var occupiedPossitions = _occupatedPossitionsMap.GetOccupiedPositions();
-            occupiedPossitions = RemoveCurrentUnitPosition(occupiedPossitions);
-            _baseActionController.MoveToAvoidingOccupiedCells(freePosition, occupiedPossitions);
-        }
-        
-        private List<IntVector2> RemoveCurrentUnitPosition(List<IntVector2> occupiedPossitions)
-        {
-            List<IntVector2> copy;
-            copy = CopyDictionary(occupiedPossitions);
-            occupiedPossitions = copy;
-            occupiedPossitions.Remove(_baseActionController.Position);
-            return occupiedPossitions;
-        }
-        
-        private List<IntVector2> CopyDictionary(List<IntVector2> value)
-        {
-            List<IntVector2> copy = new List<IntVector2>();
-            foreach (var index in value)
-            {
-                copy.Add(index);
-            }
-
-            return copy;
+            _baseActionController.MoveToPosition(freePosition);
         }
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
