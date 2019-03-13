@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts;
 using Units.OccupatedMap;
-using Units.OneUnit.Base.GameObject;
+using Units.OneUnit.StatesControllers.Base.GameObject;
 
-namespace Units.OneUnit.Base
+namespace Units.OneUnit.StatesControllers.Base
 {
     public class MoveStepByStepController : Disposable, IMoveStepByStepController
     {        

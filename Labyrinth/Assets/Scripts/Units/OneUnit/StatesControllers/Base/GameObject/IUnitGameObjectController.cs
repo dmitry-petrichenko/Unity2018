@@ -1,7 +1,7 @@
 using System;
 using Scripts;
 
-namespace Units.OneUnit.Base.GameObject
+namespace Units.OneUnit.StatesControllers.Base.GameObject
 {
     public interface IUnitGameObjectController : IDisposable
     {

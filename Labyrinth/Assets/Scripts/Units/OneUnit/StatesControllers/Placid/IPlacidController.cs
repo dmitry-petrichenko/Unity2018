@@ -1,7 +1,7 @@
 using System;
 using Scripts;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Placid
 {
     public interface IPlacidController : IActivatable, IDisposable
     {

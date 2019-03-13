@@ -1,7 +1,7 @@
 ﻿using System;
 using Scripts;
 
-namespace Units.OneUnit.Base.GameObject.Rotation
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Rotation
 {
     public interface IOneUnitRotationController : IDisposable
     {

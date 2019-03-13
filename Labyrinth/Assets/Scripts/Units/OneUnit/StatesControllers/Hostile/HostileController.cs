@@ -1,8 +1,8 @@
 ﻿using Scripts;
 using Units.OccupatedMap;
-using Units.OneUnit.Base;
+using Units.OneUnit.StatesControllers.Base;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class HostileController : Disposable, IHostileController
     {

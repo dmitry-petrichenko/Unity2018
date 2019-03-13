@@ -1,9 +1,8 @@
 ﻿using System;
-using Scripts.Extensions;
 using Scripts.GameLoop;
-using Scripts.Units.Settings;
+using Units.OneUnit.StatesControllers.Base.Settings;
 
-namespace Units.OneUnit.Base.GameObject.Animation
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Animation
 {
     public class OneUnitAnimationController : Disposable, IOneUnitAnimationController
     {

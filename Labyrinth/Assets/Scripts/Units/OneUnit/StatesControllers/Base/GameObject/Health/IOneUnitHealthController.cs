@@ -1,6 +1,6 @@
 using System;
 
-namespace Units.OneUnit.Base.GameObject.Health
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Health
 {
     public interface IOneUnitHealthController : IDisposable
     {

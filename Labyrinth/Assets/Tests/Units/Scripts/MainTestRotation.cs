@@ -1,7 +1,7 @@
 ﻿using System;
 using Scripts;
 using Tests.Units.Scripts;
-using Units.OneUnit.Base.GameObject.Rotation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Rotation;
 using UnityEngine;
 
 public class MainTestRotation : MonoBehaviour

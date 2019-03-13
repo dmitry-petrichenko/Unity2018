@@ -1,11 +1,11 @@
 using System;
 using Scripts;
-using Units.OneUnit.Base.GameObject.Animation;
-using Units.OneUnit.Base.GameObject.Health;
-using Units.OneUnit.Base.GameObject.Motion;
-using Units.OneUnit.Base.GameObject.Rotation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Animation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Health;
+using Units.OneUnit.StatesControllers.Base.GameObject.Motion;
+using Units.OneUnit.StatesControllers.Base.GameObject.Rotation;
 
-namespace Units.OneUnit.Base.GameObject
+namespace Units.OneUnit.StatesControllers.Base.GameObject
 {
     public class UnitGameObjectController : Disposable, IUnitGameObjectController
     {

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts;
-using Scripts.Extensions;
 using Scripts.Units.Events;
-using Units.OneUnit.Base;
+using Units.OneUnit.StatesControllers.Base;
 using Units.PathFinder;
-using UnityEngine;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class TargetOvertaker : Disposable
     {

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Scripts;
 using Units.OccupatedMap;
-using Units.OneUnit.Base;
-using Units.OneUnit.Base.GameObject;
+using Units.OneUnit.StatesControllers.Base.GameObject;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Base
 {
     public class MoveConsideringOccupatedController : Disposable
     {

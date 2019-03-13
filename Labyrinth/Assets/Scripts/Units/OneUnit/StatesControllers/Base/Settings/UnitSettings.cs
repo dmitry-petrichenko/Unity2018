@@ -3,12 +3,12 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
-namespace Scripts.Units.Settings
+namespace Units.OneUnit.StatesControllers.Base.Settings
 {
     public abstract class UnitSettings : Disposable, IUnitSettings
     {
         public float MotionSpeed { get; private set; }
-        public GameObject GraphicObject { get; private set; }
+        public UnityEngine.GameObject GraphicObject { get; private set; }
         public float RotationSpeed { get; private set; }
         public int Attack { get; private set; }
         public int TotalHealth { get; private set; }
@@ -35,18 +35,18 @@ namespace Scripts.Units.Settings
             GraphicObject = InstantiatePrefabFromResourcePath(_prefabPath);
         }
 
-        private GameObject InstantiatePrefabFromResourcePath(string path)
+        private UnityEngine.GameObject InstantiatePrefabFromResourcePath(string path)
         {
             //https://answers.unity.com/questions/313398/is-it-possible-to-get-a-prefab-object-from-its-ass.html
             UnityEngine.Object pPrefab = Resources.Load(path);
-            GameObject pNewObject = (GameObject)GameObject.Instantiate(pPrefab, Vector3.zero, Quaternion.identity);
+            UnityEngine.GameObject pNewObject = (UnityEngine.GameObject)UnityEngine.GameObject.Instantiate(pPrefab, Vector3.zero, Quaternion.identity);
 
             return pNewObject;
         }
 
         protected override void DisposeInternal()
         {
-            GameObject.Destroy(GraphicObject);
+            UnityEngine.GameObject.Destroy(GraphicObject);
             base.DisposeInternal();
         }
     }

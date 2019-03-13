@@ -1,8 +1,8 @@
 using Scripts;
-using Scripts.Units.Settings;
 using Units.OccupatedMap;
+using Units.OneUnit.StatesControllers.Base.Settings;
 
-namespace Units.OneUnit.Base
+namespace Units.OneUnit.StatesControllers.Base
 {
     public class ApplyDamageController : Disposable, IApplyDamageController
     {

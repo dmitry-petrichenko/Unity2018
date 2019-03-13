@@ -1,4 +1,4 @@
-﻿namespace Units.OneUnit.Base.GameObject.Animation
+﻿namespace Units.OneUnit.StatesControllers.Base.GameObject.Animation
 {
     public interface IUnitScript
     {

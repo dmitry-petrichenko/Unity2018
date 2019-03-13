@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using Scripts;
 using Units.OccupatedMap;
-using Units.OneUnit.Base;
 using Units.OneUnit.Info;
+using Units.OneUnit.StatesControllers.Base;
 using Units.PathFinder;
 using UnityEngine;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class NoWayHostileController : Disposable, IActivatable
     {

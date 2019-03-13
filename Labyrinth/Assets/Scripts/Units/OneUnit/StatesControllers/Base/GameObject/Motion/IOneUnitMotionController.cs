@@ -1,7 +1,7 @@
 ﻿using System;
 using Scripts;
 
-namespace Units.OneUnit.Base.GameObject.Motion
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Motion
 {
     public interface IOneUnitMotionController
     {

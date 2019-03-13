@@ -1,6 +1,7 @@
 using Scripts;
 using Units.OneUnit;
-using Units.OneUnit.Base;
+using Units.OneUnit.StatesControllers.Base;
+using Units.OneUnit.StatesControllers.Hostile;
 
 namespace Units.Player
 {

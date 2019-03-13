@@ -1,8 +1,7 @@
-using Scripts.Extensions;
-using Scripts.Units.Settings;
+using Units.OneUnit.StatesControllers.Base.Settings;
 using UnityEngine;
 
-namespace Units.OneUnit.Base.GameObject.Health
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Health
 {
     public class OneUnitHealthController : Disposable, IOneUnitHealthController
     {

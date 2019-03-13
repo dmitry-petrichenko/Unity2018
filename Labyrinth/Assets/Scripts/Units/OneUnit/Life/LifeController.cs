@@ -1,6 +1,7 @@
 using System;
 using Scripts.Units.Settings;
-using Units.OneUnit.Base;
+using Units.OneUnit.StatesControllers.Base;
+using Units.OneUnit.StatesControllers.Base.Settings;
 using UnityEngine;
 
 namespace Units.OneUnit

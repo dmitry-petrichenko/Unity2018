@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Scripts;
-using Units.OneUnit.Base.GameObject;
+using Units.OneUnit.StatesControllers.Base.GameObject;
 using Units.PathFinder;
 
-namespace Units.OneUnit.Base
+namespace Units.OneUnit.StatesControllers.Base
 {
     public class PathGeneratorController : IPathGeneratorController
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts;
-using Units.OneUnit.Base.GameObject;
+using Units.OneUnit.StatesControllers.Base.GameObject;
 
-namespace Units.OneUnit.Base
+namespace Units.OneUnit.StatesControllers.Base
 {
     public class BaseActionController : Disposable, IBaseActionController
     {   

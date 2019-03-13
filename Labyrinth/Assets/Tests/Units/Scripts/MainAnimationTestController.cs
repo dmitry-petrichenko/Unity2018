@@ -1,6 +1,6 @@
 ﻿using Tests.Map.Scripts;
 using Tests.Units.Scripts;
-using Units.OneUnit.Base.GameObject.Animation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Animation;
 using UnityEngine;
 
 namespace Tests.Animation

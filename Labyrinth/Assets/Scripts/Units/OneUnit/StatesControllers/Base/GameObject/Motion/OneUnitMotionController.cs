@@ -1,11 +1,10 @@
 ﻿using System;
 using DG.Tweening;
 using Scripts;
-using Scripts.Extensions;
-using Scripts.Units.Settings;
+using Units.OneUnit.StatesControllers.Base.Settings;
 using UnityEngine;
 
-namespace Units.OneUnit.Base.GameObject.Motion
+namespace Units.OneUnit.StatesControllers.Base.GameObject.Motion
 {
     public class OneUnitMotionController : Disposable, IOneUnitMotionController
     {

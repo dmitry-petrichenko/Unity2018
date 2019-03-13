@@ -1,7 +1,7 @@
 using System;
 using Scripts;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Hostile
 {
     public interface IHostileController : IActivatable, IDisposable
     {

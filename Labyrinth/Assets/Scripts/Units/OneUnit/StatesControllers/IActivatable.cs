@@ -1,4 +1,4 @@
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers
 {
     public interface IActivatable
     {

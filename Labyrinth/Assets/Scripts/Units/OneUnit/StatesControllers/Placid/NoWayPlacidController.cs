@@ -1,9 +1,9 @@
 ﻿using Scripts;
 using Units.OccupatedMap;
-using Units.OneUnit.Base;
 using Units.OneUnit.Info;
+using Units.OneUnit.StatesControllers.Base;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Placid
 {
     public class NoWayPlacidController : Disposable, IActivatable
     {

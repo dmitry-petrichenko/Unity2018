@@ -3,6 +3,7 @@ using Scripts.Units.Events;
 using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State;
+using Units.OneUnit.StatesControllers.Hostile;
 
 namespace Scripts.Units
 {

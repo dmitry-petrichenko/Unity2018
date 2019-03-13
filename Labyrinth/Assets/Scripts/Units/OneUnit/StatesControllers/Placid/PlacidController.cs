@@ -1,8 +1,8 @@
 ﻿using System;
 using Scripts;
-using Units.OneUnit.Base;
+using Units.OneUnit.StatesControllers.Base;
 
-namespace Units.OneUnit
+namespace Units.OneUnit.StatesControllers.Placid
 {
     public class PlacidController : Disposable, IPlacidController, IActivatable
     {
