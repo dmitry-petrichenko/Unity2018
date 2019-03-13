@@ -36,7 +36,7 @@ namespace Tests.Scripts.Units.OccupatedMap
 
         public void SetOnPosition(IntVector2 position)
         {
-            throw new System.NotImplementedException();
+            _position = position;
         }
 
         public void Attack(IntVector2 position)

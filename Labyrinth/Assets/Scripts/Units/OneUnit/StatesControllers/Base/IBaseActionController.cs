@@ -10,8 +10,6 @@ namespace Units.OneUnit.StatesControllers.Base
         void WaitPosition(IntVector2 position);
         void Attack(IntVector2 position);
         void MoveToPosition(IntVector2 position);
-        void MoveToAvoidingOccupiedCells(IntVector2 position, List<IntVector2> cells);
-        void Cancel();
         void SetOnPosition(IntVector2 position);
         void SetHealthBarValue(float value);
         void Die();
@@ -20,7 +18,6 @@ namespace Units.OneUnit.StatesControllers.Base
         IntVector2 Destination { get; }
         
         event Action<IntVector2> NoWayToDestination;
-        event Action<IntVector2> NextTileOccupied;
         event Action MovePathComplete;
         event Action MoveTileComplete;
         event Action MoveTileStart;

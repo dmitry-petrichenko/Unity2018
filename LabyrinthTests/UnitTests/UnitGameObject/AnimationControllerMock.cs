@@ -1,5 +1,5 @@
 using System;
-using Units.OneUnit.Base.GameObject.Animation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Animation;
 
 namespace Tests.Scripts.Units.UnitGameObject
 {

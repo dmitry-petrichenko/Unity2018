@@ -1,6 +1,6 @@
 using System;
 using Scripts;
-using Units.OneUnit.Base.GameObject.Motion;
+using Units.OneUnit.StatesControllers.Base.GameObject.Motion;
 
 namespace Tests.Scripts.Units.UnitGameObject
 {

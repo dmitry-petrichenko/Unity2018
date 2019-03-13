@@ -1,5 +1,6 @@
 using Telerik.JustMock;
-using Units.OneUnit.State1E;
+using Units.OneUnit.State;
+using Units.OneUnit.State.States;
 using Xunit;
 
 namespace Tests.Scripts.Units.States

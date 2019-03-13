@@ -1,8 +1,8 @@
 using Scripts;
-using Units.OneUnit.Base.GameObject;
-using Units.OneUnit.Base.GameObject.Health;
-using Units.OneUnit.Base.GameObject.Motion;
-using Units.OneUnit.Base.GameObject.Rotation;
+using Units.OneUnit.StatesControllers.Base.GameObject;
+using Units.OneUnit.StatesControllers.Base.GameObject.Health;
+using Units.OneUnit.StatesControllers.Base.GameObject.Motion;
+using Units.OneUnit.StatesControllers.Base.GameObject.Rotation;
 using Xunit;
 
 namespace Tests.Scripts.Units.UnitGameObject

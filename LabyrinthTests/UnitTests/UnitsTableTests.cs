@@ -1,16 +1,17 @@
 using Scripts;
-using Units;
+using Tests.Scripts.Units.OccupatedMap;
+using Units.OccupatedMap;
 using Xunit;
 
 namespace Tests.Scripts.Units
 {
     public class UnitsTableTests
     {
-        private OccupatedPossitionsTable _occupatedPossitionsTable;
+        private OccupatedPossitionsMap _occupatedPossitionsTable;
         
         public UnitsTableTests()
         {    
-            _occupatedPossitionsTable = new OccupatedPossitionsTable();
+            _occupatedPossitionsTable = new OccupatedPossitionsMap();
         }
 
         [Theory]
@@ -19,20 +20,21 @@ namespace Tests.Scripts.Units
         public void IsVacantPosition_Occupied_TrueFalse(bool expectedResult, int x1, int y1, int x2, int y2)
         {
             bool actualResult = false;
-            _occupatedPossitionsTable.SetOccupied(new IntVector2(x1, y1));
+            _occupatedPossitionsTable.AddUnit(new OneUnitControllerMock(new IntVector2(x1, y1)));
             actualResult = _occupatedPossitionsTable.IsVacantPosition(new IntVector2(x2, y2));
 
             Assert.True(actualResult == expectedResult);
         }
         
         [Theory]
-        [InlineData(true, 2, 3, 2, 3)]
-        [InlineData(false, 2, 3, 2, 4)]
+        [InlineData(false, 2, 3, 2, 3)]
+        [InlineData(true, 2, 3, 2, 4)]
         public void SetVacant_TrueFalse(bool expectedResult, int x1, int y1, int x2, int y2)
         {
             bool actualResult = false;
-            _occupatedPossitionsTable.SetOccupied(new IntVector2(x1, y1));
-            _occupatedPossitionsTable.SetVacant(new IntVector2(x2, y2));
+            var unit = new OneUnitControllerMock(new IntVector2(x1, y1));
+            _occupatedPossitionsTable.AddUnit(unit);
+            unit.SetOnPosition(new IntVector2(x2, y2));
             actualResult = _occupatedPossitionsTable.IsVacantPosition(new IntVector2(x1, y1));
 
             Assert.True(actualResult == expectedResult);

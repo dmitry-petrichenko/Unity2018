@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Scripts;
-using Telerik.JustMock;
-using Units;
-using Units.OneUnit.Base;
-using Units.OneUnit.Base.GameObject;
-using Xunit;
 
 namespace Tests.Scripts.Units.Moving
 {/*

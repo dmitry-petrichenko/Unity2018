@@ -1,5 +1,5 @@
 using Scripts;
-using Units.OneUnit.Base.GameObject.Rotation;
+using Units.OneUnit.StatesControllers.Base.GameObject.Rotation;
 
 namespace Tests.Scripts.Units.UnitGameObject
 {

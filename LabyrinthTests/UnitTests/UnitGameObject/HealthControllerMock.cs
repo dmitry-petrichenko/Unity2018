@@ -1,4 +1,4 @@
-using Units.OneUnit.Base.GameObject.Health;
+using Units.OneUnit.StatesControllers.Base.GameObject.Health;
 
 namespace Tests.Scripts.Units.UnitGameObject
 {

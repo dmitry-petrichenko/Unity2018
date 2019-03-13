@@ -1,8 +1,3 @@
-using ID5D6AAC.Common.EventDispatcher;
-using Telerik.JustMock;
-using Units.OneUnit.Base.GameObject;
-using Xunit;
-
 namespace Tests.Scripts.Units
 {/*
     public class DeathControllerTests
