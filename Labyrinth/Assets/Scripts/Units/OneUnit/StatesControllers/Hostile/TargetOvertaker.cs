@@ -78,27 +78,8 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private bool TargetPositionInUnitRange(IntVector2 position)
         {
-            if (IsInPosition(new IntVector2(position.x - 1, position.y + 1))) return true;
-            if (IsInPosition(new IntVector2(position.x - 1, position.y))) return true;
-            if (IsInPosition(new IntVector2(position.x - 1, position.y - 1))) return true;
-            if (IsInPosition(new IntVector2(position.x, position.y - 1))) return true;
-            if (IsInPosition(new IntVector2(position.x + 1, position.y - 1))) return true;
-            if (IsInPosition(new IntVector2(position.x + 1, position.y + 1))) return true;
-            if (IsInPosition(new IntVector2(position.x, position.y + 1))) return true;
-            if (IsInPosition(new IntVector2(position.x + 1, position.y))) return true;
-
-            return false;
-        }
-
-        private bool IsInPosition(IntVector2 position)
-        {
-            if (_baseActionController.Position.x == position.x &&
-                _baseActionController.Position.y == position.y)
-            {
-                return true;
-            }
-            
-            return false;
+            var adjacentPoints = position.GetAdjacentPoints();
+            return adjacentPoints.Contains(_baseActionController.Position);
         }
 
         public void Cancel()
