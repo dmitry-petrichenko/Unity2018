@@ -102,6 +102,8 @@
     <Compile Include="PathFinder\PathFinderTestData.cs" />
     <Compile Include="PathFinder\PathFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatesControllers\Hostile\BaseActionControlleMock.cs" />
+    <Compile Include="StatesControllers\Hostile\NoWayHostileControllerTests.cs" />
     <Compile Include="States\StateControllerTests.cs" />
     <Compile Include="UnitGameObject\AnimationControllerMock.cs" />
     <Compile Include="UnitGameObject\HealthControllerMock.cs" />
@@ -109,6 +111,8 @@
     <Compile Include="UnitGameObject\RotationControllerMock.cs" />
     <Compile Include="UnitGameObject\UnitGameObjectTests.cs" />
     <Compile Include="UnitsTableTests.cs" />
+    <Compile Include="Vectors\IntVector2TestData.cs" />
+    <Compile Include="Vectors\IntVector2Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

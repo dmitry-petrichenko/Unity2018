@@ -1,35 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Scripts;
-using Units.OccupatedMap;
 using Units.OneUnit.Info;
 using Units.OneUnit.StatesControllers.Base;
-using Units.PathFinder;
-using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class NoWayHostileController : Disposable, IActivatable
     {
-        private IOneUnitController _oneUnitController;
-        private IOccupatedPossitionsMap _occupatedPossitionsMap;
-        private IGrid _grid;
-        private IUnitInfoExternal _unitInfo;
+        private readonly IFreePossitionsMap _freePossitionsMap;
+        private readonly IUnitInfoExternal _unitInfo;
+        private readonly IBaseActionController _baseActionController;
+
         private List<KeyValuePair<IntVector2, int>> _freePositions;
-        private IBaseActionController _baseActionController;
-        
+
         public NoWayHostileController(
-            IOccupatedPossitionsMap occupatedPossitionsMap,
+            IFreePossitionsMap freePossitionsMap,
             IUnitInfoExternal unitInfo,
-            IBaseActionController baseActionController,
-            IGrid grid
-            )
+            IBaseActionController baseActionController)
         {
-            _occupatedPossitionsMap = occupatedPossitionsMap;
+            _freePossitionsMap = freePossitionsMap;
             _unitInfo = unitInfo;
             _baseActionController = baseActionController;
-            
-            _grid = grid;
         }
 
         public void Activate()
@@ -54,23 +46,16 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
-            Debug.Log("NoWayToAttackPointHandler");
-            IntVector2 freePosition = GetFirstFreePositionInUnitRange(_unitInfo.AttackTarget.Position);
-            if (Equals(freePosition, IntVector2Constant.UNASSIGNET))
-            {
-                Debug.Log("wait " + position);
-                _baseActionController.WaitPosition(position);
-                return;
-            }
-            
+            IntVector2 freePosition = GetFirstFreePositionInUnitRange(GetAttackTargetPosition());
             _baseActionController.MoveToPosition(freePosition);
         }
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
         {
+            var adjacentPoints = position.GetAdjacentPoints(_freePossitionsMap.IsFreePosition); //AdjacentPointsResolver.GetFreeAdjacentUnitPoints
+
             _freePositions = new List<KeyValuePair<IntVector2, int>>();
-            var adjacentPoints = position.GetAdjacentPoints(IsFreePosition);
-            adjacentPoints.ForEach(point => AddFreePosition(point));
+            adjacentPoints.ForEach(point => AddFreePosition(_freePositions, point));
 
             _freePositions.Sort(
                 delegate(KeyValuePair<IntVector2, int> pair1,
@@ -80,17 +65,12 @@ namespace Units.OneUnit.StatesControllers.Hostile
                 }
             );
 
-            if (_freePositions.Count > 0)
-            {
-                return _freePositions[0].Key;
-            }
-
-            return IntVector2Constant.UNASSIGNET;
+            return _freePositions[0].Key;
         }
 
-        private void AddFreePosition(IntVector2 position)
+        private void AddFreePosition(List<KeyValuePair<IntVector2, int>> positions, IntVector2 position)
         {
-            _freePositions.Add(new KeyValuePair<IntVector2, int>(position, GetH(position)));
+            positions.Add(new KeyValuePair<IntVector2, int>(position, GetH(position)));
         }
 
         private int GetH(IntVector2 intVector2)
@@ -98,10 +78,15 @@ namespace Units.OneUnit.StatesControllers.Hostile
             return Math.Abs(_baseActionController.Position.x - intVector2.x) +
                 Math.Abs(_baseActionController.Position.y - intVector2.y);
         }
-        
-        private bool IsFreePosition(IntVector2 position)
+
+        private IntVector2 GetAttackTargetPosition()
         {
-            return _grid.GetCell(position) && _occupatedPossitionsMap.IsVacantPosition(position);
+            if (_unitInfo.AttackTarget == null || _unitInfo.AttackTarget.Position.Equals(IntVector2Constant.UNASSIGNET))
+            {
+                throw new Exception(GetType().Name + ": " + "unitInfo.AttackTarget cannot be NULL");
+            }
+
+            return _unitInfo.AttackTarget.Position;
         }
 
         protected override void DisposeInternal()

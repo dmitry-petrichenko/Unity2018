@@ -5,13 +5,34 @@ namespace Scripts
 {
     public static class IntVector2Extensions
     {
-        public static List<IntVector2> GetAdjacentPoints(this IntVector2 point, Predicate<IntVector2> isValid = null)
+        public static List<IntVector2> GetAdjacentPoints(this IntVector2 point, Predicate<IntVector2> isValid = null, int radiusValue = 1)
+        {
+            if (radiusValue <= 0)
+            {
+                throw new Exception("IntVector2 radiusValue cannot be less than 1");
+            }
+
+            var resultList = new List<IntVector2>();
+            var b = GetPointsInRange(point, isValid, radiusValue);
+            var s = GetPointsInRange(point, isValid, radiusValue - 1);
+            b.ForEach(i =>
+            {
+                if (!s.Contains(i))
+                {
+                    resultList.Add(i);
+                }
+            });
+
+            return resultList;
+        }
+
+        private static List<IntVector2> GetPointsInRange(IntVector2 point, Predicate<IntVector2> isValid = null, int range = 0)
         {
             var resultList = new List<IntVector2>();
             IntVector2 tempPoint;
-            for (int i = -1; i < 2; i++)
+            for (int i = -range; i <= range; i++)
             {
-                for (int j = -1; j < 2; j++)
+                for (int j = -range; j <= range; j++)
                 {
                     tempPoint = new IntVector2(point.x + i, point.y + j);
                     var free = isValid != null ? isValid.Invoke(tempPoint) : true;
