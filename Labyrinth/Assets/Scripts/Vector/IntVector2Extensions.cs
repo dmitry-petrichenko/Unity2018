@@ -49,6 +49,6 @@ namespace Scripts
     
     public struct IntVector2Constant
     {
-        public static IntVector2 UNASSIGNET = new IntVector2(-1000, -1000);
+        public static IntVector2 UNASSIGNET = new IntVector2(Int32.MinValue, Int32.MinValue);
     }
 }

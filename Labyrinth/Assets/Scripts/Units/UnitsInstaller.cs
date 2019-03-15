@@ -68,7 +68,7 @@ namespace Units
             builder.CreateScopeForType<StateController>(InitializeStateComponents).As<IStateControllerExternal>().As<IStateControllerInternal>().SingleInstance();
             builder.RegisterType<LifeController>().As<ILifeController>().SingleInstance();
             builder.RegisterType<HostileController>().As<IHostileController>().SingleInstance();
-            builder.RegisterType<IFreePossitionsMap>().As<FreePositionsMap>().SingleInstance();
+            builder.RegisterType<FreePositionsMap>().As<IFreePossitionsMap>().SingleInstance();
             builder.RegisterType<EventDispatcher>().As<IEventDispatcher>().SingleInstance();
             builder.RegisterType<PlacidController>().As<IPlacidController>().SingleInstance();
             builder.RegisterType<AggressiveBehaviour>().As<IAgressiveBehaviour>().SingleInstance();

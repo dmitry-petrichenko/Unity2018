@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Scripts;
 using Units.OneUnit.Info;
 using Units.OneUnit.StatesControllers.Base;
+using UnitTests.StatesControllers.Hostile;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
@@ -52,7 +53,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
         {
-            var adjacentPoints = position.GetAdjacentPoints(_freePossitionsMap.IsFreePosition); //AdjacentPointsResolver.GetFreeAdjacentUnitPoints
+            var adjacentPoints = AdjacentPointsResolver.GetFreeAdjacentUnitPoints(position, _freePossitionsMap.IsFreePosition);
 
             _freePositions = new List<KeyValuePair<IntVector2, int>>();
             adjacentPoints.ForEach(point => AddFreePosition(_freePositions, point));
