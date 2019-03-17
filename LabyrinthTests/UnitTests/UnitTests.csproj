@@ -91,6 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeathControllerTests.cs" />
+    <Compile Include="Events\DeadNotifierTests.cs" />
+    <Compile Include="Events\PositionalMock.cs" />
     <Compile Include="Extensions\AutofacExtensionsTests.cs" />
     <Compile Include="Moving\MoveStepByStepTestData1.cs" />
     <Compile Include="Moving\MoveStepByStepTests.cs" />

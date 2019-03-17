@@ -1,12 +1,11 @@
 using System;
 using Scripts;
+using Units.OneUnit.StatesControllers;
 
 namespace Units.OneUnit
 {
-    public interface IOneUnitApi : IDisposable
-    {
-        IntVector2 Position { get; }
-        
+    public interface IOneUnitApi : IPositional, IDisposable
+    {        
         void MoveTo(IntVector2 position);
         void Wait();
         void Wait(IntVector2 position);
