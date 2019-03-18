@@ -5,6 +5,12 @@ namespace Scripts
 {
     public static class IntVector2Extensions
     {
+        public static int GetEmpiricalValueForPoint(this IntVector2 point, IntVector2 otherPoint)
+        {
+            return Math.Abs(point.x - otherPoint.x) +
+                   Math.Abs(point.y - otherPoint.y);
+        }
+        
         public static List<IntVector2> GetAdjacentPoints(this IntVector2 point, Predicate<IntVector2> isValid = null, int radiusValue = 1)
         {
             if (radiusValue <= 0)

@@ -77,13 +77,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private void AddFreePosition(List<KeyValuePair<IntVector2, int>> positions, IntVector2 position)
         {
-            positions.Add(new KeyValuePair<IntVector2, int>(position, GetH(position)));
-        }
-
-        private int GetH(IntVector2 intVector2)
-        {
-            return Math.Abs(_baseActionController.Position.x - intVector2.x) +
-                Math.Abs(_baseActionController.Position.y - intVector2.y);
+            positions.Add(new KeyValuePair<IntVector2, int>(position, _baseActionController.Position.GetEmpiricalValueForPoint(position)));
         }
 
         private IntVector2 GetAttackTargetPosition()
