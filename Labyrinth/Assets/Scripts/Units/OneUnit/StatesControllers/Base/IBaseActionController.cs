@@ -12,6 +12,7 @@ namespace Units.OneUnit.StatesControllers.Base
         void MoveToPosition(IntVector2 position);
         void SetOnPosition(IntVector2 position);
         void SetHealthBarValue(float value);
+        void MoveToAndMakeAction(IntVector2 position, Action action);
         void Die();
         
         IntVector2 Position { get; }

@@ -56,6 +56,21 @@ namespace Units.OneUnit.StatesControllers.Base
             IsValidPosition(position);
             _pathGeneratorController.MoveToPosition(position);
         } 
+        
+        public void MoveToAndMakeAction(IntVector2 position, Action action)
+        {
+            _moveToAction = action;
+            _moveStepByStepController.MovePathComplete += MoveToAndMakeActionHandler;
+            _pathGeneratorController.MoveToPosition(position);
+        }
+
+        private Action _moveToAction;
+        private void MoveToAndMakeActionHandler()
+        {
+            _moveToAction?.Invoke();
+            _moveStepByStepController.MovePathComplete -= MoveToAndMakeActionHandler;
+            _moveToAction = null;
+        }
 
         public void Wait() => _unitGameObjectController.Wait();
         
@@ -108,6 +123,7 @@ namespace Units.OneUnit.StatesControllers.Base
         {
             _pathGeneratorController.NoWayToDestination -= NoWayToDestinationHandler;
             _moveStepByStepController.NoWayToDestination -= NoWayToDestinationHandler;
+            _moveStepByStepController.MovePathComplete -= MoveToAndMakeActionHandler;
             base.DisposeInternal();
         }
 

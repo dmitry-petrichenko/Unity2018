@@ -48,12 +48,18 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void NoWayToAttackPointHandler(IntVector2 position)
         {
             IntVector2 freePosition = GetFirstFreePositionInUnitRange(GetAttackTargetPosition());
+            if (_baseActionController.Destination.Equals(freePosition))
+            {
+                freePosition = GetFirstFreePositionInUnitRange(GetAttackTargetPosition(), 2);
+                _baseActionController.Wait();
+            }
+
             _baseActionController.MoveToPosition(freePosition);
         }
 
-        private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position)
+        private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position, int range = 1)
         {
-            var adjacentPoints = AdjacentPointsResolver.GetFreeAdjacentUnitPoints(position, _freePossitionsMap.IsFreePosition);
+            var adjacentPoints = AdjacentPointsResolver.GetFreeAdjacentUnitPoints(position, _freePossitionsMap.IsFreePosition, range);
 
             _freePositions = new List<KeyValuePair<IntVector2, int>>();
             adjacentPoints.ForEach(point => AddFreePosition(_freePositions, point));

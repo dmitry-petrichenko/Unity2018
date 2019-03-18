@@ -7,10 +7,9 @@ namespace UnitTests.StatesControllers.Hostile
 {
     public class AdjacentPointsResolver
     {
-        public static List<IntVector2> GetFreeAdjacentUnitPoints(IntVector2 unitPosition, Predicate<IntVector2> isValid)
+        public static List<IntVector2> GetFreeAdjacentUnitPoints(IntVector2 unitPosition, Predicate<IntVector2> isValid, int radiusValue = 1)
         {
             var adjacentPoints = new List<IntVector2>();
-            int radiusValue = 1;
             while (radiusValue < 5)
             {
                 adjacentPoints = unitPosition.GetAdjacentPoints(isValid, radiusValue);
