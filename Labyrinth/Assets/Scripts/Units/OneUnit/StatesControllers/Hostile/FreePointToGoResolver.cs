@@ -19,7 +19,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         public IntVector2 GetFreePoint()
         {
-            
+            return IntVector2Constant.UNASSIGNET;
         }
     }
 }
