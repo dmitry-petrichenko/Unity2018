@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Units.OneUnit.StatesControllers.Hostile;
 
 namespace UnitTests.StatesControllers.Hostile
 {
-    public class AdjacentPointsResolver
+    public class AdjacentPointsResolver : IAdjacentPointsResolver
     {
-        public static List<IntVector2> GetFreeAdjacentUnitPoints(IntVector2 unitPosition, Predicate<IntVector2> isValid, int radiusValue = 1)
+        public List<IntVector2> GetFreeAdjacentUnitPoints(IntVector2 unitPosition, Predicate<IntVector2> isValid, int radiusValue = 1)
         {
             var adjacentPoints = new List<IntVector2>();
             while (radiusValue < 5)

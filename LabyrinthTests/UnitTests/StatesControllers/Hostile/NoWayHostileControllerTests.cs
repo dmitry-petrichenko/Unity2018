@@ -47,6 +47,7 @@ namespace Tests.Scripts.Units.StatesControllers.Hostile
         {
             var n = new NoWayHostileController(_freePossitionsMap,
                 _unitInfoExternal,
+                Mock.Create<IAdjacentPointsResolver>(),
                 _baseActionController);
 
             return n;

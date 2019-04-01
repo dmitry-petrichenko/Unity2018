@@ -12,17 +12,20 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private readonly IFreePossitionsMap _freePossitionsMap;
         private readonly IUnitInfoExternal _unitInfo;
         private readonly IBaseActionController _baseActionController;
+        private readonly IAdjacentPointsResolver _adjacentPointsResolver;
 
         private List<KeyValuePair<IntVector2, int>> _freePositions;
 
         public NoWayHostileController(
             IFreePossitionsMap freePossitionsMap,
             IUnitInfoExternal unitInfo,
+            IAdjacentPointsResolver adjacentPointsResolver,
             IBaseActionController baseActionController)
         {
             _freePossitionsMap = freePossitionsMap;
             _unitInfo = unitInfo;
             _baseActionController = baseActionController;
+            _adjacentPointsResolver = adjacentPointsResolver;
         }
 
         public void Activate()
@@ -59,7 +62,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private IntVector2 GetFirstFreePositionInUnitRange(IntVector2 position, int range = 1)
         {
-            var adjacentPoints = AdjacentPointsResolver.GetFreeAdjacentUnitPoints(position, _freePossitionsMap.IsFreePosition, range);
+            var adjacentPoints = _adjacentPointsResolver.GetFreeAdjacentUnitPoints(position, _freePossitionsMap.IsFreePosition, range);
 
             _freePositions = new List<KeyValuePair<IntVector2, int>>();
             adjacentPoints.ForEach(point => AddFreePosition(_freePositions, point));

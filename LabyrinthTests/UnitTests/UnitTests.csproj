@@ -105,7 +105,13 @@
     <Compile Include="PathFinder\PathFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatesControllers\Hostile\BaseActionControlleMock.cs" />
+    <Compile Include="StatesControllers\Hostile\FreePointToGo\FreePointToGoResolverTests.cs" />
+    <Compile Include="StatesControllers\Hostile\FreePointToGo\GetFreePointNearestTestData.cs" />
+    <Compile Include="StatesControllers\Hostile\FreePointToGo\GetFreePointThowNoValidPoints.cs" />
     <Compile Include="StatesControllers\Hostile\NoWayHostileControllerTests.cs" />
+    <Compile Include="StatesControllers\Hostile\WayHostile\OstacleStateChangedTestData.cs" />
+    <Compile Include="StatesControllers\Hostile\WayHostile\WayHostileControllerTests.cs" />
+    <Compile Include="StatesControllers\Hostile\WayHostile\WayHostileMoveToTestData.cs" />
     <Compile Include="States\StateControllerTests.cs" />
     <Compile Include="UnitGameObject\AnimationControllerMock.cs" />
     <Compile Include="UnitGameObject\HealthControllerMock.cs" />

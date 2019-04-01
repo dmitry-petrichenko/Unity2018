@@ -1,6 +1,5 @@
 using System;
 using Scripts;
-using Units.OneUnit.Info;
 using Units.OneUnit.StatesControllers.Base;
 
 namespace Units.OneUnit.StatesControllers.Hostile
@@ -10,34 +9,36 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private readonly IFreePointToGoResolver _freePointToGoResolver;
         private readonly IWaitObstacleController _waitObstacleController;
         private readonly IBaseActionController _baseActionController;
-        private readonly IUnitInfoExternal _unitInfo;
 
         private IntVector2 _freePointToGo;
-        
+
+        private IntVector2 AttackPosition { get; set; }
+
         public WayHostileController(
             IFreePointToGoResolver freePointToGoResolver,
             IBaseActionController baseActionController,
-            IUnitInfoExternal unitInfo,
             IWaitObstacleController waitObstacleController)
         {
             _freePointToGoResolver = freePointToGoResolver;
             _waitObstacleController = waitObstacleController;
             _baseActionController = baseActionController;
-            _unitInfo = unitInfo;
 
-            SubscribeOnEvents();
+            AttackPosition = IntVector2Constant.UNASSIGNET;
         }
 
         public event Action MoveToPositionComplete;
-        
+
         public void MoveToPosition(IntVector2 position)
         {
+            Reset();
+            AttackPosition = position;
+            _baseActionController.NoWayToDestination += NoWayToPositionHandler;
             TryMoveToPosition(position);
         }
-        
+
         private void TryMoveToPosition(IntVector2 position)
         {
-            _freePointToGo = _freePointToGoResolver.GetFreePoint();
+            _freePointToGo = _freePointToGoResolver.GetFreePoint(position);
             _baseActionController.MovePathComplete += MovePathCompleteHandler;
             _baseActionController.MoveToPosition(_freePointToGo);
         }
@@ -47,11 +48,11 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
             if (IsPointSufficient(_freePointToGo))
             {
-                MoveToPositionComplete.Invoke();
+                Complete();
             }
             else
             {
-                _waitObstacleController.Wait();
+                _waitObstacleController.Wait(_freePointToGo);
                 _waitObstacleController.OstacleStateChanged += OstacleStateChangedHandler;
             }
         }
@@ -59,28 +60,37 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void OstacleStateChangedHandler()
         {
             _waitObstacleController.OstacleStateChanged -= OstacleStateChangedHandler;
-            TryMoveToPosition(_unitInfo.AttackTarget.Position);
+            TryMoveToPosition(AttackPosition);
         }
 
         private bool IsPointSufficient(IntVector2 position)
         {
-            return true;
+            var adjacentPoints = AttackPosition.GetAdjacentPoints();
+            return adjacentPoints.Contains(position);
         }
-        
+
         private void NoWayToPositionHandler(IntVector2 obj)
         {
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
-            TryMoveToPosition(_unitInfo.AttackTarget.Position);
-        }
-        
-        private void SubscribeOnEvents()
-        {
-            _baseActionController.NoWayToDestination += NoWayToPositionHandler;
+            TryMoveToPosition(AttackPosition);
         }
 
-        private void UnsubscribeFromEvents()
+        private void Complete()
         {
+            Reset();
+            MoveToPositionComplete?.Invoke();
+        }
+
+        private void Reset()
+        {
+            AttackPosition = IntVector2Constant.UNASSIGNET;
             _baseActionController.NoWayToDestination -= NoWayToPositionHandler;
+        }
+
+        public void DisposeInternal()
+        {
+            Reset();
+            MoveToPositionComplete = null;
         }
     }
 }

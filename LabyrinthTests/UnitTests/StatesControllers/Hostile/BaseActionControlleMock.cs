@@ -49,6 +49,11 @@ namespace Tests.Scripts.Units.StatesControllers.Hostile
             throw new NotImplementedException();
         }
 
+        public void MoveToAndMakeAction(IntVector2 position, Action action)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Die()
         {
             throw new NotImplementedException();
