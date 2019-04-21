@@ -8,6 +8,11 @@ namespace Units.OneUnit.StatesControllers.Hostile
         public void Wait(IntVector2 position)
         {
         }
+        
+        public void Cancel()
+        {
+            throw new NotImplementedException();
+        }
 
         public event Action OstacleStateChanged;
     }
