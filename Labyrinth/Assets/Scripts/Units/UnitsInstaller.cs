@@ -24,6 +24,7 @@ using Units.OneUnit.StatesControllers.Hostile;
 using Units.OneUnit.StatesControllers.Placid;
 using Units.PathFinder;
 using Units.Player;
+using UnitTests.StatesControllers.Hostile;
 
 namespace Units
 {
@@ -80,6 +81,9 @@ namespace Units
             builder.RegisterType<NoWayHostileController>().AsSelf().SingleInstance();
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
+            builder.RegisterType<WaveEventRaiser>().As<IWaveEventRiser>().SingleInstance();
+            
+            builder.RegisterType<AdjacentPointsResolver>().As<IAdjacentPointsResolver>().SingleInstance();
             
             builder.CreateScopeForType<UnitGameObjectController>(InstallUnitGameObjectComponents).As<IUnitGameObjectController>().SingleInstance();
         }

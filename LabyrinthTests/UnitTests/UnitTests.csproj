@@ -121,6 +121,7 @@
     <Compile Include="UnitsTableTests.cs" />
     <Compile Include="Vectors\IntVector2TestData.cs" />
     <Compile Include="Vectors\IntVector2Tests.cs" />
+    <Compile Include="WaveEventRaiser\WaveEventRaiserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
