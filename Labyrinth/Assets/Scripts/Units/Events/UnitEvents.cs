@@ -1,5 +1,6 @@
 using System;
 using Units.OneUnit;
+using Units.OneUnit.StatesControllers;
 using Units.OneUnit.StatesControllers.Base;
 using Units.OneUnit.StatesControllers.Placid;
 
@@ -17,17 +18,30 @@ namespace Scripts.Units.Events
         private readonly IPlacidController _placidController;
         private readonly IBaseActionController _baseActionController;
         private readonly ILifeController _lifeController;
+        private readonly IWaveEventRiser _waveEventRiser;
         
         public UnitEvents(
             IBaseActionController baseActionController,
             ILifeController lifeController,
+            IWaveEventRiser waveEventRiser,
             IPlacidController placidController)
         {
             _placidController = placidController;
             _baseActionController = baseActionController;
             _lifeController = lifeController;
+            _waveEventRiser = waveEventRiser;
 
             SubscribeOnEvents();
+        }
+
+        public void AddPositionChangedHandler(Action handler, IPositional subscriber)
+        {
+            _waveEventRiser.AddPositionChangedHandler(handler, subscriber);
+        }
+
+        public void RemovePositionChangedHandler(Action handler, IPositional subscriber)
+        {
+            _waveEventRiser.RemovePositionChangedHandler(handler, subscriber);
         }
         
         protected override void DisposeInternal()

@@ -1,4 +1,6 @@
 using System;
+using Units.OneUnit;
+using Units.OneUnit.StatesControllers;
 
 namespace Scripts.Units.Events
 {
@@ -10,5 +12,7 @@ namespace Scripts.Units.Events
         event Action AttackComplete;
         event Action HealthEnded;
         event Action DieComplete;
+        void AddPositionChangedHandler(Action handler, IPositional subscriber);
+        void RemovePositionChangedHandler(Action handler, IPositional subscriber);
     }
 }

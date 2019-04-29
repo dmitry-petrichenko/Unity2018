@@ -84,6 +84,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void Reset()
         {
             AttackPosition = IntVector2Constant.UNASSIGNET;
+            _waitObstacleController.Cancel();
             _baseActionController.NoWayToDestination -= NoWayToPositionHandler;
         }
 

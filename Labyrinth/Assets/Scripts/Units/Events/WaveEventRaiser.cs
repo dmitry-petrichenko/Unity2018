@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Units.OneUnit;
+using Units.OneUnit.StatesControllers;
 using Units.OneUnit.StatesControllers.Base;
 
 namespace Scripts.Units.Events
 {
     public class WaveEventRaiser : Disposable, IWaveEventRiser
     {
-        private Dictionary<IOneUnitController, Action> _subscribers;
+        private Dictionary<IPositional, Action> _subscribers;
         
         private readonly IBaseActionController _baseActionController;
 
@@ -16,7 +17,7 @@ namespace Scripts.Units.Events
             _baseActionController = baseActionController;
             _baseActionController.MoveTileStart += MoveTileStartHandler;
             
-            _subscribers = new Dictionary<IOneUnitController, Action>();
+            _subscribers = new Dictionary<IPositional, Action>();
         }
 
         private void MoveTileStartHandler()
@@ -38,12 +39,12 @@ namespace Scripts.Units.Events
             }
         }
 
-        public void AddPositionChangedHandler(Action handler, IOneUnitController subscriber)
+        public void AddPositionChangedHandler(Action handler, IPositional subscriber)
         {
             _subscribers.Add(subscriber, handler);
         }
 
-        public void RemovePositionChangedHandler(Action handler, IOneUnitController subscriber)
+        public void RemovePositionChangedHandler(Action handler, IPositional subscriber)
         {
             if (_subscribers.ContainsKey(subscriber))
                 _subscribers.Remove(subscriber);

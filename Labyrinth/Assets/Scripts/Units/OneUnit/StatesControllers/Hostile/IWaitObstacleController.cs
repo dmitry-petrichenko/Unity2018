@@ -7,6 +7,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
     {
         void Wait(IntVector2 position);
         void Cancel();
+        void SetAttackPosition(IntVector2 position);
         event Action OstacleStateChanged;
     }
 }

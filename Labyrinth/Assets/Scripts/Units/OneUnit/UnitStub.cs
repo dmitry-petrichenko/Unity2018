@@ -2,6 +2,7 @@ using System;
 using Scripts;
 using Scripts.Units.Events;
 using Units.OneUnit.Info;
+using Units.OneUnit.StatesControllers;
 using UnityEngine;
 
 namespace Units.OneUnit
@@ -41,5 +42,12 @@ namespace Units.OneUnit
         public event Action AttackComplete;
         public event Action HealthEnded;
         public event Action DieComplete;
+        public void AddPositionChangedHandler(Action handler, IPositional subscriber)
+        {
+        }
+
+        public void RemovePositionChangedHandler(Action handler, IPositional subscriber)
+        {
+        }
     }
 }

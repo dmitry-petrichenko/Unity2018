@@ -4,7 +4,7 @@ using Scripts;
 
 namespace Units.OneUnit.StatesControllers.Base
 {
-    public interface IBaseActionController : IDisposable
+    public interface IBaseActionController : IPositional, IDisposable
     {
         void Wait();
         void WaitPosition(IntVector2 position);
