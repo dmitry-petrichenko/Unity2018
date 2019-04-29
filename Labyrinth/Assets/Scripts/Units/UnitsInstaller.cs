@@ -82,6 +82,10 @@ namespace Units
             builder.RegisterType<UnitEvents>().As<IUnitEvents>().SingleInstance();
             builder.RegisterType<ApplyDamageController>().As<IApplyDamageController>().SingleInstance();
             builder.RegisterType<WaveEventRaiser>().As<IWaveEventRiser>().SingleInstance();
+            builder.RegisterType<WayHostileController>().As<IWayHostileController>().SingleInstance();
+            builder.RegisterType<FreePointToGoResolver>().As<IFreePointToGoResolver>().SingleInstance();
+            builder.RegisterType<WaitObstacleController>().As<IWaitObstacleController>().SingleInstance();
+            builder.RegisterType<WayHostileControllerParameters>().As<IWayHostileControllerParameters>().SingleInstance();
             
             builder.RegisterType<AdjacentPointsResolver>().As<IAdjacentPointsResolver>().SingleInstance();
             

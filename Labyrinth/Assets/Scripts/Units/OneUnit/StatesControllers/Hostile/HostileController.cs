@@ -12,17 +12,20 @@ namespace Units.OneUnit.StatesControllers.Hostile
         
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly NoWayHostileController _noWayHostileController;
+        private readonly IWayHostileController _wayHostileController;
 
         public HostileController(
             IBaseActionController baseActionController,
             TargetOvertaker targetOvertaker,
             NoWayHostileController noWayHostileController,
+            IWayHostileController wayHostileController,
             IOccupatedPossitionsMap occupatedPossitionsMap)
         {
             _baseActionController = baseActionController;
             _targetOvertaker = targetOvertaker;
             _occupatedPossitionsMap = occupatedPossitionsMap;
             _noWayHostileController = noWayHostileController;
+            _wayHostileController = wayHostileController;
         }
 
         public void Activate()
@@ -38,20 +41,25 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         public void Cancel()
         {
-            _targetOvertaker.Complete -= OvertakeTargetHandler;
-            _targetOvertaker.Cancel();
+            _wayHostileController.MoveToPositionComplete -= OvertakeTargetHandler;
+            _wayHostileController.Cancel();
+            //_targetOvertaker.Complete -= OvertakeTargetHandler;
+            //_targetOvertaker.Cancel();
         }
         
         public void Attack(IntVector2 position)
         {
             _targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
-            _targetOvertaker.Complete += OvertakeTargetHandler;
-            _targetOvertaker.Overtake(_targetUnit);
+            _wayHostileController.MoveToPosition(_targetUnit.Position);
+            _wayHostileController.MoveToPositionComplete += OvertakeTargetHandler;
+            //_targetOvertaker.Complete += OvertakeTargetHandler;
+            //_targetOvertaker.Overtake(_targetUnit);
         }
 
         private void OvertakeTargetHandler()
         {
-            _targetOvertaker.Complete -= OvertakeTargetHandler;
+            _wayHostileController.MoveToPositionComplete -= OvertakeTargetHandler;
+            //_targetOvertaker.Complete -= OvertakeTargetHandler;
             _baseActionController.Attack(_targetUnit.Position);
         }
 

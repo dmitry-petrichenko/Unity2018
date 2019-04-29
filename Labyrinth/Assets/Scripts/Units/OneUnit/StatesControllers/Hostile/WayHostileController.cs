@@ -26,6 +26,11 @@ namespace Units.OneUnit.StatesControllers.Hostile
             AttackPosition = IntVector2Constant.UNASSIGNET;
         }
 
+        public void Cancel()
+        {
+            Reset();
+        }
+
         public event Action MoveToPositionComplete;
 
         public void MoveToPosition(IntVector2 position)
