@@ -35,10 +35,17 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         public void MoveToPosition(IntVector2 position)
         {
-            Reset();
-            AttackPosition = position;
-            _baseActionController.NoWayToDestination += NoWayToPositionHandler;
-            TryMoveToPosition(position);
+            if (IsPointSufficient(position, _baseActionController.Position))
+            {
+                Complete();
+            }
+            else
+            {
+                Reset();
+                AttackPosition = position;
+                _baseActionController.NoWayToDestination += NoWayToPositionHandler;
+                TryMoveToPosition(position);
+            }
         }
 
         private void TryMoveToPosition(IntVector2 position)
@@ -51,7 +58,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void MovePathCompleteHandler()
         {
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
-            if (IsPointSufficient(_freePointToGo))
+            if (IsPointSufficient(AttackPosition, _freePointToGo))
             {
                 Complete();
             }
@@ -68,10 +75,9 @@ namespace Units.OneUnit.StatesControllers.Hostile
             TryMoveToPosition(AttackPosition);
         }
 
-        private bool IsPointSufficient(IntVector2 position)
+        private bool IsPointSufficient(IntVector2 attackPosition, IntVector2 currentPosition)
         {
-            var adjacentPoints = AttackPosition.GetAdjacentPoints();
-            return adjacentPoints.Contains(position);
+            return attackPosition.GetAdjacentPoints().Contains(currentPosition);
         }
 
         private void NoWayToPositionHandler(IntVector2 obj)

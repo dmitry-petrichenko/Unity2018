@@ -1,6 +1,8 @@
 ﻿using System;
 using Scripts;
+using Scripts.CustomDebug;
 using Units.OneUnit.StatesControllers.Base.GameObject;
+using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Base
 {
@@ -136,7 +138,7 @@ namespace Units.OneUnit.StatesControllers.Base
         {
             if (position.Equals(IntVector2Constant.UNASSIGNET))
             {
-                throw new Exception(GetType().Name + " Not valid position");
+                ApplicationDebugger.ThrowException(GetType().Name + " Not valid position");
             }
         }
         
@@ -145,7 +147,7 @@ namespace Units.OneUnit.StatesControllers.Base
             var adjacentPoints = _unitGameObjectController.Position.GetAdjacentPoints();
             if(!adjacentPoints.Contains(position))
             {
-                throw new Exception(GetType().Name + " Not valid position for action");
+                ApplicationDebugger.ThrowException(GetType().Name + " Not valid position for action");
             }
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Scripts.CustomDebug;
 using Units.OneUnit.Info;
 using Units.OneUnit.StatesControllers.Base;
 using Units.PathFinder;
@@ -38,7 +39,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
             var result = vectorInfos.Where(i => i.IsAchievable).OrderBy(i => i.EmpiricalValue).ToList();
 
             if (!result.Any())
-                throw new Exception("FreePointToGoResolver: There is no available points");
+                ApplicationDebugger.ThrowException("FreePointToGoResolver: There is no available points");
 
             return result[0].Vector;
         }

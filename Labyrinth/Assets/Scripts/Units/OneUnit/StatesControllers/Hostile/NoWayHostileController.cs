@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Scripts;
+using Scripts.CustomDebug;
 using Units.OneUnit.Info;
 using Units.OneUnit.StatesControllers.Base;
 using UnitTests.StatesControllers.Hostile;
@@ -87,7 +88,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         {
             if (_unitInfo.AttackTarget == null || _unitInfo.AttackTarget.Position.Equals(IntVector2Constant.UNASSIGNET))
             {
-                throw new Exception(GetType().Name + ": " + "unitInfo.AttackTarget cannot be NULL");
+                ApplicationDebugger.ThrowException(GetType().Name + ": " + "unitInfo.AttackTarget cannot be NULL");
             }
 
             return _unitInfo.AttackTarget.Position;

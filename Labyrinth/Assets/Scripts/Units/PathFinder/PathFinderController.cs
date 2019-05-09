@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Scripts.CustomDebug;
 using Scripts.Extensions;
 
 namespace Units.PathFinder
@@ -69,7 +70,7 @@ namespace Units.PathFinder
             Vertex2D first = CreateVertex2D(point, null);
             if (first == null)
             {
-                throw new Exception("PathFinderController: first point in path is not empty");
+                ApplicationDebugger.ThrowException("PathFinderController: first point in path is not empty");
             }
             AddInOpenList(first);
 

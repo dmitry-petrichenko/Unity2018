@@ -1,5 +1,6 @@
 using System;
 using Scripts;
+using Scripts.CustomDebug;
 using Units.OneUnit.StatesControllers.Base.GameObject.Animation;
 using Units.OneUnit.StatesControllers.Base.GameObject.Health;
 using Units.OneUnit.StatesControllers.Base.GameObject.Motion;
@@ -52,7 +53,7 @@ namespace Units.OneUnit.StatesControllers.Base.GameObject
             var adjacentPoints = _motionController.Position.GetAdjacentPoints();
             
             if (!adjacentPoints.Contains(position))
-                throw new Exception("Attacked possition isn't in unit range");
+                ApplicationDebugger.ThrowException("Attacked possition isn't in unit range");
             
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayAttackAnimation();

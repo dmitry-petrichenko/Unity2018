@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scripts;
+using Scripts.CustomDebug;
 using Units.OneUnit.StatesControllers.Hostile;
 
 namespace UnitTests.StatesControllers.Hostile
@@ -20,7 +21,8 @@ namespace UnitTests.StatesControllers.Hostile
                 }
             }
 
-            throw new Exception("AdjacentPointsResolver: There are no adjacent points in unit range");
+            ApplicationDebugger.ThrowException("AdjacentPointsResolver: There are no adjacent points in unit range");
+            throw new Exception();
         }
     }
 }

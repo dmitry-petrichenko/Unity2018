@@ -50,8 +50,8 @@ namespace Units.OneUnit.StatesControllers.Hostile
         public void Attack(IntVector2 position)
         {
             _targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
-            _wayHostileController.MoveToPosition(_targetUnit.Position);
             _wayHostileController.MoveToPositionComplete += OvertakeTargetHandler;
+            _wayHostileController.MoveToPosition(_targetUnit.Position);
             //_targetOvertaker.Complete += OvertakeTargetHandler;
             //_targetOvertaker.Overtake(_targetUnit);
         }

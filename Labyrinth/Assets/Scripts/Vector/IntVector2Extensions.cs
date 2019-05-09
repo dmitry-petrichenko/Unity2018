@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Scripts.CustomDebug;
 
 namespace Scripts
 {
@@ -15,7 +16,7 @@ namespace Scripts
         {
             if (radiusValue <= 0)
             {
-                throw new Exception("IntVector2 radiusValue cannot be less than 1");
+                ApplicationDebugger.ThrowException("IntVector2 radiusValue cannot be less than 1");
             }
 
             var resultList = new List<IntVector2>();
