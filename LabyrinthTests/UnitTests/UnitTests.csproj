@@ -99,6 +99,8 @@
     <Compile Include="OccupatedMap\GetRegionUnitsTestData.cs" />
     <Compile Include="OccupatedMap\OccupatedMapExtensionsTests.cs" />
     <Compile Include="OccupatedMap\OneUnitControllerMock.cs" />
+    <Compile Include="OneUnitControllerMock.cs" />
+    <Compile Include="Overtaker\TargetOvertakerTests.cs" />
     <Compile Include="PathFinder\PathFinderDestinationTestData.cs" />
     <Compile Include="PathFinder\PathFinderNoWayTestData.cs" />
     <Compile Include="PathFinder\PathFinderTestData.cs" />

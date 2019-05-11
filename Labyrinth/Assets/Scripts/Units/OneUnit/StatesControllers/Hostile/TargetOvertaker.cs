@@ -9,87 +9,81 @@ namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class TargetOvertaker : Disposable
     {
-        public event Action Complete;
-        public event Action StartFollow;
-        public event Action TargetMoved;
+        public event Action OvertakeComplete;
 
         private readonly IUnitEvents _unitEvents;
+        private readonly IWayHostileController _wayHostileController;
         private readonly IBaseActionController _baseActionController;
-        private readonly IPathFinderController _pathFinderController;
         
         private IOneUnitController _target;
 
         public TargetOvertaker(
-            IPathFinderController pathFinderController,
-            IUnitEvents unitEvents,
+            IWayHostileController wayHostileController,
             IBaseActionController baseActionController)
         {
-            _pathFinderController = pathFinderController;
+            _wayHostileController = wayHostileController;
             _baseActionController = baseActionController;
-            _unitEvents = unitEvents;
         }
         
         public void Overtake(IOneUnitController target)
         {
+            Cancel();
+            
             _target = target;
-            _target.UnitEvents.MoveTileComplete += OnTargetPositionChanged;
+            _target.UnitEvents.PositionChanged += OnTargetPositionChanged;
             
-            MoveToTarget();
+            CheckComplete(_target.Position);
+        }
+        
+        public void Cancel()
+        {
+            _wayHostileController.MoveToPositionComplete -= WayHostileControllerOnMoveToPositionComplete;
+            if (_target != null)
+            {
+                _target.UnitEvents.PositionChanged -= OnTargetPositionChanged;
+                _target = null; 
+            }
         }
 
-        private void OnUnitCompleteMoveTo()
+        private void Complete()
         {
-            _unitEvents.MoveTileComplete -= OnUnitCompleteMoveTo;
-            Complete?.Invoke();
+            Cancel();
+            OvertakeComplete?.Invoke();
         }
-
-        private void OnTargetPositionChanged()
+        
+        private void CheckComplete(IntVector2 position)
         {
-            IntVector2 position = _target.Position;
-            
             if (TargetPositionInUnitRange(position))
             {
-                TargetMoved?.Invoke();
+                Complete();
             }
             else
             {
-                StartFollow?.Invoke();
-                MoveToTarget();
+                MoveToPosition(position);
             }
         }
 
-        private void MoveToTarget()
+        private void OnTargetPositionChanged(IntVector2 position)
         {
-            _unitEvents.MovePathComplete += OnUnitCompleteMoveTo;
-            List<IntVector2> path =
-                _pathFinderController.GetPath(_target.Position, _baseActionController.Position, null);
+            _wayHostileController.MoveToPositionComplete -= WayHostileControllerOnMoveToPositionComplete;
+            CheckComplete(position);
+        }
 
-            if (Equals(path[0], _baseActionController.Position))
-            {
-                _unitEvents.MoveTileComplete -= OnUnitCompleteMoveTo;
-                _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
-                Complete?.Invoke();
-            }
-            else
-            {
-                _baseActionController.MoveToPosition(path[0]);
-            }
+        private void MoveToPosition(IntVector2 position)
+        {
+            _wayHostileController.MoveToPositionComplete += WayHostileControllerOnMoveToPositionComplete;
+            _wayHostileController.MoveToPosition(position);
+        }
+
+        private void WayHostileControllerOnMoveToPositionComplete()
+        {
+            _wayHostileController.MoveToPositionComplete -= WayHostileControllerOnMoveToPositionComplete;
+            CheckComplete(_target.Position);
         }
 
         private bool TargetPositionInUnitRange(IntVector2 position)
         {
-            var adjacentPoints = position.GetAdjacentPoints();
-            return adjacentPoints.Contains(_baseActionController.Position);
-        }
-
-        public void Cancel()
-        {
-            _unitEvents.MovePathComplete -= OnUnitCompleteMoveTo;
-            if (_target != null)
-            {
-                _target.UnitEvents.MoveTileComplete -= OnTargetPositionChanged;
-                _target = null;
-            }
+            return position.GetAdjacentPoints().Contains(_baseActionController.Position);
         }
 
         protected override void DisposeInternal()

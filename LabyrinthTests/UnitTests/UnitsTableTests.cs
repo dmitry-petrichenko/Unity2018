@@ -1,6 +1,9 @@
 using Scripts;
+using Scripts.Units.Events;
+using Telerik.JustMock;
 using Tests.Scripts.Units.OccupatedMap;
 using Units.OccupatedMap;
+using Units.OneUnit;
 using Xunit;
 
 namespace Tests.Scripts.Units
@@ -20,7 +23,9 @@ namespace Tests.Scripts.Units
         public void IsVacantPosition_Occupied_TrueFalse(bool expectedResult, int x1, int y1, int x2, int y2)
         {
             bool actualResult = false;
-            _occupatedPossitionsTable.AddUnit(new OneUnitControllerMock(new IntVector2(x1, y1)));
+            var unit = new OneUnitControllerMock(Mock.Create<IUnitEvents>());
+            unit.SetOnPosition(new IntVector2(x1, y1));
+            _occupatedPossitionsTable.AddUnit(unit);
             actualResult = _occupatedPossitionsTable.IsVacantPosition(new IntVector2(x2, y2));
 
             Assert.True(actualResult == expectedResult);
@@ -32,7 +37,8 @@ namespace Tests.Scripts.Units
         public void SetVacant_TrueFalse(bool expectedResult, int x1, int y1, int x2, int y2)
         {
             bool actualResult = false;
-            var unit = new OneUnitControllerMock(new IntVector2(x1, y1));
+            var unit = new OneUnitControllerMock(Mock.Create<IUnitEvents>());
+            unit.SetOnPosition(new IntVector2(x1, y1));
             _occupatedPossitionsTable.AddUnit(unit);
             unit.SetOnPosition(new IntVector2(x2, y2));
             actualResult = _occupatedPossitionsTable.IsVacantPosition(new IntVector2(x1, y1));
