@@ -46,14 +46,12 @@ namespace Units.OneUnit.StatesControllers.Hostile
             
             _targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
             _targetOvertaker.OvertakeComplete += OvertakeTargetHandler;
-            Debug.Log("overtake" + position.x + " "+ position.y);
             _targetOvertaker.Overtake(_targetUnit);
         }
 
         private void OvertakeTargetHandler()
         {
             Cancel();
-            Debug.Log("attack" + _targetUnit.Position.x + " " + _targetUnit.Position.y);
             _baseActionController.Attack(_targetUnit.Position);
         }
 
