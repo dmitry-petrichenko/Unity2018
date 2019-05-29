@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Scripts;
 using Units.OccupatedMap;
 using Units.OneUnit.StatesControllers.Base;
+using UnityEditorInternal;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
@@ -26,6 +27,8 @@ namespace Units.OneUnit.StatesControllers.Hostile
         {
             var units = GetUnitsInRange(_attackPosition);
             SubscribeOnUnits(units);
+            var unit = GetNearestUnit(_baseActionController.Position, units);
+            _baseActionController.WaitPosition(unit.Position);
         }
         
         public void Cancel()
@@ -37,6 +40,22 @@ namespace Units.OneUnit.StatesControllers.Hostile
         public void SetAttackPosition(IntVector2 position)
         {
             _attackPosition = position;
+        }
+
+        private IOneUnitController GetNearestUnit(IntVector2 position, List<IOneUnitController> units)
+        {
+            IOneUnitController unit = null;
+           
+            var adjacentPoints = position.GetAdjacentPoints();
+            units.ForEach(u =>
+            {
+                if (adjacentPoints.Contains(u.Position))
+                {
+                    unit = u;
+                }
+            });
+
+            return unit;
         }
 
         private void UnsubscribeFromUnits()

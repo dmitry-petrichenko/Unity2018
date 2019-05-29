@@ -1,6 +1,7 @@
 using System;
 using Scripts;
 using Units.OneUnit.StatesControllers.Base;
+using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
@@ -43,6 +44,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
             {
                 Reset();
                 AttackPosition = position;
+                _waitObstacleController.SetAttackPosition(AttackPosition);
                 _baseActionController.NoWayToDestination += NoWayToPositionHandler;
                 TryMoveToPosition(position);
             }
@@ -60,6 +62,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
             if (IsPointSufficient(AttackPosition, _freePointToGo))
             {
+                Debug.Log(AttackPosition.x + " " + AttackPosition.y + " complete");
                 Complete();
             }
             else

@@ -19,6 +19,8 @@ namespace UnitTests.StatesControllers.Hostile
                 {
                     return adjacentPoints;
                 }
+                
+                radiusValue++;
             }
 
             ApplicationDebugger.ThrowException("AdjacentPointsResolver: There are no adjacent points in unit range");
