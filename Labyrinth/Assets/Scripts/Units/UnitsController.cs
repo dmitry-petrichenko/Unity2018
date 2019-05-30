@@ -31,8 +31,7 @@ namespace Units
             _grid = grid;
             
             _player = player;
-
-            
+  
             var enemy = _enemyFactory.Invoke();
             enemy.SetOnPosition(new IntVector2(0,1));
             enemy.Attack(_player);
@@ -40,7 +39,7 @@ namespace Units
             enemy = _enemyFactory.Invoke();
             enemy.SetOnPosition(new IntVector2(1,0));
             enemy.Attack(_player);
-            
+
             enemy = _enemyFactory.Invoke();
             enemy.SetOnPosition(new IntVector2(1,1));
             enemy.Attack(_player);
@@ -49,7 +48,13 @@ namespace Units
             enemy.SetOnPosition(new IntVector2(4,4));
             enemy.Attack(_player);
             
-
+            enemy = _enemyFactory.Invoke();
+            enemy.SetOnPosition(new IntVector2(5,5));
+            enemy.Attack(_player);
+            
+            //enemy = _enemyFactory.Invoke();
+            //enemy.SetOnPosition(new IntVector2(6,6));
+            //enemy.Attack(_player);
             /*
             for (int i = 0; i < 8; i++)
             {

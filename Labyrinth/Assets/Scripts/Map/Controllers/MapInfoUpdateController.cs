@@ -42,6 +42,13 @@ namespace Scripts.Map.Controllers
 
         public void UpdateCurrentPosition(IntVector2 currentPosition)
         {
+            if (_currentPosition.Equals(IntVector2Constant.UNASSIGNET))
+            {
+                UpdateTilesInfoTime(currentPosition);
+                ResetTiles();
+                return;
+            }
+            
             int positionDisplacementX = currentPosition.x - _currentPosition.x;
             int positionDisplacementY = currentPosition.y - _currentPosition.y;
 

@@ -11,7 +11,7 @@ namespace Units.OneUnit.StatesControllers.Base.Settings
         public UnityEngine.GameObject GraphicObject { get; private set; }
         public float RotationSpeed { get; private set; }
         public int Attack { get; private set; }
-        public int TotalHealth { get; private set; }
+        public int TotalHealth { get; protected set; }
 
         public static string UNITS_ASSETS_PATH = "Units/Resources/";
 
