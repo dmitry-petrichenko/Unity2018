@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Scripts;
 using Units.OccupatedMap;
 using Units.OneUnit.StatesControllers.Base;
-using UnityEditorInternal;
+using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
     public class WaitObstacleController : IWaitObstacleController
     {
+        public event Action OstacleStateChanged;
+        
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly IBaseActionController _baseActionController;
         
@@ -25,6 +27,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         public void Wait(IntVector2 position)
         {
+            Debug.Log("Wait");
             var units = GetUnitsInRange(_attackPosition);
             SubscribeOnUnits(units);
             var unit = GetNearestUnit(_baseActionController.Position, units);
@@ -33,6 +36,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         
         public void Cancel()
         {
+            Debug.Log("Cancel");
             UnsubscribeFromUnits();
             _attackPosition = IntVector2Constant.UNASSIGNET;
         }
@@ -62,6 +66,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         {
             _subscribedUnits.ForEach(u =>
             {
+                u.UnitEvents.RemovePositionChangedHandler(OstacleStateChangedHandler, _baseActionController);
                 _subscribedUnits.Remove(u);
             });
         }
@@ -110,9 +115,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private void OstacleStateChangedHandler()
         {
-            
+            OstacleStateChanged?.Invoke();
         }
-
-        public event Action OstacleStateChanged;
     }
 }

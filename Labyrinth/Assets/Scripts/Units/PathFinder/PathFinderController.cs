@@ -195,9 +195,7 @@ namespace Units.PathFinder
         private Vertex2D CreateVertex2D(IntVector2 index, Vertex2D parent)
         {
             Vertex2D vertex2D = null;
-            var c1 = !IsPointBusy(index);
-            var c2 = !IsInCloseList(index);
-            var c3 = !IsInOccupiedIndexses(index);
+            
             if (!IsPointBusy(index) && !IsInCloseList(index) && !IsInOccupiedIndexses(index))
             {
                 vertex2D = new Vertex2D();

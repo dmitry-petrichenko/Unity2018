@@ -1,12 +1,13 @@
 using System;
 using Scripts;
 using Units.OneUnit.StatesControllers.Base;
-using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
-    public class WayHostileController : IWayHostileController
+    public class WayHostileController : Disposable, IWayHostileController
     {
+        public event Action MoveToPositionComplete;
+        
         private readonly IFreePointToGoResolver _freePointToGoResolver;
         private readonly IWaitObstacleController _waitObstacleController;
         private readonly IBaseActionController _baseActionController;
@@ -25,14 +26,13 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _baseActionController = baseActionController;
 
             AttackPosition = IntVector2Constant.UNASSIGNET;
+            _freePointToGo = IntVector2Constant.UNASSIGNET;
         }
 
         public void Cancel()
         {
             Reset();
         }
-
-        public event Action MoveToPositionComplete;
 
         public void MoveToPosition(IntVector2 position)
         {
@@ -44,7 +44,6 @@ namespace Units.OneUnit.StatesControllers.Hostile
             {
                 Reset();
                 AttackPosition = position;
-                _waitObstacleController.SetAttackPosition(AttackPosition);
                 _baseActionController.NoWayToDestination += NoWayToPositionHandler;
                 TryMoveToPosition(position);
             }
@@ -52,9 +51,29 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private void TryMoveToPosition(IntVector2 position)
         {
-            _freePointToGo = _freePointToGoResolver.GetFreePoint(position);
+            var freePointToGo = _freePointToGoResolver.GetFreePoint(position);
+            if (_freePointToGo.Equals(IntVector2Constant.UNASSIGNET))
+            {
+                _freePointToGo = freePointToGo;
+                BaseMoveToPosition(_freePointToGo);
+                return;
+            }
+            
+            if (freePointToGo.GetEmpiricalValueForPoint(AttackPosition) < _freePointToGo.GetEmpiricalValueForPoint(AttackPosition))
+            {
+                _freePointToGo = freePointToGo;
+                BaseMoveToPosition(_freePointToGo);
+            }
+            else
+            {
+                Wait(_freePointToGo, AttackPosition);
+            }
+        }
+
+        private void BaseMoveToPosition(IntVector2 position)
+        {
             _baseActionController.MovePathComplete += MovePathCompleteHandler;
-            _baseActionController.MoveToPosition(_freePointToGo);
+            _baseActionController.MoveToPosition(position);
         }
 
         private void MovePathCompleteHandler()
@@ -62,19 +81,25 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
             if (IsPointSufficient(AttackPosition, _freePointToGo))
             {
-                Debug.Log(AttackPosition.x + " " + AttackPosition.y + " complete");
                 Complete();
             }
             else
             {
-                _waitObstacleController.Wait(_freePointToGo);
-                _waitObstacleController.OstacleStateChanged += OstacleStateChangedHandler;
+                Wait(_freePointToGo, AttackPosition);
             }
+        }
+
+        private void Wait(IntVector2 position, IntVector2 attackPosition)
+        {
+            _waitObstacleController.SetAttackPosition(attackPosition);
+            _waitObstacleController.Wait(position);
+            _waitObstacleController.OstacleStateChanged += OstacleStateChangedHandler;
         }
 
         private void OstacleStateChangedHandler()
         {
             _waitObstacleController.OstacleStateChanged -= OstacleStateChangedHandler;
+            _waitObstacleController.Cancel();
             TryMoveToPosition(AttackPosition);
         }
 
@@ -102,10 +127,11 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _baseActionController.NoWayToDestination -= NoWayToPositionHandler;
         }
 
-        public void DisposeInternal()
+        protected override void DisposeInternal()
         {
             Reset();
             MoveToPositionComplete = null;
+            base.DisposeInternal();
         }
     }
 }

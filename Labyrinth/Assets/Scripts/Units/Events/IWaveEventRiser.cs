@@ -6,7 +6,7 @@ namespace Scripts.Units.Events
 {
     public interface IWaveEventRiser
     {
-        void AddPositionChangedHandler(Action handler, IPositional subscriber);
+        void AddStateChangedHandler(Action handler, IPositional subscriber);
         void RemovePositionChangedHandler(Action handler, IPositional subscriber);
     }
 }

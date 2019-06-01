@@ -8,6 +8,9 @@ namespace Scripts
     {
         public static int GetEmpiricalValueForPoint(this IntVector2 point, IntVector2 otherPoint)
         {
+            if (otherPoint.Equals(IntVector2Constant.UNASSIGNET) || point.Equals(IntVector2Constant.UNASSIGNET))
+                ApplicationDebugger.ThrowException("IntVector2 EmpiricalValue for UNASSIGNET IntVector2");
+            
             return Math.Abs(point.x - otherPoint.x) +
                    Math.Abs(point.y - otherPoint.y);
         }

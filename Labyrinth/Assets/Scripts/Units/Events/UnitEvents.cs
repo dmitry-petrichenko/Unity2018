@@ -36,7 +36,7 @@ namespace Scripts.Units.Events
 
         public void AddPositionChangedHandler(Action handler, IPositional subscriber)
         {
-            _waveEventRiser.AddPositionChangedHandler(handler, subscriber);
+            _waveEventRiser.AddStateChangedHandler(handler, subscriber);
         }
 
         public void RemovePositionChangedHandler(Action handler, IPositional subscriber)
