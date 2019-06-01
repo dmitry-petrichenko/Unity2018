@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Units.OneUnit.StatesControllers;
 using Units.OneUnit.StatesControllers.Base;
 
@@ -12,6 +11,8 @@ namespace Scripts.Units.Events
         
         private readonly IBaseActionController _baseActionController;
 
+        private bool _activated;
+
         public WaveEventRaiser(IBaseActionController baseActionController)
         {
             _baseActionController = baseActionController;
@@ -22,6 +23,8 @@ namespace Scripts.Units.Events
         private void EventStartHandler()
         {
             List<IntVector2> adjacentPoints;
+            List<Action> handlersToInvoke = new List<Action>();
+            
             for (int i = 1; i < 5; i++)
             {
                 adjacentPoints = _baseActionController.Position.GetAdjacentPoints(null, i);
@@ -31,11 +34,17 @@ namespace Scripts.Units.Events
                     {
                         if (subscriber.Key.Position.Equals(point))
                         {
-                            subscriber.Value.Invoke();
+                            handlersToInvoke.Add(subscriber.Value);
                         }
                     }  
                 }
             }
+
+            foreach (var hadler in handlersToInvoke)
+            {
+                hadler.Invoke();
+            }
+            handlersToInvoke.Clear();
         }
 
         public void AddStateChangedHandler(Action handler, IPositional subscriber)
@@ -51,14 +60,6 @@ namespace Scripts.Units.Events
             
             UpdateActivation();
         }
-
-        protected override void DisposeInternal()
-        {
-            _baseActionController.MoveTileStart -= EventStartHandler;
-            _baseActionController.DieComplete -= EventStartHandler;
-            _subscribers.Clear();
-            base.DisposeInternal();
-        }
         
         private void UpdateActivation()
         {
@@ -70,14 +71,27 @@ namespace Scripts.Units.Events
 
         private void Activate()
         {
+            if (_activated)
+                return;
+            
             _baseActionController.MoveTileStart += EventStartHandler;
             _baseActionController.DieComplete += EventStartHandler;
+            _activated = true;
         }
         
         private void Deactivate()
         {
             _baseActionController.MoveTileStart -= EventStartHandler;
             _baseActionController.DieComplete -= EventStartHandler;
+            _activated = false;
+        }
+        
+        protected override void DisposeInternal()
+        {
+            Deactivate();
+            _subscribers.Clear();
+            _subscribers = null;
+            base.DisposeInternal();
         }
     }
 }

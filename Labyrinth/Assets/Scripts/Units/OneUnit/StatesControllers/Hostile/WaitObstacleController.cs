@@ -27,7 +27,6 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         public void Wait(IntVector2 position)
         {
-            Debug.Log("Wait");
             var units = GetUnitsInRange(_attackPosition);
             SubscribeOnUnits(units);
             var unit = GetNearestUnit(_baseActionController.Position, units);
@@ -36,7 +35,6 @@ namespace Units.OneUnit.StatesControllers.Hostile
         
         public void Cancel()
         {
-            Debug.Log("Cancel");
             UnsubscribeFromUnits();
             _attackPosition = IntVector2Constant.UNASSIGNET;
         }
@@ -67,8 +65,8 @@ namespace Units.OneUnit.StatesControllers.Hostile
             _subscribedUnits.ForEach(u =>
             {
                 u.UnitEvents.RemovePositionChangedHandler(OstacleStateChangedHandler, _baseActionController);
-                _subscribedUnits.Remove(u);
             });
+            _subscribedUnits.Clear();
         }
         
         private void SubscribeOnUnits(List<IOneUnitController> units)

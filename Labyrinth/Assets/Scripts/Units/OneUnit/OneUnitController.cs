@@ -1,4 +1,5 @@
-﻿using Scripts;
+﻿using System.Threading.Tasks;
+using Scripts;
 using Scripts.Units.Events;
 using Units.OccupatedMap;
 using Units.OneUnit.Info;
@@ -83,6 +84,12 @@ namespace Units.OneUnit
 
         private void DieCompleteHandler()
         {
+            DelayedDispose();
+        }
+
+        private async Task DelayedDispose()
+        {
+            await Task.Delay(1000);
             Dispose();
         }
     }
