@@ -10,9 +10,23 @@ namespace Scripts
         {
             if (otherPoint.Equals(IntVector2Constant.UNASSIGNET) || point.Equals(IntVector2Constant.UNASSIGNET))
                 ApplicationDebugger.ThrowException("IntVector2 EmpiricalValue for UNASSIGNET IntVector2");
+
+            var t = Math.Sqrt(Math.Pow(point.x - otherPoint.x,2) + Math.Pow(point.y - otherPoint.y,2));
+            double r1 = t * 10.0;
+            int r = (int)r1;
             
-            return Math.Abs(point.x - otherPoint.x) +
-                   Math.Abs(point.y - otherPoint.y);
+            return r;
+        }
+
+        private static int GetG(IntVector2 point1,IntVector2 point2)
+        {
+            int g;
+            if (point1.x != point2.x && point1.y != point2.y)
+                g = 14;
+            else
+                g = 10;
+
+            return g;
         }
         
         public static List<IntVector2> GetAdjacentPoints(this IntVector2 point, Predicate<IntVector2> isValid = null, int radiusValue = 1)
