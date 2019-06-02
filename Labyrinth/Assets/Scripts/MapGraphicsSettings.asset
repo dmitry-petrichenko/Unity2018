@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MapGraphicsSettings
   m_EditorClassIdentifier: 
   Cube: {fileID: 1817110751563174, guid: 8fde328e466a9b948bb8b233920c43f6, type: 3}
-  Square: {fileID: 1941230588402880, guid: 459cdc517995e07459a66b882b9b2b09, type: 3}
+  Square: {fileID: 99423394, guid: 6ffd0fa5184ca73458d251c6892cad04, type: 3}
   Empty: {fileID: 1880196592538910, guid: 1d83e77e9b1ec35489009b8c41d50b93, type: 3}
