@@ -111,6 +111,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void NoWayToPositionHandler(IntVector2 obj)
         {
             _baseActionController.MovePathComplete -= MovePathCompleteHandler;
+            _freePointToGo = IntVector2Constant.UNASSIGNET;
             TryMoveToPosition(AttackPosition);
         }
 
