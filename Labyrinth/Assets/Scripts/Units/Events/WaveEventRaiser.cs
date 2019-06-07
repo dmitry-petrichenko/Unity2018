@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Autofac;
+using Units.OneUnit;
 using Units.OneUnit.StatesControllers;
 using Units.OneUnit.StatesControllers.Base;
+using UnityEngine;
 
 namespace Scripts.Units.Events
 {
@@ -10,12 +13,14 @@ namespace Scripts.Units.Events
         private Dictionary<IPositional, Action> _subscribers;
         
         private readonly IBaseActionController _baseActionController;
+        private readonly ILifeController _lifeController;
 
         private bool _activated;
 
-        public WaveEventRaiser(IBaseActionController baseActionController)
+        public WaveEventRaiser(IBaseActionController baseActionController, ILifeController lifeController)
         {
             _baseActionController = baseActionController;
+            _lifeController = lifeController;
             _subscribers = new Dictionary<IPositional, Action>();
             UpdateActivation();
         }
@@ -75,7 +80,7 @@ namespace Scripts.Units.Events
                 return;
             
             _baseActionController.MoveTileStart += EventStartHandler;
-            _baseActionController.DieComplete += EventStartHandler;
+            _lifeController.HealthEnded += EventStartHandler;
             _activated = true;
         }
         
