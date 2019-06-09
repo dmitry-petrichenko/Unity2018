@@ -29,6 +29,13 @@ namespace Units.OccupatedMap
             return occupiedPossitions;
         }
 
+        public List<IntVector2> GetOccupiedPositionsExcept(IntVector2 position)
+        {
+            var positions = GetOccupiedPositions();
+            positions = RemovePosition(position, positions);
+            return positions;
+        }
+
         public bool IsVacantPosition(IntVector2 position)
         {
             if (GetUnitOnPosition(position) is UnitStub)
@@ -47,6 +54,27 @@ namespace Units.OccupatedMap
             }
 
             return new UnitStub(index);
+        }
+        
+        private List<IntVector2> RemovePosition(IntVector2 position, List<IntVector2> occupiedPossitions)
+        {
+            List<IntVector2> copy;
+            copy = CopyDictionary(occupiedPossitions);
+            occupiedPossitions = copy;
+            occupiedPossitions.Remove(position);
+            
+            return occupiedPossitions;
+        }
+        
+        private List<IntVector2> CopyDictionary(List<IntVector2> value)
+        {
+            List<IntVector2> copy = new List<IntVector2>();
+            foreach (var index in value)
+            {
+                copy.Add(index);
+            }
+
+            return copy;
         }
 
         protected override void DisposeInternal()

@@ -9,6 +9,7 @@ namespace Units.OccupatedMap
         void AddUnit(IOneUnitController unit);
         void RemoveUnit(IOneUnitController unit);
         List<IntVector2>  GetOccupiedPositions();
+        List<IntVector2>  GetOccupiedPositionsExcept(IntVector2 position);
         bool IsVacantPosition(IntVector2 position);
         IOneUnitController GetUnitOnPosition(IntVector2 index);
     }
