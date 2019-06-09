@@ -32,41 +32,42 @@ namespace Units
             
             _player = player;
 
-             var enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(0,5));
-             enemy.Attack(_player);
+             var enemy1 = _enemyFactory.Invoke();
+             enemy1.SetOnPosition(new IntVector2(0,5));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(1,6));
-             enemy.Attack(_player);
+             var enemy2 = _enemyFactory.Invoke();
+             enemy2.SetOnPosition(new IntVector2(1,6));
           
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(1,5));
-             enemy.Attack(_player);
+             var enemy3 = _enemyFactory.Invoke();
+             enemy3.SetOnPosition(new IntVector2(1,5));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(4,4));
-             enemy.Attack(_player);
+             var enemy4 = _enemyFactory.Invoke();
+             enemy4.SetOnPosition(new IntVector2(4,4));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(5,5));
-             enemy.Attack(_player);
+             var enemy5 = _enemyFactory.Invoke();
+             enemy5.SetOnPosition(new IntVector2(5,5));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(5,6));
-             enemy.Attack(_player);
+             var enemy6 = _enemyFactory.Invoke();
+             enemy6.SetOnPosition(new IntVector2(5,6));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(5,7));
-             enemy.Attack(_player);
+             var enemy7 = _enemyFactory.Invoke();
+             enemy7.SetOnPosition(new IntVector2(5,7));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(5,8));
-             enemy.Attack(_player);
+             var enemy8 = _enemyFactory.Invoke();
+             enemy8.SetOnPosition(new IntVector2(5,8));
              
-             enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(5,9));
-             enemy.Attack(_player);
+             var enemy9 = _enemyFactory.Invoke();
+             enemy9.SetOnPosition(new IntVector2(5,9));
+             
+             enemy1.Attack(_player);
+             enemy2.Attack(_player);
+             enemy3.Attack(_player);
+             enemy4.Attack(_player);
+             enemy5.Attack(_player);
+             enemy6.Attack(_player);
+             enemy7.Attack(_player);
+             enemy8.Attack(_player);
+             enemy9.Attack(_player);
             /*
             for (int i = 0; i < 8; i++)
             {
