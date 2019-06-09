@@ -17,17 +17,6 @@ namespace Scripts
             
             return r;
         }
-
-        private static int GetG(IntVector2 point1,IntVector2 point2)
-        {
-            int g;
-            if (point1.x != point2.x && point1.y != point2.y)
-                g = 14;
-            else
-                g = 10;
-
-            return g;
-        }
         
         public static List<IntVector2> GetAdjacentPoints(this IntVector2 point, Predicate<IntVector2> isValid = null, int radiusValue = 1)
         {

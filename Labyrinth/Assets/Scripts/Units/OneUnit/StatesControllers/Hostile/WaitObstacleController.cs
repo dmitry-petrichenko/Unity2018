@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Scripts;
 using Units.OccupatedMap;
 using Units.OneUnit.StatesControllers.Base;
@@ -47,17 +48,16 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private IOneUnitController GetNearestUnit(IntVector2 position, List<IOneUnitController> units)
         {
             IOneUnitController unit = null;
+            var distances = new Dictionary<IOneUnitController, int>();
            
-            var adjacentPoints = position.GetAdjacentPoints();
             units.ForEach(u =>
             {
-                if (adjacentPoints.Contains(u.Position))
-                {
-                    unit = u;
-                }
+                distances.Add(u, position.GetEmpiricalValueForPoint(u.Position));
             });
 
-            return unit;
+            var sorted = distances.OrderBy(key => key.Value);
+
+            return sorted.First().Key;
         }
 
         private void UnsubscribeFromUnits()
@@ -86,7 +86,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
             pointsInRange.ForEach(p =>
             {
                 var unit = _occupatedPossitionsMap.GetUnitOnPosition(p);
-                if (!(unit is UnitStub))
+                if (!(unit is UnitStub) && !unit.Position.Equals(_baseActionController.Position))
                 {
                     unitsInRange.Add(unit);
                 } 
