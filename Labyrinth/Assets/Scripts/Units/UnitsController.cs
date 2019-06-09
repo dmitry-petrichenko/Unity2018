@@ -33,15 +33,15 @@ namespace Units
             _player = player;
 
              var enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(0,1));
+             enemy.SetOnPosition(new IntVector2(0,5));
              enemy.Attack(_player);
              
              enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(1,0));
+             enemy.SetOnPosition(new IntVector2(1,6));
              enemy.Attack(_player);
           
              enemy = _enemyFactory.Invoke();
-             enemy.SetOnPosition(new IntVector2(1,1));
+             enemy.SetOnPosition(new IntVector2(1,5));
              enemy.Attack(_player);
              
              enemy = _enemyFactory.Invoke();

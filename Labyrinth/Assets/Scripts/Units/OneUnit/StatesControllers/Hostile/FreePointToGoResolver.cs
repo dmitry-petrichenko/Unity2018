@@ -14,18 +14,18 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private readonly IPathFinderController _pathFinder;
         private readonly IAdjacentPointsResolver _adjacentPointsResolver;
         private readonly IFreePossitionsMap _freePossitionsMap;
-        private readonly IWayHostileControllerParameters _parameters;
+        private readonly IBaseActionController _baseActionController;
 
         public FreePointToGoResolver(
-            IWayHostileControllerParameters parameters,
             IAdjacentPointsResolver adjacentPointsResolver,
             IPathFinderController pathFinderController,
+            IBaseActionController baseActionController,
             IFreePossitionsMap freePossitionsMap)
         {
-            _parameters = parameters;
             _freePossitionsMap = freePossitionsMap;
             _adjacentPointsResolver = adjacentPointsResolver;
             _pathFinder = pathFinderController;
+            _baseActionController = baseActionController;
         }
 
         public IntVector2 GetFreePoint(IntVector2 position)
@@ -34,9 +34,9 @@ namespace Units.OneUnit.StatesControllers.Hostile
                 _freePossitionsMap.IsFreePosition);
 
             List<IntVector2Info> vectorInfos = new List<IntVector2Info>();
-            adjacentPoints.ForEach(i => { vectorInfos.Add(new IntVector2Info(i, position, _parameters.UnitPosition, _pathFinder));});
+            adjacentPoints.ForEach(i => { vectorInfos.Add(new IntVector2Info(i, position, _baseActionController.Position, _pathFinder));});
 
-            var result = vectorInfos.Where(i => i.IsAchievable).OrderBy(i => i.EmpiricalValue).ToList();
+            var result = vectorInfos.Where(i => i.IsAchievable).OrderBy(i => i.AcceptableIndex).ToList();
 
             if (!result.Any())
                 ApplicationDebugger.ThrowException("FreePointToGoResolver: There is no available points");
@@ -47,7 +47,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private class IntVector2Info
         {
             public IntVector2 Vector => _vector;
-            public int EmpiricalValue => _empiricalValue;
+            public int AcceptableIndex => _acceptableIndex;
             public bool IsAchievable => _isAchievable;
 
             private readonly IPathFinderController _pathFinder;
@@ -55,7 +55,7 @@ namespace Units.OneUnit.StatesControllers.Hostile
             private IntVector2 _vector;
             private IntVector2 _targetPossition;
             private IntVector2 _unitPosition;
-            private int _empiricalValue;
+            private int _acceptableIndex;
             private bool _isAchievable;
 
             public IntVector2Info(IntVector2 vector, IntVector2 targetPossition, IntVector2 unitPosition, IPathFinderController pathFinder)
@@ -65,8 +65,8 @@ namespace Units.OneUnit.StatesControllers.Hostile
                 _unitPosition = unitPosition;
                 _pathFinder = pathFinder;
 
-                InitializeEmpiricalValue();
                 InitializeAchievable();
+                InitializeAcceptableIndex();
             }
 
             private void InitializeAchievable()
@@ -74,10 +74,12 @@ namespace Units.OneUnit.StatesControllers.Hostile
                 var path = _pathFinder.GetPath(_vector, _unitPosition, new List<IntVector2>());
                 _isAchievable = path.Any();
             }
-
-            private void InitializeEmpiricalValue()
+            
+            private void InitializeAcceptableIndex()
             {
-                _empiricalValue = _vector.GetEmpiricalValueForPoint(_targetPossition);
+                var empiricalValueToUnit = _vector.GetEmpiricalValueForPoint(_unitPosition);
+                var empiricalValueToTarget = _vector.GetEmpiricalValueForPoint(_targetPossition);
+                _acceptableIndex = empiricalValueToUnit + empiricalValueToTarget;
             }
         }
     }
