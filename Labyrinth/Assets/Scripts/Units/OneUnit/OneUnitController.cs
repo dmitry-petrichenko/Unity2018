@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Scripts;
+using Scripts.CustomDebug;
 using Scripts.Units.Events;
 using Units.OccupatedMap;
 using Units.OneUnit.Info;
@@ -40,7 +42,14 @@ namespace Units.OneUnit
         public IntVector2 Position => _stateController.CurrentState.Position;
 
         public void SetOnPosition(IntVector2 position)
-        { 
+        {
+            if (!_occupatedPossitionsMap.IsVacantPosition(position))
+            {
+                ApplicationDebugger.ThrowException(
+                    String.Format("OneUnitController.SetOnPosition: position {0} {1} has already taken", position.x, position.y)); 
+                return;
+            }
+
             _stateController.CurrentState.SetOnPosition(position);
         }
         

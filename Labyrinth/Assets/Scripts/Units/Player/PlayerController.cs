@@ -37,7 +37,7 @@ namespace Units.Player
         private void Initialize()
         {
             UnitEvents.MovePathComplete += Wait;
-            SetOnPosition(new IntVector2(0, 0));
+            SetOnPosition(new IntVector2(2, 2));
         }
 
         public object GraphicObject => _unitSettings.GraphicObject;
