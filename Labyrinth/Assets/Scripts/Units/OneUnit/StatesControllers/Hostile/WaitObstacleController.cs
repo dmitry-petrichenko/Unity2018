@@ -4,7 +4,6 @@ using System.Linq;
 using Scripts;
 using Units.OccupatedMap;
 using Units.OneUnit.StatesControllers.Base;
-using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
@@ -30,10 +29,18 @@ namespace Units.OneUnit.StatesControllers.Hostile
         {
             var units = GetUnitsInRange(_attackPosition);
             SubscribeOnUnits(units);
-            var unit = GetNearestUnit(_baseActionController.Position, units);
-            _baseActionController.WaitPosition(unit.Position);
+            WaitForPoint(units);
         }
-        
+
+        private void WaitForPoint(List<IOneUnitController> units)
+        {
+            var unit = GetNearestUnit(_baseActionController.Position, units);
+            if (unit.Position.GetAdjacentPoints().Contains(_baseActionController.Position))
+                _baseActionController.WaitPosition(unit.Position);
+            else
+                _baseActionController.Wait();
+        }
+
         public void Cancel()
         {
             UnsubscribeFromUnits();
