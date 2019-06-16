@@ -38,14 +38,22 @@ namespace Units.OneUnit.StatesControllers.Hostile
             var occupiedPossitions = _occupatedPossitionsMap.GetOccupiedPositionsExcept(_baseActionController.Position);
 
             List<IntVector2Info> vectorInfos = new List<IntVector2Info>();
-            adjacentPoints.ForEach(i => { vectorInfos.Add(new IntVector2Info(i, position, _baseActionController.Position, _pathFinder, occupiedPossitions));});
+            adjacentPoints.ForEach(i => { vectorInfos.Add(new IntVector2Info(i, position, _baseActionController.Position, occupiedPossitions));});
 
-            var result = vectorInfos.Where(i => i.IsAchievable).OrderBy(i => i.AcceptableIndex).ToList();
+            var result = vectorInfos.OrderBy(i => i.AcceptableIndex).ToList();
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (IsAchivable(result[i].Vector))
+                {
+                    return result[i].Vector;
+                }
+            }
 
             if (!result.Any())
                 ApplicationDebugger.ThrowException("FreePointToGoResolver: There is no available points");
 
-            return result[0].Vector;
+            return IntVector2Constant.UNASSIGNET;
         }
 
         private bool IsValidPosition(IntVector2 position)
@@ -54,7 +62,12 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
             if (!isFree)
                 return false;
-            
+
+            return true;
+        }
+
+        private bool IsAchivable(IntVector2 position)
+        {
             var occupiedPossitions = _occupatedPossitionsMap.GetOccupiedPositionsExcept(_baseActionController.Position);
             var path = _pathFinder.GetPath(position, _baseActionController.Position, occupiedPossitions);
             var IsAchievable = path.Any();
@@ -66,7 +79,6 @@ namespace Units.OneUnit.StatesControllers.Hostile
         {
             public IntVector2 Vector => _vector;
             public int AcceptableIndex => _acceptableIndex;
-            public bool IsAchievable => _isAchievable;
 
             private readonly IPathFinderController _pathFinder;
 
@@ -75,24 +87,15 @@ namespace Units.OneUnit.StatesControllers.Hostile
             private IntVector2 _unitPosition;
             private List<IntVector2> _occupatedPossitions;
             private int _acceptableIndex;
-            private bool _isAchievable;
 
-            public IntVector2Info(IntVector2 vector, IntVector2 targetPossition, IntVector2 unitPosition, IPathFinderController pathFinder, List<IntVector2> occupatedPossitions)
+            public IntVector2Info(IntVector2 vector, IntVector2 targetPossition, IntVector2 unitPosition, List<IntVector2> occupatedPossitions)
             {
                 _vector = vector;
                 _targetPossition = targetPossition;
                 _unitPosition = unitPosition;
-                _pathFinder = pathFinder;
                 _occupatedPossitions = occupatedPossitions;
 
-                InitializeAchievable();
                 InitializeAcceptableIndex();
-            }
-
-            private void InitializeAchievable()
-            {
-                var path = _pathFinder.GetPath(_vector, _unitPosition, _occupatedPossitions);
-                _isAchievable = path.Any();
             }
             
             private void InitializeAcceptableIndex()
