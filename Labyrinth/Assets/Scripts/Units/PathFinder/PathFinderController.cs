@@ -10,17 +10,16 @@ namespace Units.PathFinder
     public partial class PathFinderController : Disposable, IPathFinderController
     {
         private IGrid _grid;
-        private List<IntVector2> _closeList;
-        private List<Vertex2D> _openList;
+        private HashSet<IntVector2> _closeList;
+        private HashSet<Vertex2D> _openList;
         private List<IntVector2> _wayPoints;
         private IntVector2 _destinationPoint;
         private bool _complete;
         private Vertex2D _currentVertex;
         private List<IntVector2> _occupiedIndexes;
-
         private List<int> _openListF;
-        private Dictionary<Vertex2D, int> _openListDict;
 
+        private Queue<Vertex2D> _notUsedVevrtexes;
 
         public PathFinderController(IGrid grid)
         {
@@ -30,10 +29,11 @@ namespace Units.PathFinder
 
         public void Initialize()
         {
-            _closeList = new List<IntVector2>();
-            _openList = new List<Vertex2D>();
+            _closeList = new HashSet<IntVector2>();
+            _openList = new HashSet<Vertex2D>();
             _openListF = new List<int>();
-            _openListDict = new Dictionary<Vertex2D, int>();
+
+            _notUsedVevrtexes = new Queue<Vertex2D>();
         }
 
         public event Action<IntVector2> NoWayToDestinationPoint;
@@ -53,7 +53,6 @@ namespace Units.PathFinder
             _destinationPoint = point2;
             _wayPoints = new List<IntVector2>();
             _openListF = new List<int>();
-            _openListDict = new Dictionary<Vertex2D, int>();
 
             if (IsInOccupiedIndexses(_destinationPoint))
             {
@@ -70,13 +69,13 @@ namespace Units.PathFinder
             Vertex2D first = CreateVertex2D(point, null);
             if (first == null)
             {
-                ApplicationDebugger.ThrowException("PathFinderController: first point in path is not empty");
+                Console.WriteLine("PathFinderController: first point in path is not empty");
             }
             AddInOpenList(first);
 
             while (!_complete)
             {
-                _currentVertex = GetMinorVertexByF(_openList);
+                _currentVertex = GetMinorVertexByF();
 
                 RemoveFromOpenList(_currentVertex);
                 _closeList.Add(_currentVertex.Index);
@@ -116,10 +115,12 @@ namespace Units.PathFinder
 
         private void Reset()
         {
-            _openList = new List<Vertex2D>();
-            _closeList = new List<IntVector2>();
+            _openList = new HashSet<Vertex2D>();
+            _closeList = new HashSet<IntVector2>();
             _destinationPoint = new IntVector2(0, 0);
             _complete = false;
+
+            _notUsedVevrtexes = new Queue<Vertex2D>();
         }
 
         private void SelectVertex(Vertex2D vertex2D)
@@ -133,6 +134,7 @@ namespace Units.PathFinder
         {
             if (vertex.Index.x == _destinationPoint.x && vertex.Index.y == _destinationPoint.y)
             {
+                _notUsedVevrtexes.Enqueue(vertex);
                 _complete = true;
             }
 
@@ -140,12 +142,12 @@ namespace Units.PathFinder
             {
                 if (vertex2D.Index.x == vertex.Index.x && vertex2D.Index.y == vertex.Index.y)
                 {
+                    _notUsedVevrtexes.Enqueue(vertex);
                     return;
                 }
             }
 
             _openListF.Add(vertex.F);
-            _openListDict.Add(vertex, vertex.F);
             _openList.Add(vertex);
         }
 
@@ -153,18 +155,18 @@ namespace Units.PathFinder
         {
             _openList.Remove(vertex);
             _openListF.Remove(vertex.F);
-            _openListDict.Remove(vertex);
         }
 
-        private Vertex2D GetMinorVertexByF(List<Vertex2D> list)
+        private Vertex2D GetMinorVertexByF()
         {
             _openListF.Sort();
-            return _openListDict.FirstOrDefault(x => x.Value == _openListF[0]).Key;
+            foreach (var x in _openList)
+            {
+                if (x.F == _openListF[0])
+                    return x;
+            }
 
-            /*
-            List<Vertex2D> sorted = list.OrderBy(v => v.F).ToList();
-            return sorted[0];
-            */
+            return null;
         }
 
         private List<Vertex2D> GetNeibhours(Vertex2D vertex)
@@ -195,10 +197,17 @@ namespace Units.PathFinder
         private Vertex2D CreateVertex2D(IntVector2 index, Vertex2D parent)
         {
             Vertex2D vertex2D = null;
-            
+
             if (!IsPointBusy(index) && !IsInCloseList(index) && !IsInOccupiedIndexses(index))
             {
-                vertex2D = new Vertex2D();
+                if (_notUsedVevrtexes.Count > 0)
+                {
+                    vertex2D = _notUsedVevrtexes.Dequeue();
+                }
+                else
+                {
+                    vertex2D = new Vertex2D();
+                }
                 vertex2D.Initialize(index, parent, _destinationPoint);
             }
 
@@ -219,13 +228,12 @@ namespace Units.PathFinder
         {
             return _closeList.Contains(Index);
         }
-
+        
         protected override void DisposeInternal()
         {
             _closeList = null;
             _openList = null;
             _openListF = null;
-            _openListDict = null;
             base.DisposeInternal();
         }
     }

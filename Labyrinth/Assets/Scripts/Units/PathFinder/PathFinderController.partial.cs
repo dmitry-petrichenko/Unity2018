@@ -9,11 +9,10 @@ namespace Units.PathFinder
         {
             int localPathLength = 0;
             _occupiedIndexes = new List<IntVector2>();
-            
+
             _destinationPoint = point2;
             _wayPoints = new List<IntVector2>();
             _openListF = new List<int>();
-            _openListDict = new Dictionary<Vertex2D, int>();
 
             if (IsInOccupiedIndexses(_destinationPoint))
             {
@@ -25,7 +24,7 @@ namespace Units.PathFinder
 
             while (localPathLength <= 1)
             {
-                _currentVertex = GetMinorVertexByF(_openList);
+                _currentVertex = GetMinorVertexByF();
 
                 RemoveFromOpenList(_currentVertex);
                 _closeList.Add(_currentVertex.Index);
@@ -47,9 +46,9 @@ namespace Units.PathFinder
             }
 
             _wayPoints.Reverse();
-            
-            _openList = new List<Vertex2D>();
-            _closeList = new List<IntVector2>();
+
+            _openList = new HashSet<Vertex2D>();
+            _closeList = new HashSet<IntVector2>();
             _destinationPoint = new IntVector2(0, 0);
             _complete = false;
 
@@ -57,7 +56,7 @@ namespace Units.PathFinder
             {
                 _wayPoints.RemoveAt(0);
             }
-            
+
             return _wayPoints;
         }
     }
