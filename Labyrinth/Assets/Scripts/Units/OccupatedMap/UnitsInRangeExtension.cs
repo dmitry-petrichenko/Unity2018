@@ -26,6 +26,29 @@ namespace Units.OccupatedMap
             return units;
         }
         
+        public static List<IntVector2> GetFreePositionsInRegion(this IOccupatedPossitionsMap possitionsMap, 
+            IntVector2 point1, IntVector2 point2)
+        {
+            var positions = new List<IntVector2>();
+            var tempPosition = IntVector2Constant.UNASSIGNET;
+            
+            var loopParamsI = new LoopPaprams(point1.x, point2.x);
+            for (int i = loopParamsI.StartValue; loopParamsI.Condition(i); i = loopParamsI.Operation(i))
+            {
+                var loopParamsJ = new LoopPaprams(point1.y, point2.y);
+                for (int j = loopParamsJ.StartValue; loopParamsJ.Condition(j); j = loopParamsJ.Operation(j))
+                {
+                    tempPosition = new IntVector2(i, j);
+                    if (possitionsMap.IsVacantPosition(tempPosition))
+                    {
+                        positions.Add(tempPosition);
+                    }
+                }
+            }
+            
+            return positions;
+        }
+        
         private class LoopPaprams
         {
             private int _a, _b;

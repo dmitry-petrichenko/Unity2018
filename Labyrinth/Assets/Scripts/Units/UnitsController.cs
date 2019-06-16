@@ -7,6 +7,7 @@ using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.PathFinder;
 using Units.Player;
+using Units.Scenarios;
 
 namespace Units
 {
@@ -32,9 +33,12 @@ namespace Units
             
             _player = player;
 
+            var ch = new ChaosBattlefield(enemyFactory, _occupatedPossitionsMap);
+            ch.Activate();
+/*
              var enemy1 = _enemyFactory.Invoke();
              enemy1.SetOnPosition(new IntVector2(0,5));
-             
+
              var enemy2 = _enemyFactory.Invoke();
              enemy2.SetOnPosition(new IntVector2(1,6));
           
