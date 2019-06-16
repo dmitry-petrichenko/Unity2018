@@ -41,14 +41,7 @@ namespace Units.PathFinder
 
         public List<IntVector2> GetPath(IntVector2 point, IntVector2 point2, List<IntVector2> occupiedIndexes = null)
         {
-            if (occupiedIndexes != null)
-            {
-                _occupiedIndexes = occupiedIndexes;
-            }
-            else
-            {
-                _occupiedIndexes = new List<IntVector2>();
-            }
+            InitializeOccupiedIndexes(occupiedIndexes);
 
             _destinationPoint = point2;
             _wayPoints = new List<IntVector2>();
@@ -115,12 +108,19 @@ namespace Units.PathFinder
 
         private void Reset()
         {
-            _openList = new HashSet<Vertex2D>();
-            _closeList = new HashSet<IntVector2>();
-            _destinationPoint = new IntVector2(0, 0);
+            _openList.Clear();
+            _closeList.Clear();
+            _destinationPoint = IntVector2Constant.UNASSIGNET;
             _complete = false;
-
-            _notUsedVevrtexes = new Queue<Vertex2D>();
+            _notUsedVevrtexes.Clear();
+        }
+        
+        private void InitializeOccupiedIndexes(List<IntVector2> occupiedIndexes)
+        {
+            if (occupiedIndexes != null)
+                _occupiedIndexes = occupiedIndexes;
+            else
+                _occupiedIndexes = new List<IntVector2>();
         }
 
         private void SelectVertex(Vertex2D vertex2D)
