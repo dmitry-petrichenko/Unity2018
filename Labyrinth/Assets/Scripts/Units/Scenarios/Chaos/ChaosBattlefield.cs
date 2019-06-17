@@ -7,7 +7,6 @@ using Scripts.Units.Enemy;
 using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.StatesControllers;
-using Units.PathFinder;
 using Units.Player;
 
 namespace Units.Scenarios
@@ -21,7 +20,8 @@ namespace Units.Scenarios
         private IntVector2 TOP_LEFT;
         private IntVector2 BOTTOM_RIGHT;
 
-        private int ACTIVE_UNITS_COUNT = 10;
+        private int ACTIVE_UNITS_COUNT = 3;
+        private int _currentUnitsCount;
 
         public ChaosBattlefield(
             EnemyController.Factory enemyFactory, 
@@ -53,6 +53,7 @@ namespace Units.Scenarios
         {
             var unit = CreateUnitOnRandomPosition(area);
             InitializeUnit(unit, area);
+            _currentUnitsCount++;
         }
 
         private EnemyController CreateUnitOnRandomPosition(SquareArea area)
@@ -70,6 +71,15 @@ namespace Units.Scenarios
             {
                 return GetNearestUnitInArea(area, unit.Position);
             }
+
+            unit.AttackComplete += OnUnitAttackComplete;
+            
+            void OnUnitAttackComplete()
+            {
+                unit.AttackComplete -= OnUnitAttackComplete;
+                _currentUnitsCount--;
+                //SetupUnits(area);
+            }
             
             var chaosUnitController = new ChaosUnitController(unit, GetUnit);
         }
@@ -82,23 +92,34 @@ namespace Units.Scenarios
             
             unitsInRegion.ForEach(u =>
             {
-                if (!u.Position.Equals(unitPosition))
+                if (!u.Position.Equals(unitPosition) && !(u is PlayerController))
                 {
                     unitsWithDistances.Add(u, u.Position.GetEmpiricalValueForPoint(unitPosition));
                 }
             });
+
+            if (unitsWithDistances.Count == 0)
+            {
+                return null;
+            }
 
             var ordered = unitsWithDistances.OrderBy(u => u.Value);
             
             return ordered.First().Key;
         }
 
+        private void SetupUnits(SquareArea area)
+        {
+            while (_currentUnitsCount < ACTIVE_UNITS_COUNT)
+            {
+                CreateAndInitializeUnit(area);
+            }
+        }
+
         public void Activate()
         {
             var area = new SquareArea(TOP_LEFT, BOTTOM_RIGHT);
-            CreateAndInitializeUnit(area);
-            CreateAndInitializeUnit(area);
-            CreateAndInitializeUnit(area);
+            SetupUnits(area);
         }
 
         public void Deactivate()

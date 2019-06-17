@@ -53,7 +53,7 @@ namespace Units.OneUnit
             _stateController.CurrentState.SetOnPosition(position);
         }
         
-        public void Attack(IntVector2 position)
+        public virtual void Attack(IntVector2 position)
         {
             _stateController.CurrentState.Attack(position);
         }

@@ -1,18 +1,17 @@
 using System;
-using System.ComponentModel;
+using Scripts.Units.Enemy;
 using Units.OneUnit;
-using Unity.Collections.LowLevel.Unsafe;
 
 namespace Units.Scenarios
 {
     public class ChaosUnitController
     {
-        private readonly IOneUnitController _unit;
+        private readonly EnemyController _unit;
         private readonly Func<IOneUnitController> _otherUnitFactory;
 
         private IOneUnitController _currentOtherUnit;
         
-        public ChaosUnitController(IOneUnitController unit, Func<IOneUnitController> otherUnitFactory)
+        public ChaosUnitController(EnemyController unit, Func<IOneUnitController> otherUnitFactory)
         {
             _unit = unit;
             _otherUnitFactory = otherUnitFactory;
@@ -23,24 +22,19 @@ namespace Units.Scenarios
         private void Initialize()
         {
             _unit.UnitEvents.HealthEnded += OnHealthEnded;
+            _unit.AttackComplete += AttackOtherUnit;
             AttackOtherUnit();
         }
 
         private void AttackOtherUnit()
         {
             _currentOtherUnit = _otherUnitFactory.Invoke();
-            _currentOtherUnit.UnitEvents.HealthEnded += OnCurrentOtherUnitHealthEnded;
-            _unit.Attack(_currentOtherUnit.Position);
-        }
-
-        private void OnCurrentOtherUnitHealthEnded()
-        {
-            if (_currentOtherUnit != null)
+            if (_currentOtherUnit == null)
             {
-                _currentOtherUnit.UnitEvents.HealthEnded -= OnCurrentOtherUnitHealthEnded;
+                _unit.Wait();
+                return;
             }
-
-            AttackOtherUnit();
+            _unit.Attack(_currentOtherUnit.Position);
         }
 
         private void OnHealthEnded()
@@ -52,7 +46,6 @@ namespace Units.Scenarios
         {
             if (_currentOtherUnit != null)
             {
-                _currentOtherUnit.UnitEvents.HealthEnded -= OnCurrentOtherUnitHealthEnded;
                 _currentOtherUnit = null;
             }
             _unit.UnitEvents.HealthEnded -= OnHealthEnded;

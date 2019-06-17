@@ -9,7 +9,7 @@ namespace Scripts.Units.Settings
         {
             //Initialize(settings.UnitsResourcesLocation + "SpiderBlack01.json");
             Initialize(settings.UnitsResourcesLocation + "RedMage.json");
-            TotalHealth = 6;
+            TotalHealth = 40;
         }
     }
 }

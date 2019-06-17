@@ -13,8 +13,9 @@ namespace Scripts.Units.Enemy
         
         public delegate EnemyController Factory();
         
-        private IPeacefulBehaviour _peacefulBehaviour; 
-        private IAgressiveBehaviour _agressiveBehaviour; 
+        private readonly IPeacefulBehaviour _peacefulBehaviour; 
+        private readonly IAgressiveBehaviour _agressiveBehaviour; 
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap; 
 
         public EnemyController(
             IPeacefulBehaviour peacefulBehaviour,
@@ -28,6 +29,7 @@ namespace Scripts.Units.Enemy
         {
             _peacefulBehaviour = peacefulBehaviour;
             _agressiveBehaviour = agressiveBehaviour;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
             
             Initialize();
         }
@@ -44,16 +46,20 @@ namespace Scripts.Units.Enemy
             _peacefulBehaviour.Start();
         }
 
-        public void Attack(IOneUnitController oneUnitController)
+        public override void Attack(IntVector2 position)
         {
+           var targetUnit = _occupatedPossitionsMap.GetUnitOnPosition(position);
+           if (targetUnit is UnitStub)
+               return;
+            
             _agressiveBehaviour.Complete += AcctackCompleteHandler;
-            _agressiveBehaviour.Start(oneUnitController);
-
+            _agressiveBehaviour.Start(targetUnit);
         }
 
         private void AcctackCompleteHandler()
         {
             _agressiveBehaviour.Complete -= AcctackCompleteHandler;
+            _agressiveBehaviour.Cancel();
             AttackComplete?.Invoke();
         }
     }

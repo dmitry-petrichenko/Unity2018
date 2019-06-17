@@ -33,7 +33,6 @@ namespace Scripts.Units
         
         public void Initialize(IOneUnitController oneUnitController)
         {
-            _unitEvents.AttackComplete += AttackCompleteHandler;
         }
 
         private void AttackCompleteHandler()
@@ -52,6 +51,7 @@ namespace Scripts.Units
             _unitInfo.SetAttackTarget(target);
             _target = target;
             
+            _unitEvents.AttackComplete += AttackCompleteHandler;
             _target.UnitEvents.HealthEnded += TargetHealthEndedHandler;
             _stateController.CurrentState.Attack(_target.Position);
         }

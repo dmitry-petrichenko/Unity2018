@@ -92,7 +92,7 @@ namespace Units
                 var enemy = _enemyFactory.Invoke();
                 enemy.SetOnPosition(point);
                 enemy.UnitEvents.HealthEnded += HealthEndedHandler;
-                enemy.Attack(_player);
+                //enemy.Attack(_player.Position);
                 //enemy.AttackComplete += AttackCompleteHandler;
                 /*
                 var un = GetRUn(enemy.Position);
