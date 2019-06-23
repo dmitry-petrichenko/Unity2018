@@ -56,6 +56,13 @@ namespace Scripts.Units.Enemy
             _agressiveBehaviour.Start(targetUnit);
         }
 
+        protected override void HealthEndedHandler()
+        {
+            _peacefulBehaviour.Cancel();
+            _agressiveBehaviour.Cancel();
+            base.HealthEndedHandler();
+        }
+
         private void AcctackCompleteHandler()
         {
             _agressiveBehaviour.Complete -= AcctackCompleteHandler;

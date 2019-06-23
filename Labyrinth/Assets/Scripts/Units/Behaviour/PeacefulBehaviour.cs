@@ -51,14 +51,14 @@ namespace Scripts.Units
             _unitBehaviourGenerator.Start();
         }
 
-        public void Stop()
+        public void Cancel()
         {
             _unitBehaviourGenerator.Stop();
         }
 
         public void DisposeInternal()
         {
-            Stop();
+            Cancel();
             _oneUnitController = null;
             base.DisposeInternal();
         }

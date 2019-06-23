@@ -7,6 +7,6 @@ namespace Scripts.Units
     {
         void Initialize(IOneUnitController oneUnitController);
         void Start();
-        void Stop();
+        void Cancel();
     }
 }

@@ -58,12 +58,14 @@ namespace Scripts.Units
 
         public void Cancel()
         {
+            if (_target != null)
+                _target.UnitEvents.HealthEnded -= TargetHealthEndedHandler;
+            
             _unitEvents.AttackComplete -= AttackCompleteHandler;
-            _target.UnitEvents.HealthEnded -= TargetHealthEndedHandler;
             _hostileController.Cancel();
         }
 
-        public void DisposeInternal()
+        protected override void DisposeInternal()
         {
             Cancel();
             base.DisposeInternal();

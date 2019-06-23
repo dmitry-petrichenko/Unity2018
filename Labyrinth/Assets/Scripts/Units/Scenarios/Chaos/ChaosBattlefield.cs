@@ -78,7 +78,7 @@ namespace Units.Scenarios
             {
                 unit.AttackComplete -= OnUnitAttackComplete;
                 _currentUnitsCount--;
-                //SetupUnits(area);
+                SetupUnits(area);
             }
             
             var chaosUnitController = new ChaosUnitController(unit, GetUnit);
@@ -139,6 +139,5 @@ namespace Units.Scenarios
                 _bottomRight = bottomRight;
             }
         }
-        
     }
 }
