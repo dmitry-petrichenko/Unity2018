@@ -5,6 +5,7 @@ using Units.OneUnit.StatesControllers.Base.GameObject.Animation;
 using Units.OneUnit.StatesControllers.Base.GameObject.Health;
 using Units.OneUnit.StatesControllers.Base.GameObject.Motion;
 using Units.OneUnit.StatesControllers.Base.GameObject.Rotation;
+using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Base.GameObject
 {
@@ -51,9 +52,14 @@ namespace Units.OneUnit.StatesControllers.Base.GameObject
         public void Attack(IntVector2 position)
         {
             var adjacentPoints = _motionController.Position.GetAdjacentPoints();
-            
+
             if (!adjacentPoints.Contains(position))
+            {
+                Debug.Log("THROW");
+                Debug.Log("Unit:" + _motionController.Position.ToString());
+                Debug.Log("Attack:" + position.ToString());
                 ApplicationDebugger.ThrowException("Attacked possition isn't in unit range");
+            }
             
             _rotationController.Rotate(_motionController.Position, position);
             _animationController.PlayAttackAnimation();

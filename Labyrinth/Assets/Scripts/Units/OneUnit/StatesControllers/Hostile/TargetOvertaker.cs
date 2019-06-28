@@ -4,6 +4,7 @@ using Scripts;
 using Scripts.Units.Events;
 using Units.OneUnit.StatesControllers.Base;
 using Units.PathFinder;
+using UnityEngine;
 
 namespace Units.OneUnit.StatesControllers.Hostile
 {
@@ -83,6 +84,10 @@ namespace Units.OneUnit.StatesControllers.Hostile
 
         private bool TargetPositionInUnitRange(IntVector2 position)
         {
+            Debug.Log("=== TargetPositionInUnitRange ===");
+            Debug.Log("Unit: " + _baseActionController.Position.ToString());
+            Debug.Log("Target: " + position.ToString());
+            Debug.Log(position.GetAdjacentPoints().Contains(_baseActionController.Position));
             return position.GetAdjacentPoints().Contains(_baseActionController.Position);
         }
 

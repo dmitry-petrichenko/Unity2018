@@ -39,7 +39,18 @@ namespace Units.OneUnit
 
         public IUnitInfoExternal DynamicInfo => _unitInfoExternal;
         public IUnitEvents UnitEvents => _unitEvents;
-        public IntVector2 Position => _stateController.CurrentState.Position;
+
+        public IntVector2 Position
+        {
+            get
+            {
+                if (_stateController == null || _stateController.CurrentState == null)
+                {
+                    ApplicationDebugger.ThrowException("smth went wrong");
+                }
+                return _stateController.CurrentState.Position;
+            }
+        }
 
         public void SetOnPosition(IntVector2 position)
         {
@@ -85,7 +96,7 @@ namespace Units.OneUnit
             base.DisposeInternal();
         }
         
-        private void HealthEndedHandler()
+        protected virtual void HealthEndedHandler()
         {
             _occupatedPossitionsMap.RemoveUnit(this);
             _stateController.CurrentState.Die();

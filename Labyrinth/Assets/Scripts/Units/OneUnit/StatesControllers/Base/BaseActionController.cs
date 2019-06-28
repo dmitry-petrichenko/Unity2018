@@ -36,6 +36,7 @@ namespace Units.OneUnit.StatesControllers.Base
 
         public void Attack(IntVector2 position)
         {
+            Debug.Log("_baseActionController.Attack " + position.ToString());
             IsValidPosition(position);
             IsValidNearActionPosition(position);
             _applyDamageController.ApplyDamageOnPosition(position);

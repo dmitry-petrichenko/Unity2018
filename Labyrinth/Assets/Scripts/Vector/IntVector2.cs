@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Scripts
 {
@@ -18,6 +19,11 @@ namespace Scripts
         public bool Equals(IntVector2 other)
         {
             return other.x == x && other.y == y;
+        }
+
+        public string ToString()
+        {
+            return "X:" + x + " " + "Y:" + y;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Scripts.Settings
         public string MapsResourcesLocation { get; private set; }
         public string UnitsResourcesLocation { get; private set; }
 
-        private const string TEST_MAP_PATH = "TestMap_01_OneBrick/";
+        private const string TEST_MAP_PATH = "TestMap_02_Empty/";
 
         public GameSettings()
         {

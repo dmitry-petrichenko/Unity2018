@@ -30,8 +30,8 @@ namespace Units.Scenarios
             _enemyFactory = enemyFactory;
             _occupatedPossitionsMap = occupatedPossitionsMap;
             
-            TOP_LEFT = new IntVector2(0, 5);
-            BOTTOM_RIGHT = new IntVector2(5, 0);
+            TOP_LEFT = new IntVector2(0, 10);
+            BOTTOM_RIGHT = new IntVector2(10, 0);
             
             _random = new Random();
         }
