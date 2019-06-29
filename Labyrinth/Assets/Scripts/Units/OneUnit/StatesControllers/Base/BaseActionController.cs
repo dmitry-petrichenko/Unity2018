@@ -39,8 +39,8 @@ namespace Units.OneUnit.StatesControllers.Base
             Debug.Log("_baseActionController.Attack " + position.ToString());
             IsValidPosition(position);
             IsValidNearActionPosition(position);
-            _applyDamageController.ApplyDamageOnPosition(position);
             _unitGameObjectController.Attack(position);
+            _applyDamageController.ApplyDamageOnPosition(position);
         }
 
         public void SetHealthBarValue(float value)
