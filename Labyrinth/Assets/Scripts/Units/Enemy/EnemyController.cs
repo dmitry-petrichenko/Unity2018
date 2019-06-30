@@ -68,7 +68,6 @@ namespace Scripts.Units.Enemy
         {
             _agressiveBehaviour.Complete -= AcctackCompleteHandler;
             _agressiveBehaviour.Cancel();
-            Debug.Log("E Attack complete");
             AttackComplete?.Invoke();
         }
     }

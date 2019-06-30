@@ -43,7 +43,6 @@ namespace Scripts.Units
         
         private void TargetHealthEndedHandler()
         {
-            Debug.Log("Health ended");
             Cancel();
             Complete?.Invoke();
         }

@@ -46,7 +46,6 @@ namespace Units.Scenarios
         private void OnUnitAttackComplete()
         {
             AttackOtherUnit();
-            _unitsCountNotifier.Decrease(_unitName);
         }
         
         private IOneUnitController GetNearestUnitInArea(ChaosBattlefield.SquareArea area, IntVector2 unitPosition)
@@ -95,6 +94,7 @@ namespace Units.Scenarios
             {
                 _currentOtherUnit = null;
             }
+            _unitsCountNotifier.Decrease(_unitName);
             _unit.UnitEvents.HealthEnded -= OnHealthEnded;
             _unit.AttackComplete -= OnUnitAttackComplete;
         }
