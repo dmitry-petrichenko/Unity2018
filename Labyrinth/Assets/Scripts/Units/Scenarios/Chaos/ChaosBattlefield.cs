@@ -13,6 +13,7 @@ namespace Units.Scenarios
         private EnemyController.Factory _enemyFactory;
         private IOccupatedPossitionsMap _occupatedPossitionsMap;
         private UnitsCountNotifier _unitsCountNotifier;
+        private UnitNameResolver _unitNameResolver;
         private Random _random;
         private SquareArea _area;
 
@@ -28,6 +29,7 @@ namespace Units.Scenarios
             _enemyFactory = enemyFactory;
             _occupatedPossitionsMap = occupatedPossitionsMap;
             _unitsCountNotifier = new UnitsCountNotifier();
+            _unitNameResolver = new UnitNameResolver();
             _unitsCountNotifier.UnitsCountDecreased += OnUnitsCountDecreased;
             
             TOP_LEFT = new IntVector2(0, 10);
@@ -58,12 +60,10 @@ namespace Units.Scenarios
         {
             var unit = CreateUnitOnRandomPosition(area);
             InitializeUnit(unit, area);
-            _unitsCountNotifier.Increase();
         }
 
         private EnemyController CreateUnitOnRandomPosition(SquareArea area)
         {
-            Debug.Log("Create Unit");
             var enemy = _enemyFactory.Invoke();
             var position = GetFreePosition(area);
             enemy.SetOnPosition(position);
@@ -73,7 +73,7 @@ namespace Units.Scenarios
 
         private void InitializeUnit(EnemyController unit, SquareArea area)
         {  
-            var chaosUnitController = new ChaosUnitController(unit, _unitsCountNotifier, _occupatedPossitionsMap, area);
+            var chaosUnitController = new ChaosUnitController(unit, _unitsCountNotifier, _occupatedPossitionsMap, _unitNameResolver, area);
         }
 
         private void SetupUnits(SquareArea area)

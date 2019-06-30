@@ -4,6 +4,7 @@ using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State;
 using Units.OneUnit.StatesControllers.Hostile;
+using UnityEngine;
 
 namespace Scripts.Units
 {
@@ -42,6 +43,7 @@ namespace Scripts.Units
         
         private void TargetHealthEndedHandler()
         {
+            Debug.Log("Health ended");
             Cancel();
             Complete?.Invoke();
         }

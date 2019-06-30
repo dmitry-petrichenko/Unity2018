@@ -14,17 +14,22 @@ namespace Units.Scenarios
         private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
         private readonly UnitsCountNotifier _unitsCountNotifier;
         private readonly ChaosBattlefield.SquareArea _area;
+        private readonly UnitNameResolver _unitNameResolver;
+        private readonly string _unitName;
 
         private IOneUnitController _currentOtherUnit;
         
         public ChaosUnitController(EnemyController unit,
             UnitsCountNotifier unitsCountNotifier, 
             IOccupatedPossitionsMap occupatedPossitionsMap,
+            UnitNameResolver unitNameResolver,
             ChaosBattlefield.SquareArea area)
         {
             _unit = unit;
             _occupatedPossitionsMap = occupatedPossitionsMap;
             _unitsCountNotifier = unitsCountNotifier;
+            _unitNameResolver = unitNameResolver;
+            _unitName = _unitNameResolver.ResolveNextName();
             _area = area;
 
             Initialize();
@@ -32,6 +37,7 @@ namespace Units.Scenarios
 
         private void Initialize()
         {
+            _unitsCountNotifier.Increase(_unitName);
             _unit.UnitEvents.HealthEnded += OnHealthEnded;
             _unit.AttackComplete += OnUnitAttackComplete;
             AttackOtherUnit();
@@ -40,7 +46,7 @@ namespace Units.Scenarios
         private void OnUnitAttackComplete()
         {
             AttackOtherUnit();
-            _unitsCountNotifier.Decrease();
+            _unitsCountNotifier.Decrease(_unitName);
         }
         
         private IOneUnitController GetNearestUnitInArea(ChaosBattlefield.SquareArea area, IntVector2 unitPosition)

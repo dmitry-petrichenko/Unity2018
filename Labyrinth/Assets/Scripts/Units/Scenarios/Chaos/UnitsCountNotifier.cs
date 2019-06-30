@@ -1,32 +1,36 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Units.Scenarios
 {
     public class UnitsCountNotifier
     {
-        public int UnitsCount => _unitsCount;
+        public int UnitsCount => _unitNames.Count;
 
         public event Action UnitsCountDecreased;
 
-        private int _unitsCount;
+        private HashSet<String> _unitNames;
         
         public UnitsCountNotifier()
         {
-            _unitsCount = 0;
+            _unitNames = new HashSet<string>();
         }
 
-        public void Increase()
+        public void Increase(string name)
         {
-            _unitsCount++;
-            Debug.Log("Increase" + _unitsCount);
+            Debug.Log("Increase " + name);
+            _unitNames.Add(name);
         }
 
-        public void Decrease()
+        public void Decrease(string name)
         {
-            _unitsCount--;
-            Debug.Log("Decrease" + _unitsCount);
-            UnitsCountDecreased?.Invoke();
+            Debug.Log("Decrease " + name);
+            if(_unitNames.Contains(name)){}
+            {
+                _unitNames.Remove(name);
+                UnitsCountDecreased?.Invoke();
+            }
         }
     }
 }
