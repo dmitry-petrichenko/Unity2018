@@ -52,7 +52,6 @@ namespace Units.OneUnit.StatesControllers.Hostile
         private void OvertakeTargetHandler()
         {
             Cancel();
-            Debug.Log(_targetUnit.Position.ToString() + " OvertakeTargetHandler");
             _baseActionController.Attack(_targetUnit.Position);
         }
 

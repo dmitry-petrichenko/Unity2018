@@ -55,9 +55,6 @@ namespace Units.OneUnit.StatesControllers.Base.GameObject
 
             if (!adjacentPoints.Contains(position))
             {
-                Debug.Log("THROW");
-                Debug.Log("Unit:" + _motionController.Position.ToString());
-                Debug.Log("Attack:" + position.ToString());
                 ApplicationDebugger.ThrowException("Attacked possition isn't in unit range");
             }
             

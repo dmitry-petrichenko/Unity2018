@@ -1,20 +1,31 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using Scripts;
 using Scripts.Units.Enemy;
+using Units.OccupatedMap;
 using Units.OneUnit;
+using Units.Player;
 
 namespace Units.Scenarios
 {
     public class ChaosUnitController
     {
         private readonly EnemyController _unit;
-        private readonly Func<IOneUnitController> _otherUnitFactory;
+        private readonly IOccupatedPossitionsMap _occupatedPossitionsMap;
+        private readonly UnitsCountNotifier _unitsCountNotifier;
+        private readonly ChaosBattlefield.SquareArea _area;
 
         private IOneUnitController _currentOtherUnit;
         
-        public ChaosUnitController(EnemyController unit, Func<IOneUnitController> otherUnitFactory)
+        public ChaosUnitController(EnemyController unit,
+            UnitsCountNotifier unitsCountNotifier, 
+            IOccupatedPossitionsMap occupatedPossitionsMap,
+            ChaosBattlefield.SquareArea area)
         {
             _unit = unit;
-            _otherUnitFactory = otherUnitFactory;
+            _occupatedPossitionsMap = occupatedPossitionsMap;
+            _unitsCountNotifier = unitsCountNotifier;
+            _area = area;
 
             Initialize();
         }
@@ -22,13 +33,43 @@ namespace Units.Scenarios
         private void Initialize()
         {
             _unit.UnitEvents.HealthEnded += OnHealthEnded;
-            _unit.AttackComplete += AttackOtherUnit;
+            _unit.AttackComplete += OnUnitAttackComplete;
             AttackOtherUnit();
+        }
+
+        private void OnUnitAttackComplete()
+        {
+            AttackOtherUnit();
+            _unitsCountNotifier.Decrease();
+        }
+        
+        private IOneUnitController GetNearestUnitInArea(ChaosBattlefield.SquareArea area, IntVector2 unitPosition)
+        {
+            var unitsWithDistances = new Dictionary<IOneUnitController, int>();
+
+            var unitsInRegion = _occupatedPossitionsMap.GetUnitsInRegion(area.TopLeft, area.BottomRight);
+            
+            unitsInRegion.ForEach(u =>
+            {
+                if (!u.Position.Equals(unitPosition) && !(u is PlayerController))
+                {
+                    unitsWithDistances.Add(u, u.Position.GetEmpiricalValueForPoint(unitPosition));
+                }
+            });
+
+            if (unitsWithDistances.Count == 0)
+            {
+                return null;
+            }
+
+            var ordered = unitsWithDistances.OrderBy(u => u.Value);
+            
+            return ordered.First().Key;
         }
 
         private void AttackOtherUnit()
         {
-            _currentOtherUnit = _otherUnitFactory.Invoke();
+            _currentOtherUnit = GetNearestUnitInArea(_area, _unit.Position);
             if (_currentOtherUnit == null)
             {
                 _unit.Wait();
@@ -49,6 +90,7 @@ namespace Units.Scenarios
                 _currentOtherUnit = null;
             }
             _unit.UnitEvents.HealthEnded -= OnHealthEnded;
+            _unit.AttackComplete -= OnUnitAttackComplete;
         }
     }
 }

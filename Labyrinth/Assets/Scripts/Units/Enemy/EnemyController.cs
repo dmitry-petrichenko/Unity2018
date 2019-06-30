@@ -4,6 +4,7 @@ using Units.OccupatedMap;
 using Units.OneUnit;
 using Units.OneUnit.Info;
 using Units.OneUnit.State;
+using UnityEngine;
 
 namespace Scripts.Units.Enemy
 {
@@ -67,6 +68,7 @@ namespace Scripts.Units.Enemy
         {
             _agressiveBehaviour.Complete -= AcctackCompleteHandler;
             _agressiveBehaviour.Cancel();
+            Debug.Log("E Attack complete");
             AttackComplete?.Invoke();
         }
     }

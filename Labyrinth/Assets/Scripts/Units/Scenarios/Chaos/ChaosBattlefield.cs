@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Scripts;
 using Scripts.CustomDebug;
 using Scripts.Units.Enemy;
 using Units.OccupatedMap;
-using Units.OneUnit;
 using Units.OneUnit.StatesControllers;
-using Units.Player;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Units.Scenarios
 {
@@ -15,13 +12,14 @@ namespace Units.Scenarios
     {
         private EnemyController.Factory _enemyFactory;
         private IOccupatedPossitionsMap _occupatedPossitionsMap;
+        private UnitsCountNotifier _unitsCountNotifier;
         private Random _random;
+        private SquareArea _area;
 
         private IntVector2 TOP_LEFT;
         private IntVector2 BOTTOM_RIGHT;
 
         private int ACTIVE_UNITS_COUNT = 3;
-        private int _currentUnitsCount;
 
         public ChaosBattlefield(
             EnemyController.Factory enemyFactory, 
@@ -29,11 +27,18 @@ namespace Units.Scenarios
         {
             _enemyFactory = enemyFactory;
             _occupatedPossitionsMap = occupatedPossitionsMap;
+            _unitsCountNotifier = new UnitsCountNotifier();
+            _unitsCountNotifier.UnitsCountDecreased += OnUnitsCountDecreased;
             
             TOP_LEFT = new IntVector2(0, 10);
             BOTTOM_RIGHT = new IntVector2(10, 0);
             
             _random = new Random();
+        }
+
+        private void OnUnitsCountDecreased()
+        {
+            SetupUnits(_area);
         }
 
         private IntVector2 GetFreePosition(SquareArea area)
@@ -53,11 +58,12 @@ namespace Units.Scenarios
         {
             var unit = CreateUnitOnRandomPosition(area);
             InitializeUnit(unit, area);
-            _currentUnitsCount++;
+            _unitsCountNotifier.Increase();
         }
 
         private EnemyController CreateUnitOnRandomPosition(SquareArea area)
         {
+            Debug.Log("Create Unit");
             var enemy = _enemyFactory.Invoke();
             var position = GetFreePosition(area);
             enemy.SetOnPosition(position);
@@ -66,51 +72,13 @@ namespace Units.Scenarios
         }
 
         private void InitializeUnit(EnemyController unit, SquareArea area)
-        {
-            IOneUnitController GetUnit()
-            {
-                return GetNearestUnitInArea(area, unit.Position);
-            }
-
-            unit.AttackComplete += OnUnitAttackComplete;
-            
-            void OnUnitAttackComplete()
-            {
-                unit.AttackComplete -= OnUnitAttackComplete;
-                _currentUnitsCount--;
-                SetupUnits(area);
-            }
-            
-            var chaosUnitController = new ChaosUnitController(unit, GetUnit);
-        }
-
-        private IOneUnitController GetNearestUnitInArea(SquareArea area, IntVector2 unitPosition)
-        {
-            var unitsWithDistances = new Dictionary<IOneUnitController, int>();
-
-            var unitsInRegion = _occupatedPossitionsMap.GetUnitsInRegion(area.TopLeft, area.BottomRight);
-            
-            unitsInRegion.ForEach(u =>
-            {
-                if (!u.Position.Equals(unitPosition) && !(u is PlayerController))
-                {
-                    unitsWithDistances.Add(u, u.Position.GetEmpiricalValueForPoint(unitPosition));
-                }
-            });
-
-            if (unitsWithDistances.Count == 0)
-            {
-                return null;
-            }
-
-            var ordered = unitsWithDistances.OrderBy(u => u.Value);
-            
-            return ordered.First().Key;
+        {  
+            var chaosUnitController = new ChaosUnitController(unit, _unitsCountNotifier, _occupatedPossitionsMap, area);
         }
 
         private void SetupUnits(SquareArea area)
         {
-            while (_currentUnitsCount < ACTIVE_UNITS_COUNT)
+            while (_unitsCountNotifier.UnitsCount < ACTIVE_UNITS_COUNT)
             {
                 CreateAndInitializeUnit(area);
             }
@@ -118,15 +86,15 @@ namespace Units.Scenarios
 
         public void Activate()
         {
-            var area = new SquareArea(TOP_LEFT, BOTTOM_RIGHT);
-            SetupUnits(area);
+            _area = new SquareArea(TOP_LEFT, BOTTOM_RIGHT);
+            SetupUnits(_area);
         }
 
         public void Deactivate()
         {
         }
 
-        private class SquareArea
+        public class SquareArea
         {
             private IntVector2 _topLeft, _bottomRight;
 
