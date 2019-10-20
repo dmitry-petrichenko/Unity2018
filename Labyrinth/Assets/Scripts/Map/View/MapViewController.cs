@@ -12,10 +12,10 @@ namespace Scripts.Map.View
         private MouseClickListener _mouseClickListener;
         private MapGraphicsSettings _settings;
 
-        public MapViewController(MapGraphicsSettings settings, GameObject mainScene) 
+        public MapViewController(MapGraphicsSettings settings, GameInstaller gameInstaller) 
         {
             _settings = settings;
-            _mainScene = mainScene;
+            _mainScene = gameInstaller.gameObject;
             Initialize();
         }
 

@@ -8,7 +8,6 @@ using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Settings;
 using Units;
-using Units.ExternalAPI;
 using Units.PathFinder;
 using UnityEngine;
 using Grid = Units.PathFinder.Grid;
@@ -32,7 +31,6 @@ public class GameInstaller : MonoBehaviour
         
         builder.RegisterInstance(camera).As<Camera>();
         builder.RegisterInstance(this).As<GameInstaller>();
-        builder.RegisterInstance(gameObject).As<GameObject>();
         builder.RegisterInstance(mapGraphicsSettings).As<MapGraphicsSettings>();
         
         builder.RegisterType<GameSettings>().As<ISettings>().SingleInstance();
