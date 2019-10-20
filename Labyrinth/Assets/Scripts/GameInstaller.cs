@@ -7,6 +7,7 @@ using Scripts.Extensions;
 using Scripts.GameLoop;
 using Scripts.Map;
 using Scripts.Settings;
+using Scripts._Client.Units.SingleUnit.Player;
 using Units;
 using Units.PathFinder;
 using UnityEngine;
@@ -44,9 +45,19 @@ public class GameInstaller : MonoBehaviour
         
         builder.RegisterModule<MapInstaller>();
         builder.RegisterModule<UnitsInstaller>();
+        
+        //-- new //--
+        builder.RegisterType<PlayerViewObject>().As<PlayerViewObject>().SingleInstance();
+        //-- new //--
 
         var container = builder.Build();
-        container.Resolve<InteractiveLocationController>();
+        //-- old //--
+        //container.Resolve<InteractiveLocationController>();
+        //-- old //--
+        
+        //-- new //--
+        container.Resolve<PlayerViewObject>();
+        //-- new //--
     }
     
     void Update()

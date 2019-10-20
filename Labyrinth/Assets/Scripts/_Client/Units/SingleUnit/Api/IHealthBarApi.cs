@@ -1,6 +1,6 @@
 namespace Scripts._Client.Units.SingleUnit.Api
 {
-    public class IAnimationApi
+    public interface IHealthBarApi
     {
         
     }

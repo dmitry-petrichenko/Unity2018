@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace Scripts._Client.Units.SingleUnit.Player
 {
-    
-    public class PlayerViewObject
+    public class PlayerViewObject : IUnityUnitViewObject
     {
         private GameObject _gameObject;
         private string _prefabPath = "Units/Resources/RedMage/unit_prefab";
@@ -20,5 +19,7 @@ namespace Scripts._Client.Units.SingleUnit.Player
     
             return newObject;
         }
+
+        public GameObject GameObject => _gameObject;
     }
 }
