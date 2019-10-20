@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Scripts._Client.Units.SingleUnit.ViewControllers;
 using _Dto.Unit;
 
@@ -12,41 +14,23 @@ namespace Scripts._Client.Units.SingleUnit
     public class SingleUnitPresenter : ISingleUnitPresenter
     {
         private readonly ICertainViewUnitObject _certainViewUnitObject;
-        
-        private readonly IViewUnitAnimationController _viewUnitAnimationController;
-        private readonly IViewUnitHealthController _viewUnitHealthController;
-        private readonly IViewUnitRotationController _viewUnitRotationController;
-        private readonly IViewUnitMoveController _viewUnitMoveController;
-
-        private readonly List<IUnitViewComponent> _components;
+        private readonly IUnitViewComponent[] _components;
         
         public SingleUnitPresenter(
             IUnitDto unitDto,
-            CertainViewUnitObject.Factory viewUnitObjectFactory,
-            ViewUnitMoveController.Factory viewUnitMoveControllerFactory,
-            ViewUnitRotationController.Factory viewUnitRotationControllerFactory,
-            ViewUnitHealthController.Factory viewUnitHealthControllerFactory,
-            ViewUnitAnimationController.Factory viewUnitAnimationControllerFactory
-            )
+            Func<IUnitDto, ICertainViewUnitObject> viewUnitObjectFactory,
+            Func<ICertainViewUnitObject, IEnumerable<IUnitViewComponent>> componentsFactory)
         {
-            _components = new List<IUnitViewComponent>();
             _certainViewUnitObject = viewUnitObjectFactory.Invoke(unitDto);
-            _viewUnitAnimationController = viewUnitAnimationControllerFactory.Invoke(_certainViewUnitObject);
-            _components.Add(_viewUnitAnimationController);
-            _viewUnitHealthController = viewUnitHealthControllerFactory.Invoke(_certainViewUnitObject);
-            _components.Add(_viewUnitHealthController);
-            _viewUnitRotationController = viewUnitRotationControllerFactory.Invoke(_certainViewUnitObject);
-            _components.Add(_viewUnitRotationController);
-            _viewUnitMoveController = viewUnitMoveControllerFactory.Invoke(_certainViewUnitObject);
-            _components.Add(_viewUnitMoveController);
+            _components = componentsFactory.Invoke(_certainViewUnitObject).ToArray();
         }
-
 
         public void Update(IUnitDto unitDto)
         {
-            foreach (var component in _components)
+            var length = _components.Length;
+            for (int i = 0; i < length; i++)
             {
-                component.Update(unitDto);
+                _components[i].Update(unitDto);
             }
         }
     }

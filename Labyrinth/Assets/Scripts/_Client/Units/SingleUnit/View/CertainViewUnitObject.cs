@@ -15,8 +15,6 @@ namespace Scripts._Client.Units.SingleUnit
     
     public class CertainViewUnitObject : ICertainViewUnitObject
     {
-        public delegate CertainViewUnitObject Factory(IUnitDto unitDto);
-        
         private IUnityUnitViewObject _unityUnitViewObject;
         
         public CertainViewUnitObject(IUnitDto unitDto, IUnitViewObjectResolver unitViewObjectResolver)
