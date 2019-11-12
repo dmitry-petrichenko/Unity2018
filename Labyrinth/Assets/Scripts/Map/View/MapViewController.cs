@@ -51,6 +51,7 @@ namespace Scripts.Map.View
         {
             var gameObject = Object.Instantiate(_square, new Vector3(position.x, 0, position.y), Quaternion.identity,
                 _mainScene.transform);
+            StaticBatchingUtility.Combine(gameObject);
             AddActiveGameObject(position, gameObject);
         }
 
@@ -58,6 +59,7 @@ namespace Scripts.Map.View
         {
             var gameObject = Object.Instantiate(_cube, new Vector3(position.x, 0, position.y), Quaternion.identity,
                 _mainScene.transform);
+            StaticBatchingUtility.Combine(gameObject);
             AddActiveGameObject(position, gameObject);
         }
 
