@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HealthBarController : MonoBehaviour
 {
@@ -9,6 +7,6 @@ public class HealthBarController : MonoBehaviour
 
     public void Set(float value)
     {
-        HealthBar.fillAmount = value;
+        //HealthBar.image. = value;
     }
 }
